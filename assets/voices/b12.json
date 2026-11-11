@@ -1,0 +1,47 @@
+{
+ "hash": "63a004541f6b6219",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-14%",
+  "pitch": "-18Hz",
+  "volume": "+0%",
+  "text": "E quando o mundo estiver suficientemente enfraquecido..."
+ },
+ "words": [
+  [
+   0.108125,
+   0.195333,
+   "E"
+  ],
+  [
+   0.268041,
+   0.500582,
+   "quando"
+  ],
+  [
+   0.515125,
+   0.529666,
+   "o"
+  ],
+  [
+   0.558708,
+   0.791249,
+   "mundo"
+  ],
+  [
+   0.820333,
+   1.169166,
+   "estiver"
+  ],
+  [
+   1.19825,
+   1.910458,
+   "suficientemente"
+  ],
+  [
+   1.939541,
+   2.666291,
+   "enfraquecido"
+  ]
+ ]
+}

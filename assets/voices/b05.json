@@ -1,0 +1,32 @@
+{
+ "hash": "d2d6d08c39db9550",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-9%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "É muito simples, Pínqui."
+ },
+ "words": [
+  [
+   0.104958,
+   0.228583,
+   "É"
+  ],
+  [
+   0.269791,
+   0.489582,
+   "muito"
+  ],
+  [
+   0.613166,
+   1.121416,
+   "simples"
+  ],
+  [
+   1.31375,
+   1.753291,
+   "Pínqui"
+  ]
+ ]
+}

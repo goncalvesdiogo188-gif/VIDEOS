@@ -1,0 +1,27 @@
+{
+ "hash": "8753eae470b3d986",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-6%",
+  "pitch": "-6Hz",
+  "volume": "+20%",
+  "text": "Entrarei... em ação!"
+ },
+ "words": [
+  [
+   0.102375,
+   0.621,
+   "Entrarei"
+  ],
+  [
+   0.807166,
+   0.900249,
+   "em"
+  ],
+  [
+   0.953458,
+   1.312499,
+   "ação"
+  ]
+ ]
+}

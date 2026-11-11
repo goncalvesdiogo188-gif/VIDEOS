@@ -1,0 +1,72 @@
+{
+ "hash": "3c79458055f12347",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-4%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Economias fragilizadas, conflitos intermináveis, instabilidade e uma população cada vez mais cansada."
+ },
+ "words": [
+  [
+   0.102083,
+   0.635958,
+   "Economias"
+  ],
+  [
+   0.675,
+   1.508333,
+   "fragilizadas"
+  ],
+  [
+   1.76875,
+   2.2245,
+   "conflitos"
+  ],
+  [
+   2.2375,
+   2.940625,
+   "intermináveis"
+  ],
+  [
+   3.214083,
+   3.891166,
+   "instabilidade"
+  ],
+  [
+   3.891166,
+   3.943249,
+   "e"
+  ],
+  [
+   3.969291,
+   4.073457,
+   "uma"
+  ],
+  [
+   4.125541,
+   4.568249,
+   "população"
+  ],
+  [
+   4.659375,
+   4.854708,
+   "cada"
+  ],
+  [
+   4.867708,
+   5.063041,
+   "vez"
+  ],
+  [
+   5.089083,
+   5.258374,
+   "mais"
+  ],
+  [
+   5.297416,
+   5.831291,
+   "cansada"
+  ]
+ ]
+}

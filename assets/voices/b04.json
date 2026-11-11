@@ -1,0 +1,32 @@
+{
+ "hash": "4cce29d46c7918fb",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-16%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Um plano verdadeiramente genial."
+ },
+ "words": [
+  [
+   0.109541,
+   0.213707,
+   "Um"
+  ],
+  [
+   0.317875,
+   0.570833,
+   "plano"
+  ],
+  [
+   0.585708,
+   1.314874,
+   "verdadeiramente"
+  ],
+  [
+   1.344625,
+   1.850583,
+   "genial"
+  ]
+ ]
+}

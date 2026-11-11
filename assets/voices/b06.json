@@ -1,0 +1,77 @@
+{
+ "hash": "717cde73dd98cb20",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-9%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Desta vez não precisamos de invadir países, construir exércitos ou desenvolver armas secretas."
+ },
+ "words": [
+  [
+   0.104958,
+   0.434624,
+   "Desta"
+  ],
+  [
+   0.448333,
+   0.654374,
+   "vez"
+  ],
+  [
+   0.681875,
+   0.764291,
+   "não"
+  ],
+  [
+   0.832958,
+   1.313708,
+   "precisamos"
+  ],
+  [
+   1.354958,
+   1.396166,
+   "de"
+  ],
+  [
+   1.423625,
+   1.739541,
+   "invadir"
+  ],
+  [
+   1.7945,
+   2.289,
+   "países"
+  ],
+  [
+   2.55,
+   2.989541,
+   "construir"
+  ],
+  [
+   2.989541,
+   3.635166,
+   "exércitos"
+  ],
+  [
+   3.662625,
+   3.745041,
+   "ou"
+  ],
+  [
+   3.78625,
+   4.253291,
+   "desenvolver"
+  ],
+  [
+   4.253291,
+   4.569207,
+   "armas"
+  ],
+  [
+   4.637916,
+   5.214832,
+   "secretas"
+  ]
+ ]
+}

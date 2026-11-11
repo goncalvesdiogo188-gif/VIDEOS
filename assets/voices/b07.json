@@ -1,0 +1,52 @@
+{
+ "hash": "57aa0b0ceabb3f2a",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-12%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Finalmente estás a começar a compreender alguma coisa."
+ },
+ "words": [
+  [
+   0.105125,
+   0.673291,
+   "Finalmente"
+  ],
+  [
+   0.6875,
+   0.971583,
+   "estás"
+  ],
+  [
+   0.971583,
+   1.028416,
+   "a"
+  ],
+  [
+   1.042625,
+   1.397708,
+   "começar"
+  ],
+  [
+   1.397708,
+   1.482916,
+   "a"
+  ],
+  [
+   1.482958,
+   1.951708,
+   "compreender"
+  ],
+  [
+   1.951708,
+   2.292624,
+   "alguma"
+  ],
+  [
+   2.335208,
+   2.803958,
+   "coisa"
+  ]
+ ]
+}

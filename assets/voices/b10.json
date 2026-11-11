@@ -1,0 +1,72 @@
+{
+ "hash": "67d4a1f3731db1c4",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-9%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Quanto mais insistirem nas mesmas estratégias, mais o mundo se vai enfraquecer."
+ },
+ "words": [
+  [
+   0.104958,
+   0.379666,
+   "Quanto"
+  ],
+  [
+   0.407125,
+   0.613166,
+   "mais"
+  ],
+  [
+   0.654375,
+   1.121416,
+   "insistirem"
+  ],
+  [
+   1.135166,
+   1.313749,
+   "nas"
+  ],
+  [
+   1.327458,
+   1.670874,
+   "mesmas"
+  ],
+  [
+   1.670875,
+   2.426375,
+   "estratégias"
+  ],
+  [
+   2.646166,
+   2.948374,
+   "mais"
+  ],
+  [
+   2.962083,
+   2.989541,
+   "o"
+  ],
+  [
+   3.017041,
+   3.223082,
+   "mundo"
+  ],
+  [
+   3.3055,
+   3.332958,
+   "se"
+  ],
+  [
+   3.346708,
+   3.456583,
+   "vai"
+  ],
+  [
+   3.497791,
+   4.115916,
+   "enfraquecer"
+  ]
+ ]
+}

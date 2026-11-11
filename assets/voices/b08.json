@@ -1,0 +1,67 @@
+{
+ "hash": "bc7a69380b6254d9",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-9%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "A estratégia é deixar os líderes mundiais continuarem exatamente como estão."
+ },
+ "words": [
+  [
+   0.104958,
+   0.201083,
+   "A"
+  ],
+  [
+   0.201083,
+   0.832958,
+   "estratégia"
+  ],
+  [
+   0.846708,
+   0.915374,
+   "é"
+  ],
+  [
+   0.942875,
+   1.272541,
+   "deixar"
+  ],
+  [
+   1.28625,
+   1.409875,
+   "os"
+  ],
+  [
+   1.437375,
+   1.7945,
+   "líderes"
+  ],
+  [
+   1.821958,
+   2.275249,
+   "mundiais"
+  ],
+  [
+   2.3165,
+   2.783541,
+   "continuarem"
+  ],
+  [
+   2.811,
+   3.346708,
+   "exatamente"
+  ],
+  [
+   3.401666,
+   3.566499,
+   "como"
+  ],
+  [
+   3.580208,
+   3.882416,
+   "estão"
+  ]
+ ]
+}

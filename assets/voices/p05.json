@@ -1,0 +1,107 @@
+{
+ "hash": "f9f42d5b1dddccff",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "+0%",
+  "pitch": "+42Hz",
+  "volume": "+0%",
+  "text": "Se os líderes continuarem a fazer o seu trabalho tão bem que o mundo acabe por ficar completamente destruído..."
+ },
+ "words": [
+  [
+   0.1,
+   0.2625,
+   "Se"
+  ],
+  [
+   0.2875,
+   0.3875,
+   "os"
+  ],
+  [
+   0.4125,
+   0.75,
+   "líderes"
+  ],
+  [
+   0.7875,
+   1.225,
+   "continuarem"
+  ],
+  [
+   1.275,
+   1.2875,
+   "a"
+  ],
+  [
+   1.3,
+   1.55,
+   "fazer"
+  ],
+  [
+   1.5625,
+   1.6,
+   "o"
+  ],
+  [
+   1.675,
+   1.7375,
+   "seu"
+  ],
+  [
+   1.775,
+   2.1125,
+   "trabalho"
+  ],
+  [
+   2.15,
+   2.25,
+   "tão"
+  ],
+  [
+   2.325,
+   2.4125,
+   "bem"
+  ],
+  [
+   2.4875,
+   2.5375,
+   "que"
+  ],
+  [
+   2.5625,
+   2.575,
+   "o"
+  ],
+  [
+   2.5875,
+   2.7875,
+   "mundo"
+  ],
+  [
+   2.8,
+   3.075,
+   "acabe"
+  ],
+  [
+   3.0875,
+   3.1875,
+   "por"
+  ],
+  [
+   3.2,
+   3.475,
+   "ficar"
+  ],
+  [
+   3.5125,
+   4.125,
+   "completamente"
+  ],
+  [
+   4.15,
+   4.7,
+   "destruído"
+  ]
+ ]
+}

@@ -1,0 +1,57 @@
+{
+ "hash": "553c8cc9a5c88fda",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-4%",
+  "pitch": "+42Hz",
+  "volume": "+0%",
+  "text": "Então... afinal também vais ficar sem mundo para conquistar?"
+ },
+ "words": [
+  [
+   0.102083,
+   0.479708,
+   "Então"
+  ],
+  [
+   0.727083,
+   1.065624,
+   "afinal"
+  ],
+  [
+   1.104708,
+   1.313041,
+   "também"
+  ],
+  [
+   1.352083,
+   1.547416,
+   "vais"
+  ],
+  [
+   1.573458,
+   1.794833,
+   "ficar"
+  ],
+  [
+   1.846875,
+   1.964083,
+   "sem"
+  ],
+  [
+   2.003125,
+   2.2245,
+   "mundo"
+  ],
+  [
+   2.263541,
+   2.406791,
+   "para"
+  ],
+  [
+   2.419791,
+   3.005749,
+   "conquistar"
+  ]
+ ]
+}
