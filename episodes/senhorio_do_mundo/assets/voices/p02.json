@@ -1,0 +1,27 @@
+{
+ "hash": "4f1b6931eeb82fa3",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "+6%",
+  "pitch": "+42Hz",
+  "volume": "+0%",
+  "text": "Narf! É queijo?"
+ },
+ "words": [
+  [
+   0.097875,
+   0.487041,
+   "Narf"
+  ],
+  [
+   1.32075,
+   1.415083,
+   "É"
+  ],
+  [
+   1.450458,
+   1.804249,
+   "queijo"
+  ]
+ ]
+}

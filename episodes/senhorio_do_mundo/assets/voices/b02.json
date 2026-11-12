@@ -1,0 +1,32 @@
+{
+ "hash": "9cd73ccc79c2ef45",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-4%",
+  "pitch": "-10Hz",
+  "volume": "+0%",
+  "text": "Tentar conquistar o mundo!"
+ },
+ "words": [
+  [
+   0.102083,
+   0.427624,
+   "Tentar"
+  ],
+  [
+   0.453666,
+   0.883374,
+   "conquistar"
+  ],
+  [
+   0.896375,
+   0.922416,
+   "o"
+  ],
+  [
+   0.961458,
+   1.313041,
+   "mundo"
+  ]
+ ]
+}

@@ -1,0 +1,5 @@
+__pycache__/
+output/stills/
+output/*_preview.mp4
+output/*.raw.wav
+output/mix.wav

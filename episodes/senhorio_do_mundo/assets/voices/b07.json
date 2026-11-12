@@ -1,0 +1,37 @@
+{
+ "hash": "81fe8a30e970af38",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-10%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Serviço opcional, Pínqui. Mediante subscrição."
+ },
+ "words": [
+  [
+   0.104166,
+   0.590291,
+   "Serviço"
+  ],
+  [
+   0.604166,
+   1.187499,
+   "opcional"
+  ],
+  [
+   1.381958,
+   1.840291,
+   "Pínqui"
+  ],
+  [
+   2.845833,
+   3.290291,
+   "Mediante"
+  ],
+  [
+   3.373625,
+   4.026416,
+   "subscrição"
+  ]
+ ]
+}

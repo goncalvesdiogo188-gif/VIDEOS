@@ -1,0 +1,22 @@
+{
+ "hash": "3fe04af84e008b4b",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-6%",
+  "pitch": "-6Hz",
+  "volume": "+20%",
+  "text": "Será... meu!"
+ },
+ "words": [
+  [
+   0.103208,
+   0.528749,
+   "Será"
+  ],
+  [
+   0.714875,
+   0.967541,
+   "meu"
+  ]
+ ]
+}

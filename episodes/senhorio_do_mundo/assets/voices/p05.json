@@ -1,0 +1,22 @@
+{
+ "hash": "53a9369044962280",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-6%",
+  "pitch": "+42Hz",
+  "volume": "+0%",
+  "text": "Mas, Brêin...?"
+ },
+ "words": [
+  [
+   0.103208,
+   0.448958,
+   "Mas"
+  ],
+  [
+   0.675,
+   1.140416,
+   "Brêin"
+  ]
+ ]
+}

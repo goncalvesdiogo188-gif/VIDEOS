@@ -1,0 +1,32 @@
+{
+ "hash": "8aaf784c7c114bce",
+ "cfg": {
+  "voice": "pt-PT-DuarteNeural",
+  "rate": "-14%",
+  "pitch": "-14Hz",
+  "volume": "+0%",
+  "text": "Pior, Pínqui. É imobiliário."
+ },
+ "words": [
+  [
+   0.108125,
+   0.529625,
+   "Pior"
+  ],
+  [
+   0.747666,
+   1.241832,
+   "Pínqui"
+  ],
+  [
+   2.311041,
+   2.412791,
+   "É"
+  ],
+  [
+   2.441875,
+   3.22675,
+   "imobiliário"
+  ]
+ ]
+}
