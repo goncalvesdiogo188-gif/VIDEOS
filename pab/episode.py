@@ -168,6 +168,13 @@ class Director:
 
     def cam(self, preset, t, dur=0.0, ease="inout"):
         h, v = CAM[preset] if isinstance(preset, str) else preset
+        # a new cut/move always wins over a move that is still running
+        for name in ("cam.h", "cam.v"):
+            cur = self.tl.get(name, t)
+            tr = self.tl.tracks.get(name)
+            if tr is not None and tr.times and tr.times[-1] > t:
+                tr.truncate_after(t)
+                tr.key(t, cur, "linear")
         if dur <= 0:
             self.tl.set("cam.h", t, h)
             self.tl.set("cam.v", t, v)

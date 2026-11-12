@@ -86,6 +86,12 @@ class Track:
         self.values.insert(i, v)
         self.eases.insert(i, e)
 
+    def truncate_after(self, t: float):
+        """Drop every key later than t (used when a new camera move/cut
+        overrides one that is still running)."""
+        i = bisect.bisect_right(self.times, t + 1e-9)
+        del self.times[i:], self.values[i:], self.eases[i:]
+
     def __call__(self, t: float):
         ts = self.times
         if not ts:

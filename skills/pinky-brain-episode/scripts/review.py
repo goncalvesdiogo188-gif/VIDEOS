@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Review helpers, run from inside an episode project.
 
-    python3 review.py sheet <out.png> <png> [<png> ...]   # contact sheet of stills
     python3 review.py audio [output/mix.wav]              # loudness per second
+    python3 review.py sheet <out.png> <png> [<png> ...]   # custom contact sheet
+                                                          # (render.py --still already makes them)
 
 The audio report prints RMS/peak per second with a bar so you can check, without
 listening, that dialogue sits above the music (~ -14..-20 dB RMS), that

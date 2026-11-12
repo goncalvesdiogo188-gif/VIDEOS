@@ -41,7 +41,11 @@ style and the API.
 - `EPISODE` holds the title on the title card and the `slug` used for output names. `END_TEXT` is the closing aphorism. `SET` holds the prop texts (map title, board title, 3 sticky notes forming the plan, 3 newspaper clippings, TV headline, ticker, chart/alert titles and 4 alert bars, month), all short and in capitals, all reinforcing the joke.
 - `LINES` lists the dialogue: `id`, `who` ("BRAIN"/"PINKY"), `text` (subtitle). Add `tts` only for pronunciation (`"Brêin"`, `"Pínqui"`, lowercase for shouted lines), and `rate`/`pitch`/`volume` only for delivery (slower + lower for dramatic Brain lines, louder for the villain shout).
 - Write European Portuguese: "estás a começar", "tu vais", "ecrã", "equipa", never Brazilian forms. Keep it natural and spoken.
-- Shape (60–90 s, ~20–24 lines, ~45–65 s of speech):
+- Length: match what the user asked for. A **full episode** is 75–90 s with ~20–24
+  lines (~55–65 s of speech). A **short social sketch** (~60 s, TikTok/Reels) has
+  ~14–16 lines (~35–40 s of speech): keep the ritual opener, one escalation, the
+  shout, Pinky's question and the frozen-Brain ending, and cut the rest.
+- Shape:
   1. The ritual opener: "Brain, o que vamos fazer esta noite?" / "O mesmo que fazemos todas as noites, Pinky. Tentar conquistar o mundo!"
   2. The plan, explained with arrogant certainty; visual inserts carry the satire.
   3. The villain climax line (the shout).
@@ -51,11 +55,12 @@ style and the API.
 
 ### 4. Voice it and get the durations
 ```bash
-python3 render.py --still 0
+python3 render.py --voices
 ```
 This synthesises any new or changed lines (cached in `assets/voices/`) and
-prints the episode duration. Print `clips[id].duration` for each line if you
-need them while staging.
+prints every line's duration and the total speech. It does not touch the
+staging, so it works even while `episode.py` still holds the old example.
+Use these numbers to plan the pacing before you stage.
 
 ### 5. Stage it — `pab/episode.py`
 Rewrite `build()` scene by scene with the Director API. **Read
@@ -71,11 +76,12 @@ talking heads are the failure mode to avoid.
 ### 6. Review before the final render
 Do not skip this step; it is where most problems are caught.
 ```bash
-python3 render.py --preview --still 3 8 15 ...        # 10–16 key moments, both formats
-python3 <skill>/scripts/review.py sheet sheet_h.png output/stills/horizontal_*
-python3 <skill>/scripts/review.py sheet sheet_v.png output/stills/vertical_*
+python3 render.py --preview --still 3 8 15 ...        # 12–24 key moments
 ```
-Look at the sheets (Read the PNGs). Check that the faces are not covered, that
+This clears old stills and writes `output/stills/sheet_horizontal.png` and
+`sheet_vertical.png` (pass `--format vertical` to check only one format).
+Pick times that show every line, every camera cut and every big gesture.
+Read the sheets. Check that the faces are not covered, that
 the framing works in 9:16 (characters above the subtitle band), that the subtitles
 are complete sentences and that the title/end cards read well. Then render a
 preview and check the sound:
@@ -88,8 +94,12 @@ and the stings should appear where planned. Total duration should be ≤ 90 s.
 
 ### 7. Final render and delivery
 ```bash
-python3 render.py            # both formats, ~3 min each on 4 cores
+python3 render.py                       # both formats, ~3 min each on 4 cores
+python3 render.py --format vertical     # only 9:16 (when the user wants just TikTok/Reels/Shorts)
+python3 render.py --format horizontal   # only 16:9
 ```
+Render only the formats the user asked for (both by default). The same
+`--format` flag also applies to `--preview` and `--still`.
 This outputs `output/<slug>_16x9.mp4`, `output/<slug>_9x16.mp4` and
 `output/legendas_pt-PT.srt`. Send the videos to the user, summarise the
 episode (premise, punchline, duration), and say how to tweak it (edit

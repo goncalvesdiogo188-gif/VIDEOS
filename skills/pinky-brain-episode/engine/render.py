@@ -5,7 +5,8 @@ Examples
   python3 render.py                       # both formats, full quality
   python3 render.py --format horizontal   # 1920x1080 only
   python3 render.py --preview             # fast half-resolution draft
-  python3 render.py --still 12.5 40       # PNG stills at given seconds
+  python3 render.py --voices              # voice new/changed lines, print durations
+  python3 render.py --still 12.5 40       # PNG stills + contact sheets (output/stills/)
   python3 render.py --start 30 --end 45   # render only a time range (draft)
 """
 from __future__ import annotations
@@ -13,6 +14,7 @@ from __future__ import annotations
 import argparse
 import multiprocessing as mp
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -45,6 +47,24 @@ def _frame(i):
     t = i / FPS
     surf = comp.render(d.tl.sampler(t), t)
     return bytes(surf.get_data())
+
+
+def contact_sheet(paths, out):
+    """Tile stills (labelled with their time) into one PNG for quick review."""
+    from PIL import Image, ImageDraw
+    ims = [Image.open(p) for p in paths]
+    land = ims[0].width > ims[0].height
+    w = 640 if land else 300
+    h = int(ims[0].height * w / ims[0].width)
+    cols = 3 if land else 5
+    rows = (len(ims) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * w, rows * h), "black")
+    dr = ImageDraw.Draw(sheet)
+    for i, (im, p) in enumerate(zip(ims, paths)):
+        x, y = (i % cols) * w, (i // cols) * h
+        sheet.paste(im.convert("RGB").resize((w, h)), (x, y))
+        dr.text((x + 6, y + 6), os.path.basename(p).rsplit("_", 1)[-1][:-4] + "s", fill="yellow")
+    sheet.save(out)
 
 
 def srt_time(t):
@@ -98,6 +118,8 @@ def main():
     ap.add_argument("--still", type=float, nargs="*", help="write PNG stills at these times")
     ap.add_argument("--workers", type=int, default=max(1, os.cpu_count() or 1))
     ap.add_argument("--retts", action="store_true", help="force re-synthesis of all voices")
+    ap.add_argument("--voices", action="store_true",
+                    help="only synthesise voices and print each line's duration (no staging)")
     ap.add_argument("--crf", type=int, default=17)
     args = ap.parse_args()
     log = lambda m: print(m, flush=True)  # noqa: E731
@@ -106,20 +128,33 @@ def main():
     log("1/4 voices")
     ensure_voices(force=args.retts, log=log)
     clips = load_clips()
+    if args.voices:
+        tot = 0.0
+        for cid, c in clips.items():
+            tot += c.duration
+            log(f"    {cid:6s} {c.who:5s} {c.duration:5.2f}s  {c.text}")
+        log(f"    total speech: {tot:.2f}s")
+        return
     d = build(clips)
     log(f"    episode duration: {d.duration:.2f}s, {len(d.cues)} subtitle cues")
     fmts = ["horizontal", "vertical"] if args.format == "both" else [args.format]
     scale = args.scale or (0.5 if args.preview else 1.0)
 
     if args.still is not None:
+        sdir = os.path.join(OUT, "stills")
+        shutil.rmtree(sdir, ignore_errors=True)   # stills are throw-away review material
+        os.makedirs(sdir)
         for fmt in fmts:
             comp = Compositor(fmt, scale)
             comp.cues = d.cues
+            paths = []
             for t in args.still:
-                p = os.path.join(OUT, "stills", f"{fmt}_{t:06.2f}.png")
-                os.makedirs(os.path.dirname(p), exist_ok=True)
+                p = os.path.join(sdir, f"{fmt}_{t:06.2f}.png")
                 comp.render(d.tl.sampler(t), t).write_to_png(p)
-                log(f"    still {p}")
+                paths.append(p)
+            sheet = os.path.join(sdir, f"sheet_{fmt}.png")
+            contact_sheet(paths, sheet)
+            log(f"    {len(paths)} stills -> {sheet}")
         return
 
     log("2/4 subtitles")

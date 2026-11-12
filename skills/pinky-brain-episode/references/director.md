@@ -160,5 +160,7 @@ before the next cue.
 - **Subtitles** are chunked automatically (≤ 80 chars, preferring punctuation). Keep each line ≤ ~140 characters, or split it into two `LINES` entries.
 - **Pronunciation:** pt-PT TTS reads English names oddly. Use `tts="Brêin"` / `"Pínqui"`. A lowercase `tts` avoids shouted words being spelled out ("ENTRAREI" → `tts="Entrarei... em ação!"`).
 - **Duration drifts** when lines change, because everything is timed from the real voice lengths. Print `d.duration` and trim pauses or the end card to stay ≤ 90 s.
+- **Camera moves vs cuts:** a `d.cam` cut or move automatically cancels any camera move that is still running, so a long push-in can safely be interrupted by a cut. For other tracks (`d.act`, `tl.to`), a long transition that is still running when you author a later change for the same parameter will interpolate strangely. Keep transitions shorter than the gap to the next change.
+- **Map insert in 9:16:** the subtitle band (≈ 70–80 % height) can cover Brain when he stands under the map. Frame the vertical map insert on the map only (`map` preset), or raise `cy_v`.
 - **Discrete values** (`hand_f`, strings) switch at the *start* of an `act`.
 - **Author chronologically** per track: `d.act` reads the current value at `t`, so keys written out of order give surprising interpolation.
