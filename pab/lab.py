@@ -14,6 +14,7 @@ from . import fonts  # noqa: F401  (registers fonts)
 import cairo
 
 from .anim import noise1, clamp
+from .script import SET
 from .draw import INK, blob_path, ellipse_path, hexc, mix, src, text_center
 
 WORLD = (-460.0, -520.0, 2840.0, 2140.0)   # x, y, w, h
@@ -199,7 +200,7 @@ def _draw_map(ctx):
     ctx.select_font_face(fonts.TITLE)
     ctx.set_font_size(34)
     src(ctx, hexc("#7a1f1f"))
-    text_center(ctx, "OPERAÇÃO: NÃO FAZER NADA", x + w / 2, y + h - 23)
+    text_center(ctx, SET["map_title"], x + w / 2, y + h - 23)
     # red string & pins (the "plan")
     pins = [map_xy(-100, 40), map_xy(10, 50), map_xy(100, 35), map_xy(30, 0), map_xy(135, -25)]
     ctx.move_to(*pins[0])
@@ -340,15 +341,15 @@ def _draw_board(ctx):
     ctx.select_font_face(fonts.SANS, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
     ctx.set_font_size(13)
     src(ctx, INK)
-    text_center(ctx, "CONFIANÇA GLOBAL", 0, -62)
+    text_center(ctx, SET["chart_title"], 0, -62)
     ctx.restore()
     _pin(ctx, x + 117, y + 30)
 
     # 2) newspaper clippings
     for (cx, cy, cw, chh, rot, head, sub) in (
-            (x + 228, y + 34, 160, 150, 0.06, "CIMEIRA ACABA", "SEM ACORDO"),
-            (x + 30, y + 200, 175, 140, 0.04, "NOVA COMISSÃO", "VAI ESTUDAR A ANTERIOR"),
-            (x + 220, y + 210, 160, 130, -0.07, "PREÇOS SOBEM", "OUTRA VEZ")):
+            (x + 228, y + 34, 160, 150, 0.06, *SET["clippings"][0]),
+            (x + 30, y + 200, 175, 140, 0.04, *SET["clippings"][1]),
+            (x + 220, y + 210, 160, 130, -0.07, *SET["clippings"][2])):
         _paper(ctx, cx, cy, cw, chh, rot, "#ebe6d6")
         ctx.select_font_face(fonts.TITLE)
         ctx.set_font_size(26)
@@ -373,9 +374,8 @@ def _draw_board(ctx):
         _pin(ctx, cx + cw / 2, cy + 8, "#2a6fdb")
 
     # 3) the plan, on sticky notes
-    for i, (txt, col, rot) in enumerate((("1. NADA", "#ffe066", -0.08),
-                                          ("2. ESPERAR", "#ffd166", 0.05),
-                                          ("3. DOMINAR!", "#ff9f8a", -0.03))):
+    for i, (txt, col, rot) in enumerate(zip(SET["notes"][:3], ("#ffe066", "#ffd166", "#ff9f8a"),
+                                            (-0.08, 0.05, -0.03))):
         nx = x + 26 + i * 124
         ny = y + 360
         _paper(ctx, nx, ny, 112, 92, rot, col)
@@ -387,7 +387,7 @@ def _draw_board(ctx):
     ctx.select_font_face(fonts.TITLE)
     ctx.set_font_size(26)
     src(ctx, hexc("#3a1d4a"))
-    text_center(ctx, "O PLANO PERFEITO", x + w / 2, y + 344)
+    text_center(ctx, SET["board_title"], x + w / 2, y + 344)
 
 
 def _draw_calendar(ctx):
@@ -410,7 +410,7 @@ def _draw_calendar(ctx):
     ctx.select_font_face(fonts.TITLE)
     ctx.set_font_size(20)
     src(ctx, (1, 1, 1))
-    text_center(ctx, "NOVEMBRO", 75, 15)
+    text_center(ctx, SET["month"], 75, 15)
     ctx.set_font_size(11)
     src(ctx, INK)
     for i in range(28):
@@ -649,9 +649,7 @@ def _draw_table(ctx, rnd):
 # --------------------------------------------------------------------------
 # Animated layers (drawn every frame, in world space)
 # --------------------------------------------------------------------------
-TICKER = ("ÚLTIMA HORA: CIMEIRA MUNDIAL TERMINA SEM ACORDO  •  LÍDERES PROMETEM RESOLVER TUDO "
-          "NA PRÓXIMA CIMEIRA  •  NOVA COMISSÃO VAI ESTUDAR A COMISSÃO ANTERIOR  •  PREÇOS SOBEM, "
-          "PROMESSAS TAMBÉM  •  ")
+TICKER = SET["ticker"]
 
 
 def draw_dynamic(ctx, s, t):
@@ -813,9 +811,9 @@ def _screen_news(ctx, x, y, w, h, t):
     ctx.set_font_size(18)
     src(ctx, (1, 1, 1))
     ctx.move_to(x + 112, y + 74)
-    ctx.show_text("CIMEIRA")
+    ctx.show_text(SET["news_headline"][0])
     ctx.move_to(x + 112, y + 96)
-    ctx.show_text("SEM ACORDO")
+    ctx.show_text(SET["news_headline"][1])
     ctx.rectangle(x + 112, y + 106, 90, 6)
     src(ctx, (1, 1, 1, 0.5))
     ctx.fill()
@@ -838,7 +836,7 @@ def _screen_chart(ctx, x, y, w, h, t, crisis):
     ctx.set_font_size(22)
     src(ctx, hexc("#9ad1ff"))
     ctx.move_to(x + 10, y + 26)
-    ctx.show_text("ECONOMIA GLOBAL")
+    ctx.show_text(SET["economy_title"])
     # grid
     for i in range(1, 6):
         ctx.move_to(x, y + 30 + i * (h - 40) / 6)
@@ -880,9 +878,10 @@ def _screen_alert(ctx, x, y, w, h, t, crisis):
     ctx.select_font_face(fonts.TITLE)
     ctx.set_font_size(30)
     src(ctx, (1, 1, 1))
-    text_center(ctx, "! ALERTA MUNDIAL !" if blink else "ALERTA MUNDIAL", x + w / 2, y + 21)
-    labels = [("CONFLITOS", 0.55 + 0.4 * crisis), ("INSTABILIDADE", 0.45 + 0.52 * crisis),
-              ("CANSAÇO", 0.6 + 0.38 * crisis), ("SOLUÇÕES", 0.12 - 0.1 * crisis)]
+    text_center(ctx, f"! {SET['alert_title']} !" if blink else SET["alert_title"], x + w / 2, y + 21)
+    names = SET["alert_bars"]
+    labels = [(names[0], 0.55 + 0.4 * crisis), (names[1], 0.45 + 0.52 * crisis),
+              (names[2], 0.6 + 0.38 * crisis), (names[3], 0.12 - 0.1 * crisis)]
     ctx.select_font_face(fonts.SANS, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
     ctx.set_font_size(16)
     for i, (lab, v) in enumerate(labels):
@@ -895,7 +894,7 @@ def _screen_alert(ctx, x, y, w, h, t, crisis):
         src(ctx, (1, 1, 1, 0.15))
         ctx.fill()
         ctx.rectangle(x + 150, by, (w - 170) * v, 20)
-        col = mix(hexc("#ffd166"), hexc("#ff3b3b"), v) if lab != "SOLUÇÕES" else hexc("#5cd65c")
+        col = mix(hexc("#ffd166"), hexc("#ff3b3b"), v) if lab != names[3] else hexc("#5cd65c")
         src(ctx, col)
         ctx.fill()
 

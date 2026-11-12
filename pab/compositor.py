@@ -10,7 +10,7 @@ import cairo
 from .anim import clamp, noise1
 from .characters import draw_brain, draw_pinky
 from . import lab
-from .script import END_TEXT
+from .script import END_TEXT, EPISODE
 
 FORMATS = {
     "horizontal": (1920, 1080),
@@ -159,7 +159,7 @@ class Compositor:
         if vert:
             lines = [("PINKY", size1, (1.0, 0.85, 0.3), -size1 * 1.05),
                      ("& THE BRAIN", size1, (1.0, 0.85, 0.3), 0)]
-        lines.append(("O PLANO PERFEITO", size2, (1, 1, 1), size1 * 0.95))
+        lines.append((EPISODE["title"], size2, (1, 1, 1), size1 * 0.95))
         for txt, size, col, dy in lines:
             ctx.set_font_size(size)
             ext = ctx.text_extents(txt)

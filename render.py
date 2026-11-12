@@ -25,6 +25,7 @@ from pab.compositor import Compositor  # noqa: E402
 from pab.episode import FPS, build  # noqa: E402
 from pab.voices import ensure_voices, load_clips  # noqa: E402
 from pab import audio  # noqa: E402
+from pab.script import EPISODE  # noqa: E402
 
 OUT = os.path.join(ROOT, "output")
 
@@ -129,8 +130,9 @@ def main():
     log("4/4 video")
     end = args.end if args.end is not None else d.duration
     suffix = "_preview" if args.preview else ""
-    names = {"horizontal": f"plano_perfeito_16x9{suffix}.mp4",
-             "vertical": f"plano_perfeito_9x16{suffix}.mp4"}
+    slug = EPISODE["slug"]
+    names = {"horizontal": f"{slug}_16x9{suffix}.mp4",
+             "vertical": f"{slug}_9x16{suffix}.mp4"}
     for fmt in fmts:
         render_video(fmt, scale, wav, os.path.join(OUT, names[fmt]), args.start, end,
                      args.workers, args.crf if not args.preview else 23,

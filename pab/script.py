@@ -8,6 +8,34 @@ Fields:
   rate / pitch / volume   optional per-line prosody overrides for the voice
 """
 
+# ---------------------------------------------------------------------------
+# Episode metadata: title card, output file names and the words written on the
+# lab props (map, planning board, sticky notes, monitors, calendar).  Keep the
+# prop texts SHORT (they are painted on small objects) and in CAPITALS.
+# ---------------------------------------------------------------------------
+EPISODE = dict(
+    title="O PLANO PERFEITO",          # subtitle under "PINKY & THE BRAIN"
+    slug="plano_perfeito",             # output/<slug>_16x9.mp4, output/<slug>_9x16.mp4
+)
+
+SET = dict(
+    map_title="OPERAÇÃO: NÃO FAZER NADA",
+    board_title="O PLANO PERFEITO",
+    notes=["1. NADA", "2. ESPERAR", "3. DOMINAR!"],               # 3 sticky notes
+    chart_title="CONFIANÇA GLOBAL",
+    clippings=[("CIMEIRA ACABA", "SEM ACORDO"),                  # 3 newspaper clippings
+               ("NOVA COMISSÃO", "VAI ESTUDAR A ANTERIOR"),
+               ("PREÇOS SOBEM", "OUTRA VEZ")],
+    news_headline=("CIMEIRA", "SEM ACORDO"),                     # TV news (2 short lines)
+    ticker=("ÚLTIMA HORA: CIMEIRA MUNDIAL TERMINA SEM ACORDO  •  LÍDERES PROMETEM RESOLVER TUDO "
+            "NA PRÓXIMA CIMEIRA  •  NOVA COMISSÃO VAI ESTUDAR A COMISSÃO ANTERIOR  •  PREÇOS SOBEM, "
+            "PROMESSAS TAMBÉM  •  "),
+    economy_title="ECONOMIA GLOBAL",
+    alert_title="ALERTA MUNDIAL",
+    alert_bars=["CONFLITOS", "INSTABILIDADE", "CANSAÇO", "SOLUÇÕES"],  # last one is the "good" bar
+    month="NOVEMBRO",
+)
+
 VOICES = {
     # Same neural pt-PT voice, two very different prosodies.
     "BRAIN": dict(voice="pt-PT-DuarteNeural", rate="-9%", pitch="-14Hz", volume="+0%"),

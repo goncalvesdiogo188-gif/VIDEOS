@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: theme-only-inflation
+expected_outcome: |
+  Two MP4s (1920x1080 and 1080x1920, 24 fps, H.264+AAC, 60-90 s) of a new Pinky & Brain episode about inflation, with pt-PT dialogue, burned-in subtitles, lip-synced voices, props rewritten for the new joke, and a punchline where Pinky's naive remark collapses Brain's plan.
