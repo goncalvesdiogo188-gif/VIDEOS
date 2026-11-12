@@ -8,9 +8,9 @@ import cairo
 INK = (0.13, 0.08, 0.16)          # outline colour (dark aubergine, 90s ink)
 WHITE = (0.98, 0.97, 0.99)
 FUR_SHADE = (0.74, 0.72, 0.86)   # cool lilac shade on white fur
-PINK = (0.97, 0.63, 0.70)
-PINK_SHADE = (0.86, 0.45, 0.56)
-NOSE_RED = (0.88, 0.12, 0.18)
+PINK = (0.95, 0.58, 0.66)
+PINK_SHADE = (0.80, 0.40, 0.50)
+NOSE_RED = (0.90, 0.10, 0.14)
 NOSE_SHADE = (0.62, 0.05, 0.12)
 
 

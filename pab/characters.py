@@ -16,7 +16,7 @@ import cairo
 
 from .anim import noise1
 from .draw import (INK, NOSE_RED, NOSE_SHADE, PINK, PINK_SHADE, WHITE, FUR_SHADE,
-                   arm_points, ellipse_path, limb, src, toon, mix)
+                   arm_points, blob_path, ellipse_path, limb, src, toon, mix)
 
 # ---------------------------------------------------------------------------
 # Shared defaults
@@ -297,7 +297,7 @@ def ground_shadow(ctx, rx, alpha):
     ctx.restore()
 
 
-def legs(ctx, hip_l, hip_r, foot_dx, leg_len, p, foot_len, width, lw, t):
+def legs(ctx, hip_l, hip_r, foot_dx, leg_len, p, foot_len, width, lw, t, pink_shins=False):
     """Two legs with a simple walk cycle; returns nothing."""
     ph = p["walk_phase"]
     w = p["walk"]
@@ -310,7 +310,13 @@ def legs(ctx, hip_l, hip_r, foot_dx, leg_len, p, foot_len, width, lw, t):
         kx = (hip[0] + fx) / 2 + 10
         ky = (hip[1] + fy) / 2 - 4
         col = WHITE if side == "f" else mix(WHITE, FUR_SHADE, 0.45)
-        limb(ctx, [hip, (kx, ky), (fx, fy - 6)], width, col, lw)
+        if pink_shins:
+            ax, ay = kx + (fx - kx) * 0.45, ky + (fy - 6 - ky) * 0.45
+            limb(ctx, [(ax, ay), ((ax + fx) / 2, (ay + fy) / 2), (fx, fy - 6)], width * 0.85,
+                 PINK if side == "f" else PINK_SHADE, lw)
+            limb(ctx, [hip, (kx, ky), (ax, ay)], width, col, lw)
+        else:
+            limb(ctx, [hip, (kx, ky), (fx, fy - 6)], width, col, lw)
         # foot
         def foot(c, fx=fx, fy=fy):
             ellipse_path(c, fx + foot_len * 0.45, fy - 4, foot_len * 0.62, 8.5,
@@ -407,67 +413,222 @@ def draw_brain(ctx, s, t, prefix="brain."):
     ctx.restore()
 
 
-def _brain_head(ctx, p, t, lw, light):
-    """Head drawn around the neck pivot (0, 0); head centre ~ (0, -128)."""
-    turn = p["head_turn"]
-    hx, hy = 6, -128
-    # ears (behind the head)
-    for (ex, ey, r, rot, col_in) in ((-98 + turn * 18, -78, 60, -0.45, PINK_SHADE),
-                                     (86 + turn * 22, -86, 64, 0.35, PINK)):
-        def ear(c, ex=ex, ey=ey, r=r, rot=rot):
-            ellipse_path(c, hx + ex, hy + ey, r, r * 1.05, rot)
-        toon(ctx, ear, WHITE, FUR_SHADE, light, shade_amt=10, lw=lw)
-        ellipse_path(ctx, hx + ex * 1.04 + turn * 6, hy + ey + 6, r * 0.7, r * 0.78, rot)
-        src(ctx, col_in)
-        ctx.fill()
+def leaf_path(c, cx, cy, w, h, rot, point=0.12):
+    """Big cartoon ear: rounded leaf with a soft point at the tip (tip = -y)."""
+    c.save()
+    c.translate(cx, cy)
+    c.rotate(rot)
+    c.move_to(0, h * 0.5)
+    c.curve_to(w * 0.66, h * 0.42, w * 0.62, -h * 0.30, w * point, -h * 0.5)
+    c.curve_to(-w * 0.12, -h * 0.58, -w * 0.66, -h * 0.30, -w * 0.62, h * 0.05)
+    c.curve_to(-w * 0.58, h * 0.36, -w * 0.25, h * 0.48, 0, h * 0.5)
+    c.close_path()
+    c.restore()
 
-    mx = hx + 28 + turn * 34     # muzzle centre
-    my = hy + 74
 
-    def head(c):
-        ellipse_path(c, hx, hy - 6, 132, 104)          # cranium
-        ellipse_path(c, hx + turn * 10, hy + 30, 112, 70)  # cheeks
-        ellipse_path(c, mx, my, 60, 42, 0.05)           # muzzle
-    toon(ctx, head, WHITE, FUR_SHADE, light, shade_amt=18, lw=lw)
+def almond_eye(ctx, cx, cy, rx, ry, rot, p, t, seed, sclera, lw, iris=None, iris_r=0.0,
+               pupil_r=5.5, look_scale=(0.45, 0.35)):
+    """Almond-shaped eye with heavy fur lid (Brain) — inner corner given by rot."""
+    lx, ly = p["look"]
+    base = p["lid"] * 0.8
+    lid = min(1.0, base + p["blink"] * (1.0 - base))
+    if p["twitch"] > 0:
+        lid = min(1.0, max(0.0, lid + p["twitch"] * 0.15 * noise1(t * 22.0, seed)))
+    low = min(1.0 - lid, p["lid_low"])
 
-    # cranium creases: the giant brain bulging under the fur
+    def path(c):
+        c.save()
+        c.translate(cx, cy)
+        c.rotate(rot)
+        c.move_to(-rx, 0)
+        c.curve_to(-rx * 0.55, -ry * 1.35, rx * 0.55, -ry * 1.35, rx, 0)
+        c.curve_to(rx * 0.55, ry * 1.3, -rx * 0.55, ry * 1.3, -rx, 0)
+        c.close_path()
+        c.restore()
+
     ctx.save()
-    ctx.set_line_cap(cairo.LINE_CAP_ROUND)
-    src(ctx, mix(FUR_SHADE, INK, 0.35))
-    ctx.set_line_width(3.0)
-    ctx.move_to(hx - 70 + turn * 20, hy - 70)
-    ctx.curve_to(hx - 40 + turn * 20, hy - 92, hx + 10 + turn * 20, hy - 96, hx + 40 + turn * 20, hy - 82)
-    ctx.stroke()
-    ctx.move_to(hx - 52 + turn * 25, hy - 52)
-    ctx.curve_to(hx - 30 + turn * 25, hy - 62, hx - 5 + turn * 25, hy - 64, hx + 12 + turn * 25, hy - 58)
+    path(ctx)
+    src(ctx, sclera)
+    ctx.fill_preserve()
+    ctx.save()
+    ctx.clip()
+    px = cx + lx * rx * look_scale[0]
+    py = cy + ly * ry * look_scale[1] + ry * 0.12
+    if iris is not None:
+        ellipse_path(ctx, px, py, iris_r * 0.9, iris_r)
+        src(ctx, iris)
+        ctx.fill()
+    pr = pupil_r * p["pupil"]
+    ellipse_path(ctx, px, py, pr * 0.85, pr)
+    src(ctx, INK)
+    ctx.fill()
+    if iris is not None and p["pupil"] > 0.5:
+        ellipse_path(ctx, px - pr * 0.35, py - pr * 0.45, pr * 0.3, pr * 0.3)
+        src(ctx, (1, 1, 1))
+        ctx.fill()
+    top, bot = cy - ry * 1.05, cy + ry * 1.0
+    if lid > 0.01:
+        edge = top + (bot - top) * lid
+        ctx.save()
+        ctx.translate(cx, edge)
+        ctx.rotate(rot)
+        ctx.move_to(-rx * 1.6, -ry * 3)
+        ctx.line_to(rx * 1.6, -ry * 3)
+        ctx.line_to(rx * 1.6, -ry * 0.1)
+        ctx.curve_to(rx * 0.5, ry * 0.18, -rx * 0.5, ry * 0.18, -rx * 1.6, -ry * 0.1)
+        ctx.close_path()
+        src(ctx, BRAIN_LID)
+        ctx.fill()
+        if lid < 0.97:
+            ctx.move_to(-rx * 1.3, -ry * 0.06)
+            ctx.curve_to(-rx * 0.5, ry * 0.2, rx * 0.5, ry * 0.2, rx * 1.3, -ry * 0.06)
+            src(ctx, INK)
+            ctx.set_line_width(lw * 1.25)
+            ctx.stroke()
+        ctx.restore()
+    if low > 0.01:
+        ledge = bot - (bot - top) * low
+        ctx.save()
+        ctx.translate(cx, ledge)
+        ctx.rotate(rot)
+        ctx.move_to(-rx * 1.6, ry * 3)
+        ctx.line_to(-rx * 1.6, 0)
+        ctx.curve_to(-rx * 0.5, -ry * 0.15, rx * 0.5, -ry * 0.15, rx * 1.6, 0)
+        ctx.line_to(rx * 1.6, ry * 3)
+        ctx.close_path()
+        src(ctx, BRAIN_LID)
+        ctx.fill_preserve()
+        src(ctx, INK)
+        ctx.set_line_width(lw * 0.7)
+        ctx.stroke()
+        ctx.restore()
+    ctx.restore()
+    path(ctx)
+    src(ctx, INK)
+    ctx.set_line_width(lw)
     ctx.stroke()
     ctx.restore()
 
-    # eyes
-    e_y = hy + 16
-    far = (hx - 26 + turn * 30, e_y)
-    near = (hx + 36 + turn * 32, e_y)
-    draw_eye(ctx, *far, 20, 27, p, IRIS_BRAIN, 11, p["lid"], t, 3, heavy=True, lw=lw * 0.9)
-    draw_eye(ctx, *near, 24, 29, p, IRIS_BRAIN, 12.5, p["lid"], t, 7, heavy=True, lw=lw * 0.9)
-    # brows
-    draw_brow(ctx, far[0], far[1] - 36, 20, p["brow_l"], p["brow_tilt"], +1, 8.5, lw)
-    draw_brow(ctx, near[0], near[1] - 38, 23, p["brow_r"], p["brow_tilt"], -1, 9.0, lw)
 
-    # nose + mouth
-    nx, ny = mx + 40, my - 4
-    def nose(c):
-        ellipse_path(c, nx, ny, 15, 12, 0.2)
-    toon(ctx, nose, NOSE_RED, NOSE_SHADE, light, shade_amt=4, lw=lw * 0.9)
-    ellipse_path(ctx, nx - 5, ny - 5, 4, 3)
-    ctx.set_source_rgba(1, 1, 1, 0.85)
-    ctx.fill()
-    # whisker dots
-    for (dx, dy) in ((-8, 14), (2, 18), (-18, 18)):
-        ctx.arc(mx + 18 + dx, my + dy - 8, 2.0, 0, 2 * math.pi)
-        src(ctx, mix(FUR_SHADE, INK, 0.4))
+BRAIN_EAR_IN = (0.74, 0.30, 0.38)
+BRAIN_LID = (0.95, 0.93, 0.97)
+BRAIN_SCLERA = (0.93, 0.56, 0.62)
+
+
+def _brain_head(ctx, p, t, lw, light):
+    """Brain's head (front-ish view), drawn around the neck pivot (0, 0).
+
+    Model notes from the reference: huge dome with an overhanging brow fold,
+    the outline pinches at the temples and puffs out again at the cheeks,
+    small round chin; almond pink eyes under heavy lids, close together;
+    a big red nose between and below the eyes; creases from the nose down to
+    a small pouty mouth; enormous leaf-shaped ears high on the sides.
+    """
+    turn = p["head_turn"] - 0.15
+    hx, hy = 0.0, -112.0
+    f = turn * 26.0            # facial features slide toward the facing side
+    sq = 1.0
+
+    # ears (behind the head)
+    for (ex, ey, w, h, rot, col_in, k) in ((-152 + turn * 12, -128, 140, 205, -0.62, BRAIN_EAR_IN, 0.95),
+                                           (152 + turn * 16, -130, 144, 210, 0.62, BRAIN_EAR_IN, 1.0)):
+        def ear(c, ex=ex, ey=ey, w=w, h=h, rot=rot):
+            leaf_path(c, hx + ex, hy + ey, w, h, rot)
+        toon(ctx, ear, WHITE, FUR_SHADE, light, shade_amt=10, lw=lw)
+        sgn = 1 if ex > 0 else -1
+        leaf_path(ctx, hx + ex + sgn * 8, hy + ey + 8, w * 0.74, h * 0.80, rot)
+        src(ctx, mix(col_in, (0.55, 0.2, 0.28), 0.0 if k == 1.0 else 0.25))
         ctx.fill()
-    draw_mouth(ctx, mx + 14, my + 22, 54, p, depth=36, lw=lw * 0.9)
-    draw_sweat(ctx, hx - 108 + turn * 10, hy - 20, p["sweat"], lw)
+
+    pts = [(0, -140), (76, -128), (124, -92), (140, -36), (126, 6), (116, 26),
+           (124, 56), (114, 90), (82, 114), (40 + f * 0.4, 130), (f * 0.4, 135),
+           (-40 + f * 0.4, 130), (-82, 114), (-114, 90), (-124, 56), (-116, 26),
+           (-126, 6), (-140, -36), (-124, -92), (-76, -128)]
+    pts = [(hx + x, hy + y * sq) for x, y in pts]
+
+    def head(c):
+        blob_path(c, pts, tension=0.55)
+    toon(ctx, head, WHITE, FUR_SHADE, light, shade_amt=20, lw=lw)
+
+    crease = mix(FUR_SHADE, INK, 0.45)
+    ctx.save()
+    ctx.set_line_cap(cairo.LINE_CAP_ROUND)
+    # the overhanging forehead fold (moves with the brows)
+    bl, br, tilt = p["brow_l"], p["brow_r"], p["brow_tilt"]
+    yl = hy - 30 - bl * 13
+    yr = hy - 30 - br * 13
+    yc = hy - 16 + tilt * 10 - (bl + br) * 4
+    ctx.move_to(hx - 112 + f * 0.3, hy - 12 - bl * 6)
+    ctx.curve_to(hx - 90 + f, yl - 14, hx - 40 + f, yl - 18, hx - 14 + f, yc)
+    ctx.curve_to(hx - 6 + f, yc + 4, hx + 6 + f, yc + 4, hx + 14 + f, yc)
+    ctx.curve_to(hx + 40 + f, yr - 18, hx + 90 + f, yr - 14, hx + 112 + f * 0.3, hy - 12 - br * 6)
+    src(ctx, INK)
+    ctx.set_line_width(lw * 0.9)
+    ctx.stroke()
+    # soft shadow under the fold
+    ctx.move_to(hx - 96 + f, yl - 2)
+    ctx.curve_to(hx - 60 + f, yl - 12, hx - 30 + f, yl - 8, hx - 16 + f, yc + 8)
+    ctx.move_to(hx + 96 + f, yr - 2)
+    ctx.curve_to(hx + 60 + f, yr - 12, hx + 30 + f, yr - 8, hx + 16 + f, yc + 8)
+    ctx.set_source_rgba(*FUR_SHADE, 0.9)
+    ctx.set_line_width(7)
+    ctx.stroke()
+    ctx.restore()
+
+    # eyes: almond, inner corners low (grumpy by default via brow_tilt)
+    e_y = hy + 4
+    erot = 0.10 + 0.22 * tilt
+    almond_eye(ctx, hx - 45 + f, e_y, 36, 19, erot, p, t, 3, BRAIN_SCLERA, lw * 0.85)
+    almond_eye(ctx, hx + 45 + f, e_y, 36, 19, -erot, p, t, 7, BRAIN_SCLERA, lw * 0.85)
+    # bags under the eyes
+    ctx.save()
+    ctx.set_line_cap(cairo.LINE_CAP_ROUND)
+    src(ctx, crease)
+    ctx.set_line_width(2.4)
+    for sgn in (-1, 1):
+        ex = hx + sgn * 44 + f
+        ctx.move_to(ex - 26, e_y + 24)
+        ctx.curve_to(ex - 10, e_y + 31, ex + 10, e_y + 31, ex + 24, e_y + 24)
+        ctx.stroke()
+    ctx.restore()
+
+    # nose: big red ball between and below the eyes
+    nx, ny = hx + f * 1.1, hy + 34
+
+    def nose(c):
+        ellipse_path(c, nx, ny, 25, 19)
+    toon(ctx, nose, NOSE_RED, NOSE_SHADE, light, shade_amt=5, lw=lw * 0.9)
+    ellipse_path(ctx, nx - 8, ny - 7, 6, 4)
+    ctx.set_source_rgba(1, 1, 1, 0.8)
+    ctx.fill()
+
+    # creases: philtrum + smile lines down to the mouth
+    ctx.save()
+    ctx.set_line_cap(cairo.LINE_CAP_ROUND)
+    src(ctx, crease)
+    ctx.set_line_width(2.6)
+    ctx.move_to(nx, ny + 20)
+    ctx.line_to(nx + 1, ny + 44)
+    ctx.stroke()
+    for sgn in (-1, 1):
+        ctx.move_to(nx + sgn * 20, ny + 14)
+        ctx.curve_to(nx + sgn * 30, ny + 30, nx + sgn * 32, ny + 48, nx + sgn * 26, ny + 62)
+        ctx.stroke()
+    ctx.restore()
+
+    # small pouty mouth + chin pout
+    mx, my = nx + 1, ny + 58
+    draw_mouth(ctx, mx, my, 40, p, depth=30, lw=lw * 0.9)
+    if p["mouth_open"] + p["jaw"] < 0.06:
+        ctx.save()
+        ctx.set_line_cap(cairo.LINE_CAP_ROUND)
+        ctx.move_to(mx - 10, my + 13)
+        ctx.curve_to(mx - 4, my + 18, mx + 4, my + 18, mx + 10, my + 13)
+        src(ctx, crease)
+        ctx.set_line_width(2.4)
+        ctx.stroke()
+        ctx.restore()
+    draw_sweat(ctx, hx - 112 + f * 0.3, hy - 4, p["sweat"], lw)
 
 
 # ---------------------------------------------------------------------------
@@ -494,7 +655,7 @@ def draw_pinky(ctx, s, t, prefix="pinky."):
     draw_tail(ctx, (-30, -150 + walkbob), t + 0.7, 1.4, 230, lw, 2.1)
     ctx.save()
     ctx.translate(0, walkbob)
-    legs(ctx, (-14, -160), (12, -160), 10, 150, p, 46, 11, lw, t)
+    legs(ctx, (-14, -160), (14, -160), 14, 150, p, 62, 11, lw, t, pink_shins=True)
     ctx.restore()
 
     ctx.save()
@@ -507,24 +668,22 @@ def draw_pinky(ctx, s, t, prefix="pinky."):
     arm_b = p["arm_b"]
     (a, e, h, ha) = arm_points(*sh_b, arm_b[0], arm_b[1], PINKY_ARM[2], PINKY_ARM[3])
     limb(ctx, [a, e, h], 10, mix(WHITE, FUR_SHADE, 0.45), lw)
-    draw_hand(ctx, *h, ha, p["hand_b"], 10, lw * 0.85)
+    draw_hand(ctx, *h, ha, p["hand_b"], 13, lw * 0.85)
 
     tb = p["talk"]
-    hdx, hdy = 6 + p["head_dx"], -330 + breath * 0.6 + p["head_dy"] - 3.5 * tb
-    nx2 = hdx + math.sin(p["head_tilt"]) * 30
-    ny2 = hdy - math.cos(p["head_tilt"]) * 30
-    limb(ctx, [(0, -300), ((hdx) * 0.5, (hdy - 300) * 0.5 - 6), (nx2, ny2)], 22, WHITE, lw)
+    hdx, hdy = 4 + p["head_dx"], -334 + breath * 0.6 + p["head_dy"] - 3.5 * tb
+    nx2 = hdx + math.sin(p["head_tilt"]) * 6
+    ny2 = hdy - math.cos(p["head_tilt"]) * 6
+    limb(ctx, [(0, -310), ((hdx) * 0.5, (hdy - 310) * 0.5 - 4), (nx2, ny2 + 12)], 18, WHITE, lw)
 
     def body(c):
-        ellipse_path(c, 0, -246 - breath * 0.3, 40, 96 + breath * 0.4)
-        ellipse_path(c, 3, -196, 36, 46)
+        ellipse_path(c, 2, -282 - breath * 0.3, 32, 56 + breath * 0.3)    # narrow chest
+        ellipse_path(c, 14, -206, 54, 62 + breath * 0.3)                 # pot belly
+        ellipse_path(c, 0, -176, 40, 30)
     toon(ctx, body, WHITE, FUR_SHADE, light, shade_amt=14, lw=lw)
 
     # neck + head
     tb = p["talk"]
-    hdx, hdy = 6 + p["head_dx"], -330 + breath * 0.6 + p["head_dy"] - 3.5 * tb
-    nx2 = hdx + math.sin(p["head_tilt"]) * 30
-    ny2 = hdy - math.cos(p["head_tilt"]) * 30
     ctx.save()
     ctx.translate(hdx, hdy)
     ctx.rotate(p["head_tilt"] + 0.03 * tb * math.sin(t * 7.0 + 1))
@@ -538,61 +697,94 @@ def draw_pinky(ctx, s, t, prefix="pinky."):
         a2 += math.sin(t * 38) * 0.22 * p["scratch"]
     (a, e, h, ha) = arm_points(*sh_f, a1, a2, PINKY_ARM[2], PINKY_ARM[3])
     limb(ctx, [a, e, h], 10, WHITE, lw)
-    draw_hand(ctx, *h, ha, p["hand_f"], 10.5, lw * 0.85)
+    draw_hand(ctx, *h, ha, p["hand_f"], 13.5, lw * 0.85)
 
     ctx.restore()
     ctx.restore()
+
+
+PINKY_EAR_IN = (0.88, 0.47, 0.57)
+IRIS_PINKY_REF = (0.62, 0.83, 0.96)
 
 
 def _pinky_head(ctx, p, t, lw, light):
+    """Pinky's head (3/4 profile), drawn around the neck pivot.
+
+    Model notes from the reference: small round cranium, long snout tapering
+    forward and slightly down to a big red ball nose; huge bulging eyes with
+    pale-blue irises sitting ON TOP of the head line; tall pointed ears set
+    back; a little tuft of hair; wide mouth under the snout with two buck teeth.
+    """
     turn = p["head_turn"]
-    hx, hy = 8, -78
-    for (ex, ey, r, rot, col_in) in ((-58 + turn * 10, -64, 54, -0.55, PINK_SHADE),
-                                     (40 + turn * 18, -78, 58, 0.25, PINK)):
-        def ear(c, ex=ex, ey=ey, r=r, rot=rot):
-            ellipse_path(c, hx + ex, hy + ey, r * 0.92, r * 1.08, rot)
-        toon(ctx, ear, WHITE, FUR_SHADE, light, shade_amt=9, lw=lw)
-        ellipse_path(ctx, hx + ex * 1.05 + turn * 5, hy + ey + 6, r * 0.66, r * 0.82, rot)
+    hx, hy = 0.0, 0.0
+    f = turn * 10.0
+
+    # ears, tall and pointed, behind the head
+    for (ex, ey, w, h, rot, col_in) in ((-34 + f * 0.5, -158, 74, 132, -0.32, mix(PINKY_EAR_IN, (0.6, 0.25, 0.35), 0.2)),
+                                        (6 + f, -166, 80, 142, 0.12, PINKY_EAR_IN)):
+        def ear(c, ex=ex, ey=ey, w=w, h=h, rot=rot):
+            leaf_path(c, hx + ex, hy + ey, w, h, rot, point=0.18)
+        toon(ctx, ear, WHITE, FUR_SHADE, light, shade_amt=8, lw=lw)
+        leaf_path(ctx, hx + ex + 6, hy + ey + 8, w * 0.68, h * 0.8, rot, point=0.18)
         src(ctx, col_in)
         ctx.fill()
 
-    sx, sy = hx + 58 + turn * 22, hy + 30   # snout centre
+    pts = [(-8, -122), (30, -114), (62, -96), (96, -76), (126, -60), (142, -46),
+           (132, -28), (104, -20), (72, -12), (40, -4), (8, -6), (-26, -20),
+           (-50, -50), (-52, -90), (-36, -114)]
+    pts = [(hx + x, hy + y) for x, y in pts]
 
     def head(c):
-        ellipse_path(c, hx, hy - 4, 70, 66)
-        ellipse_path(c, sx, sy, 64, 33, 0.28)
-        ellipse_path(c, hx + 10, hy + 28, 50, 34)
-    toon(ctx, head, WHITE, FUR_SHADE, light, shade_amt=14, lw=lw)
+        blob_path(c, pts, tension=0.55)
+    toon(ctx, head, WHITE, FUR_SHADE, light, shade_amt=12, lw=lw)
 
-    # big eyes
-    e_y = hy - 14
-    far = (hx - 16 + turn * 24, e_y)
-    near = (hx + 34 + turn * 26, e_y - 2)
-    draw_eye(ctx, *far, 22, 31, p, IRIS_PINKY, 14, p["lid"], t, 11, lw=lw * 0.9)
-    draw_eye(ctx, *near, 26, 34, p, IRIS_PINKY, 15.5, p["lid"], t, 13, lw=lw * 0.9)
-    draw_brow(ctx, far[0], far[1] - 42, 16, p["brow_l"], p["brow_tilt"], +1, 5.0, lw)
-    draw_brow(ctx, near[0], near[1] - 45, 18, p["brow_r"], p["brow_tilt"], -1, 5.5, lw)
+    # tuft of hair
+    ctx.save()
+    ctx.set_line_cap(cairo.LINE_CAP_ROUND)
+    src(ctx, INK)
+    ctx.set_line_width(lw * 0.7)
+    for (a, b) in ((-6, -28), (0, -36), (8, -26)):
+        ctx.move_to(hx + a - 4, hy - 120)
+        ctx.curve_to(hx + a - 2, hy - 126, hx + a + 4, hy + b - 100, hx + a + 10, hy + b - 102)
+        ctx.stroke()
+    ctx.restore()
 
-    # nose at the tip of the snout
-    nx, ny = sx + 60, sy + 14
-    def nose(c):
-        ellipse_path(c, nx, ny, 18, 15, 0.2)
-    toon(ctx, nose, NOSE_RED, NOSE_SHADE, light, shade_amt=5, lw=lw * 0.9)
-    ellipse_path(ctx, nx - 6, ny - 6, 5, 3.5)
-    ctx.set_source_rgba(1, 1, 1, 0.85)
-    ctx.fill()
-
-    mx, my = sx + 18, sy + 36
+    # mouth along the underside of the snout
+    mx, my = hx + 92, hy - 20
+    tx = mx + 20
 
     def teeth(ytop):
         if p["teeth"] <= 0:
             return
-        for dx in (-7.5, 4.5):
-            ctx.rectangle(mx + 8 + dx, ytop, 11, 15)
+        for dx in (-7.0, 5.0):
+            ctx.rectangle(tx + dx, ytop, 11, 15)
         src(ctx, (1, 1, 0.97))
         ctx.fill_preserve()
         src(ctx, INK)
         ctx.set_line_width(lw * 0.7)
         ctx.stroke()
-    draw_mouth(ctx, mx, my, 54, p, depth=38, lw=lw * 0.9, buck_teeth=teeth)
-    draw_sweat(ctx, hx - 70, hy - 10, p["sweat"], lw)
+    ctx.save()
+    ctx.translate(mx, my)
+    ctx.rotate(0.22)
+    ctx.translate(-mx, -my)
+    draw_mouth(ctx, mx, my, 66, p, depth=40, lw=lw * 0.9, buck_teeth=teeth)
+    ctx.restore()
+
+    # nose: big red ball on the tip of the snout
+    nx, ny = hx + 140, hy - 46
+
+    def nose(c):
+        ellipse_path(c, nx, ny, 22, 19, 0.2)
+    toon(ctx, nose, NOSE_RED, NOSE_SHADE, light, shade_amt=5, lw=lw * 0.9)
+    ellipse_path(ctx, nx - 8, ny - 8, 7, 4.5, -0.4)
+    ctx.set_source_rgba(1, 1, 1, 0.85)
+    ctx.fill()
+
+    # bulging eyes on top of the head line, with thin brows above
+    far = (hx + 22 + f, hy - 114)
+    near = (hx + 56 + f * 1.2, hy - 104)
+    draw_eye(ctx, *far, 21, 28, p, IRIS_PINKY_REF, 15, p["lid"], t, 11, lw=lw * 0.85)
+    draw_eye(ctx, *near, 24, 31, p, IRIS_PINKY_REF, 17, p["lid"], t, 13, lw=lw * 0.85)
+    draw_brow(ctx, far[0] - 2, far[1] - 38, 13, p["brow_l"], p["brow_tilt"], +1, 4.0, lw)
+    draw_brow(ctx, near[0] + 2, near[1] - 42, 15, p["brow_r"], p["brow_tilt"], -1, 4.5, lw)
+    draw_sweat(ctx, hx - 52, hy - 70, p["sweat"], lw)

@@ -64,6 +64,19 @@ como um guião técnico: `d.say("b02")` coloca a fala, `d.act("brain", t, 0.3,
 arm_f=..., smile=0.6)` anima pose e expressão, `d.cam("brain_cu", t, 1.8)` move a
 câmara, `d.sfx(...)`/`d.music(...)` marcam som.
 
+**Modelo das personagens (segue a imagem de referência).**
+*Brain*: cúpula craniana enorme com a prega da testa saliente sobre os olhos,
+contorno que estreita nas têmporas e volta a alargar nas bochechas, queixo
+pequeno; olhos amendoados cor-de-rosa com pálpebras pesadas de pelo branco e
+pupilas pretas pequenas; nariz vermelho grande entre os olhos; vincos do nariz
+até uma boca pequena e amuada; orelhas gigantes em forma de folha, rosa-escuro
+por dentro; sem pescoço, corpo pequeno em forma de pera.
+*Pinky*: crânio pequeno e focinho comprido afunilado até um nariz vermelho em
+bola; olhos enormes e salientes por cima da linha da cabeça, íris azul-clara;
+orelhas altas e pontiagudas; tufo de cabelo; boca larga sob o focinho com dois
+dentes salientes; pescoço fino, peito estreito e barriga redonda; mãos e pés
+grandes cor-de-rosa, canelas rosadas.
+
 **Expressões independentes.** Por personagem: `brow_l`, `brow_r`, `brow_tilt`,
 `lid` (pálpebra superior), `lid_low`, `blink`, `look` (direção do olhar),
 `pupil` (tamanho — o "cérebro bloqueado" do final usa pupilas minúsculas),
