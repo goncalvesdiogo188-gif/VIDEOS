@@ -15,6 +15,8 @@ import pt.futebolcarreira.nucleo.simulacao.Confronto
 import pt.futebolcarreira.nucleo.simulacao.DefRonda
 import pt.futebolcarreira.nucleo.simulacao.DadosEuropa
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
+import pt.futebolcarreira.nucleo.simulacao.EstadoSelecoes
+import pt.futebolcarreira.nucleo.simulacao.SnapshotSelecoes
 import pt.futebolcarreira.nucleo.simulacao.EuropaDaEpoca
 import pt.futebolcarreira.nucleo.simulacao.JogoEuropa
 import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
@@ -141,6 +143,12 @@ private class Gravacao(
      */
     val europa: List<DadosEuropa>? = null,
     /**
+     * Seleções nacionais (convocatórias, plantéis fictícios, competições, ranking...). null = gravação antiga,
+     * de antes das seleções: ao carregar cria-se um estado novo para a época em curso e jogam-se já os jogos
+     * que já deviam ter acontecido (sem avisos), e daí em diante fica gravado.
+     */
+    val selecoes: SnapshotSelecoes? = null,
+    /**
      * Relatórios dos jogos do clube do utilizador: "liga/jornada/jogo" -> relatório;
      * nas taças "T/competição/ronda/confronto/mão"; na Europa "E/tipo/L/jogo" (fase de liga)
      * e "E/tipo/K/eliminatória/jogo".
@@ -235,6 +243,7 @@ object Gravador {
             },
             ligas = ligas,
             europa = europa?.dados(),
+            selecoes = g.selecoes?.snapshot(),
             eliminatorias = elims,
             relatorios = relatorios,
             historico = g.historico.toList(),
@@ -244,12 +253,17 @@ object Gravador {
         return JSON.encodeToString(Gravacao.serializer(), gravacao)
     }
 
-    /** Reconstrói a carreira a partir dos dois textos gravados. Lança uma exceção se estiverem estragados. */
-    fun deTexto(texto: String, baseDados: String): Carreira {
+    /**
+     * Reconstrói a carreira a partir dos dois textos gravados. Lança uma exceção se estiverem estragados.
+     * "lerPadrao" lê ficheiros da pasta de dados da aplicação: só serve para gravações antigas, sem
+     * "selecoes.json" na base de dados, que recebem assim o catálogo das seleções.
+     */
+    fun deTexto(texto: String, baseDados: String, lerPadrao: (String) -> String? = { null }): Carreira {
         val gravacao = JSON.decodeFromString(Gravacao.serializer(), texto)
         val ficheiros = JSON.decodeFromString(MapSerializer(String.serializer(), String.serializer()), baseDados)
         val bd = BaseDados()
         bd.carregar { ficheiros[it] }
+        if (bd.selecoesJson == null) bd.selecoesJson = lerPadrao("selecoes.json")
         require(bd.equipas.isNotEmpty()) { "Gravação sem equipas: ${bd.erros.take(3)}" }
         bd.garantirTacas()   // gravações antigas não tinham taças: ficam definidas para a época seguinte
         require(gravacao.info.equipaId in bd.equipas) { "O clube da carreira não existe na gravação" }
@@ -333,6 +347,8 @@ object Gravador {
             }
             gestor.europa = europa
         }
+        gestor.selecoes = gravacao.selecoes?.let { EstadoSelecoes.reconstruir(bd, it) }
+            ?: gestor.criarSelecoes(gravacao.ano, gravacao.ano.toLong())?.also { it.jogarAte(gestor.data) }
         gestor.historico += gravacao.historico
         gestor.epocaFechada = gestor.epocaTerminada()
 

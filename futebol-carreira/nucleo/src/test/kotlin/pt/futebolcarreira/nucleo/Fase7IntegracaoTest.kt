@@ -10,6 +10,7 @@ import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
 import pt.futebolcarreira.nucleo.simulacao.FasesEuropa
 import pt.futebolcarreira.nucleo.simulacao.GestorEpocas
+import pt.futebolcarreira.nucleo.simulacao.TipoCompeticaoSelecoes
 import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
 import java.io.File
 import java.time.LocalDate
@@ -201,5 +202,136 @@ class Fase7IntegracaoTest {
         // Apurados pelas classificações finais: o clube grande volta à Europa.
         assertTrue(eu.campeoes.clubes.size == 24 && eu.europa.clubes.size == 24)
         assertNotNull(d.avancar())
+    }
+
+    // ------------------------------------------------------------------ seleções nacionais
+
+    /** Dias em que cada seleção joga (nação -> dias, com repetições) e todos os dias de jogo de seleções. */
+    private fun diasDasSelecoes(g: GestorEpocas): Map<String, List<LocalDate>> {
+        val dias = HashMap<String, MutableList<LocalDate>>()
+        for (c in assertNotNull(g.selecoes).competicoes) for (j in c.jogos) {
+            for (n in listOf(j.casa, j.fora)) dias.getOrPut(n) { mutableListOf() } += j.dataLocal()
+        }
+        return dias
+    }
+
+    /** Acaba a época e passa à seguinte; uma carreira carregada joga com sorteios novos e o treinador pode ser despedido. */
+    private fun terminarEpocaENovaEpoca(c: Carreira) {
+        c.simularEpoca()
+        if (c.info.despedido) {
+            c.aceitarProposta(c.info.propostas.first())
+            c.simularEpoca()
+        }
+        c.novaEpoca()
+    }
+
+    @Test
+    fun `seleccoes nunca jogam no dia de um jogo de clube em quatro epocas`() {
+        val bd = carregar()
+        val g = GestorEpocas(bd, semente = 5)
+        val s = assertNotNull(g.selecoes)
+        repeat(4) {
+            g.simularAteAoFim()
+            assertTrue(g.epocaTerminada())
+            // Termina já o verão (Final Four, Euro ou Mundial) para ver todas as datas da época.
+            s.jogarTorneioDeVerao()
+            val clubes = diasDosClubes(g).values.flatten().toSet()
+            val selecoes = diasDasSelecoes(g)
+            for ((nacao, dias) in selecoes) {
+                assertEquals(dias.size, dias.toSet().size, "$nacao joga duas vezes no mesmo dia na época ${g.ano}")
+                val choques = dias.filter { it in clubes }
+                assertTrue(choques.isEmpty(), "${g.ano}: $nacao joga no dia de jogos de clubes: $choques")
+            }
+            assertTrue(selecoes.isNotEmpty())
+            g.avancarParaEpocaSeguinte()
+        }
+        // Euro 2028 e Mundial 2030 (verão de 2030 ainda por jogar) e a Liga das Nações de cada ano.
+        val vencidos = s.vencedores().map { it.tipo to it.ano }
+        assertTrue(TipoCompeticaoSelecoes.EURO to 2028 in vencidos, "Euro 2028: $vencidos")
+        for (ano in 2027..2029) assertTrue(TipoCompeticaoSelecoes.LIGA_NACOES to ano in vencidos, "Liga das Nações $ano: $vencidos")
+    }
+
+    @Test
+    fun `carreira com seleccoes recebe convocatorias resultados e vencedores no verao`() {
+        val bd = carregar()
+        val clube = bd.equipasDaLiga("POR1").maxByOrNull { it.reputacao }!!.id
+        val c = Carreira.nova(bd, "selecoes", "Rui", ModoCarreira.TREINADOR, clube, semente = 21)
+        assertNotNull(c.gestor.selecoes)
+        c.simularEpoca()
+        val titulos = c.mensagens.map { it.titulo }
+        assertTrue("Convocatórias" in titulos, "convocatórias: $titulos")
+        assertTrue("Seleções: resultados" in titulos, "resultados: $titulos")
+        val conv = c.mensagens.last { it.titulo == "Convocatórias" }
+        assertTrue("Jogadores do teu clube" in conv.texto)
+        // Poucas mensagens de seleções numa época (3 janelas de 3 jogos + março).
+        assertTrue(c.mensagens.count { it.titulo.startsWith("Seleções") || it.titulo.startsWith("Convoc") } <= 30)
+        // Ninguém fica "convocado" de um dia para o outro: a janela só tem convocados enquanto decorre.
+        val s = assertNotNull(c.gestor.selecoes)
+        assertTrue(s.vencedores().none { it.tipo == TipoCompeticaoSelecoes.LIGA_NACOES })
+        c.novaEpoca()
+        val ln = s.vencedores().single { it.tipo == TipoCompeticaoSelecoes.LIGA_NACOES }
+        assertEquals(2027, ln.ano)
+        assertTrue(c.mensagens.any { it.titulo.startsWith("Seleções: Liga das Nações") && s.nome(ln.vencedor) in it.texto })
+        // Segunda época: Euro 2028 no verão.
+        c.simularEpoca()
+        c.novaEpoca()
+        val euro = s.vencedores().single { it.tipo == TipoCompeticaoSelecoes.EURO }
+        assertEquals(2028, euro.ano)
+        assertTrue(c.mensagens.any { it.titulo.startsWith("Seleções: Campeonato da Europa") && s.nome(euro.vencedor) in it.texto })
+        assertEquals(2028, c.gestor.ano)
+        assertEquals(2028, s.epoca)
+        assertTrue(c.gestor.convocatoriasPendentes.isEmpty() && c.gestor.jogosSelecoesPendentes.isEmpty())
+    }
+
+    @Test
+    fun `gravar e carregar a meio da epoca mantem o estado das seleccoes`() {
+        val bd = carregar()
+        val clube = bd.equipasDaLiga("POR1").maxByOrNull { it.reputacao }!!.id
+        val c = Carreira.nova(bd, "gravar-sel", "Ana", ModoCarreira.TREINADOR, clube, semente = 9)
+        while (c.gestor.data < LocalDate.of(2026, 11, 20)) c.avancar()
+        val s = assertNotNull(c.gestor.selecoes)
+        assertTrue(s.competicoesAtivas().flatMap { it.jogos }.any { it.jogado })
+        val d = Gravador.deTexto(Gravador.paraTexto(c), Gravador.baseDadosParaTexto(c))
+        val t = assertNotNull(d.gestor.selecoes)
+        assertEquals(s.epoca, t.epoca)
+        assertEquals(s.proximaData(), t.proximaData())
+        assertEquals(s.ranking().map { it.nacao to it.pontos }, t.ranking().map { it.nacao to it.pontos })
+        assertEquals(s.convocadosDaJanela(), t.convocadosDaJanela())
+        assertEquals(s.competicoes.map { it.id to it.jogos.count { j -> j.jogado } }, t.competicoes.map { it.id to it.jogos.count { j -> j.jogado } })
+        assertEquals(s.nacoes.keys, t.nacoes.keys)
+        for (n in s.nacoes.values.filter { !it.baseDados }.take(3)) assertEquals(s.esquadraoFicticio(n.id).map { it.id }, t.esquadraoFicticio(n.id).map { it.id })
+        // A carreira carregada continua: acaba a época e passa à seguinte com as seleções em dia.
+        terminarEpocaENovaEpoca(d)
+        assertEquals(2027, t.epoca)
+        assertTrue(t.vencedores().any { it.tipo == TipoCompeticaoSelecoes.LIGA_NACOES })
+        assertNotNull(d.avancar())
+    }
+
+    @Test
+    fun `gravacao antiga sem seleccoes carrega com estado novo e sem catalogo continua a jogar`() {
+        val bd = carregar()
+        val clube = bd.equipasDaLiga("POR1").maxByOrNull { it.reputacao }!!.id
+        val c = Carreira.nova(bd, "antiga-sel", "Rui", ModoCarreira.TREINADOR, clube, semente = 3)
+        while (c.gestor.data < LocalDate.of(2026, 10, 20)) c.avancar()
+        val estado = Json.parseToJsonElement(Gravador.paraTexto(c)).jsonObject
+        assertTrue("selecoes" in estado)
+        val semSelecoes = JsonObject(estado.filterKeys { it != "selecoes" }).toString()
+        val ficheiros = Json.parseToJsonElement(Gravador.baseDadosParaTexto(c)).jsonObject
+        assertTrue("selecoes.json" in ficheiros, "o catálogo vai na base de dados gravada")
+        val antigaBd = JsonObject(ficheiros.filterKeys { it != "selecoes.json" }).toString()
+        // Com o catálogo da aplicação: estado novo para a época em curso, com os jogos de setembro já jogados.
+        val d = Gravador.deTexto(semSelecoes, antigaBd) { File(pastaDados, it).takeIf(File::exists)?.readText() }
+        val s = assertNotNull(d.gestor.selecoes)
+        assertEquals(2026, s.epoca)
+        assertTrue(s.competicoesAtivas().flatMap { it.jogos }.any { it.jogado })
+        assertTrue(s.proximaData()!! > d.gestor.data)
+        terminarEpocaENovaEpoca(d)
+        assertTrue(assertNotNull(d.gestor.selecoes).vencedores().any { it.tipo == TipoCompeticaoSelecoes.LIGA_NACOES })
+        // Sem catálogo nenhum: o jogo funciona, só que sem seleções.
+        val e = Gravador.deTexto(semSelecoes, antigaBd)
+        assertNull(e.gestor.selecoes)
+        terminarEpocaENovaEpoca(e)
+        assertNull(e.gestor.selecoes)
+        assertNotNull(e.avancar())
     }
 }

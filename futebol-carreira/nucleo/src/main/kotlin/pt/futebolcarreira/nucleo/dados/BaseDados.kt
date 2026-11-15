@@ -9,6 +9,7 @@ import pt.futebolcarreira.nucleo.modelos.Equipa
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.modelos.ListaNomes
 import pt.futebolcarreira.nucleo.modelos.Pais
+import pt.futebolcarreira.nucleo.simulacao.CatalogoSelecoes
 
 /**
  * Carrega e guarda toda a base de dados do jogo a partir de ficheiros JSON.
@@ -17,6 +18,7 @@ import pt.futebolcarreira.nucleo.modelos.Pais
  *   paises.json            lista de países
  *   competicoes.json       ligas, taças e supertaças
  *   nomes.json             nomes próprios e apelidos por país (para gerar jogadores)
+ *   selecoes.json          seleções nacionais (opcional)
  *   equipas/<PAIS>.json    clubes de cada país
  *   jogadores/<PAIS>.json  jogadores dos clubes de cada país
  */
@@ -26,6 +28,15 @@ class BaseDados {
     val equipas = LinkedHashMap<String, Equipa>()
     val jogadores = HashMap<Int, Jogador>()
     var nomes: Map<String, ListaNomes> = emptyMap()
+
+    /**
+     * Texto de "selecoes.json" (seleções nacionais), se existir. Vai junto com a base de dados da carreira gravada
+     * (ver paraJsonCompleto); gravações antigas não o têm e a aplicação fornece o da pasta de dados.
+     */
+    var selecoesJson: String? = null
+
+    /** O catálogo das seleções (null se faltar o ficheiro ou estiver mal). */
+    fun catalogoSelecoes(): CatalogoSelecoes? = CatalogoSelecoes.carregar { if (it == "selecoes.json") selecoesJson else null }
 
     /** Problemas encontrados ao carregar (ficheiros em falta, erros de JSON...). */
     val erros = mutableListOf<String>()
@@ -41,6 +52,7 @@ class BaseDados {
     fun carregar(ler: (String) -> String?): Boolean {
         paises.clear(); competicoes.clear(); equipas.clear(); jogadores.clear(); erros.clear()
         proximoId = 1
+        selecoesJson = ler("selecoes.json")
 
         lerJson("paises.json", ler, ListSerializer(Pais.serializer()))?.forEach { paises[it.id] = it }
         lerJson("competicoes.json", ler, ListSerializer(Competicao.serializer()))?.forEach { competicoes[it.id] = it }
@@ -189,6 +201,7 @@ class BaseDados {
         ficheiros["paises.json"] = JSON.encodeToString(ListSerializer(Pais.serializer()), paises.values.toList())
         ficheiros["competicoes.json"] = JSON.encodeToString(ListSerializer(Competicao.serializer()), competicoes.values.toList())
         ficheiros["nomes.json"] = JSON.encodeToString(MapSerializer(String.serializer(), ListaNomes.serializer()), nomes)
+        selecoesJson?.let { ficheiros["selecoes.json"] = it }
         ficheiros += paraJson()
         return ficheiros
     }

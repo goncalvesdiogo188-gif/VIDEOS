@@ -260,6 +260,7 @@ class Carreira(
             gestor.noticias.clear()
         }
         olheiros.verificar()
+        avisarSelecoes()
         val jogado = alvo?.let { a -> jogosDoClube().firstOrNull { it.competicaoId == a.competicaoId && it.data == a.data } }
         if (jogado != null) {
             if (jogado.eLiga) {
@@ -292,6 +293,8 @@ class Carreira(
         gestor.avancarParaEpocaSeguinte()
         mercado.recusados.clear()
         gestor.noticias.clear()
+        // O torneio de verão (Final Four, Euro ou Mundial) jogou-se ao mudar de época: resultados e convocatórias.
+        avisarSelecoes()
         if (gestor.avisos.isNotEmpty()) mensagem("Plantel: o que mudou no verão", gestor.avisos.joinToString(" "))
         val jovens = academia.novaGeracao()
         if (eTreinador) mensagem("Academia: nova geração", "Entraram na academia: " + jovens.joinToString { "${it.nome} (${it.posicao}, ${it.idade} anos)" } + ".")
@@ -435,9 +438,70 @@ class Carreira(
         if (!info.despedido) info.propostas.clear()
     }
 
-    internal fun mensagem(titulo: String, texto: String) {
-        mensagens.add(0, Mensagem(gestor.data.toString(), titulo, texto))
+    internal fun mensagem(titulo: String, texto: String, data: LocalDate = gestor.data) {
+        mensagens.add(0, Mensagem(data.toString(), titulo, texto))
         while (mensagens.size > MAX_MENSAGENS) mensagens.removeAt(mensagens.lastIndex)
+    }
+
+    // ------------------------------------------------ seleções nacionais
+
+    /**
+     * Avisos das seleções desde a última vez: convocatórias do clube (ou do jogador), resultados das seleções que
+     * interessam (a do país do clube e a do jogador), o vencedor das competições que acabaram e as lesões
+     * ao serviço da seleção. Poucas mensagens: uma de cada tipo por chamada.
+     */
+    private fun avisarSelecoes() {
+        val convocatorias = gestor.convocatoriasPendentes.toList()
+        val jogos = gestor.jogosSelecoesPendentes.toList()
+        gestor.convocatoriasPendentes.clear()
+        gestor.jogosSelecoesPendentes.clear()
+        val s = gestor.selecoes ?: return
+        for (c in convocatorias) avisarConvocatoria(s, c)
+        if (jogos.isEmpty()) return
+        val data = jogos.maxOf { it.jogo.dataLocal() }
+        val interesse = setOfNotNull(equipa.pais, jogador?.nacionalidade)
+        val linhas = jogos.filter { it.jogo.casa in interesse || it.jogo.fora in interesse }.map { j ->
+            val g = j.jogo
+            val pen = if (g.penaltisCasa >= 0) " (${g.penaltisCasa}-${g.penaltisFora} nos penáltis)" else if (g.prolongamento) " (após prolongamento)" else ""
+            "${s.nome(g.casa)} ${g.golosCasa}-${g.golosFora} ${s.nome(g.fora)}$pen"
+        }
+        if (linhas.isNotEmpty()) {
+            mensagem("Seleções: resultados", linhas.take(6).joinToString(". ") + (if (linhas.size > 6) ". E mais ${linhas.size - 6} jogos." else "."), data)
+        }
+        // Vencedores: a final acabou de se jogar.
+        for (j in jogos.filter { it.fase == "Final" }) {
+            val comp = s.competicao(j.competicaoId)?.takeIf { it.terminada } ?: continue
+            val v = comp.vencedor ?: continue
+            mensagem("Seleções: ${comp.nome}", "${s.nome(v)} venceu a final (${s.nome(j.jogo.casa)} ${j.jogo.golosCasa}-${j.jogo.golosFora} ${s.nome(j.jogo.fora)}).", j.jogo.dataLocal())
+        }
+        // Lesões dos nossos ao serviço da seleção.
+        val lesoes = LinkedHashMap<Int, String>()
+        for (j in jogos) {
+            for (f in j.relatorio.casa.fichas + j.relatorio.fora.fichas) {
+                if (f.lesao <= 0 || f.jogador.equipa != info.equipaId) continue
+                if (!eTreinador && f.jogador.id != info.jogadorId) continue
+                lesoes[f.jogador.id] = "${f.jogador.nome} (${f.lesao} ${if (f.lesao == 1) "jornada" else "jornadas"})"
+            }
+        }
+        if (lesoes.isNotEmpty()) {
+            mensagem(
+                "Lesão ao serviço da seleção",
+                (if (eTreinador) "Lesionados nos jogos das seleções: " else "Lesionaste-te nos jogos da seleção: ") + lesoes.values.take(5).joinToString() + ".",
+                data,
+            )
+        }
+    }
+
+    private fun avisarConvocatoria(s: pt.futebolcarreira.nucleo.simulacao.EstadoSelecoes, c: pt.futebolcarreira.nucleo.simulacao.ConvocatoriaNova) {
+        val meus = c.convocados.flatMap { (nacao, ids) -> ids.mapNotNull { id -> bd.jogadores[id]?.takeIf { it.equipa == info.equipaId }?.let { it to nacao } } }
+        if (meus.isEmpty()) return
+        if (!eTreinador) {
+            val nacao = meus.firstOrNull { it.first.id == info.jogadorId }?.second ?: return
+            mensagem("Convocatória", "Foste convocado para a seleção de ${s.nome(nacao)}!", c.data)
+            return
+        }
+        val lista = meus.take(8).joinToString { (j, n) -> "${j.nome} (${s.nome(n)})" } + if (meus.size > 8) " e mais ${meus.size - 8}" else ""
+        mensagem("Convocatórias", "Jogadores do teu clube chamados às seleções: $lista.", c.data)
     }
 
     /** Avisa quando o mercado de transferências abre ou fecha entre dois dias. */

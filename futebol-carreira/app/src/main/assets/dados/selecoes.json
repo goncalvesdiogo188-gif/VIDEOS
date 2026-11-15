@@ -1,0 +1,910 @@
+{
+	"nacoes": [
+		{
+			"id": "POR",
+			"nome": "Portugal",
+			"abreviatura": "POR",
+			"continente": "EUR",
+			"reputacao": 85,
+			"nomes": ""
+		},
+		{
+			"id": "ESP",
+			"nome": "Espanha",
+			"abreviatura": "ESP",
+			"continente": "EUR",
+			"reputacao": 90,
+			"nomes": ""
+		},
+		{
+			"id": "ING",
+			"nome": "Inglaterra",
+			"abreviatura": "ING",
+			"continente": "EUR",
+			"reputacao": 89,
+			"nomes": ""
+		},
+		{
+			"id": "ITA",
+			"nome": "Itália",
+			"abreviatura": "ITA",
+			"continente": "EUR",
+			"reputacao": 82,
+			"nomes": ""
+		},
+		{
+			"id": "ALE",
+			"nome": "Alemanha",
+			"abreviatura": "ALE",
+			"continente": "EUR",
+			"reputacao": 87,
+			"nomes": ""
+		},
+		{
+			"id": "FRA",
+			"nome": "França",
+			"abreviatura": "FRA",
+			"continente": "EUR",
+			"reputacao": 90,
+			"nomes": ""
+		},
+		{
+			"id": "NED",
+			"nome": "Países Baixos",
+			"abreviatura": "NED",
+			"continente": "EUR",
+			"reputacao": 82,
+			"nomes": "NEE"
+		},
+		{
+			"id": "BEL",
+			"nome": "Bélgica",
+			"abreviatura": "BEL",
+			"continente": "EUR",
+			"reputacao": 76,
+			"nomes": "NEE"
+		},
+		{
+			"id": "CRO",
+			"nome": "Croácia",
+			"abreviatura": "CRO",
+			"continente": "EUR",
+			"reputacao": 76,
+			"nomes": "BAL"
+		},
+		{
+			"id": "SER",
+			"nome": "Sérvia",
+			"abreviatura": "SER",
+			"continente": "EUR",
+			"reputacao": 62,
+			"nomes": "BAL"
+		},
+		{
+			"id": "BOS",
+			"nome": "Bósnia e Herzegovina",
+			"abreviatura": "BOS",
+			"continente": "EUR",
+			"reputacao": 48,
+			"nomes": "BAL"
+		},
+		{
+			"id": "SLO",
+			"nome": "Eslovénia",
+			"abreviatura": "SLO",
+			"continente": "EUR",
+			"reputacao": 48,
+			"nomes": "BAL"
+		},
+		{
+			"id": "ALB",
+			"nome": "Albânia",
+			"abreviatura": "ALB",
+			"continente": "EUR",
+			"reputacao": 48,
+			"nomes": "BAL"
+		},
+		{
+			"id": "MKD",
+			"nome": "Macedónia do Norte",
+			"abreviatura": "MKD",
+			"continente": "EUR",
+			"reputacao": 40,
+			"nomes": "BAL"
+		},
+		{
+			"id": "SUI",
+			"nome": "Suíça",
+			"abreviatura": "SUI",
+			"continente": "EUR",
+			"reputacao": 70,
+			"nomes": "ALE"
+		},
+		{
+			"id": "AUT",
+			"nome": "Áustria",
+			"abreviatura": "AUT",
+			"continente": "EUR",
+			"reputacao": 68,
+			"nomes": "ALE"
+		},
+		{
+			"id": "DIN",
+			"nome": "Dinamarca",
+			"abreviatura": "DIN",
+			"continente": "EUR",
+			"reputacao": 70,
+			"nomes": "NOR"
+		},
+		{
+			"id": "SUE",
+			"nome": "Suécia",
+			"abreviatura": "SUE",
+			"continente": "EUR",
+			"reputacao": 60,
+			"nomes": "NOR"
+		},
+		{
+			"id": "NOR",
+			"nome": "Noruega",
+			"abreviatura": "NOR",
+			"continente": "EUR",
+			"reputacao": 64,
+			"nomes": "NOR"
+		},
+		{
+			"id": "FIN",
+			"nome": "Finlândia",
+			"abreviatura": "FIN",
+			"continente": "EUR",
+			"reputacao": 44,
+			"nomes": "NOR"
+		},
+		{
+			"id": "ISL",
+			"nome": "Islândia",
+			"abreviatura": "ISL",
+			"continente": "EUR",
+			"reputacao": 40,
+			"nomes": "NOR"
+		},
+		{
+			"id": "POL",
+			"nome": "Polónia",
+			"abreviatura": "POL",
+			"continente": "EUR",
+			"reputacao": 62,
+			"nomes": "ESL"
+		},
+		{
+			"id": "UCR",
+			"nome": "Ucrânia",
+			"abreviatura": "UCR",
+			"continente": "EUR",
+			"reputacao": 64,
+			"nomes": "ESL"
+		},
+		{
+			"id": "RCH",
+			"nome": "República Checa",
+			"abreviatura": "RCH",
+			"continente": "EUR",
+			"reputacao": 58,
+			"nomes": "ESL"
+		},
+		{
+			"id": "SVK",
+			"nome": "Eslováquia",
+			"abreviatura": "SVK",
+			"continente": "EUR",
+			"reputacao": 50,
+			"nomes": "ESL"
+		},
+		{
+			"id": "ESC",
+			"nome": "Escócia",
+			"abreviatura": "ESC",
+			"continente": "EUR",
+			"reputacao": 58,
+			"nomes": "ING"
+		},
+		{
+			"id": "GAL",
+			"nome": "Gales",
+			"abreviatura": "GAL",
+			"continente": "EUR",
+			"reputacao": 50,
+			"nomes": "ING"
+		},
+		{
+			"id": "IRL",
+			"nome": "Irlanda",
+			"abreviatura": "IRL",
+			"continente": "EUR",
+			"reputacao": 45,
+			"nomes": "ING"
+		},
+		{
+			"id": "TUR",
+			"nome": "Turquia",
+			"abreviatura": "TUR",
+			"continente": "EUR",
+			"reputacao": 66,
+			"nomes": "TUR"
+		},
+		{
+			"id": "HUN",
+			"nome": "Hungria",
+			"abreviatura": "HUN",
+			"continente": "EUR",
+			"reputacao": 60,
+			"nomes": "HUN"
+		},
+		{
+			"id": "GRE",
+			"nome": "Grécia",
+			"abreviatura": "GRE",
+			"continente": "EUR",
+			"reputacao": 54,
+			"nomes": "GRE"
+		},
+		{
+			"id": "ROM",
+			"nome": "Roménia",
+			"abreviatura": "ROM",
+			"continente": "EUR",
+			"reputacao": 54,
+			"nomes": "ROM"
+		},
+		{
+			"id": "BRA",
+			"nome": "Brasil",
+			"abreviatura": "BRA",
+			"continente": "SUL",
+			"reputacao": 92,
+			"nomes": "POR"
+		},
+		{
+			"id": "ARG",
+			"nome": "Argentina",
+			"abreviatura": "ARG",
+			"continente": "SUL",
+			"reputacao": 93,
+			"nomes": "ESP"
+		},
+		{
+			"id": "URU",
+			"nome": "Uruguai",
+			"abreviatura": "URU",
+			"continente": "SUL",
+			"reputacao": 78,
+			"nomes": "ESP"
+		},
+		{
+			"id": "COL",
+			"nome": "Colômbia",
+			"abreviatura": "COL",
+			"continente": "SUL",
+			"reputacao": 78,
+			"nomes": "ESP"
+		},
+		{
+			"id": "EQU",
+			"nome": "Equador",
+			"abreviatura": "EQU",
+			"continente": "SUL",
+			"reputacao": 62,
+			"nomes": "ESP"
+		},
+		{
+			"id": "CHI",
+			"nome": "Chile",
+			"abreviatura": "CHI",
+			"continente": "SUL",
+			"reputacao": 56,
+			"nomes": "ESP"
+		},
+		{
+			"id": "PAR",
+			"nome": "Paraguai",
+			"abreviatura": "PAR",
+			"continente": "SUL",
+			"reputacao": 54,
+			"nomes": "ESP"
+		},
+		{
+			"id": "PER",
+			"nome": "Peru",
+			"abreviatura": "PER",
+			"continente": "SUL",
+			"reputacao": 50,
+			"nomes": "ESP"
+		},
+		{
+			"id": "USA",
+			"nome": "Estados Unidos",
+			"abreviatura": "USA",
+			"continente": "NORTE",
+			"reputacao": 70,
+			"nomes": "ING"
+		},
+		{
+			"id": "CAN",
+			"nome": "Canadá",
+			"abreviatura": "CAN",
+			"continente": "NORTE",
+			"reputacao": 58,
+			"nomes": "ING"
+		},
+		{
+			"id": "MEX",
+			"nome": "México",
+			"abreviatura": "MEX",
+			"continente": "NORTE",
+			"reputacao": 68,
+			"nomes": "ESP"
+		},
+		{
+			"id": "CRC",
+			"nome": "Costa Rica",
+			"abreviatura": "CRC",
+			"continente": "NORTE",
+			"reputacao": 46,
+			"nomes": "ESP"
+		},
+		{
+			"id": "MAR",
+			"nome": "Marrocos",
+			"abreviatura": "MAR",
+			"continente": "AFR",
+			"reputacao": 74,
+			"nomes": "ARA"
+		},
+		{
+			"id": "EGI",
+			"nome": "Egito",
+			"abreviatura": "EGI",
+			"continente": "AFR",
+			"reputacao": 60,
+			"nomes": "ARA"
+		},
+		{
+			"id": "ALG",
+			"nome": "Argélia",
+			"abreviatura": "ALG",
+			"continente": "AFR",
+			"reputacao": 60,
+			"nomes": "ARA"
+		},
+		{
+			"id": "SEN",
+			"nome": "Senegal",
+			"abreviatura": "SEN",
+			"continente": "AFR",
+			"reputacao": 68,
+			"nomes": "AFO"
+		},
+		{
+			"id": "NIG",
+			"nome": "Nigéria",
+			"abreviatura": "NIG",
+			"continente": "AFR",
+			"reputacao": 62,
+			"nomes": "AFO"
+		},
+		{
+			"id": "CIV",
+			"nome": "Costa do Marfim",
+			"abreviatura": "CIV",
+			"continente": "AFR",
+			"reputacao": 62,
+			"nomes": "AFO"
+		},
+		{
+			"id": "CAM",
+			"nome": "Camarões",
+			"abreviatura": "CAM",
+			"continente": "AFR",
+			"reputacao": 52,
+			"nomes": "AFO"
+		},
+		{
+			"id": "JAP",
+			"nome": "Japão",
+			"abreviatura": "JAP",
+			"continente": "ASI",
+			"reputacao": 72,
+			"nomes": "JAP"
+		},
+		{
+			"id": "COR",
+			"nome": "Coreia do Sul",
+			"abreviatura": "COR",
+			"continente": "ASI",
+			"reputacao": 66,
+			"nomes": "COR"
+		},
+		{
+			"id": "IRA",
+			"nome": "Irão",
+			"abreviatura": "IRA",
+			"continente": "ASI",
+			"reputacao": 62,
+			"nomes": "ARA"
+		},
+		{
+			"id": "ARS",
+			"nome": "Arábia Saudita",
+			"abreviatura": "ARS",
+			"continente": "ASI",
+			"reputacao": 50,
+			"nomes": "ARA"
+		},
+		{
+			"id": "AUS",
+			"nome": "Austrália",
+			"abreviatura": "AUS",
+			"continente": "ASI",
+			"reputacao": 58,
+			"nomes": "ING"
+		}
+	],
+	"nomes": {
+		"NEE": {
+			"nomes": [
+				"Daan",
+				"Sven",
+				"Joris",
+				"Bram",
+				"Thijs",
+				"Ruben",
+				"Jeroen",
+				"Maarten",
+				"Niels",
+				"Stijn",
+				"Pieter",
+				"Wouter",
+				"Lars",
+				"Koen",
+				"Floris",
+				"Gijs"
+			],
+			"apelidos": [
+				"van Dijk",
+				"de Vries",
+				"Bakker",
+				"Visser",
+				"Smit",
+				"Meijer",
+				"Mulder",
+				"de Boer",
+				"Bosman",
+				"Hoekstra",
+				"Dekker",
+				"Brouwer",
+				"Peeters",
+				"Jacobs",
+				"Willems",
+				"Claes"
+			]
+		},
+		"BAL": {
+			"nomes": [
+				"Luka",
+				"Marko",
+				"Ivan",
+				"Nikola",
+				"Stefan",
+				"Dario",
+				"Mateo",
+				"Dejan",
+				"Milan",
+				"Josip",
+				"Bojan",
+				"Andrej",
+				"Tomislav",
+				"Emir",
+				"Vedran",
+				"Zoran"
+			],
+			"apelidos": [
+				"Kovač",
+				"Horvat",
+				"Petrović",
+				"Jovanović",
+				"Babić",
+				"Marić",
+				"Novak",
+				"Kranjčar",
+				"Savić",
+				"Hadžić",
+				"Delić",
+				"Perišić",
+				"Bogdan",
+				"Vukotić",
+				"Mandžić",
+				"Radić"
+			]
+		},
+		"NOR": {
+			"nomes": [
+				"Erik",
+				"Lars",
+				"Anders",
+				"Magnus",
+				"Mikkel",
+				"Henrik",
+				"Oskar",
+				"Sander",
+				"Jonas",
+				"Emil",
+				"Rasmus",
+				"Viktor",
+				"Mathias",
+				"Kasper",
+				"Johan",
+				"Gustav"
+			],
+			"apelidos": [
+				"Andersen",
+				"Hansen",
+				"Johansen",
+				"Larsen",
+				"Nilsson",
+				"Lindberg",
+				"Eriksen",
+				"Haaland",
+				"Berg",
+				"Dahl",
+				"Holm",
+				"Sørensen",
+				"Strand",
+				"Lund",
+				"Jensen",
+				"Karlsson"
+			]
+		},
+		"ESL": {
+			"nomes": [
+				"Piotr",
+				"Jakub",
+				"Marek",
+				"Tomáš",
+				"Andriy",
+				"Oleksandr",
+				"Pavel",
+				"Lukáš",
+				"Mykola",
+				"Dominik",
+				"Kamil",
+				"Jan",
+				"Vladimir",
+				"Roman",
+				"Adam",
+				"Bartosz"
+			],
+			"apelidos": [
+				"Nowak",
+				"Kowalski",
+				"Novotný",
+				"Svoboda",
+				"Shevchenko",
+				"Kovalenko",
+				"Zieliński",
+				"Dvořák",
+				"Wiśniewski",
+				"Horváth",
+				"Bondarenko",
+				"Procházka",
+				"Lewandowski",
+				"Mazur",
+				"Kučera",
+				"Tkachenko"
+			]
+		},
+		"TUR": {
+			"nomes": [
+				"Emre",
+				"Burak",
+				"Mehmet",
+				"Mustafa",
+				"Cenk",
+				"Hakan",
+				"Ozan",
+				"Kerem",
+				"Arda",
+				"Yusuf",
+				"Berkay",
+				"Selim",
+				"Volkan",
+				"Kaan",
+				"Ahmet",
+				"Deniz"
+			],
+			"apelidos": [
+				"Yılmaz",
+				"Demir",
+				"Şahin",
+				"Çelik",
+				"Kaya",
+				"Aydın",
+				"Öztürk",
+				"Arslan",
+				"Doğan",
+				"Kılıç",
+				"Aslan",
+				"Çetin",
+				"Koç",
+				"Polat",
+				"Erdoğan",
+				"Güler"
+			]
+		},
+		"HUN": {
+			"nomes": [
+				"László",
+				"Bence",
+				"Dávid",
+				"Zoltán",
+				"Gábor",
+				"Péter",
+				"Ádám",
+				"Máté",
+				"Balázs",
+				"Attila",
+				"Dominik",
+				"Norbert",
+				"Szabolcs",
+				"Tamás",
+				"Krisztián",
+				"Richárd"
+			],
+			"apelidos": [
+				"Nagy",
+				"Kovács",
+				"Szabó",
+				"Tóth",
+				"Varga",
+				"Kiss",
+				"Molnár",
+				"Németh",
+				"Farkas",
+				"Balogh",
+				"Takács",
+				"Juhász",
+				"Szalai",
+				"Gulácsi",
+				"Szoboszlai",
+				"Orbán"
+			]
+		},
+		"GRE": {
+			"nomes": [
+				"Giorgos",
+				"Nikos",
+				"Dimitris",
+				"Kostas",
+				"Panagiotis",
+				"Christos",
+				"Vasilis",
+				"Yannis",
+				"Thanasis",
+				"Sotiris",
+				"Stelios",
+				"Lazaros",
+				"Manolis",
+				"Alexandros",
+				"Fotis",
+				"Pavlos"
+			],
+			"apelidos": [
+				"Papadopoulos",
+				"Georgiou",
+				"Nikolaidis",
+				"Karagounis",
+				"Mavropanos",
+				"Tzavellas",
+				"Samaras",
+				"Zagorakis",
+				"Katsouranis",
+				"Giannakopoulos",
+				"Vlachos",
+				"Kourbelis",
+				"Sarris",
+				"Ioannidis",
+				"Galanopoulos",
+				"Stafylidis"
+			]
+		},
+		"ROM": {
+			"nomes": [
+				"Andrei",
+				"Mihai",
+				"Cosmin",
+				"Florin",
+				"Răzvan",
+				"Alexandru",
+				"Ionuț",
+				"Bogdan",
+				"Cristian",
+				"Dan",
+				"Gabriel",
+				"Marius",
+				"Vlad",
+				"Adrian",
+				"Ciprian",
+				"Eugen"
+			],
+			"apelidos": [
+				"Popescu",
+				"Ionescu",
+				"Dumitru",
+				"Stan",
+				"Gheorghe",
+				"Rusu",
+				"Munteanu",
+				"Dobre",
+				"Stoica",
+				"Marin",
+				"Tudor",
+				"Constantin",
+				"Radu",
+				"Mocanu",
+				"Pavel",
+				"Lupu"
+			]
+		},
+		"ARA": {
+			"nomes": [
+				"Youssef",
+				"Mohamed",
+				"Karim",
+				"Omar",
+				"Hakim",
+				"Amine",
+				"Walid",
+				"Sofiane",
+				"Ahmed",
+				"Mahmoud",
+				"Riyad",
+				"Yassine",
+				"Nabil",
+				"Salim",
+				"Tarek",
+				"Ali"
+			],
+			"apelidos": [
+				"El Amrani",
+				"Benali",
+				"Mansouri",
+				"Haddad",
+				"Boussaid",
+				"Saidi",
+				"Ziyech",
+				"Trabelsi",
+				"Hamdi",
+				"Belhadj",
+				"Al-Farouk",
+				"Rahmani",
+				"Mahrez",
+				"Khalil",
+				"Nasser",
+				"Darwish"
+			]
+		},
+		"AFO": {
+			"nomes": [
+				"Sadio",
+				"Moussa",
+				"Ibrahima",
+				"Cheikh",
+				"Idrissa",
+				"Kalidou",
+				"Emeka",
+				"Chidi",
+				"Yaya",
+				"Seydou",
+				"Bakary",
+				"Samuel",
+				"Kelechi",
+				"Mamadou",
+				"Franck",
+				"Eric"
+			],
+			"apelidos": [
+				"Diop",
+				"Ndiaye",
+				"Sarr",
+				"Diallo",
+				"Mbaye",
+				"Okafor",
+				"Adeyemi",
+				"Eze",
+				"Traoré",
+				"Kouyaté",
+				"Mbeumo",
+				"Toure",
+				"Fall",
+				"Cissé",
+				"Onana",
+				"Bamba"
+			]
+		},
+		"JAP": {
+			"nomes": [
+				"Takumi",
+				"Haruto",
+				"Kenji",
+				"Daichi",
+				"Ryota",
+				"Shun",
+				"Hiroki",
+				"Yuto",
+				"Kaito",
+				"Sota",
+				"Takeshi",
+				"Masato",
+				"Riku",
+				"Kota",
+				"Naoki",
+				"Taiga"
+			],
+			"apelidos": [
+				"Sato",
+				"Suzuki",
+				"Takahashi",
+				"Tanaka",
+				"Watanabe",
+				"Ito",
+				"Yamamoto",
+				"Nakamura",
+				"Kobayashi",
+				"Kato",
+				"Mori",
+				"Endo",
+				"Kubo",
+				"Minamino",
+				"Tomiyasu",
+				"Doan"
+			]
+		},
+		"COR": {
+			"nomes": [
+				"Min-jae",
+				"Hyun-woo",
+				"Ji-sung",
+				"Sang-ho",
+				"Seung-ho",
+				"Jae-sung",
+				"Dong-hyun",
+				"Woo-yeong",
+				"Tae-hwan",
+				"Joon-ho",
+				"Kang-in",
+				"Chan-ho",
+				"Hee-chan",
+				"Young-gwon",
+				"Ki-hun",
+				"Seok-hyun"
+			],
+			"apelidos": [
+				"Kim",
+				"Lee",
+				"Park",
+				"Choi",
+				"Jung",
+				"Kang",
+				"Cho",
+				"Yoon",
+				"Jang",
+				"Lim",
+				"Han",
+				"Oh",
+				"Seo",
+				"Shin",
+				"Hwang",
+				"Son"
+			]
+		}
+	}
+}

@@ -6,14 +6,20 @@ import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
 import pt.futebolcarreira.nucleo.simulacao.Confronto
 import pt.futebolcarreira.nucleo.simulacao.Eliminatoria
 import pt.futebolcarreira.nucleo.simulacao.EstadoEliminatoria
+import pt.futebolcarreira.nucleo.simulacao.CalendarioSelecoes
+import pt.futebolcarreira.nucleo.simulacao.CompeticaoSelecoes
+import pt.futebolcarreira.nucleo.simulacao.EstadoSelecoes
+import pt.futebolcarreira.nucleo.simulacao.FaseSelecoes
 import pt.futebolcarreira.nucleo.simulacao.JogoEuropa
+import pt.futebolcarreira.nucleo.simulacao.JogoSelecao
+import pt.futebolcarreira.nucleo.simulacao.TipoCompeticaoSelecoes
 import pt.futebolcarreira.nucleo.simulacao.ResumoTaca
 import pt.futebolcarreira.nucleo.simulacao.Resultado
 import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
 
 /**
  * Ligação da fase 7 ao núcleo: converte as taças, supertaças e competições europeias (e os seus vencedores)
- * nos modelos dos ecrãs. As seleções ainda não existem no núcleo: ficam vazias (o ecrã mostra um aviso).
+ * nos modelos dos ecrãs, e as seleções nacionais ([selecoes]; sem catálogo de seleções ficam vazias e o ecrã mostra um aviso).
  *
  * Chave de um jogo ("chave" nos modelos): "competição|data|casa|fora" (ids e data ISO). Só os jogos do clube
  * do utilizador têm relato gravado; [resolverChave] encontra-o, e para os outros devolve null.
@@ -47,10 +53,121 @@ internal object LigacaoFase7 {
             escolhida.tipo == TipoCompeticao.EUROPA -> europa(c, TipoEuropa.values().first { it.id == escolhida.id }, emblema)
             else -> taca(c, g.eliminatorias.getValue(escolhida.id), emblema)
         }
-        return Fase7Ui(opcoes, escolhida?.id ?: "", competicao, SelecoesUi())
+        return Fase7Ui(opcoes, escolhida?.id ?: "", competicao, selecoes(c))
     }
 
     private fun texto(d: java.time.LocalDate) = CalendarioDatas.textoCurto(d)
+
+    // ------------------------------------------------------------------------ seleções
+
+    private val CORES_SELECOES = listOf(
+        0xFFB71C1CL to 0xFFFFFFFFL, 0xFF1B5E20L to 0xFFFFFFFFL, 0xFF0D47A1L to 0xFFFFD600L, 0xFFF9A825L to 0xFF212121L,
+        0xFF4A148CL to 0xFFFFFFFFL, 0xFF006064L to 0xFFFFFFFFL, 0xFFE65100L to 0xFFFFFFFFL, 0xFF263238L to 0xFFFFFFFFL,
+    )
+
+    private fun emblemaSelecao(s: EstadoSelecoes, id: String): EmblemaUi {
+        val (fundo, letras) = CORES_SELECOES[Math.floorMod(id.hashCode(), CORES_SELECOES.size)]
+        return EmblemaUi(s.nacoes[id]?.abreviatura ?: id, fundo, letras)
+    }
+
+    /** As seleções do núcleo nos modelos do ecrã «Seleções» (vazio se o jogo não tem seleções). */
+    fun selecoes(c: Carreira): SelecoesUi {
+        val s = c.gestor.selecoes ?: return SelecoesUi()
+        val interesse = setOfNotNull(c.equipa.pais, c.jogador?.nacionalidade)
+        val torneios = s.competicoes.sortedBy { it.terminada }.map { torneio(c, s, it, interesse) }
+        val ranking = s.ranking().map { LinhaRankingUi(it.posicao, it.nome, it.nome, "${it.pontos}", 0, it.nacao in interesse) }
+        val vencedores = s.vencedores().reversed().map {
+            VencedorUi(it.ano.toString(), it.tipo.nome, s.nome(it.vencedor), it.finalista.takeIf { f -> f.isNotEmpty() }?.let(s::nome) ?: "")
+        }
+        return SelecoesUi(torneios, proximosTorneios(s), ranking, convocatorias(c, s, interesse), meusConvocados(c, s), vencedores)
+    }
+
+    /** Euro e Mundial que ainda não começaram (a competição só existe depois de acabar a qualificação). */
+    private fun proximosTorneios(s: EstadoSelecoes): List<Pair<String, String>> =
+        (s.epoca + 1..s.epoca + 6).mapNotNull { ano ->
+            val tipo = CalendarioSelecoes.torneioDoAno(ano) ?: return@mapNotNull null
+            if (s.competicao("${tipo.name}-$ano") != null) return@mapNotNull null
+            val inicio = CalendarioSelecoes.inicioTorneio(ano - 1)
+            "${tipo.nome} $ano" to "${texto(inicio)} a ${texto(inicio.plusDays(17))} $ano"
+        }.take(2)
+
+    private fun torneio(c: Carreira, s: EstadoSelecoes, comp: CompeticaoSelecoes, interesse: Set<String>): TorneioUi {
+        val fases = comp.fases
+        val faseGrupos = fases.firstOrNull { !it.eliminatoria }
+        val grupos = faseGrupos?.let { f -> f.grupos.map { g -> grupo(s, comp, f, g, interesse) } }.orEmpty()
+        val rondas = fases.filter { it.eliminatoria }.map { f -> RondaUi(f.nome, f.jogos.map { parSelecoes(s, it, interesse) }) }
+        val estado = when {
+            comp.terminada -> "Terminado" + (comp.vencedor?.let { " · Campeão: ${s.nome(it)}" } ?: "")
+            else -> {
+                val proximo = fases.lastOrNull()?.jogos?.filter { !it.jogado }?.minOfOrNull { it.dataLocal() }
+                "Em curso · ${fases.last().nome}" + (proximo?.let { " · próximo jogo: ${texto(it)}" } ?: "")
+            }
+        }
+        return TorneioUi(comp.id, comp.nome, estado, grupos, if (rondas.isEmpty()) null else EliminatoriasUi(rondas, rondas.lastIndex))
+    }
+
+    private fun grupo(s: EstadoSelecoes, comp: CompeticaoSelecoes, fase: FaseSelecoes, g: pt.futebolcarreira.nucleo.simulacao.GrupoSelecoes, interesse: Set<String>): GrupoUi {
+        val passam = when (comp.tipo) {
+            TipoCompeticaoSelecoes.LIGA_NACOES, TipoCompeticaoSelecoes.QUALIFICACAO_MUNDIAL -> 1
+            else -> 2
+        }
+        val tabela = s.tabela(fase, g).mapIndexed { i, l ->
+            LinhaUi(i + 1, l.nacao, s.nome(l.nacao), l.jogos, l.vitorias, l.empates, l.derrotas, l.golosMarcados, l.golosSofridos, l.pontos, if (i < passam) Zona.SUBIDA else Zona.NORMAL, l.nacao in interesse)
+        }
+        val jornadas = fase.jogos.filter { it.grupo == g.nome }.groupBy { it.ronda }.toSortedMap().map { (n, jogos) ->
+            JornadaFaseUi(
+                "Jornada $n", jogos.minOf { it.dataLocal() }.let(::texto),
+                jogos.sortedBy { it.data }.map { j ->
+                    JogoFaseUi(s.nome(j.casa), s.nome(j.fora), if (j.jogado) j.golosCasa else null, if (j.jogado) j.golosFora else null, texto(j.dataLocal()), "", j.casa in interesse || j.fora in interesse)
+                },
+            )
+        }
+        return GrupoUi(g.nome, tabela, jornadas)
+    }
+
+    private fun parSelecoes(s: EstadoSelecoes, j: JogoSelecao, interesse: Set<String>): EliminatoriaParUi {
+        val pernas = if (j.jogado) listOf(PernaUi(j.golosCasa, j.golosFora, texto(j.dataLocal()), "")) else emptyList()
+        val penaltis = j.penaltisCasa >= 0
+        return EliminatoriaParUi(
+            s.nome(j.casa), s.nome(j.fora), emblemaSelecao(s, j.casa), emblemaSelecao(s, j.fora), pernas, 1,
+            dataProxima = if (j.jogado) "" else texto(j.dataLocal()),
+            prolongamento = j.jogado && j.prolongamento,
+            penaltisA = if (penaltis) j.penaltisCasa else null, penaltisB = if (penaltis) j.penaltisFora else null,
+            vencedor = when (j.vencedor()) { null -> 0; j.casa -> 1; else -> 2 },
+            meu = j.casa in interesse || j.fora in interesse,
+        )
+    }
+
+    private val ORDEM_POSICOES = EstadoSelecoes.QUOTAS.keys.toList()
+
+    /**
+     * Convocatórias: as da janela em curso; as seleções sem convocatória feita (fora de janela) mostram a que
+     * fariam agora. Primeiro as do utilizador, depois as das bases de dados e as fictícias mais bem classificadas.
+     */
+    private fun convocatorias(c: Carreira, s: EstadoSelecoes, interesse: Set<String>): List<ConvocatoriaUi> {
+        val janela = s.convocadosDaJanela()
+        val ranking = s.ranking().map { it.nacao }
+        val nacoes = (interesse.toList() + s.nacoes.values.filter { it.baseDados }.map { it.id } + ranking.filter { s.nacoes[it]?.baseDados == false }.take(10))
+            .distinct().filter { it in s.nacoes }
+        return nacoes.map { id ->
+            val nacao = s.nacoes.getValue(id)
+            val jogadores = if (nacao.baseDados) {
+                janela[id]?.mapNotNull { c.bd.jogadores[it] } ?: s.calcularConvocatoria(id)
+            } else s.esquadraoFicticio(id)
+            val convocados = jogadores.sortedWith(compareBy({ ORDEM_POSICOES.indexOf(it.posicao) }, { -it.geral() })).map { j ->
+                val clube = c.bd.equipas[j.equipa]?.nome ?: "Clube estrangeiro"
+                ConvocadoUi(j.posicao, j.nome, clube, j.geral().toInt(), j.equipa == c.info.equipaId && (c.info.jogadorId == null || c.info.jogadorId == j.id), nacao.nome)
+            }
+            ConvocatoriaUi(id, nacao.nome, nacao.nome, "", convocados)
+        }
+    }
+
+    /** Os jogadores do clube (ou o jogador do utilizador) convocados para a janela em curso. */
+    private fun meusConvocados(c: Carreira, s: EstadoSelecoes): List<ConvocadoUi> =
+        s.convocadosDaJanela().flatMap { (nacao, ids) ->
+            ids.mapNotNull { c.bd.jogadores[it] }.filter { it.equipa == c.info.equipaId && (c.info.jogadorId == null || c.info.jogadorId == it.id) }
+                .map { ConvocadoUi(it.posicao, it.nome, c.equipa.nome, it.geral().toInt(), true, s.nome(nacao)) }
+        }
 
     private fun vencedores(c: Carreira, escolher: (pt.futebolcarreira.nucleo.simulacao.ResumoEpoca) -> ResumoTaca?): List<VencedorUi> {
         val nome = { id: String -> c.bd.equipas[id]?.nome ?: id }

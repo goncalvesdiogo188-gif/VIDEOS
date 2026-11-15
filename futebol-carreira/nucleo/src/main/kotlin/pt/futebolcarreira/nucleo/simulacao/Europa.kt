@@ -68,9 +68,13 @@ object CalendarioEuropa {
     /** Datas da época que começa em "ano". Terças (Campeões) e quintas (Liga Europa); nunca ao sábado, exceto a final dos Campeões (primeira semana de junho). */
     fun datas(ano: Int, tipo: TipoEuropa): DatasEuropa {
         val terca = TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY)
+        // Dias de jogos das seleções (quinta, domingo e quarta de cada paragem): a Liga Europa, às quintas, foge-lhes.
+        val dasSelecoes = (0..3).flatMap { listOf(CalendarioSelecoes.quinta(ano, it), CalendarioSelecoes.domingo(ano, it), CalendarioSelecoes.quarta(ano, it)) }.toSet()
         fun dia(mes: Int, d: Int, anoDia: Int): LocalDate {
             val t = LocalDate.of(anoDia, mes, d).with(terca)
-            return if (tipo == TipoEuropa.CAMPEOES) t else t.plusDays(2)
+            var r = if (tipo == TipoEuropa.CAMPEOES) t else t.plusDays(2)
+            while (r in dasSelecoes) r = r.plusWeeks(1)
+            return r
         }
         val seguinte = ano + 1
         val liga = listOf(dia(9, 15, ano), dia(9, 29, ano), dia(10, 20, ano), dia(11, 10, ano), dia(12, 8, ano), dia(1, 21, seguinte))

@@ -86,6 +86,29 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     var europa: EuropaDaEpoca? = null
         internal set
 
+    /**
+     * Seleções nacionais e as suas competições (null se a base de dados não tem selecoes.json).
+     * Jogam por data, em paralelo com os clubes (ver simularAte); o verão (Final Four, Euro, Mundial) joga-se
+     * ao começar a época seguinte (avancarParaEpocaSeguinte).
+     */
+    var selecoes: EstadoSelecoes? = null
+        internal set
+
+    /** Convocatórias novas ainda por avisar (a data é a de 5 dias antes do primeiro jogo da janela). Quem as lê esvazia a lista. */
+    val convocatoriasPendentes = mutableListOf<ConvocatoriaNova>()
+
+    /** Jogos de seleções jogados e ainda não resumidos ao utilizador. Quem os lê esvazia a lista. */
+    val jogosSelecoesPendentes = mutableListOf<JogoJogado>()
+
+    /** Cria o estado das seleções para a época "epoca" (null se a base de dados não tem o catálogo). */
+    internal fun criarSelecoes(epoca: Int, semente: Long): EstadoSelecoes? =
+        bd.catalogoSelecoes()?.let { EstadoSelecoes.criar(bd, it, epoca, semente) }
+
+    private fun registarJogosSelecoes(jogos: List<JogoJogado>) {
+        // Só se guardam se alguém (a carreira) os vai ler; os testes do gestor sozinho não acumulam relatórios.
+        if (clubeDoUtilizador.isNotEmpty()) jogosSelecoesPendentes += jogos
+    }
+
     /** A taça nacional ou a supertaça de um país nesta época (null se não existe). */
     fun tacaDoPais(pais: String, supertaca: Boolean = false): EstadoEliminatoria? =
         eliminatorias.values.firstOrNull { bd.competicoes[it.id]?.let { c -> c.pais == pais && (if (supertaca) c.eSupertaca else c.eTaca) } == true }
@@ -105,7 +128,10 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     val historico = mutableListOf<ResumoEpoca>()
 
     init {
-        if (iniciar) iniciarEpoca()
+        if (iniciar) {
+            selecoes = criarSelecoes(anoInicial, semente ?: Random.Default.nextLong())
+            iniciarEpoca()
+        }
     }
 
     /** Nome da época, por exemplo "2026/27". */
@@ -216,8 +242,18 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Joga tudo o que está marcado até ao dia "dia" (inclusive), dia a dia e por ordem, e põe o jogo nesse dia. */
     fun simularAte(dia: LocalDate) {
         while (true) {
-            val proxima = proximaData() ?: break
+            val clube = proximaData()
+            val selecao = selecoes?.proximaData()
+            val proxima = listOfNotNull(clube, selecao).minOrNull() ?: break
             if (proxima > dia) break
+            // Cinco dias antes de cada janela internacional, as seleções convocam.
+            val s = selecoes
+            if (s != null && selecao != null && !selecao.minusDays(5).isAfter(proxima)) {
+                val convocados = s.convocarProximaJanela()
+                if (convocados.isNotEmpty() && clubeDoUtilizador.isNotEmpty()) convocatoriasPendentes += ConvocatoriaNova(selecao.minusDays(5), convocados)
+            }
+            if (s != null && selecao != null && selecao <= proxima) registarJogosSelecoes(s.jogarAte(selecao))
+            if (clube == null || clube > proxima) continue
             for (e in estado.values) if (e.proximaData?.let { it <= proxima } == true) jogarJornada(e)
             for (t in eliminatorias.values) if (t.proximaData?.let { it <= proxima } == true) jogarEliminatoria(t, proxima)
             europa?.let { eu ->
@@ -367,9 +403,19 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         historico += ResumoEpoca(ano, resumos, tacas, supertacas, europeias)
     }
 
-    /** Aplica subidas/descidas, faz evoluir os jogadores e começa a época seguinte (a 1 de julho). */
+    /**
+     * Aplica subidas/descidas, faz evoluir os jogadores e começa a época seguinte (a 1 de julho).
+     * Antes disso jogam-se as seleções que faltem do verão (Final Four da Liga das Nações, Euro ou Mundial, em junho):
+     * a época dos clubes acaba em maio, por isso o torneio de verão joga-se aqui, e os jogos ficam em
+     * [jogosSelecoesPendentes] para a carreira os resumir.
+     */
     fun avancarParaEpocaSeguinte() {
         if (!epocaTerminada()) return
+        selecoes?.let { s ->
+            val convocados = s.convocarProximaJanela()
+            if (convocados.isNotEmpty() && clubeDoUtilizador.isNotEmpty()) convocatoriasPendentes += ConvocatoriaNova(s.proximaData()?.minusDays(5) ?: data, convocados)
+            registarJogosSelecoes(s.jogarTorneioDeVerao())
+        }
         for ((ligaId, resumo) in historico.last().ligas) {
             val liga = bd.competicoes.getValue(ligaId)
             bd.equipas.getValue(resumo.campeao).let { it.reputacao = minOf(99, it.reputacao + 1) }
@@ -393,6 +439,10 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         EvolucaoPlantel.aplicar(bd, gerador, rng, ano + 1, avisos, clubeDoUtilizador)
         FimDeEpoca.completarPlanteis(bd, gerador, ano + 1)
         ano++
+        selecoes?.passarParaEpoca(ano)
         iniciarEpoca()
     }
 }
+
+/** Convocatórias de uma janela internacional (nação -> ids dos convocados) e o dia em que foram anunciadas. */
+class ConvocatoriaNova(val data: LocalDate, val convocados: Map<String, List<Int>>)

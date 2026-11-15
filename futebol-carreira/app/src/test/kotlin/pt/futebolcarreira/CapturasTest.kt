@@ -242,6 +242,13 @@ class CapturasTest {
         tocar("Mais")
         tocar("Jogos")
         capturar("24-calendario-completo")
+
+        // ---- Seleções com dados reais do núcleo ----
+        tocar("Mais")
+        tocar("Seleções")
+        capturar("25-selecoes-real")
+        tocar("Convocados")
+        capturar("26-convocados-real")
     }
 
     /** Ecrãs da fase 7 (taças, Europa, seleções) com dados de demonstração. */

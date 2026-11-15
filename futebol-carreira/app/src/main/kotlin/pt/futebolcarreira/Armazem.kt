@@ -12,7 +12,7 @@ import java.io.File
  *   <id>.json          estado da época (escrito depois de cada jornada)
  *   <id>.bd.json       base de dados da carreira (escrito no início de cada época)
  */
-class Armazem(pastaDaApp: File) {
+class Armazem(pastaDaApp: File, private val lerPadrao: (String) -> String? = { null }) {
     private val pasta = File(pastaDaApp, "carreiras")
 
     /** Carreiras gravadas, da mais recente para a mais antiga. */
@@ -32,9 +32,12 @@ class Armazem(pastaDaApp: File) {
         escrever("$id.resumo.json", Gravador.resumoParaTexto(Gravador.resumo(carreira)))
     }
 
-    /** Lança uma exceção se os ficheiros não existirem ou estiverem estragados. */
+    /**
+     * Lança uma exceção se os ficheiros não existirem ou estiverem estragados. Gravações de antes das seleções
+     * recebem o catálogo "selecoes.json" da pasta de dados da aplicação ("lerPadrao").
+     */
     fun carregar(id: String): Carreira =
-        Gravador.deTexto(File(pasta, "$id.json").readText(), File(pasta, "$id.bd.json").readText())
+        Gravador.deTexto(File(pasta, "$id.json").readText(), File(pasta, "$id.bd.json").readText(), lerPadrao)
 
     fun apagar(id: String) {
         for (sufixo in listOf(".resumo.json", ".json", ".bd.json")) File(pasta, id + sufixo).delete()

@@ -37,7 +37,7 @@ import pt.futebolcarreira.nucleo.simulacao.TipoEvento
  * recebem uma cópia nova dos dados para mostrar.
  */
 class JogoViewModel(app: Application) : AndroidViewModel(app) {
-    private val armazem = Armazem(app.filesDir)
+    private val armazem = Armazem(app.filesDir) { lerAssetDeDados(app, it) }
 
     /** A carreira aberta (null = estamos nos menus). */
     private var carreira: Carreira? = null
@@ -138,17 +138,19 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         }) { paises = it }
     }
 
+    /** Um ficheiro da pasta assets/dados (null se não existir). */
+    private fun lerAssetDeDados(app: Application, caminho: String): String? =
+        try {
+            app.assets.open("dados/$caminho").bufferedReader().use { it.readText() }
+        } catch (e: java.io.IOException) {
+            null  // ficheiro não existe
+        }
+
     /** Lê a base de dados que vem com a aplicação (pasta assets/dados). */
     private fun lerBaseDados(): BaseDados {
-        val assets = getApplication<Application>().assets
+        val app = getApplication<Application>()
         val bd = BaseDados()
-        bd.carregar { caminho ->
-            try {
-                assets.open("dados/$caminho").bufferedReader().use { it.readText() }
-            } catch (e: java.io.IOException) {
-                null  // ficheiro não existe
-            }
-        }
+        bd.carregar { caminho -> lerAssetDeDados(app, caminho) }
         check(bd.equipas.isNotEmpty()) { "Base de dados vazia. ${bd.erros.take(3).joinToString(" ")}" }
         return bd
     }
@@ -292,7 +294,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         atualizar()
     }
 
-    /** Taças, supertaças e Europa vêm do núcleo ([LigacaoFase7]); as seleções ficam vazias até existirem. */
+    /** Taças, supertaças, Europa e seleções vêm do núcleo ([LigacaoFase7]). */
     private fun criarFase7(c: Carreira): Fase7Ui {
         if (demonstracao) return demoFase7(competicaoId)
         return LigacaoFase7.criar(c, competicaoId, ::emblema)
