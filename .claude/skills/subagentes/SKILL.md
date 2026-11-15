@@ -1,5 +1,5 @@
 ---
-name: subagentes-paralelos
+name: subagentes
 description: Executa um trabalho grande (uma fase do jogo, uma funcionalidade com várias partes) dividindo-o em tarefas e pondo subagentes com o modelo Sonnet a fazê-las todas ao mesmo tempo. Usar quando o utilizador diz "avança", pede uma fase nova, ou pede para usar subagentes; e sempre que um pedido tenha várias partes que possam ser feitas em paralelo.
 ---
 
