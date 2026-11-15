@@ -4,7 +4,7 @@ Escrito para quem nunca programou. O jogo é uma aplicação Android nativa (Kot
 
 ## Parte A — Experimentar no telemóvel (sem instalar ferramentas)
 
-Em cada fase deixo um APK já compilado em `apk/futebol-carreira.apk`.
+Sempre que o código muda, o GitHub compila o jogo sozinho (separador **Actions**, tarefa "Compilar APK") e guarda o APK em `apk/futebol-carreira.apk`.
 
 1. No telemóvel Android, abre o repositório no GitHub (com a tua conta), escolhe o ramo `ccr-c95fc920-6su81c` e vai a `futebol-carreira/apk/futebol-carreira.apk`.
 2. Toca em **Download** (ou "Download raw file").
