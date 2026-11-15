@@ -20,6 +20,19 @@ Este ficheiro é a regra de ouro. Tudo o que a fábrica escreve tem de cumprir i
 | Papel | Começa a explicação, muitas vezes exagera ou engana-se | **Fecha sempre a lição** com uma frase simples e certeira |
 | Voz | Mais grave, segura | Mais aguda, animada |
 
+## O mundo
+Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal com sinais de luz a viajar e um chão de grelha de néon. O mundo tem 4 zonas. Cada vídeo passa-se numa só.
+
+| Zona (`cenario`) | Como é | Serve para temas como |
+|---|---|---|
+| `comando` | Centro de Comando: ecrãs holográficos com medidores FOCO e ENERGIA | procrastinação, foco, produtividade, motivação, rotinas |
+| `memorias` | Arquivo de Memórias: prateleiras de esferas de memória a brilhar | hábitos, lembranças, aprender, esquecer, estudar |
+| `dopamina` | Centro da Recompensa: estrelas a subir e letreiro de néon "RECOMPENSA" | compras por impulso, redes sociais, vícios, recompensas |
+| `sono` | Zona do Sono: luz fraca, lua holográfica, Zzz | sono, cansaço, noite, insónias |
+
+- Os nomes antigos `sala`, `quarto` e `loja` ainda funcionam, mas usa os novos.
+- Escolher a zona que combina com o tema. Em caso de dúvida: `comando`.
+
 ## 3. Estrutura de cada Reel (20–30 s)
 1. **Gancho (0–3 s):** pergunta ou situação que prende. Ex.: "Porque é que compras coisas que não precisas?"
 2. **Explicação do Neurão (2–3 falas):** a "ciência" com ar de génio (dopamina, recompensa, hábito...).
@@ -45,7 +58,7 @@ Este ficheiro é a regra de ouro. Tudo o que a fábrica escreve tem de cumprir i
 {
   "tema": "compras por impulso",
   "titulo": "Porque compras o que não precisas?",
-  "cenario": "loja",
+  "cenario": "dopamina",
   "falas": [
     {"quem": "neurao", "texto": "...", "expressao": "convencido", "pose": "aponta"},
     {"quem": "ze", "texto": "...", "expressao": "alegre", "pose": "normal"}
@@ -58,4 +71,11 @@ Este ficheiro é a regra de ouro. Tudo o que a fábrica escreve tem de cumprir i
 - `quem`: `neurao` ou `ze`. A **última fala é sempre do `ze`**.
 - `expressao`: neutro, convencido, alegre, confuso, surpreendido, triste, pensativo.
 - `pose`: normal, aponta, bracos_ar, mao_queixo, encolhe.
-- `cenario`: sala, quarto, loja.
+- `cenario`: comando, memorias, dopamina, sono.
+
+### Limites obrigatórios (a fábrica verifica)
+- `titulo`: no máximo **60 caracteres**.
+- `carrossel`: **3 a 5 itens**; o `texto` de cada item tem no máximo **120 caracteres**.
+- `hashtags`: **exatamente 5**, em minúsculas, sem acentos e sem espaços (ex.: `#procrastinacao`).
+- Cada `fala` termina com `.` `!` `?` ou `…`.
+- Vídeo entre **15 e 30 s**. Apontar a **20–28 s**, cerca de **55 a 75 palavras** no total.

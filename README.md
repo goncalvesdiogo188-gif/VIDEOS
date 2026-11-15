@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 1 concluída** (base). O comando `fabrica novo "tema"` chega na Fase 2.
+> Estado: **Fase 2 em curso**. O mundo é agora o interior de um cérebro futurista. O comando `fabrica` está a ser construído.
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -19,21 +19,51 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | Ficheiro | O que faz |
 |---|---|
 | `personagens.py` | Desenha o Neurão e o Zé em SVG: 7 expressões, 5 poses, boca que fala, piscar de olhos. |
-| `cenarios.py` | Fundos: `sala`, `quarto`, `loja`. |
+| `cenarios.py` | O mundo: interior de um cérebro futurista (rede neuronal com sinais e chão de néon). 4 zonas: `comando` (Centro de Comando), `memorias` (Arquivo de Memórias), `dopamina` (Centro da Recompensa), `sono` (Zona do Sono). Os nomes antigos `sala`, `quarto`, `loja` ainda funcionam. |
 | `guiao.py` | Lê um guião JSON. |
 | `video.py` | Guião → Reel 1080x1920 com legendas palavra-a-palavra, boca animada e som provisório. |
 | `carrossel.py` | Guião → carrossel de imagens 1080x1350. |
 | `render.py` | Converte os desenhos SVG em imagens. |
 | `verificar.py` | Diz-te o que falta instalar. |
+| `guionista.py` | Escreve guiões com o Claude Code em modo não interativo (`claude -p`). |
+| `validar.py` | Verifica as regras (tempo, palavras por fala, texto). |
+| `pacote.py` | Junta tudo na pasta final. |
+| `__main__.py` | O comando `fabrica`. |
+| `fabrica.bat` / `fabrica` (na raiz) | Atalhos para correr o comando no Windows / noutros sistemas. |
+| `tests/` | Testes automáticos. |
 
 ## Instalação (Windows) — só uma vez
 1. **Python**: instala de <https://www.python.org/downloads/> e **marca a caixa "Add Python to PATH"**.
 2. **ffmpeg**: abre o *PowerShell* e escreve `winget install Gyan.FFmpeg`. Fecha e volta a abrir o PowerShell.
 3. **Bibliotecas**: dentro da pasta do projeto, escreve `python -m pip install -r requirements.txt`.
-4. **Claude Code** (para a Fase 2, escrever guiões sozinho): segue <https://code.claude.com/docs> e faz login com a tua conta Claude.
+4. **Claude Code** (necessário para escrever os guiões automaticamente): segue <https://code.claude.com/docs>. Depois de instalar, abre `claude` uma vez e faz login com a tua conta Claude. A fábrica chama-o com `claude -p`.
 5. Confirma: `python -m fabrica.verificar` — tudo deve aparecer `[OK]`.
 
-## Como usar (por agora)
+## Comandos
+| Comando | O que faz |
+|---|---|
+| `fabrica novo "tema"` | O Claude escreve o guião, a fábrica valida (máx. 30 s, máx. 12 palavras por fala, texto revisto) e corrige sozinha até 3 vezes. Cria a pasta `out/AAAA-MM-DD_tema/`. |
+| `fabrica novo --guiao guioes/ficheiro.json` | Usa um guião já escrito por ti. |
+| `fabrica semana` | Escolhe 7 temas diferentes (evita os já feitos, guardados em `out/historico.json`) e gera os 7 pacotes. |
+| `fabrica verificar` | Diz o que falta instalar. |
+
+Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
+- `video.mp4` e `capa.png`
+- `carrossel/` (as imagens)
+- `legenda.txt` (legenda + 5 hashtags, pronta a copiar)
+- `guiao.json` e `info.txt`
+
+### Como correr no Windows
+1. Abre a pasta do projeto no Explorador de Ficheiros.
+2. Clica na barra de endereço, escreve `powershell` e carrega Enter.
+3. No PowerShell escreve: `.\fabrica novo "procrastinação"` (o PowerShell exige o `.\`).
+4. No Prompt de Comandos clássico (cmd) funciona sem o `.\`: `fabrica novo "procrastinação"`.
+
+### Quanto tempo demora
+- Cada pacote demora alguns minutos: escrever o guião com o Claude ~1 min, vídeo ~1–2 min (depende do computador).
+- Uma semana inteira: ~15–25 min.
+
+## Como usar (modo manual, por agora)
 Na pasta do projeto:
 ```
 python -m fabrica.video guioes/exemplo_compras_impulso.json
