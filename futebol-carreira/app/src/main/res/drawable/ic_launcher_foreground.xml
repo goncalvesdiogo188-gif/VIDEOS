@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícone provisório: uma bola de futebol simples. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,54m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0" />
+    <path
+        android:fillColor="#212121"
+        android:pathData="M54,44l9.5,6.9l-3.6,11.2h-11.8l-3.6,-11.2z" />
+    <path
+        android:fillColor="#212121"
+        android:pathData="M54,30l7,4l-7,5l-7,-5zM77,49l1,8l-7,-3l-2,-8zM31,49l8,-3l-2,8l-7,3zM66,75l-8,2l1,-8l8,-4zM42,75l-1,-10l8,4l1,8z" />
+</vector>

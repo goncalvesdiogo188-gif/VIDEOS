@@ -1,8 +1,12 @@
-# Pasta de cache do Godot (é recriada automaticamente)
-.godot/
-# Ficheiros de exportação e chaves (nunca partilhar chaves!)
-*.apk
-*.aab
-*.keystore
+# Pastas criadas automaticamente ao compilar
+build/
+.gradle/
+.kotlin/
+# Definições locais do Android Studio (cada computador tem as suas)
+local.properties
+.idea/
+*.iml
+# Chaves privadas (a chave de TESTE em chaves/ é a única exceção)
 *.jks
-export_credentials.cfg
+*.keystore
+!chaves/teste.keystore

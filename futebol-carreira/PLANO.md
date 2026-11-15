@@ -1,10 +1,13 @@
 # PLANO — Futebol Carreira
 
-Jogo de futebol para Android com modo carreira (jogador e treinador), feito em Godot 4 (GDScript).
+Jogo de futebol para Android com modo carreira (jogador e treinador).
+
+**Tecnologia:** Android nativo — Kotlin, Jetpack Compose (ecrãs) e Android Studio.
+(O projeto começou em Godot 4; a pedido do utilizador passou para Android nativo e a Fase 1 foi reescrita.)
 
 **Regras do projeto**
 - Nomes fictícios por defeito; toda a base de dados está em JSON editável (pasta `dados/`).
-- Código separado em: dados, simulação, interface e partida 3D.
+- Código separado em: dados e simulação (módulo `nucleo`, Kotlin puro), interface (módulo `app`) e, mais tarde, partida 3D.
 - Uma fase pequena de cada vez. Só se avança depois de o utilizador testar e confirmar.
 - Comentários em português; este ficheiro é atualizado no fim de cada fase.
 
@@ -16,7 +19,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 
 | Fase | Tema | Estado |
 |---|---|---|
-| 0 | Ferramentas e projeto | ✅ |
+| 0 | Ferramentas e projeto (Android nativo) | ✅ |
 | 1 | Base de dados e competições (ligas) | ✅ à espera de confirmação |
 | 2 | Simulação detalhada de jogos (sem 3D) | ⬜ |
 | 3 | Menus, navegação e gravação | ⬜ |
@@ -33,20 +36,21 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 ---
 
 ## Fase 0 — Ferramentas e projeto ✅
-- [x] Projeto Godot 4 criado (`project.godot`), orientação horizontal, renderizador "Compatibilidade" (o mais leve para telemóveis médios).
-- [x] Guia de instalação e de exportação para Android: `GUIA_INSTALACAO.md`.
+- [x] Projeto Android (Kotlin + Jetpack Compose) com dois módulos: `nucleo` e `app`.
+- [x] APK de teste pronto a instalar em `apk/futebol-carreira.apk` (não é preciso instalar ferramentas para experimentar).
+- [x] Guia de instalação: `GUIA_INSTALACAO.md`.
 
 ## Fase 1 — Base de dados e competições ✅ (à espera de confirmação)
 - [x] Estrutura de pastas (dados / scripts / cenas / ferramentas / testes).
 - [x] Base de dados em JSON: 6 países, 12 ligas (2 divisões por país), 228 equipas, 5472 jogadores com atributos, posição, idade, pé, potencial.
-- [x] Ferramenta que gera a base de dados fictícia (`ferramentas/gerar_base_dados.gd`).
-- [x] Carregador de JSON com mensagens de erro claras (`scripts/dados/base_dados.gd`).
+- [x] Ferramenta que gera a base de dados fictícia (`./gradlew :nucleo:gerarBaseDados`).
+- [x] Carregador de JSON com mensagens de erro claras (`BaseDados.kt`).
 - [x] Gerador de calendários (todos contra todos, casa e fora).
 - [x] Tabela classificativa (pontos, diferença de golos, golos marcados).
 - [x] Simulação rápida de resultados com base na força do melhor onze.
 - [x] Fim de época: campeão, subidas e descidas, evolução simples dos jogadores (provisória).
-- [x] Cena de teste: tabela, resultados, plantéis e histórico de campeões.
-- [x] Testes automáticos (`testes/testar_fase1.gd`).
+- [x] Ecrã de teste: tabela, resultados, plantéis e histórico de campeões.
+- [x] Testes automáticos (`./gradlew :nucleo:test`).
 
 ## Fase 2 — Simulação detalhada de jogos (sem 3D)
 - [ ] Motor de jogo minuto a minuto: posse, ocasiões, golos com marcador e assistência.
@@ -60,7 +64,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 - [ ] Menu principal, novo jogo (escolher via jogador/treinador, país, clube).
 - [ ] Ecrã central da carreira (próximo jogo, tabela, notícias).
 - [ ] Calendário com datas reais (dias, semanas, janelas de mercado).
-- [ ] Gravar e carregar carreira (ficheiro em `user://`).
+- [ ] Gravar e carregar carreira (ficheiro na memória da aplicação).
 - [ ] Tema visual próprio para ecrã tátil.
 
 ## Fase 4 — Gestão do clube (modo treinador)
@@ -98,6 +102,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 - [ ] Validação dos ficheiros importados.
 
 ## Fase 11 — Partida 3D
+- [ ] Escolher a biblioteca 3D (OpenGL ES através de Filament/SceneView, ou motor próprio simples) com um protótipo.
 - [ ] Campo, jogadores low-poly e câmara de transmissão.
 - [ ] Controlos táteis (joystick + passe/remate/sprint) e IA da restante equipa.
 - [ ] Ligação ao motor de simulação (resultado, estatísticas, lesões).
@@ -105,7 +110,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 
 ## Fase 12 — Otimização e exportação Android
 - [ ] Desempenho em telemóveis médios (30/60 fps), tamanho do APK.
-- [ ] Ícone, ecrã de arranque, APK/AAB assinado.
+- [ ] Ícone, ecrã de arranque, chave privada e AAB assinado para a Play Store.
 
 ---
 
@@ -113,22 +118,27 @@ Jogo de futebol para Android com modo carreira (jogador e treinador), feito em G
 
 ```
 futebol-carreira/
-├── project.godot            configuração do projeto
 ├── PLANO.md                 este ficheiro
-├── GUIA_INSTALACAO.md       instalar, abrir, testar, exportar
-├── dados/                   BASE DE DADOS (JSON editável)
-│   ├── paises.json
-│   ├── competicoes.json
-│   ├── nomes.json           nomes para gerar jogadores novos
-│   ├── equipas/POR.json…    clubes por país
-│   └── jogadores/POR.json…  jogadores por país (um por linha)
-├── scripts/
-│   ├── jogo.gd              ponto central (autoload "Jogo")
-│   ├── modelos/             Jogador, Equipa, Competicao
-│   ├── dados/               ler/gravar JSON, gerador de jogadores
-│   ├── simulacao/           calendário, tabela, jogo, épocas
-│   └── interface/           ecrãs
-├── cenas/                   cenas do Godot (.tscn)
-├── ferramentas/             utilitários (gerar base de dados)
-└── testes/                  testes automáticos
+├── GUIA_INSTALACAO.md       instalar, abrir, testar
+├── apk/futebol-carreira.apk APK de teste, pronto a instalar no telemóvel
+├── chaves/teste.keystore    chave de TESTE (não serve para a Play Store)
+├── settings.gradle.kts …    configuração da compilação (Gradle)
+├── nucleo/                  DADOS E SIMULAÇÃO (Kotlin puro, sem Android)
+│   └── src/main/kotlin/pt/futebolcarreira/nucleo/
+│       ├── modelos/         Jogador, Equipa, Competicao
+│       ├── dados/           ler/gravar JSON, gerador de jogadores
+│       ├── simulacao/       calendário, tabela, jogo, épocas
+│       └── ferramentas/     gerar a base de dados fictícia
+│   └── src/test/            testes automáticos
+└── app/                     APLICAÇÃO ANDROID
+    └── src/main/
+        ├── assets/dados/    BASE DE DADOS (JSON editável)
+        │   ├── paises.json, competicoes.json, nomes.json
+        │   ├── equipas/POR.json…    clubes por país
+        │   └── jogadores/POR.json…  jogadores por país (um por linha)
+        ├── kotlin/pt/futebolcarreira/
+        │   ├── MainActivity.kt      arranque da aplicação
+        │   ├── JogoViewModel.kt     liga os ecrãs ao núcleo
+        │   └── ecras/               ecrãs (Jetpack Compose)
+        └── res/                     ícone e textos
 ```

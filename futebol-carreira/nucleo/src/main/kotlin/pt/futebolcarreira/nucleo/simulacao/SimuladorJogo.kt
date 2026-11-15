@@ -1,0 +1,31 @@
+package pt.futebolcarreira.nucleo.simulacao
+
+import pt.futebolcarreira.nucleo.modelos.Equipa
+import kotlin.math.exp
+import kotlin.random.Random
+
+/** Resultado final de um jogo. */
+data class Resultado(val casa: String, val fora: String, val golosCasa: Int, val golosFora: Int)
+
+/**
+ * Simulação rápida de um jogo (só o resultado).
+ * Na Fase 2 passa a haver simulação detalhada: marcadores, cartões, lesões, etc.
+ */
+object SimuladorJogo {
+    /** Média de golos da equipa da casa entre equipas iguais. */
+    const val GOLOS_BASE_CASA = 1.50
+    /** Média de golos da equipa visitante. */
+    const val GOLOS_BASE_FORA = 1.15
+    /** Quanto maior, menos pesa a diferença de qualidade. */
+    const val ESCALA = 20.0
+    const val MAX_GOLOS = 9
+
+    fun simular(casa: Equipa, fora: Equipa, rng: Random): Resultado {
+        val fc = casa.forca()
+        val ff = fora.forca()
+        // Golos esperados: o ataque de uma equipa contra a defesa da outra.
+        val esperadosCasa = GOLOS_BASE_CASA * exp((fc.ataque - ff.defesa) / ESCALA)
+        val esperadosFora = GOLOS_BASE_FORA * exp((ff.ataque - fc.defesa) / ESCALA)
+        return Resultado(casa.id, fora.id, rng.poisson(esperadosCasa, MAX_GOLOS), rng.poisson(esperadosFora, MAX_GOLOS))
+    }
+}

@@ -1,0 +1,151 @@
+package pt.futebolcarreira.nucleo.dados
+
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.json.Json
+import pt.futebolcarreira.nucleo.modelos.Competicao
+import pt.futebolcarreira.nucleo.modelos.Equipa
+import pt.futebolcarreira.nucleo.modelos.Jogador
+import pt.futebolcarreira.nucleo.modelos.ListaNomes
+import pt.futebolcarreira.nucleo.modelos.Pais
+
+/**
+ * Carrega e guarda toda a base de dados do jogo a partir de ficheiros JSON.
+ *
+ * Ficheiros (dentro da pasta "dados"):
+ *   paises.json            lista de países
+ *   competicoes.json       ligas
+ *   nomes.json             nomes próprios e apelidos por país (para gerar jogadores)
+ *   equipas/<PAIS>.json    clubes de cada país
+ *   jogadores/<PAIS>.json  jogadores dos clubes de cada país
+ */
+class BaseDados {
+    val paises = LinkedHashMap<String, Pais>()
+    val competicoes = LinkedHashMap<String, Competicao>()
+    val equipas = LinkedHashMap<String, Equipa>()
+    val jogadores = HashMap<Int, Jogador>()
+    var nomes: Map<String, ListaNomes> = emptyMap()
+
+    /** Problemas encontrados ao carregar (ficheiros em falta, erros de JSON...). */
+    val erros = mutableListOf<String>()
+
+    private var proximoId = 1
+
+    /**
+     * Lê todos os ficheiros. "ler" recebe um caminho (ex.: "equipas/POR.json") e devolve
+     * o texto do ficheiro, ou null se não existir. Assim o mesmo código serve para o
+     * telemóvel (pasta assets) e para os testes no computador.
+     * Devolve true se correu tudo bem.
+     */
+    fun carregar(ler: (String) -> String?): Boolean {
+        paises.clear(); competicoes.clear(); equipas.clear(); jogadores.clear(); erros.clear()
+        proximoId = 1
+
+        lerJson("paises.json", ler, ListSerializer(Pais.serializer()))?.forEach { paises[it.id] = it }
+        lerJson("competicoes.json", ler, ListSerializer(Competicao.serializer()))?.forEach { competicoes[it.id] = it }
+        nomes = lerJson("nomes.json", ler, MapSerializer(String.serializer(), ListaNomes.serializer())) ?: emptyMap()
+
+        for (pais in paises.keys) {
+            for (e in lerJson("equipas/$pais.json", ler, ListSerializer(Equipa.serializer())).orEmpty()) {
+                if (e.pais.isEmpty()) e.pais = pais
+                if (e.abreviatura.isEmpty()) e.abreviatura = e.nome.take(3).uppercase()
+                if (e.id in equipas) {
+                    erros += "Equipa repetida: ${e.id}"
+                    continue
+                }
+                if (e.liga !in competicoes) erros += "A equipa ${e.id} está numa liga que não existe: '${e.liga}'"
+                equipas[e.id] = e
+            }
+        }
+        for (pais in paises.keys) {
+            for (j in lerJson("jogadores/$pais.json", ler, ListSerializer(Jogador.serializer()), obrigatorio = false).orEmpty()) {
+                j.normalizar()
+                if (j.id <= 0 || j.id in jogadores) j.id = 0  // id em falta ou repetido: recebe um novo
+                adicionarJogador(j)
+            }
+        }
+        return erros.isEmpty()
+    }
+
+    /** Regista um jogador e coloca-o no plantel da sua equipa. */
+    fun adicionarJogador(j: Jogador) {
+        if (j.id <= 0) j.id = proximoId
+        proximoId = maxOf(proximoId, j.id + 1)
+        jogadores[j.id] = j
+        val equipa = equipas[j.equipa]
+        if (equipa != null) {
+            equipa.plantel += j
+            equipa.invalidarForca()
+        } else if (j.equipa.isNotEmpty()) {
+            erros += "O jogador ${j.nome} (${j.id}) está numa equipa que não existe: '${j.equipa}'"
+            j.equipa = ""
+        }
+    }
+
+    /** Remove um jogador do jogo (por exemplo, quando se reforma). */
+    fun removerJogador(j: Jogador) {
+        jogadores.remove(j.id)
+        equipas[j.equipa]?.let {
+            it.plantel.remove(j)
+            it.invalidarForca()
+        }
+    }
+
+    /** Equipas que jogam numa liga. */
+    fun equipasDaLiga(ligaId: String): List<Equipa> = equipas.values.filter { it.liga == ligaId }
+
+    /** Ligas de um país, ordenadas por nível (1.ª divisão primeiro). */
+    fun ligasDoPais(pais: String): List<Competicao> =
+        competicoes.values.filter { it.pais == pais && it.tipo == "liga" }.sortedBy { it.nivel }
+
+    /**
+     * Converte equipas e jogadores em texto JSON, por ficheiro (caminho -> conteúdo).
+     * Usado pelo gerador e, mais tarde, pelo editor.
+     */
+    fun paraJson(): Map<String, String> {
+        val ficheiros = LinkedHashMap<String, String>()
+        for (pais in paises.keys) {
+            val doPais = equipas.values.filter { it.pais == pais }
+            ficheiros["equipas/$pais.json"] = JSON_BONITO.encodeToString(ListSerializer(Equipa.serializer()), doPais) + "\n"
+            // Um jogador por linha: fica fácil de ler e de editar.
+            ficheiros["jogadores/$pais.json"] = doPais.flatMap { it.plantel }
+                .joinToString(",\n", "[\n", "\n]\n") { "\t" + JSON.encodeToString(Jogador.serializer(), it) }
+        }
+        return ficheiros
+    }
+
+    private fun <T> lerJson(
+        caminho: String,
+        ler: (String) -> String?,
+        formato: kotlinx.serialization.KSerializer<T>,
+        obrigatorio: Boolean = true,
+    ): T? {
+        val texto = ler(caminho)
+        if (texto == null) {
+            if (obrigatorio) erros += "Ficheiro em falta: $caminho"
+            return null
+        }
+        return try {
+            JSON.decodeFromString(formato, texto)
+        } catch (e: Exception) {
+            erros += "Erro de JSON em $caminho: ${e.message?.lineSequence()?.firstOrNull()}"
+            null
+        }
+    }
+
+    companion object {
+        /** Leitor de JSON tolerante: ignora campos desconhecidos e aceita campos em falta. */
+        val JSON = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+            encodeDefaults = true
+            coerceInputValues = true
+        }
+        @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
+        val JSON_BONITO = Json(JSON) {
+            prettyPrint = true
+            prettyPrintIndent = "\t"
+        }
+    }
+}
