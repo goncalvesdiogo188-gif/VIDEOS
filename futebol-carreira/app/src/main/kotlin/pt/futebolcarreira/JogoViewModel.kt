@@ -70,6 +70,16 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var ui by mutableStateOf<CarreiraUi?>(null)
         private set
 
+    /** Taças, competições europeias e seleções (vazio até o núcleo as fornecer). */
+    var fase7 by mutableStateOf(Fase7Ui())
+        private set
+
+    /** Competição escolhida no separador «Liga» ("" = uma liga). */
+    private var competicaoId = ""
+
+    /** Só para as capturas de ecrã: mostra dados de demonstração da fase 7. */
+    private var demonstracao = false
+
     /** Plantel de outro clube aberto numa janela (null = nenhum). */
     var plantel by mutableStateOf<PlantelUi?>(null)
         private set
@@ -176,6 +186,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         filtroPosicao = null
         filtroMercado = FiltroMercado.TODOS
         ui = novo
+        competicaoId = ""
+        fase7 = criarFase7(c)
         ecra = Ecra.CARREIRA
     }
 
@@ -233,6 +245,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         }) { (novo, jogoParaAbrir) ->
             porGravar = false
             ui = novo
+            fase7 = criarFase7(c)
             if (jogoParaAbrir != null) jogo = jogoParaAbrir
             depois()
         }
@@ -242,13 +255,48 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     private fun atualizar() {
         val c = carreira ?: return
         ui = criarUi(c, ligaId)
+        fase7 = criarFase7(c)
+        if (demonstracao) ui = ui?.let { demoCarreira(it) }
     }
 
     fun escolherLiga(id: String) {
         if (ocupado) return
         ligaId = id
+        competicaoId = ""
         jornadaEscolhida = null
         atualizar()
+    }
+
+    /** Escolhe uma taça, supertaça ou competição europeia no separador «Liga». */
+    fun escolherCompeticao(id: String) {
+        if (ocupado) return
+        competicaoId = id
+        atualizar()
+    }
+
+    /** Abre o relato de um jogo identificado por uma chave opaca dada pelo núcleo. */
+    fun abrirJogoPorChave(chave: String) {
+        // Ligação ao núcleo: preencher na integração (resolver a chave para um JogoUi).
+        aviso = "Relato indisponível"
+    }
+
+    /** Só para capturas de ecrã: enche a fase 7 com dados inventados. */
+    internal fun mostrarDemonstracaoFase7() {
+        demonstracao = true
+        competicaoId = "taca-pt"
+        atualizar()
+    }
+
+    /*
+     * Ligação ao núcleo: preencher na integração.
+     * Devolve as competições (taças, supertaças, Europa), a escolhida em "competicaoId"
+     * (quadro de eliminatórias, fase de liga, vencedores) e as seleções.
+     * Também falta preencher "competicao"/"ronda" em ProximoJogoUi e JogoCalendarioUi
+     * (em criarUi e jogoCalendario) e "chave" nos jogos fora da liga.
+     */
+    private fun criarFase7(c: Carreira): Fase7Ui {
+        if (demonstracao) return demoFase7(competicaoId)
+        return Fase7Ui()
     }
 
     /** Anda para a jornada anterior (-1) ou seguinte (+1) nos resultados. */

@@ -37,7 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.futebolcarreira.Fase7Ui
 import pt.futebolcarreira.LigaUi
+import pt.futebolcarreira.TipoCompeticao
 import pt.futebolcarreira.LinhaJogadorUi
 import pt.futebolcarreira.LinhaUi
 import pt.futebolcarreira.Zona
@@ -53,14 +55,17 @@ private val SEPARADORES = listOf("Tabela", "Jogos", "Jogadores", "Histórico")
 internal fun SeparadorLiga(
     liga: LigaUi, aoEscolherLiga: (String) -> Unit, aoMudarJornada: (Int) -> Unit,
     aoAbrirJogo: (Int) -> Unit, aoAbrirPlantel: (String) -> Unit,
+    fase7: Fase7Ui = Fase7Ui(), aoEscolherCompeticao: (String) -> Unit = {}, aoAbrirChave: (String) -> Unit = {},
 ) {
+    val competicoes = fase7.competicoes.filter { it.tipo != TipoCompeticao.SELECOES }
+    val competicaoAtual = competicoes.firstOrNull { it.id == fase7.competicaoId }
     var separador by rememberSaveable { mutableIntStateOf(0) }
     var menuAberto by remember { mutableStateOf(false) }
 
     Column(Modifier.fillMaxSize()) {
         Box(Modifier.padding(horizontal = 4.dp)) {
             TextButton(onClick = { menuAberto = true }) {
-                Text((liga.ligas.firstOrNull { it.id == liga.ligaId }?.texto ?: "Escolher liga") + "  ▾", fontSize = 16.sp)
+                Text((competicaoAtual?.nome ?: liga.ligas.firstOrNull { it.id == liga.ligaId }?.texto ?: "Escolher liga") + "  ▾", fontSize = 16.sp)
             }
             DropdownMenu(expanded = menuAberto, onDismissRequest = { menuAberto = false }) {
                 for (opcao in liga.ligas) {
@@ -69,7 +74,17 @@ internal fun SeparadorLiga(
                         aoEscolherLiga(opcao.id)
                     })
                 }
+                for (c in competicoes) {
+                    DropdownMenuItem(text = { Text(c.nome + if (c.pais.isEmpty()) "" else " (${c.pais})") }, onClick = {
+                        menuAberto = false
+                        if (c.tipo == TipoCompeticao.LIGA) aoEscolherLiga(c.id) else aoEscolherCompeticao(c.id)
+                    })
+                }
             }
+        }
+        if (competicaoAtual != null) {
+            SeparadorCompeticao(competicaoAtual, fase7.competicao, aoAbrirChave)
+            return@Column
         }
         TabRow(selectedTabIndex = separador) {
             SEPARADORES.forEachIndexed { i, nome ->

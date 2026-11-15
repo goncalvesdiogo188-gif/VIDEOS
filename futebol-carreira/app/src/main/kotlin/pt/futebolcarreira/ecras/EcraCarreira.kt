@@ -84,7 +84,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                     jogo::abrirEscolha, jogo::onzeAutomatico, jogo::abrirJogador,
                 )
                 2 -> SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
-                3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
+                3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel, jogo.fase7, jogo::escolherCompeticao, jogo::abrirJogoPorChave)
                 else -> Mais(ui, !jogo.ocupado, jogo)
             }
         }
@@ -170,7 +170,10 @@ private fun Inicio(
                         BotaoGrande("Avançar", ativo = ativo, aoTocar = aoJogar)
                     }
                     else -> {
-                        Rotulo("Próximo jogo · Jornada ${proximo.jornada} de ${proximo.totalJornadas}")
+                        Rotulo(
+                            "Próximo jogo · " + if (proximo.competicao.isEmpty()) "Jornada ${proximo.jornada} de ${proximo.totalJornadas}"
+                            else listOf(proximo.competicao, proximo.ronda).filter { it.isNotEmpty() }.joinToString(" · "),
+                        )
                         Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
                             // A equipa da casa aparece sempre à esquerda.
                             val eu: @Composable () -> Unit = { EquipaGrande(ui.clube, ui.emblema) }
@@ -310,7 +313,7 @@ private fun LinhaMiniTabela(l: LinhaUi) {
 // -------------------------------------------------------------- calendário
 
 @Composable
-private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit) {
+private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit, aoAbrirChave: (String) -> Unit) {
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
         item {
             Text(
@@ -318,20 +321,31 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
                 Modifier.padding(vertical = 10.dp), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        items(jogos, key = { it.jornada }) { j ->
-            val toque = if (j.temRelato) Modifier.clickable { aoAbrirJogo(j.jornada) } else Modifier
+        items(jogos) { j ->
+            val foraDaLiga = j.competicao.isNotEmpty()
+            val toque = when {
+                !j.temRelato -> Modifier
+                foraDaLiga && j.chave.isNotEmpty() -> Modifier.clickable { aoAbrirChave(j.chave) }
+                else -> Modifier.clickable { aoAbrirJogo(j.jornada) }
+            }
             Row(
                 Modifier.fillMaxWidth().then(toque).padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Column(Modifier.width(54.dp)) {
-                    Text("J${j.jornada}", fontWeight = FontWeight.Bold, fontSize = 13.sp)
-                    Text(j.data, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                    if (foraDaLiga) {
+                        Text(j.data, fontWeight = FontWeight.Bold, fontSize = 12.sp, maxLines = 1)
+                    } else {
+                        Text("J${j.jornada}", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                        Text(j.data, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                    }
                 }
                 Emblema(j.emblema, 32.dp)
                 Column(Modifier.weight(1f)) {
                     Text(j.adversario, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text(if (j.emCasa) "Casa" else "Fora", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    val local = if (j.emCasa) "Casa" else "Fora"
+                    val etiqueta = if (foraDaLiga) listOf(local, j.competicao, j.ronda).filter { it.isNotEmpty() }.joinToString(" · ") else local
+                    Text(etiqueta, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                 }
                 if (j.desfecho.isNotEmpty()) {
                     Text(j.resultado, fontWeight = FontWeight.Bold, fontSize = 16.sp)
@@ -349,15 +363,22 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
 private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     var separador by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
+        // Cinco separadores: com letra de 13sp cabem todos em 411dp.
         TabRow(selectedTabIndex = separador) {
-            listOf("Clube", "Finanças", "Jogos", "Opções").forEachIndexed { i, nome ->
-                Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome, maxLines = 1) })
+            listOf("Clube", "Finanças", "Jogos", "Seleções", "Opções").forEachIndexed { i, nome ->
+                // Sem a margem normal do separador, para os cinco nomes caberem sem cortes.
+                Tab(selected = separador == i, onClick = { separador = i }) {
+                    Box(Modifier.heightIn(min = 48.dp).padding(horizontal = 2.dp), contentAlignment = Alignment.Center) {
+                        Text(nome, maxLines = 1, fontSize = 14.sp, color = if (separador == i) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
             }
         }
         when (separador) {
             0 -> SeparadorClube(ui.gestao, ativo, jogo)
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
-            2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube)
+            2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
+            3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
             else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu)
         }
     }

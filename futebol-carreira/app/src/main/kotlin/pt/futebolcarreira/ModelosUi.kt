@@ -133,11 +133,18 @@ class JogoCalendarioUi(
     /** "V", "E", "D" ou "" (por jogar). */
     val desfecho: String,
     val temRelato: Boolean,
+    /** Competição ("" = a liga do clube) e ronda ("Quartos de final"); nos jogos fora da liga, "chave" abre o relato. */
+    val competicao: String = "",
+    val ronda: String = "",
+    val chave: String = "",
 )
 
 class ProximoJogoUi(
     val jornada: Int, val totalJornadas: Int, val data: String, val emCasa: Boolean,
     val adversario: String, val emblemaAdversario: EmblemaUi, val detalhes: String,
+    /** Competição ("" = a liga do clube) e ronda ("Quartos de final", "Jornada 4"...). */
+    val competicao: String = "",
+    val ronda: String = "",
 )
 
 class MensagemUi(val data: String, val titulo: String, val texto: String)
@@ -208,7 +215,7 @@ class GestaoClubeUi(
 )
 
 /** Tudo o que os ecrãs da carreira mostram. */
-class CarreiraUi(
+data class CarreiraUi(
     val clube: String,
     val emblema: EmblemaUi,
     val epoca: String,
@@ -239,4 +246,115 @@ class CarreiraUi(
     val plantel: PlantelUi,
     val liga: LigaUi,
     val gestao: GestaoClubeUi?,
+)
+
+// ------------------------------------------- fase 7: taças, Europa, seleções
+
+enum class TipoCompeticao { LIGA, TACA, SUPERTACA, EUROPA, SELECOES }
+
+/** Uma entrada do seletor de competições. "pais" é o país ou a bandeira em texto ("PT", "UEFA"). */
+class CompeticaoOpcaoUi(val id: String, val nome: String, val tipo: TipoCompeticao, val pais: String = "")
+
+/**
+ * Uma perna de uma eliminatória. Os golos estão sempre na ordem da eliminatória
+ * (equipa A = a primeira da lista, equipa B = a segunda), mesmo na segunda mão.
+ * "chave" é uma chave opaca para abrir o relato ("" = sem relato).
+ */
+class PernaUi(val golosA: Int, val golosB: Int, val data: String = "", val chave: String = "")
+
+/** Uma eliminatória entre duas equipas (uma ou duas mãos). */
+class EliminatoriaParUi(
+    val casa: String, val fora: String, val emblemaCasa: EmblemaUi, val emblemaFora: EmblemaUi,
+    /** Pernas já jogadas (vazio = por jogar). */
+    val pernas: List<PernaUi>,
+    /** Número de mãos da eliminatória (1 ou 2), para mostrar a data das que faltam. */
+    val maos: Int = 1,
+    /** Data do próximo jogo, se ainda faltar jogar. */
+    val dataProxima: String = "",
+    /** Agregado das duas mãos (só em eliminatórias a duas mãos já com resultado). */
+    val agregadoA: Int? = null, val agregadoB: Int? = null,
+    /** "a.p." — decidida no prolongamento. */
+    val prolongamento: Boolean = false,
+    /** "g.p." — decidida nos penáltis: golos de A e de B (null = sem penáltis). */
+    val penaltisA: Int? = null, val penaltisB: Int? = null,
+    /** 0 = por decidir, 1 = passa a equipa A, 2 = passa a equipa B. */
+    val vencedor: Int = 0,
+    /** true se envolve o clube do utilizador. */
+    val meu: Boolean = false,
+)
+
+class RondaUi(val nome: String, val pares: List<EliminatoriaParUi>)
+
+/** Quadro de eliminatórias de uma competição. "rondaAtual" = índice da ronda a mostrar à partida. */
+class EliminatoriasUi(val rondas: List<RondaUi> = emptyList(), val rondaAtual: Int = 0)
+
+/** Um jogo de uma fase de grupos/liga. Sem golos = por jogar. */
+class JogoFaseUi(
+    val casa: String, val fora: String, val golosCasa: Int? = null, val golosFora: Int? = null,
+    val data: String = "", val chave: String = "", val meu: Boolean = false,
+)
+
+class JornadaFaseUi(val nome: String, val data: String, val jogos: List<JogoFaseUi>)
+
+/** Fase de liga europeia: tabela única e jogos por jornada. Zonas: até "diretos" passam já; até "playoff" vão ao play-off. */
+class FaseLigaUi(
+    val tabela: List<LinhaUi> = emptyList(),
+    val jornadas: List<JornadaFaseUi> = emptyList(),
+    val jornadaAtual: Int = 0,
+    val diretos: Int = 8, val playoff: Int = 24,
+)
+
+/** Um grupo (seleções): tabela e jogos. As linhas com zona SUBIDA passam à fase seguinte. */
+class GrupoUi(val nome: String, val tabela: List<LinhaUi>, val jornadas: List<JornadaFaseUi> = emptyList())
+
+class VencedorUi(val epoca: String, val competicao: String, val vencedor: String, val finalista: String = "")
+
+/** Tudo o que o separador «Liga» mostra para as competições que não são ligas. */
+class CompeticaoUi(
+    val eliminatorias: EliminatoriasUi? = null,
+    val faseLiga: FaseLigaUi? = null,
+    val vencedores: List<VencedorUi> = emptyList(),
+)
+
+class TorneioUi(
+    val id: String, val nome: String,
+    /** "Em curso", "Datas: 5 a 28 de junho de 2028", "Terminado"... */
+    val estado: String,
+    val grupos: List<GrupoUi> = emptyList(),
+    val eliminatorias: EliminatoriasUi? = null,
+)
+
+/** Linha do ranking de seleções (tipo FIFA). "meu" = a seleção do utilizador. */
+class LinhaRankingUi(val posicao: Int, val selecao: String, val pais: String, val pontos: String, val variacao: Int = 0, val meu: Boolean = false)
+
+class ConvocadoUi(
+    val posicao: String, val nome: String, val clube: String, val geral: Int,
+    /** true se é o jogador do utilizador ou joga no clube do utilizador. */
+    val meu: Boolean = false,
+    /** Seleção (usado na lista dos meus convocados). */
+    val selecao: String = "",
+)
+
+class ConvocatoriaUi(val selecaoId: String, val selecao: String, val pais: String, val selecionador: String, val convocados: List<ConvocadoUi>)
+
+class SelecoesUi(
+    val torneios: List<TorneioUi> = emptyList(),
+    /** Próximos torneios: nome e datas. */
+    val proximos: List<Pair<String, String>> = emptyList(),
+    val ranking: List<LinhaRankingUi> = emptyList(),
+    val convocatorias: List<ConvocatoriaUi> = emptyList(),
+    val meusConvocados: List<ConvocadoUi> = emptyList(),
+    val vencedores: List<VencedorUi> = emptyList(),
+) {
+    val vazio get() = torneios.isEmpty() && ranking.isEmpty() && convocatorias.isEmpty() && vencedores.isEmpty() && proximos.isEmpty()
+}
+
+/** Estado novo da fase 7: o seletor, a competição escolhida e as seleções. Tudo vazio = o jogo fica como antes. */
+class Fase7Ui(
+    /** Taças, supertaças e competições europeias (as ligas continuam em LigaUi.ligas). */
+    val competicoes: List<CompeticaoOpcaoUi> = emptyList(),
+    /** "" = está escolhida uma liga (LigaUi); senão o id de uma entrada de "competicoes". */
+    val competicaoId: String = "",
+    val competicao: CompeticaoUi = CompeticaoUi(),
+    val selecoes: SelecoesUi = SelecoesUi(),
 )
