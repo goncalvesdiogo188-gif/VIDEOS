@@ -88,6 +88,10 @@ class Equipa(
     @Transient
     var supertacas: Int = 0
 
+    /** Ligas dos Campeões e Ligas Europa ganhas durante o jogo. */
+    @Transient
+    var europeias: Int = 0
+
     /** Formação usada nos jogos. */
     @Transient
     var formacao: Formacao = Formacao.F433

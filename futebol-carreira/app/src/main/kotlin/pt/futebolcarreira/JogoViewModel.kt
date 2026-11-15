@@ -274,10 +274,15 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         atualizar()
     }
 
-    /** Abre o relato de um jogo identificado por uma chave opaca dada pelo núcleo. */
+    /**
+     * Abre o relato de um jogo identificado por uma chave dada por [LigacaoFase7]. Só os jogos do clube do utilizador
+     * têm relato gravado; para os outros mostra-se o aviso habitual.
+     */
     fun abrirJogoPorChave(chave: String) {
-        // Ligação ao núcleo: preencher na integração (resolver a chave para um JogoUi).
-        aviso = "Relato indisponível"
+        val c = carreira ?: return
+        if (ocupado || demonstracao) return
+        val resultado = LigacaoFase7.resolverChave(c, chave)
+        if (resultado == null) aviso = "O relato deste jogo não ficou gravado. Só se guardam os relatos dos jogos do teu clube." else abrirJogo(c, resultado)
     }
 
     /** Só para capturas de ecrã: enche a fase 7 com dados inventados. */
@@ -287,16 +292,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         atualizar()
     }
 
-    /*
-     * Ligação ao núcleo: preencher na integração.
-     * Devolve as competições (taças, supertaças, Europa), a escolhida em "competicaoId"
-     * (quadro de eliminatórias, fase de liga, vencedores) e as seleções.
-     * Também falta preencher "competicao"/"ronda" em ProximoJogoUi e JogoCalendarioUi
-     * (em criarUi e jogoCalendario) e "chave" nos jogos fora da liga.
-     */
+    /** Taças, supertaças e Europa vêm do núcleo ([LigacaoFase7]); as seleções ficam vazias até existirem. */
     private fun criarFase7(c: Carreira): Fase7Ui {
         if (demonstracao) return demoFase7(competicaoId)
-        return Fase7Ui()
+        return LigacaoFase7.criar(c, competicaoId, ::emblema)
     }
 
     /** Anda para a jornada anterior (-1) ou seguinte (+1) nos resultados. */
@@ -597,9 +596,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         val ordem = c.estadoLiga.tabela.ordenada()
         val posicao = c.posicao()
         val tabela = linhasTabela(c, equipa.liga)
-        // Por agora o calendário do ecrã só mostra a liga (as taças entram quando o ecrã for feito).
-        val calendario = c.jogosDeLiga().map { jogoCalendario(it) }
-        val proximo = c.proximoJogo()
+        // O calendário traz todos os jogos do clube: liga, taças e competições europeias.
+        val jogosDoClube = c.jogosDoClube()
+        val calendario = jogosDoClube.map { jogoCalendario(it) }
+        val proximo = jogosDoClube.firstOrNull { it.resultado == null }
         val terminada = g.epocaTerminada()
 
         // As cinco linhas da tabela à volta do clube.
@@ -621,10 +621,15 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             proximo = proximo?.let {
                 val adversario = it.adversario
                 val lugar = ordem.indexOfFirst { l -> l.id == adversario.id } + 1
+                // Só na liga e com o adversário da mesma liga faz sentido dizer o lugar na tabela.
+                val naLiga = it.eLiga && lugar > 0 && c.estadoLiga.jornada > 0
                 ProximoJogoUi(
                     it.jornada, c.estadoLiga.totalJornadas, CalendarioDatas.texto(it.data), it.emCasa, adversario.nome, emblema(adversario),
                     // Antes da primeira jornada ainda não há classificação a sério.
-                    (if (c.estadoLiga.jornada > 0) "$lugar.º lugar · " else "") + "Geral ${adversario.forca().geral.toInt()} · ${adversario.formacao.nome}",
+                    (if (naLiga) "$lugar.º lugar · " else "") + "Geral ${adversario.forca().geral.toInt()} · ${adversario.formacao.nome}",
+                    competicao = if (it.eLiga) "" else it.competicaoNome,
+                    ronda = if (it.eLiga) "" else rondaTexto(it),
+                    neutro = it.neutro,
                 )
             },
             ultimo = calendario.lastOrNull { it.desfecho.isNotEmpty() },
@@ -664,17 +669,30 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         )
     }
 
-    private fun jogoCalendario(j: JogoDoClube) = JogoCalendarioUi(
-        j.jornada, CalendarioDatas.textoCurto(j.data), j.adversario.nome, emblema(j.adversario), j.emCasa,
-        resultado = if (j.resultado == null) "" else "${j.golosMarcados}-${j.golosSofridos}",
-        desfecho = when {
-            j.resultado == null -> ""
-            j.golosMarcados > j.golosSofridos -> "V"
-            j.golosMarcados < j.golosSofridos -> "D"
-            else -> "E"
-        },
-        temRelato = j.resultado?.relatorio != null,
-    )
+    /** "Oitavos de final · ida": a ronda e, nas eliminatórias a duas mãos, a mão. */
+    private fun rondaTexto(j: JogoDoClube) = j.ronda + when (j.perna) { 1 -> " · ida"; 2 -> " · volta"; else -> "" }
+
+    private fun jogoCalendario(j: JogoDoClube): JogoCalendarioUi {
+        val r = j.resultado
+        // Nos jogos decididos nos penáltis o resultado em campo é um empate: conta quem passou.
+        val penaltis = r?.takeIf { it.penaltis }?.let { "${if (j.emCasa) it.penaltisCasa else it.penaltisFora}-${if (j.emCasa) it.penaltisFora else it.penaltisCasa} g.p." }
+        return JogoCalendarioUi(
+            j.jornada, CalendarioDatas.textoCurto(j.data), j.adversario.nome, emblema(j.adversario), j.emCasa,
+            resultado = if (r == null) "" else "${j.golosMarcados}-${j.golosSofridos}" + (if (penaltis != null) " ($penaltis)" else ""),
+            desfecho = when {
+                r == null -> ""
+                j.golosMarcados > j.golosSofridos -> "V"
+                j.golosMarcados < j.golosSofridos -> "D"
+                r.penaltis -> if (j.passou == true) "V" else "D"
+                else -> "E"
+            },
+            temRelato = r?.relatorio != null,
+            competicao = if (j.eLiga) "" else j.competicaoNome,
+            ronda = if (j.eLiga) "" else rondaTexto(j),
+            chave = if (j.eLiga || r == null) "" else LigacaoFase7.chave(j.competicaoId, j.data, r.casa, r.fora),
+            neutro = j.neutro,
+        )
+    }
 
     /** Tabela de uma liga, com as zonas de subida e descida. */
     private fun linhasTabela(c: Carreira, liga: String): List<LinhaUi> {

@@ -10,7 +10,10 @@ import pt.futebolcarreira.nucleo.simulacao.Confronto
 import pt.futebolcarreira.nucleo.simulacao.EstadoEliminatoria
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
 import pt.futebolcarreira.nucleo.simulacao.GestorEpocas
+import pt.futebolcarreira.nucleo.simulacao.FasesEuropa
+import pt.futebolcarreira.nucleo.simulacao.JogoEuropa
 import pt.futebolcarreira.nucleo.simulacao.Resultado
+import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
 import pt.futebolcarreira.nucleo.simulacao.TipoEvento
 import java.time.LocalDate
 
@@ -61,7 +64,7 @@ class JogoDoClube(
     val resultado: Resultado?,
     val competicaoId: String = "",
     val competicaoNome: String = "",
-    /** "liga", "taca" ou "supertaca". */
+    /** "liga", "taca", "supertaca" ou "europa". */
     val tipo: String = "liga",
     /** Nome da ronda ("Oitavos de final"...); vazio nas ligas. */
     val ronda: String = "",
@@ -140,7 +143,48 @@ class Carreira(
      * Todos os jogos do clube nesta época, em todas as competições, por ordem de data.
      * Das taças só entram os confrontos já sorteados (o adversário seguinte só se conhece depois do sorteio).
      */
-    fun jogosDoClube(): List<JogoDoClube> = (jogosDeLiga() + jogosDeTacas()).sortedBy { it.data }
+    fun jogosDoClube(): List<JogoDoClube> = (jogosDeLiga() + jogosDeTacas() + jogosEuropeus()).sortedBy { it.data }
+
+    /**
+     * Os jogos do clube na Liga dos Campeões ou na Liga Europa (vazio se não está apurado ou em gravações antigas).
+     * Nas eliminatórias cria-se um [Confronto] com os jogos já feitos, para o agregado, o prolongamento,
+     * os penáltis e "passou" funcionarem como nas taças.
+     */
+    fun jogosEuropeus(): List<JogoDoClube> {
+        val europa = gestor.europa ?: return emptyList()
+        val id = info.equipaId
+        return TipoEuropa.values().flatMap { tipo ->
+            val estado = europa.estado(tipo)
+            if (id !in estado.clubes) return@flatMap emptyList()
+            val liga = estado.jogosLiga.filter { it.casa == id || it.fora == id }.map { j ->
+                jogoEuropeu(tipo, j, j.numero, "${FasesEuropa.LIGA} · ${j.numero}.ª jornada", 0, null, false, 0)
+            }
+            val fases = estado.eliminatorias.map { it.fase }.distinct()
+            val eliminatorias = estado.eliminatorias.filter { it.a == id || it.b == id }.flatMap { t ->
+                val primeiro = t.jogos.first()
+                val c = Confronto(primeiro.casa, if (primeiro.casa == t.a) t.b else t.a, t.jogos.map { it.dia }, primeiro.neutro)
+                for (j in t.jogos.filter { it.jogado }) c.jogos += resultadoEuropeu(j)
+                if (t.terminada) c.vencedor = t.vencedor
+                val indiceFase = FASES_ELIMINATORIAS.indexOf(t.fase)
+                t.jogos.mapIndexed { i, j ->
+                    jogoEuropeu(tipo, j, fases.indexOf(t.fase) + 1, t.fase, if (t.jogos.size > 1) i + 1 else 0, c, t.fase == FasesEuropa.FINAL, indiceFase)
+                }
+            }
+            liga + eliminatorias
+        }
+    }
+
+    private fun resultadoEuropeu(j: JogoEuropa) =
+        Resultado(j.casa, j.fora, j.golosCasa, j.golosFora, j.relatorio, j.prolongamento, maxOf(0, j.penaltisCasa), maxOf(0, j.penaltisFora))
+
+    private fun jogoEuropeu(tipo: TipoEuropa, j: JogoEuropa, jornada: Int, ronda: String, perna: Int, c: Confronto?, eFinal: Boolean, indiceRonda: Int): JogoDoClube {
+        val emCasa = j.casa == info.equipaId
+        return JogoDoClube(
+            jornada, 0, j.dia, bd.equipas.getValue(if (emCasa) j.fora else j.casa), emCasa,
+            if (j.jogado) resultadoEuropeu(j) else null,
+            tipo.id, tipo.nome, "europa", ronda, j.neutro, perna, c, eFinal, indiceRonda, info.equipaId,
+        )
+    }
 
     /** Só os jogos da liga. */
     fun jogosDeLiga(): List<JogoDoClube> {
@@ -221,6 +265,9 @@ class Carreira(
             if (jogado.eLiga) {
                 mensagemDoJogo(jogado)
                 avaliarJogo(jogado)
+            } else if (jogado.tipo == "europa" && jogado.confronto == null) {
+                mensagemDaFaseDeLiga(jogado)
+                avaliarJogoDeTaca(jogado)
             } else {
                 mensagemDaTaca(jogado)
                 avaliarJogoDeTaca(jogado)
@@ -457,7 +504,8 @@ class Carreira(
         val titulo = "${jogo.competicaoNome} (${jogo.ronda}): $resumo$onde${jogo.adversario.nome}"
         val linhas = linhasDoRelatorio(jogo)
         val nome = jogo.competicaoNome
-        val seguinte = gestor.eliminatorias[jogo.competicaoId]?.defs?.getOrNull(jogo.indiceRonda + 1)?.nome
+        val seguinte = if (jogo.tipo == "europa") FASES_ELIMINATORIAS.getOrNull(jogo.indiceRonda + 1)
+        else gestor.eliminatorias[jogo.competicaoId]?.defs?.getOrNull(jogo.indiceRonda + 1)?.nome
         when {
             c == null -> Unit
             jogo.passou == true && jogo.eFinal -> linhas += "O teu clube vence a $nome!"
@@ -469,13 +517,49 @@ class Carreira(
         mensagem(titulo, linhas.joinToString(" "))
     }
 
+    /** Jogo da fase de liga europeia: resultado, lugar na tabela e, no último jogo, o destino do clube. */
+    private fun mensagemDaFaseDeLiga(jogo: JogoDoClube) {
+        val tipo = TipoEuropa.values().first { it.id == jogo.competicaoId }
+        val estado = gestor.europa?.estado(tipo) ?: return
+        val marcador = "${jogo.golosMarcados}-${jogo.golosSofridos}"
+        val titulo = "${jogo.competicaoNome} (${jogo.ronda}): " + when {
+            jogo.golosMarcados > jogo.golosSofridos -> "Vitória por $marcador"
+            jogo.golosMarcados < jogo.golosSofridos -> "Derrota por $marcador"
+            else -> "Empate a ${jogo.golosMarcados}"
+        } + (if (jogo.emCasa) " em casa contra " else " fora contra ") + jogo.adversario.nome
+        val linhas = linhasDoRelatorio(jogo)
+        val tabela = estado.tabelaLiga()
+        val lugar = tabela.indexOfFirst { it.id == info.equipaId } + 1
+        linhas += "O teu clube está em $lugar.º lugar na fase de liga com ${tabela.first { it.id == info.equipaId }.pts} pontos."
+        // Quando a fase de liga acaba (todos os jogos feitos), diz-se o destino.
+        if (estado.jogosLiga.all { it.jogado }) {
+            linhas += when {
+                lugar <= 8 -> "Fase de liga terminada: apurado diretamente para os oitavos de final!"
+                else -> "Fase de liga terminada: apurado para o play-off (${if (lugar <= 16) "cabeça de série" else "sem cabeça de série"})."
+            }
+        }
+        mensagem(titulo, linhas.joinToString(" "))
+    }
+
     /** Taças: vitórias contam um pouco, sair cedo contra um adversário bem mais fraco custa um pouco. */
     private fun avaliarJogoDeTaca(jogo: JogoDoClube) {
         if (!eTreinador) return
+        if (jogo.tipo == "europa" && jogo.confronto == null) {
+            // Fase de liga europeia: pequenos ajustes por resultado.
+            val (d, a) = when {
+                jogo.golosMarcados > jogo.golosSofridos -> 1 to 2
+                jogo.golosMarcados < jogo.golosSofridos -> 0 to -1
+                else -> 0 to 0
+            }
+            info.confiancaDirecao = (info.confiancaDirecao + d).coerceIn(0, 100)
+            info.confiancaAdeptos = (info.confiancaAdeptos + a).coerceIn(0, 100)
+            return
+        }
         val passou = jogo.passou ?: return
         val diferenca = jogo.adversario.forca().geral - equipa.forca().geral
         val (direcao, adeptos) = when {
             jogo.tipo == "supertaca" -> if (passou) 2 to 3 else 0 to -1
+            jogo.tipo == "europa" -> if (passou && jogo.eFinal) 6 to 8 else if (passou) 2 to 3 else if (jogo.eFinal) 1 to 0 else 0 to -1
             passou && jogo.eFinal -> 5 to 7
             passou -> 1 to 2
             diferenca <= -6 && !jogo.eFinal -> -3 to -4
@@ -502,6 +586,11 @@ class Carreira(
             val vencedor = bd.equipas[t.vencedor]?.nome ?: continue
             tacas.append(if (t.vencedor == info.equipaId) " O teu clube venceu a ${comp.nome}!" else " ${comp.nome}: $vencedor.")
         }
+        for ((id, t) in epoca.europa) {
+            val tipo = TipoEuropa.values().firstOrNull { it.id == id } ?: continue
+            val vencedor = bd.equipas[t.vencedor]?.nome ?: continue
+            tacas.append(if (t.vencedor == info.equipaId) " O teu clube venceu a ${tipo.nome}!" else " ${tipo.nome}: $vencedor.")
+        }
         mensagem(
             "Fim da época ${gestor.nomeEpoca()}",
             "${equipa.nome}: ${posicao()}.º lugar (${liga.nome}).$destino " +
@@ -513,6 +602,8 @@ class Carreira(
 
     companion object {
         const val MAX_MENSAGENS = 60
+        /** As fases de eliminatórias europeias, por ordem. */
+        val FASES_ELIMINATORIAS = listOf(FasesEuropa.PLAYOFF, FasesEuropa.OITAVOS, FasesEuropa.QUARTOS, FasesEuropa.MEIAS, FasesEuropa.FINAL)
         /** Abaixo desta confiança, a direção despede a meio da época / no fim da época. */
         const val LIMITE_DESPEDIMENTO = 10
         const val LIMITE_FIM_DE_EPOCA = 25

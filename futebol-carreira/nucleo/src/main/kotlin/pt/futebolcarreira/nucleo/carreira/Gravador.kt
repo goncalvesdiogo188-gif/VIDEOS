@@ -13,7 +13,11 @@ import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
 import pt.futebolcarreira.nucleo.simulacao.Confronto
 import pt.futebolcarreira.nucleo.simulacao.DefRonda
+import pt.futebolcarreira.nucleo.simulacao.DadosEuropa
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
+import pt.futebolcarreira.nucleo.simulacao.EuropaDaEpoca
+import pt.futebolcarreira.nucleo.simulacao.JogoEuropa
+import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
 import pt.futebolcarreira.nucleo.simulacao.EstatisticasEquipa
 import pt.futebolcarreira.nucleo.simulacao.Evento
 import pt.futebolcarreira.nucleo.simulacao.FichaJogador
@@ -48,7 +52,7 @@ private class EquipaG(
     val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean,
     val mentalidade: Mentalidade? = null, val onze: List<Int>? = null, val contas: ContasEpoca? = null,
     val foco: FocoTreino = FocoTreino.EQUILIBRADO, val intensidade: Intensidade = Intensidade.NORMAL,
-    val tacas: Int = 0, val supertacas: Int = 0,
+    val tacas: Int = 0, val supertacas: Int = 0, val europeias: Int = 0,
 )
 
 @Serializable
@@ -131,8 +135,15 @@ private class Gravacao(
      */
     val eliminatorias: Map<String, ElimG>? = null,
     /**
+     * Competições europeias da época. null = gravação antiga, de antes da Fase 7 (parte B): a época em curso
+     * continua sem Liga dos Campeões nem Liga Europa e elas começam na época seguinte, apuradas pelas
+     * classificações finais (é a opção mais simples e não inventa resultados a meio de uma época).
+     */
+    val europa: List<DadosEuropa>? = null,
+    /**
      * Relatórios dos jogos do clube do utilizador: "liga/jornada/jogo" -> relatório;
-     * nas taças "T/competição/ronda/confronto/mão".
+     * nas taças "T/competição/ronda/confronto/mão"; na Europa "E/tipo/L/jogo" (fase de liga)
+     * e "E/tipo/K/eliminatória/jogo".
      */
     val relatorios: Map<String, RelatorioG> = emptyMap(),
     val historico: List<ResumoEpoca> = emptyList(),
@@ -203,16 +214,27 @@ object Gravador {
                 t.rondas.map { paraG(it.def, it.confrontos, it.isentos) }, t.campeao, t.finalista, t.concluida,
             )
         }
+        val europa = g.europa
+        europa?.let { eu ->
+            for (tipo in TipoEuropa.values()) {
+                val e = eu.estado(tipo)
+                e.jogosLiga.forEachIndexed { i, j -> chaveEuropa(c, j)?.let { relatorios["E/${tipo.name}/L/$i"] = paraG(it) } }
+                e.eliminatorias.forEachIndexed { k, t ->
+                    t.jogos.forEachIndexed { i, j -> chaveEuropa(c, j)?.let { relatorios["E/${tipo.name}/K/$k/$i"] = paraG(it) } }
+                }
+            }
+        }
         val gravacao = Gravacao(
             info = c.info,
             ano = g.ano,
             data = g.data.toString(),
-            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas, it.focoTreino, it.intensidade, it.tacas, it.supertacas) },
+            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas, it.focoTreino, it.intensidade, it.tacas, it.supertacas, it.europeias) },
             jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || it.epocaTaca.jogos > 0 || !it.disponivel || it.forma != 50 || it.moral != 50 }.sortedBy { it.id }.map {
                 val e = it.epoca
                 JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao, it.forma, it.moral, it.jogosNoUltimoTreino, it.epocaTaca.jogos, it.epocaTaca.golos, it.epocaTaca.assistencias, it.epocaTaca.somaNotas)
             },
             ligas = ligas,
+            europa = europa?.dados(),
             eliminatorias = elims,
             relatorios = relatorios,
             historico = g.historico.toList(),
@@ -237,6 +259,7 @@ object Gravador {
             equipa.titulos = e.titulos
             equipa.tacas = e.tacas
             equipa.supertacas = e.supertacas
+            equipa.europeias = e.europeias
             equipa.formacaoAutomatica = e.automatica
             equipa.formacao = e.formacao
             equipa.mentalidade = e.mentalidade
@@ -299,6 +322,17 @@ object Gravador {
             t.restaurar(rondas, g.campeao, g.finalista, g.concluida)
             gestor.eliminatorias[id] = t
         }
+        gravacao.europa?.let { dados ->
+            val europa = EuropaDaEpoca.restaurar(dados, bd)
+            for (tipo in TipoEuropa.values()) {
+                val e = europa.estado(tipo)
+                e.jogosLiga.forEachIndexed { i, j -> gravacao.relatorios["E/${tipo.name}/L/$i"]?.let { j.relatorio = deG(it, bd) } }
+                e.eliminatorias.forEachIndexed { k, t ->
+                    t.jogos.forEachIndexed { i, j -> gravacao.relatorios["E/${tipo.name}/K/$k/$i"]?.let { j.relatorio = deG(it, bd) } }
+                }
+            }
+            gestor.europa = europa
+        }
         gestor.historico += gravacao.historico
         gestor.epocaFechada = gestor.epocaTerminada()
 
@@ -307,6 +341,10 @@ object Gravador {
             it.baseDadosPorGravar = false
         }
     }
+
+    /** O relatório de um jogo europeu, se for do clube do utilizador. */
+    private fun chaveEuropa(c: Carreira, j: JogoEuropa): RelatorioJogo? =
+        if (j.casa == c.info.equipaId || j.fora == c.info.equipaId) j.relatorio else null
 
     private fun paraG(def: DefRonda, confrontos: List<Confronto>, isentos: List<String>) = RondaG(
         def.nome, def.datas.map { it.toString() }, def.neutro,

@@ -101,7 +101,7 @@ private fun FaseDeLiga(fase: FaseLigaUi, id: String, aoAbrirChave: (String) -> U
             Column(Modifier.padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 LegendaZona(COR_SUBIDA, "1.º a ${fase.diretos}.º: passam direto aos oitavos")
                 LegendaZona(COR_PLAYOFF, "${fase.diretos + 1}.º a ${fase.playoff}.º: vão ao play-off")
-                LegendaZona(COR_DESCIDA, "Restantes: eliminados")
+                if (fase.tabela.size > fase.playoff) LegendaZona(COR_DESCIDA, "Restantes: eliminados")
             }
         }
         itensTabelaZonas(fase)

@@ -522,6 +522,11 @@ class Fase7Test {
         }
         // A carreira carregada continua até ao fim e dá os mesmos tipos de resultados.
         d.simularEpoca()
+        // Um clube fraco pode despedir o treinador a meio da época: aceita-se uma proposta e continua-se.
+        if (d.info.despedido) {
+            d.aceitarProposta(d.info.propostas.first())
+            d.simularEpoca()
+        }
         assertTrue(d.gestor.epocaTerminada())
         assertEquals(6, d.gestor.historico.single().tacas.size)
         val fim = Gravador.deTexto(Gravador.paraTexto(d), Gravador.baseDadosParaTexto(d))
@@ -539,9 +544,9 @@ class Fase7Test {
         val clube = bd.equipasDaLiga("POR1").first().id
         val c = Carreira.nova(bd, "antiga", "Ana", ModoCarreira.TREINADOR, clube, semente = 2)
         repeat(10) { c.avancar() }
-        // Simula um ficheiro antigo: sem o campo das taças, e sem taças em competicoes.json.
+        // Simula um ficheiro antigo: sem os campos das taças e da Europa, e sem taças em competicoes.json.
         val estado = Json.parseToJsonElement(Gravador.paraTexto(c)).jsonObject
-        val semTacas = JsonObject(estado.filterKeys { it != "eliminatorias" })
+        val semTacas = JsonObject(estado.filterKeys { it != "eliminatorias" && it != "europa" })
         val ficheiros = Json.parseToJsonElement(Gravador.baseDadosParaTexto(c)).jsonObject
         val competicoes = Json.parseToJsonElement(ficheiros.getValue("competicoes.json").jsonPrimitive.content).jsonArray
         val soLigas = buildJsonArray { competicoes.filter { it.jsonObject.getValue("tipo").jsonPrimitive.content == "liga" }.forEach { add(it) } }

@@ -137,6 +137,8 @@ class JogoCalendarioUi(
     val competicao: String = "",
     val ronda: String = "",
     val chave: String = "",
+    /** Campo neutro: não é nem "em casa" nem "fora". */
+    val neutro: Boolean = false,
 )
 
 class ProximoJogoUi(
@@ -145,6 +147,8 @@ class ProximoJogoUi(
     /** Competição ("" = a liga do clube) e ronda ("Quartos de final", "Jornada 4"...). */
     val competicao: String = "",
     val ronda: String = "",
+    /** Campo neutro: não se diz "em casa" nem "fora". */
+    val neutro: Boolean = false,
 )
 
 class MensagemUi(val data: String, val titulo: String, val texto: String)

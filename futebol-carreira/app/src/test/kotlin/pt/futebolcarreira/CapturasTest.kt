@@ -213,6 +213,35 @@ class CapturasTest {
         assertEquals("2027/28", jogo.ui?.epoca)
         assertEquals(clubeFinal, jogo.ui?.clube)
         capturar("21-carreira-carregada")
+
+        // ---- Taças e Europa com dados reais: joga-se a época toda para os quadros terem resultados ----
+        jogo.simularEpoca()
+        esperar { !jogo.ocupado }
+        if (jogo.ui?.despedido == true) {
+            jogo.aceitarProposta(jogo.ui!!.propostas.first().equipaId)
+            esperar { !jogo.ocupado }
+            jogo.simularEpoca()
+            esperar { !jogo.ocupado }
+        }
+        val taca = jogo.fase7.competicoes.first { it.tipo == pt.futebolcarreira.TipoCompeticao.TACA && jogo.ui!!.liga.ligaId.startsWith(it.id.substringBefore("_")) }
+        tocar("Liga")
+        regra.onNodeWithText("▾", substring = true).performClick()
+        regra.waitForIdle()
+        regra.onNodeWithText(taca.nome, substring = true).performClick()
+        regra.waitForIdle()
+        assertEquals(taca.id, jogo.fase7.competicaoId)
+        capturar("22-taca-real")
+        regra.onNodeWithText("▾", substring = true).performClick()
+        regra.waitForIdle()
+        regra.onNodeWithText("Liga dos Campeões", substring = true).performScrollTo().performClick()
+        regra.waitForIdle()
+        assertEquals("UCL", jogo.fase7.competicaoId)
+        capturar("23-europa-real")
+        tocar("Eliminatórias")
+        capturar("23b-europa-eliminatorias-real")
+        tocar("Mais")
+        tocar("Jogos")
+        capturar("24-calendario-completo")
     }
 
     /** Ecrãs da fase 7 (taças, Europa, seleções) com dados de demonstração. */

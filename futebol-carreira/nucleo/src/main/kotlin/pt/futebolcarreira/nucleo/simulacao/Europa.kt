@@ -65,7 +65,7 @@ object CalendarioEuropa {
     /** Último sábado de campeonato (as ligas jogam aos sábados até cerca de 24 de maio). */
     fun fimDasLigas(ano: Int): LocalDate = LocalDate.of(ano + 1, 5, 24).with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY))
 
-    /** Datas da época que começa em "ano". Terças (Campeões) e quintas (Liga Europa); nunca ao sábado, exceto a final dos Campeões. */
+    /** Datas da época que começa em "ano". Terças (Campeões) e quintas (Liga Europa); nunca ao sábado, exceto a final dos Campeões (primeira semana de junho). */
     fun datas(ano: Int, tipo: TipoEuropa): DatasEuropa {
         val terca = TemporalAdjusters.nextOrSame(DayOfWeek.TUESDAY)
         fun dia(mes: Int, d: Int, anoDia: Int): LocalDate {
@@ -75,8 +75,10 @@ object CalendarioEuropa {
         val seguinte = ano + 1
         val liga = listOf(dia(9, 15, ano), dia(9, 29, ano), dia(10, 20, ano), dia(11, 10, ano), dia(12, 8, ano), dia(1, 21, seguinte))
         val ultimoSabadoMaio = LocalDate.of(seguinte, 5, 31).with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY))
-        // Se a final coincidir com as ligas, passa para o sábado a seguir ao fim das ligas.
-        val finalCampeoes = if (ultimoSabadoMaio > fimDasLigas(ano)) ultimoSabadoMaio else fimDasLigas(ano).plusWeeks(1)
+        // A final dos Campeões é ao sábado a seguir ao da final da taça nacional (que é o sábado depois da última
+        // jornada das ligas): assim nenhum clube pode ter as duas finais no mesmo dia. A da Liga Europa é à quarta-feira
+        // seguinte à final da taça, depois das ligas, e antes da final dos Campeões.
+        val finalCampeoes = CalendarioDatas.finalDaTaca(ano).plusWeeks(1)
         return DatasEuropa(
             liga = liga,
             playoff = listOf(dia(2, 10, seguinte), dia(2, 17, seguinte)),
@@ -217,13 +219,16 @@ class EstadoEuropa private constructor(
      * Aplica o MotorJogo (golos, cartões, lesões) e paga bilheteira e prémios.
      * "manter" são ids de clubes cujos relatórios completos se guardam. Devolve os jogos feitos.
      */
-    fun jogarAte(ate: LocalDate, bd: BaseDados, rng: Random, manter: Set<String> = emptySet()): List<JogoEuropa> {
+    fun jogarAte(
+        ate: LocalDate, bd: BaseDados, rng: Random, manter: Set<String> = emptySet(),
+        aoJogar: ((JogoEuropa, RelatorioJogo) -> Unit)? = null,
+    ): List<JogoEuropa> {
         val feitos = mutableListOf<JogoEuropa>()
         while (true) {
             val dia = proximaData() ?: break
             if (dia > ate) break
             for (jogo in todosOsJogos().filter { !it.jogado && it.dia == dia }) {
-                jogar(jogo, bd, rng, jogo.casa in manter || jogo.fora in manter)
+                jogar(jogo, bd, rng, jogo.casa in manter || jogo.fora in manter, aoJogar)
                 feitos += jogo
             }
             avancar(bd, rng)
@@ -241,15 +246,31 @@ class EstadoEuropa private constructor(
         premios.merge(e.id, valor, Long::plus)
     }
 
-    private fun jogar(jogo: JogoEuropa, bd: BaseDados, rng: Random, guardar: Boolean) {
+    /**
+     * Joga um jogo com o motor detalhado. Nas eliminatórias, o último jogo é decisivo: se o agregado estiver
+     * empatado há prolongamento (dentro do relatório) e, se continuar, penáltis (os mesmos do resto do jogo).
+     * Todos os jogos europeus contam para as estatísticas "de taça" (a tabela de marcadores da liga fica intacta).
+     */
+    private fun jogar(jogo: JogoEuropa, bd: BaseDados, rng: Random, guardar: Boolean, aoJogar: ((JogoEuropa, RelatorioJogo) -> Unit)?) {
         val casa = bd.equipas.getValue(jogo.casa)
         val fora = bd.equipas.getValue(jogo.fora)
-        val rel = MotorJogo.simular(casa, fora, rng)
-        MotorJogo.aplicar(rel)
+        val tie = if (jogo.fase == FasesEuropa.LIGA) null else ronda.first { t -> t.jogos.any { it === jogo } }
+        val decisivo = tie != null && tie.jogos.last() === jogo
+        val antesCasa = tie?.golos(jogo.casa) ?: 0
+        val antesFora = tie?.golos(jogo.fora) ?: 0
+        val rel = MotorJogo.simular(casa, fora, rng, jogo.neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null)
+        MotorJogo.aplicar(rel, taca = true)
+        aoJogar?.invoke(jogo, rel)
         jogo.golosCasa = rel.golosCasa
         jogo.golosFora = rel.golosFora
+        jogo.prolongamento = rel.prolongamento
         jogo.jogado = true
         if (guardar) jogo.relatorio = rel
+        if (tie != null && decisivo && tie.golos(tie.a) == tie.golos(tie.b)) {
+            val (pc, pf) = Penaltis.disputar(casa, fora, rng)
+            jogo.penaltisCasa = pc
+            jogo.penaltisFora = pf
+        }
         // Bilheteira: o anfitrião fica com tudo; na final cada finalista fica com metade.
         if (jogo.neutro) {
             val metade = Financas.bilheteira(casa) / 2
@@ -258,7 +279,7 @@ class EstadoEuropa private constructor(
             val b = Financas.bilheteira(casa)
             casa.contas.bilheteira += b; casa.orcamento += b
         }
-        if (jogo.fase == FasesEuropa.LIGA) {
+        if (tie == null) {
             // A participação paga-se no primeiro jogo de cada clube.
             for (e in listOf(casa, fora)) if (tabela.linhas.getValue(e.id).j == 0) pagar(e, tabelaPremios.participacao)
             tabela.registar(jogo.casa, jogo.fora, jogo.golosCasa, jogo.golosFora)
@@ -267,42 +288,12 @@ class EstadoEuropa private constructor(
                 jogo.golosCasa < jogo.golosFora -> pagar(fora, tabelaPremios.vitoria)
                 else -> { pagar(casa, tabelaPremios.empate); pagar(fora, tabelaPremios.empate) }
             }
-        } else {
-            val tie = ronda.first { t -> t.jogos.any { it === jogo } }
-            if (tie.jogos.all { it.jogado }) decidir(tie, bd, rng)
-        }
-    }
-
-    /** Decide uma eliminatória acabada: soma de golos, prolongamento e penáltis (no último jogo). */
-    private fun decidir(tie: Eliminatoria, bd: BaseDados, rng: Random) {
-        val ultimo = tie.jogos.last()
-        if (tie.golos(tie.a) == tie.golos(tie.b)) {
-            val casa = bd.equipas.getValue(ultimo.casa)
-            val fora = bd.equipas.getValue(ultimo.fora)
-            // Prolongamento: um terço dos golos de um jogo normal.
-            val extra = SimuladorJogo.simular(casa, fora, rng)
-            ultimo.golosCasa += (0 until extra.golosCasa).count { rng.nextDouble() < 1.0 / 3 }
-            ultimo.golosFora += (0 until extra.golosFora).count { rng.nextDouble() < 1.0 / 3 }
-            ultimo.prolongamento = true
-        }
-        if (tie.golos(tie.a) == tie.golos(tie.b)) {
-            var pc = 0
-            var pf = 0
-            repeat(5) {
-                if (rng.nextDouble() < 0.76) pc++
-                if (rng.nextDouble() < 0.76) pf++
+        } else if (tie.jogos.all { it.jogado }) {
+            tie.vencedor = when {
+                tie.golos(tie.a) > tie.golos(tie.b) -> tie.a
+                tie.golos(tie.b) > tie.golos(tie.a) -> tie.b
+                else -> if (jogo.penaltisCasa > jogo.penaltisFora) jogo.casa else jogo.fora
             }
-            var guarda = 0
-            while (pc == pf) {   // morte súbita
-                if (rng.nextDouble() < 0.76) pc++
-                if (rng.nextDouble() < 0.76) pf++
-                if (++guarda > 50) { if (rng.nextBoolean()) pc++ else pf++ }
-            }
-            ultimo.penaltisCasa = pc
-            ultimo.penaltisFora = pf
-            tie.vencedor = if (pc > pf) ultimo.casa else ultimo.fora
-        } else {
-            tie.vencedor = if (tie.golos(tie.a) > tie.golos(tie.b)) tie.a else tie.b
         }
     }
 
@@ -472,8 +463,10 @@ class EuropaDaEpoca(val campeoes: EstadoEuropa, val europa: EstadoEuropa) {
 
     fun proximaData(): LocalDate? = listOfNotNull(campeoes.proximaData(), europa.proximaData()).minOrNull()
 
-    fun jogarAte(ate: LocalDate, bd: BaseDados, rng: Random, manter: Set<String> = emptySet()): List<JogoEuropa> =
-        campeoes.jogarAte(ate, bd, rng, manter) + europa.jogarAte(ate, bd, rng, manter)
+    fun jogarAte(
+        ate: LocalDate, bd: BaseDados, rng: Random, manter: Set<String> = emptySet(),
+        aoJogar: ((JogoEuropa, RelatorioJogo) -> Unit)? = null,
+    ): List<JogoEuropa> = campeoes.jogarAte(ate, bd, rng, manter, aoJogar) + europa.jogarAte(ate, bd, rng, manter, aoJogar)
 
     fun jogosNoDia(dia: LocalDate): List<JogoEuropa> = campeoes.jogosNoDia(dia) + europa.jogosNoDia(dia)
 

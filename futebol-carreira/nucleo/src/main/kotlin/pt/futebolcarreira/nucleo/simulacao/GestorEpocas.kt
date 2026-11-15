@@ -40,7 +40,8 @@ class ResumoTaca(val vencedor: String, val finalista: String = "")
 
 /**
  * Resumo de uma época terminada (id da liga -> resumo).
- * "tacas" e "supertacas": id da competição (por exemplo "POR_TACA") -> vencedor e finalista.
+ * "tacas" e "supertacas": id da competição (por exemplo "POR_TACA") -> vencedor e finalista;
+ * "europa": o mesmo para as competições europeias.
  */
 @Serializable
 class ResumoEpoca(
@@ -48,6 +49,8 @@ class ResumoEpoca(
     val ligas: Map<String, ResumoLiga>,
     val tacas: Map<String, ResumoTaca> = emptyMap(),
     val supertacas: Map<String, ResumoTaca> = emptyMap(),
+    /** Competições europeias: "UCL" (Liga dos Campeões) e "UEL" (Liga Europa) -> vencedor e finalista. */
+    val europa: Map<String, ResumoTaca> = emptyMap(),
 )
 
 /**
@@ -76,6 +79,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Taças e supertaças desta época (id da competição -> estado). Gravações antigas começam sem elas. */
     val eliminatorias = LinkedHashMap<String, EstadoEliminatoria>()
 
+    /**
+     * Ligas dos Campeões e Europa desta época. Gravações antigas (sem competições europeias) ficam com null
+     * até à época seguinte, em que são criadas a partir das classificações finais.
+     */
+    var europa: EuropaDaEpoca? = null
+        internal set
+
     /** A taça nacional ou a supertaça de um país nesta época (null se não existe). */
     fun tacaDoPais(pais: String, supertaca: Boolean = false): EstadoEliminatoria? =
         eliminatorias.values.firstOrNull { bd.competicoes[it.id]?.let { c -> c.pais == pais && (if (supertaca) c.eSupertaca else c.eTaca) } == true }
@@ -103,6 +113,8 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
 
     /** Cria calendários e tabelas novas para todas as ligas. */
     private fun iniciarEpoca() {
+        // Classificações finais da época que acaba (ligaId -> clubes por ordem), para o apuramento europeu.
+        val tabelasAnteriores = estado.mapValues { (_, e) -> e.tabela.ordenada().map { it.id } }
         estado.clear()
         epocaFechada = false
         data = CalendarioDatas.inicioDaEpoca(ano)
@@ -130,6 +142,19 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             )
         }
         iniciarTacas()
+        iniciarEuropa(tabelasAnteriores)
+    }
+
+    /**
+     * Cria a Liga dos Campeões e a Liga Europa: na primeira época apuram-se os clubes por reputação,
+     * nas seguintes pelos lugares 1–4 e 5–8 das primeiras divisões na época anterior.
+     * Sem 24 clubes em cada competição (bases de dados pequenas) não há competições europeias.
+     */
+    private fun iniciarEuropa(tabelas: Map<String, List<String>>) {
+        val q = QualificacaoEuropa.qualificar(bd, tabelas)
+        europa = if (q.campeoes.size == 24 && q.europa.size == 24 && q.campeoes.toSet().size == 24 && q.europa.toSet().size == 24) {
+            EuropaDaEpoca.criar(bd, ano, tabelas, rng)
+        } else null
     }
 
     /** Cria as taças e supertaças do país (as datas evitam os jogos de liga dos clubes). */
@@ -181,11 +206,12 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     )
 
     /** A época acaba quando todas as ligas, taças e supertaças acabaram. */
-    fun epocaTerminada(): Boolean = estado.values.all { it.jornada >= it.totalJornadas } && eliminatorias.values.all { it.concluida }
+    fun epocaTerminada(): Boolean =
+        estado.values.all { it.jornada >= it.totalJornadas } && eliminatorias.values.all { it.concluida } && (europa?.terminou ?: true)
 
     /** O próximo dia com jogos, em qualquer competição (null se a época acabou). */
     fun proximaData(): LocalDate? =
-        (estado.values.mapNotNull { it.proximaData } + eliminatorias.values.mapNotNull { it.proximaData }).minOrNull()
+        (estado.values.mapNotNull { it.proximaData } + eliminatorias.values.mapNotNull { it.proximaData } + listOfNotNull(europa?.proximaData())).minOrNull()
 
     /** Joga tudo o que está marcado até ao dia "dia" (inclusive), dia a dia e por ordem, e põe o jogo nesse dia. */
     fun simularAte(dia: LocalDate) {
@@ -194,6 +220,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             if (proxima > dia) break
             for (e in estado.values) if (e.proximaData?.let { it <= proxima } == true) jogarJornada(e)
             for (t in eliminatorias.values) if (t.proximaData?.let { it <= proxima } == true) jogarEliminatoria(t, proxima)
+            europa?.let { eu ->
+                if (eu.proximaData()?.let { it <= proxima } == true) {
+                    eu.jogarAte(proxima, bd, rng, setOf(clubeDoUtilizador)) { _, relatorio ->
+                        Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
+                    }
+                }
+            }
         }
         // Sempre que se muda de mês faz-se a conta do treino.
         var mes = YearMonth.from(data)
@@ -314,6 +347,16 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 bd.equipas.getValue(campeao).tacas++
             }
         }
+        val europeias = LinkedHashMap<String, ResumoTaca>()
+        europa?.let { eu ->
+            for (tipo in TipoEuropa.values()) {
+                val estadoEuropeu = eu.estado(tipo)
+                if (!estadoEuropeu.terminou) continue
+                val final = estadoEuropeu.eliminatorias.last()
+                europeias[tipo.id] = ResumoTaca(estadoEuropeu.campeao, if (final.vencedor == final.a) final.b else final.a)
+                bd.equipas.getValue(estadoEuropeu.campeao).europeias++
+            }
+        }
         // Prémios de classificação.
         for ((ligaId, e) in estado) {
             val ordem = e.tabela.ordenada()
@@ -321,7 +364,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 Financas.premio(bd.equipas.getValue(linha.id), i + 1, ordem.size, bd.competicoes.getValue(ligaId).nivel)
             }
         }
-        historico += ResumoEpoca(ano, resumos, tacas, supertacas)
+        historico += ResumoEpoca(ano, resumos, tacas, supertacas, europeias)
     }
 
     /** Aplica subidas/descidas, faz evoluir os jogadores e começa a época seguinte (a 1 de julho). */

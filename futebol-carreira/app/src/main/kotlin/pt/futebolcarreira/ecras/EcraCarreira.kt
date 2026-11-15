@@ -76,7 +76,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
         Box(Modifier.padding(margens).fillMaxSize()) {
             when (separador) {
                 0 -> Inicio(
-                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 3 },
+                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
                     aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas,
                 )
                 1 -> ConteudoPlantel(
@@ -125,7 +125,7 @@ private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
 @Composable
 private fun Inicio(
     ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
-    aoAbrirJogo: (Int) -> Unit, aoVerLiga: () -> Unit,
+    aoAbrirJogo: (Int) -> Unit, aoAbrirChave: (String) -> Unit, aoVerLiga: () -> Unit,
     aoAceitar: (String) -> Unit, aoRecusar: () -> Unit,
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
@@ -183,7 +183,7 @@ private fun Inicio(
                             Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { if (proximo.emCasa) adversario() else eu() }
                         }
                         Text(
-                            "${proximo.data} · ${if (proximo.emCasa) "em casa" else "fora"}", Modifier.fillMaxWidth(),
+                            "${proximo.data} · ${if (proximo.neutro) "campo neutro" else if (proximo.emCasa) "em casa" else "fora"}", Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center, fontWeight = FontWeight.Bold,
                         )
                         Text(
@@ -205,7 +205,7 @@ private fun Inicio(
                     Text("${ui.pontos} pontos · ${ui.nomeLiga}", fontSize = 13.sp, color = secundaria, maxLines = 2)
                 }
                 val ultimo = ui.ultimo
-                Bloco(Modifier.weight(1f), aoTocar = ultimo?.let { { aoAbrirJogo(it.jornada) } }) {
+                Bloco(Modifier.weight(1f), aoTocar = ultimo?.let { { if (it.competicao.isEmpty()) aoAbrirJogo(it.jornada) else aoAbrirChave(it.chave) } }) {
                     Rotulo("Último jogo")
                     if (ultimo == null) {
                         Text("—", fontSize = 22.sp, fontWeight = FontWeight.Bold)
@@ -216,7 +216,8 @@ private fun Inicio(
                             Text(ultimo.resultado, fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Text(
-                            "${if (ultimo.emCasa) "em casa" else "fora"} contra ${ultimo.adversario}",
+                            (if (ultimo.neutro) "em campo neutro contra" else "${if (ultimo.emCasa) "em casa" else "fora"} contra") + " ${ultimo.adversario}" +
+                                (if (ultimo.competicao.isNotEmpty()) " (${ultimo.competicao})" else ""),
                             fontSize = 13.sp, color = secundaria, maxLines = 2, overflow = TextOverflow.Ellipsis,
                         )
                     }
@@ -321,7 +322,7 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
                 Modifier.padding(vertical = 10.dp), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        items(jogos) { j ->
+        items(jogos, key = { "${it.competicao}|${it.jornada}|${it.data}|${it.ronda}" }) { j ->
             val foraDaLiga = j.competicao.isNotEmpty()
             val toque = when {
                 !j.temRelato -> Modifier
@@ -343,7 +344,7 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
                 Emblema(j.emblema, 32.dp)
                 Column(Modifier.weight(1f)) {
                     Text(j.adversario, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    val local = if (j.emCasa) "Casa" else "Fora"
+                    val local = if (j.neutro) "Neutro" else if (j.emCasa) "Casa" else "Fora"
                     val etiqueta = if (foraDaLiga) listOf(local, j.competicao, j.ronda).filter { it.isNotEmpty() }.joinToString(" · ") else local
                     Text(etiqueta, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                 }

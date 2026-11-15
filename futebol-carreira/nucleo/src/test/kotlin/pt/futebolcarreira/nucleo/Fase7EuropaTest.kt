@@ -87,7 +87,7 @@ class Fase7EuropaTest {
             }
             assertTrue(c.liga.first() >= LocalDate.of(ano, 9, 15) && c.liga.last().monthValue == 1)
             assertTrue(c.liga.zipWithNext().all { (a, b) -> a < b })
-            assertEquals(5, c.final.monthValue)
+            assertTrue(c.final.monthValue in 5..6, "final entre fim de maio e inícios de junho")
         }
     }
 
