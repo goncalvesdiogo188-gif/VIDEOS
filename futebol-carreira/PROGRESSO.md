@@ -1,7 +1,7 @@
 # Futebol Carreira — Progresso até agora
 
 Resumo do que já está feito no jogo, do que foi verificado e do que falta.
-Atualizado a 15 de novembro de 2026, no fim da Fase 6 (versão 0.6 da aplicação).
+Atualizado a 15 de novembro de 2026, no fim da Fase 7 (versão 0.7 da aplicação).
 
 ## Em que ponto estamos
 
@@ -14,8 +14,8 @@ Atualizado a 15 de novembro de 2026, no fim da Fase 6 (versão 0.6 da aplicaçã
 | 4 | Gestão do clube (onze, direção, despedimento) | Feita |
 | 5 | Transferências e finanças | Feita, à espera da tua confirmação |
 | 6 | Treino, scouting e academia | Feita, à espera da tua confirmação |
-| 7 | Taças, competições europeias e seleções | Por fazer (é a próxima) |
-| 8 | Notícias e rivalidades | Por fazer |
+| 7 | Taças, competições europeias e seleções | Feita, à espera da tua confirmação |
+| 8 | Notícias e rivalidades | Por fazer (é a próxima) |
 | 9 | Modo carreira de jogador completo | Por fazer |
 | 10 | Editor e importação de JSON | Por fazer |
 | 11 | Jogo em 3D | Por fazer |
@@ -27,7 +27,8 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 
 - **Tecnologia**: o jogo começou em Godot, mas pediste para continuar sem Godot. É agora uma aplicação Android nativa (Kotlin, com ecrãs em Jetpack Compose). Avisei que esta escolha torna o jogo em 3D (Fase 11) mais difícil.
 - **Compilação**: o APK é compilado automaticamente pelo GitHub sempre que o código muda. Não precisas de instalar nada no computador para experimentar o jogo.
-- **Nomes reais**: a teu pedido, e porque o jogo é só para uso pessoal, os clubes e as ligas têm nomes reais (época 2025/26). Os jogadores continuam inventados. As seleções ainda não existem; entram com nomes reais na Fase 7.
+- **Nomes reais**: a teu pedido, e porque o jogo é só para uso pessoal, os clubes e as ligas têm nomes reais (época 2025/26). Os jogadores continuam inventados. As seleções entraram na Fase 7, também com nomes reais.
+- **Trabalho em paralelo**: a partir da Fase 7, o trabalho é feito por vários subagentes de IA a trabalhar ao mesmo tempo; depois o resultado é juntado e verificado.
 - **Equipas B**: troquei as equipas B das segundas divisões por outros clubes reais (Boavista, Mafra e Académica em Portugal; Tenerife em Espanha), para uma equipa B não poder subir à primeira divisão.
 
 ## O que o jogo já faz
@@ -78,10 +79,20 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Olheiros: o potencial dos jovens de outros clubes aparece como intervalo; o olheiro passa 4 semanas num país e traz os 5 melhores jovens.
 - Novo separador **Mais → Clube** com tudo isto.
 
+### Taças, Europa e seleções (Fase 7)
+- Taças nacionais dos 6 países, com os nomes reais: Taça de Portugal, Copa del Rey, FA Cup, Coppa Italia, DFB-Pokal e Coupe de France. Jogam todos os clubes das duas divisões, a uma só mão, às quartas-feiras entre o fim de setembro e abril. O clube da divisão inferior joga em casa e os melhores clubes folgam na primeira ronda (ou nas primeiras). Há prolongamento («a.p.») e penáltis («g.p.»); a final é em campo neutro no fim de maio. Há prémios por ronda e por ganhar.
+- Supertaças (Supertaça Cândido de Oliveira, Supercopa de España, FA Community Shield, Supercoppa Italiana, DFL-Supercup, Trophée des Champions): campeão da liga contra vencedor da taça (ou o segundo classificado, se for o mesmo clube), no primeiro sábado de agosto. Na primeira época jogam os dois clubes com mais reputação.
+- Liga dos Campeões (lugares 1 a 4 de cada primeira divisão) e Liga Europa (lugares 5 a 8); na primeira época, apuram-se por reputação. Cada uma tem 24 clubes e uma fase de liga com 6 jogos (3 em casa, 3 fora, sem adversários do mesmo país). Os lugares 1 a 8 vão direitos aos oitavos; do 9.º ao 24.º jogam um play-off a duas mãos; depois há oitavos, quartos e meias-finais a duas mãos e uma final a um jogo em campo neutro. A Champions joga à terça e a final é no último sábado de maio; a Liga Europa joga à quinta e a final é na quarta-feira anterior. Os prémios são grandes: o vencedor da Champions ganha cerca de 20 a 25 M€ e o da Liga Europa cerca de 8 M€.
+- 56 nações com nomes reais. Nos 6 países da base de dados jogam jogadores reais do jogo dessa nacionalidade; as outras 50 têm plantéis inventados, que não estão no mercado.
+- Liga das Nações todos os anos (32 nações europeias, Liga A e B, jogos nas paragens de setembro, outubro e novembro, Final Four da Liga A no fim de maio ou em junho). Euro em 2028, 2032… (qualificação na época anterior, fase final com 24 equipas em junho) e Mundial em 2030, 2034… (32 equipas).
+- Convocatórias de 23 jogadores antes de cada paragem; recebes uma mensagem quando jogadores teus são chamados. Ranking ao estilo Elo, como o da FIFA. As lesões das seleções passam para os clubes; os cartões, os castigos e as estatísticas não.
+- Ecrãs: o seletor do separador **Liga** também lista as taças, as supertaças e as competições europeias (eliminatórias com a.p./g.p., tabela da fase de liga com zonas, histórico de vencedores). Novo **Mais → Seleções** (torneios, grupos, eliminatórias, ranking, convocatórias, vencedores). O **Início** e o calendário (**Mais → Jogos**) mostram a competição e a ronda de cada jogo; tocar num jogo já jogado do teu clube abre o relato.
+- As carreiras da versão 0.6 ainda carregam; nelas, as taças, a Europa e as seleções começam do zero na época seguinte. Para ver tudo, começa uma carreira nova.
+
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 21 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações e os olheiros.
-- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, acabar a época, gravar e voltar a carregar) e passa. Guarda 28 imagens dos ecrãs na pasta `capturas/`.
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): <N> testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), mais um teste que junta tudo.
+- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Guarda <M> imagens dos ecrãs na pasta `capturas/`.
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados dos clubes reais**: vêm da minha memória, não de uma fonte verificada. Pode haver um estádio, uma lotação ou uma cor errada.
 
@@ -94,6 +105,11 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Não há equipa B/sub-23 a jogar uma competição própria; a academia faz esse papel. Só o teu clube tem academia; os outros renovam o plantel com jovens da formação, como antes.
 - O olheiro procura só jovens (até 23 anos) e um país de cada vez.
 - Só fica gravado o relato dos jogos do teu clube; dos outros fica o resultado.
+- As seleções são simuladas em segundo plano: não treinas nenhuma. Na via de jogador ainda não há carreira na seleção (fica para a Fase 9).
+- Na Liga das Nações não há subidas nem descidas entre a Liga A e a Liga B.
+- Os anfitriões do Euro e do Mundial são ignorados: os jogos são em campo neutro.
+- As nações não europeias só jogam nas épocas de Mundial.
+- Nos sorteios das eliminatórias europeias não há proteção de países (podem calhar clubes do mesmo país).
 - As carreiras criadas em versões antigas mantêm os dados antigos (clubes inventados, sem contratos). Para ver tudo o que há de novo, começa uma carreira nova.
 
 ## Onde estão as coisas
@@ -104,6 +120,7 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 |---|---|
 | `apk/futebol-carreira.apk` | A aplicação pronta a instalar no telemóvel |
 | `capturas/` | Imagens de todos os ecrãs, refeitas a cada compilação |
+| `.claude/skills/` | Skills para trabalhar com subagentes (`subagentes` e `equipa-haiku`) |
 | `PLANO.md` | Plano completo, fase a fase |
 | `GUIA_INSTALACAO.md` | Como instalar e como testar cada fase |
 | `PROGRESSO.md` | Este resumo |
@@ -119,7 +136,7 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 
 ## O que preciso de ti
 
-1. Experimentar a versão 0.6 no telemóvel e dizer-me o que funciona e o que não funciona.
+1. Experimentar a versão 0.7 no telemóvel e dizer-me o que funciona e o que não funciona.
 2. Dizer-me se os preços, os salários, a velocidade de evolução dos jogadores e a dificuldade te parecem bem.
 3. Dizer-me se queres jogadores reais (é um trabalho grande: mais de 5000 nomes e atributos).
-4. Confirmar para eu começar a Fase 7 (taças, competições europeias e seleções).
+4. Confirmar para eu começar a Fase 8 (notícias e rivalidades).
