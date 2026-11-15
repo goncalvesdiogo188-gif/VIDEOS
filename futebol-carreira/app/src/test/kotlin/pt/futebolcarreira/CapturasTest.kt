@@ -97,9 +97,9 @@ class CapturasTest {
         }
         jogo.fecharAviso()
         jogo.fecharJogador()
-        // Vender um suplente.
-        val suplente = jogo.ui!!.plantel.jogadores.filter { it.posicao == "MC" }.minBy { it.geral }
-        jogo.abrirJogador(suplente.id)
+        // Vender um paraVender.
+        val paraVender = jogo.ui!!.plantel.jogadores.filter { it.posicao == "MC" }.minBy { it.geral }
+        jogo.abrirJogador(paraVender.id)
         jogo.negociar(AcaoMercado.VENDER)
         esperar { !jogo.ocupado }
         jogo.fecharAviso()
