@@ -29,7 +29,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `validar.py` | Verifica as regras (tempo, palavras por fala, texto). |
 | `pacote.py` | Junta tudo na pasta final. |
 | `__main__.py` | O comando `fabrica`. |
-| `fabrica.bat` / `fabrica` (na raiz) | Atalhos para correr o comando no Windows / noutros sistemas. |
+| `fabrica.bat` / `fabrica.sh` (na raiz) | Atalhos para correr o comando no Windows / noutros sistemas. |
 | `tests/` | Testes automáticos. |
 
 ## Instalação (Windows) — só uma vez
