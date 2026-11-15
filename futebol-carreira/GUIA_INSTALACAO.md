@@ -50,13 +50,23 @@ No fim deve aparecer `BUILD SUCCESSFUL`.
 
 ### Fase 1
 1. Abre a app. Aparece a tabela da "Portugal – Liga Lusitana" a zeros.
-2. Toca em **Jornada** algumas vezes: a tabela muda. No separador **Resultados** vês os jogos da jornada.
+2. Toca em **Jornada** algumas vezes: a tabela muda. No separador **Jogos** vês os jogos da jornada.
 3. Toca em **Época**: a época vai até ao fim. A verde está o campeão (ou quem sobe), a vermelho quem desce.
 4. Toca em **10 épocas** e vê o separador **Histórico**.
 5. Toca no nome da liga (em cima) e escolhe "Portugal – Liga Lusitana 2": confirma que as equipas que subiram/desceram trocaram de divisão.
 6. Toca numa equipa da tabela para ver o plantel.
 7. Roda o telemóvel: deitado, a tabela mostra também os golos marcados e sofridos.
 8. **Recomeçar** volta à primeira época.
+
+### Fase 2
+1. Toca em **Jornada** e abre o separador **Jogos**. Toca num jogo: abre o relato, com golos, cartões, lesões e substituições.
+2. No jogo aberto, vê os separadores **Estatísticas** (posse, remates, cantos...) e **Notas** (nota de cada jogador).
+3. Toca em **▶ Ver em direto**: o jogo volta a passar minuto a minuto, com o marcador a mudar. **Saltar para o fim** acaba logo.
+4. Fecha o jogo e usa as setas **◀ ▶** para ver jornadas anteriores.
+5. Simula mais jornadas e abre o separador **Jogadores**: melhores marcadores, assistências e notas médias da liga.
+6. Toca numa equipa da tabela: cada jogador mostra jogos (J), golos (G), assistências (A) e nota. Quem está lesionado ou castigado aparece a vermelho.
+7. Na mesma janela, muda a **Formação** e a **Mentalidade** da equipa (por exemplo 5-3-2 e Defensiva), fecha e simula uma época: essa equipa deve marcar e sofrer menos golos. **Auto** devolve a decisão ao computador.
+8. No **Histórico** aparece agora também o melhor marcador de cada época.
 
 ## Como editar a base de dados
 Os ficheiros estão em `app/src/main/assets/dados/`:

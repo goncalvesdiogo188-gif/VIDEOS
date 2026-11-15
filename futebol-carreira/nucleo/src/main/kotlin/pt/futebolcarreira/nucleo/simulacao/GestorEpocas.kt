@@ -2,6 +2,7 @@ package pt.futebolcarreira.nucleo.simulacao
 
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.dados.GeradorJogadores
+import pt.futebolcarreira.nucleo.modelos.Jogador
 import kotlin.random.Random
 
 /** Estado de uma liga durante a época. */
@@ -14,6 +15,10 @@ class EstadoLiga(val calendario: List<List<Jogo>>, val tabela: TabelaClassificat
 
 /** Resumo de uma liga numa época terminada. */
 class ResumoLiga(val campeao: String, val pontos: Int) {
+    /** Melhor marcador da liga: nome, sigla do clube e golos. */
+    var melhorMarcador = ""
+    var clubeMarcador = ""
+    var golosMarcador = 0
     val sobem = mutableListOf<String>()
     val descem = mutableListOf<String>()
 }
@@ -52,6 +57,15 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     private fun iniciarEpoca() {
         estado.clear()
         epocaFechada = false
+        // Época nova: estatísticas a zero, todos recuperados, e cada treinador escolhe a formação.
+        for (equipa in bd.equipas.values) {
+            for (j in equipa.plantel) {
+                j.epoca.limpar()
+                j.lesao = 0
+                j.suspensao = 0
+            }
+            equipa.escolherFormacao()
+        }
         for (liga in bd.competicoes.values) {
             val ids = bd.equipasDaLiga(liga.id).map { it.id }.sorted()
             estado[liga.id] = EstadoLiga(
@@ -69,15 +83,30 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         for (e in estado.values) {
             if (e.jornada >= e.totalJornadas) continue
             e.resultados += e.calendario[e.jornada].map { jogo ->
-                SimuladorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng).also {
-                    e.tabela.registar(it.casa, it.fora, it.golosCasa, it.golosFora)
-                }
+                val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
+                MotorJogo.aplicar(relatorio)
+                e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
+                Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
             }
             houveJogos = true
         }
         if (epocaTerminada() && !epocaFechada) fecharEpoca()
         return houveJogos
     }
+
+    /** Jogadores da liga que já jogaram esta época. */
+    fun jogadoresDaLiga(ligaId: String): List<Jogador> =
+        bd.equipasDaLiga(ligaId).flatMap { it.plantel }.filter { it.epoca.jogos > 0 }
+
+    /**
+     * Os "quantos" melhores jogadores da liga segundo um critério (golos, assistências, nota...).
+     * Só entra quem tem pelo menos "minimoJogos" e um valor acima de zero.
+     */
+    fun melhores(ligaId: String, quantos: Int, minimoJogos: Int = 1, criterio: (Jogador) -> Double): List<Jogador> =
+        jogadoresDaLiga(ligaId)
+            .filter { it.epoca.jogos >= minimoJogos && criterio(it) > 0.0 }
+            .sortedWith(compareByDescending<Jogador> { criterio(it) }.thenBy { it.epoca.jogos }.thenBy { it.id })
+            .take(quantos)
 
     fun simularAteAoFim() {
         while (simularJornada()) Unit
@@ -89,7 +118,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         val resumos = LinkedHashMap<String, ResumoLiga>()
         for ((ligaId, e) in estado) {
             val primeiro = e.tabela.ordenada().firstOrNull() ?: continue
-            resumos[ligaId] = ResumoLiga(primeiro.id, primeiro.pts)
+            resumos[ligaId] = ResumoLiga(primeiro.id, primeiro.pts).also { resumo ->
+                melhores(ligaId, 1) { it.epoca.golos.toDouble() }.firstOrNull()?.let { j ->
+                    resumo.melhorMarcador = j.nome
+                    resumo.clubeMarcador = bd.equipas[j.equipa]?.abreviatura ?: ""
+                    resumo.golosMarcador = j.epoca.golos
+                }
+            }
         }
         for (liga in bd.competicoes.values) {
             val cima = resumos[liga.id] ?: continue

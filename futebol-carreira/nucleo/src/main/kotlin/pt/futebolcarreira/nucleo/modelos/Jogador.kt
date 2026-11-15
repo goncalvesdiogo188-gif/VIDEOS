@@ -1,8 +1,26 @@
 package pt.futebolcarreira.nucleo.modelos
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlin.math.pow
 import kotlin.math.roundToInt
+
+/** O que um jogador fez na época em curso (não é gravado no JSON da base de dados). */
+class EstatisticasEpoca {
+    var jogos = 0
+    var golos = 0
+    var assistencias = 0
+    var amarelos = 0
+    var vermelhos = 0
+    var somaNotas = 0.0
+
+    /** Nota média nos jogos em que participou (0 se ainda não jogou). */
+    fun notaMedia(): Double = if (jogos == 0) 0.0 else somaNotas / jogos
+
+    fun limpar() {
+        jogos = 0; golos = 0; assistencias = 0; amarelos = 0; vermelhos = 0; somaNotas = 0.0
+    }
+}
 
 /**
  * Um jogador de futebol: identidade, posição e atributos.
@@ -24,6 +42,23 @@ class Jogador(
     /** Nome do atributo -> valor (1 a 99). */
     val atributos: MutableMap<String, Int> = mutableMapOf(),
 ) {
+    /** Estatísticas da época em curso. */
+    @Transient
+    val epoca = EstatisticasEpoca()
+
+    /** Jornadas que ainda falta para recuperar de lesão (0 = apto). */
+    @Transient
+    var lesao = 0
+
+    /** Jogos de castigo que ainda falta cumprir (0 = pode jogar). */
+    @Transient
+    var suspensao = 0
+
+    /** Pode ser convocado para o próximo jogo? */
+    val disponivel get() = lesao == 0 && suspensao == 0
+
+    fun atributo(nome: String): Int = atributos[nome] ?: 1
+
     /** Valor global do jogador na sua posição (1 a 99). */
     fun geral(): Int {
         val pesos = PESOS[posicao] ?: PESOS.getValue("MC")

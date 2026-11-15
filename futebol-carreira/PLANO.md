@@ -40,7 +40,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] APK de teste pronto a instalar em `apk/futebol-carreira.apk` (não é preciso instalar ferramentas para experimentar).
 - [x] Guia de instalação: `GUIA_INSTALACAO.md`.
 
-## Fase 1 — Base de dados e competições ✅ (à espera de confirmação)
+## Fase 1 — Base de dados e competições ✅
 - [x] Estrutura de pastas (dados / scripts / cenas / ferramentas / testes).
 - [x] Base de dados em JSON: 6 países, 12 ligas (2 divisões por país), 228 equipas, 5472 jogadores com atributos, posição, idade, pé, potencial.
 - [x] Ferramenta que gera a base de dados fictícia (`./gradlew :nucleo:gerarBaseDados`).
@@ -52,13 +52,14 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Ecrã de teste: tabela, resultados, plantéis e histórico de campeões.
 - [x] Testes automáticos (`./gradlew :nucleo:test`).
 
-## Fase 2 — Simulação detalhada de jogos (sem 3D)
-- [ ] Motor de jogo minuto a minuto: posse, ocasiões, golos com marcador e assistência.
-- [ ] Cartões, lesões, substituições, cansaço.
-- [ ] Táticas simples (formação, mentalidade) com efeito no jogo.
-- [ ] Notas dos jogadores e estatísticas da época (melhor marcador, assistências).
-- [ ] Ecrã de jogo em texto ("relato") para acompanhar um jogo.
-- [ ] Desempate por confronto direto na tabela.
+## Fase 2 — Simulação detalhada de jogos (sem 3D) ✅ (à espera de confirmação)
+- [x] Motor de jogo minuto a minuto (`MotorJogo.kt`): remates, golos com marcador e assistência, penáltis.
+- [x] Cartões (com castigos), lesões (com jornadas de paragem), substituições e cansaço.
+- [x] Táticas: 5 formações e 3 mentalidades com efeito no jogo; o computador escolhe sozinho ou fica fixo.
+- [x] Notas dos jogadores, melhor em campo e estatísticas da época (marcadores, assistências, notas médias).
+- [x] Ecrã de jogo: relato em texto, estatísticas e notas, com botão «Ver em direto».
+- [x] Desempate por confronto direto na tabela.
+- [x] Testes automáticos da Fase 2 (`Fase2Test.kt`).
 
 ## Fase 3 — Menus, navegação e gravação
 - [ ] Menu principal, novo jogo (escolher via jogador/treinador, país, clube).

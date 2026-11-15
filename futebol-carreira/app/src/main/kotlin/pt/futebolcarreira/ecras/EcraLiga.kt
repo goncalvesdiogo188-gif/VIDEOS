@@ -20,6 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilterChip
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -51,19 +54,23 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import pt.futebolcarreira.EstadoEcra
 import pt.futebolcarreira.JogoViewModel
+import pt.futebolcarreira.LinhaJogadorUi
 import pt.futebolcarreira.LinhaUi
+import pt.futebolcarreira.nucleo.modelos.Formacao
+import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.PlantelUi
 import pt.futebolcarreira.Zona
 
 /**
- * Ecrã de teste da Fase 1: mostra uma liga a ser simulada, época após época.
+ * Ecrã de teste das Fases 1 e 2: mostra uma liga a ser simulada, época após época,
+ * com os jogos em detalhe, os melhores jogadores e as táticas de cada equipa.
  * (Os menus "a sério" chegam na Fase 3.)
  */
 
 private val COR_SUBIDA = Color(0x8C2E7D32)
 private val COR_DESCIDA = Color(0x8CB71C1C)
-private val LARGURA_NUMERO = 30.dp
-private val SEPARADORES = listOf("Tabela", "Resultados", "Histórico")
+internal val LARGURA_NUMERO = 30.dp
+private val SEPARADORES = listOf("Tabela", "Jogos", "Jogadores", "Histórico")
 
 @Composable
 fun EcraLiga(jogo: JogoViewModel) {
@@ -77,7 +84,7 @@ fun EcraLiga(jogo: JogoViewModel) {
                 ativos = !jogo.ocupado,
                 aoJornada = jogo::jornadaSeguinte,
                 aoEpoca = { jogo.simularEpocas(1) },
-                aoDezEpocas = { jogo.simularEpocas(10); separador = 2 },
+                aoDezEpocas = { jogo.simularEpocas(10); separador = 3 },
                 aoRecomecar = jogo::novoJogo,
             )
         },
@@ -96,13 +103,15 @@ fun EcraLiga(jogo: JogoViewModel) {
             }
             when (separador) {
                 0 -> Tabela(ecra.tabela, jogo::abrirPlantel)
-                1 -> Resultados(ecra)
+                1 -> Resultados(ecra, jogo::mudarJornada, jogo::abrirJogo)
+                2 -> Jogadores(ecra)
                 else -> Historico(ecra)
             }
         }
     }
 
-    jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel) }
+    jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel, jogo::mudarFormacao, jogo::mudarMentalidade) }
+    jogo.jogo?.let { EcraJogo(it, jogo::fecharJogo) }
 }
 
 // ------------------------------------------------------------------ barras
@@ -199,7 +208,7 @@ private fun Tabela(linhas: List<LinhaUi>, aoTocarEquipa: (String) -> Unit) {
 }
 
 @Composable
-private fun Celula(texto: String, largura: Dp = LARGURA_NUMERO, negrito: Boolean = false) {
+internal fun Celula(texto: String, largura: Dp = LARGURA_NUMERO, negrito: Boolean = false) {
     Text(
         texto, Modifier.width(largura), textAlign = TextAlign.Center, fontSize = 14.sp, maxLines = 1,
         fontWeight = if (negrito) FontWeight.Bold else FontWeight.Normal,
@@ -209,28 +218,80 @@ private fun Celula(texto: String, largura: Dp = LARGURA_NUMERO, negrito: Boolean
 // -------------------------------------------------------------- resultados
 
 @Composable
-private fun Resultados(ecra: EstadoEcra) {
-    LazyColumn(Modifier.fillMaxSize().padding(12.dp)) {
+private fun Resultados(ecra: EstadoEcra, aoMudarJornada: (Int) -> Unit, aoAbrirJogo: (Int) -> Unit) {
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
         if (ecra.resultados.isEmpty()) {
             item {
-                Text("A época ainda não começou.\n\nToca em «Jornada» para simular uma jornada, ou em «Época» para ir até ao fim.")
+                Text(
+                    "A época ainda não começou.\n\nToca em «Jornada» para simular uma jornada, ou em «Época» para ir até ao fim.",
+                    Modifier.padding(top = 12.dp),
+                )
             }
         } else {
             item {
-                Text("Jornada ${ecra.jornada}", fontWeight = FontWeight.Bold, fontSize = 18.sp, modifier = Modifier.padding(bottom = 8.dp))
+                // Setas para ver as jornadas anteriores.
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    TextButton(onClick = { aoMudarJornada(-1) }, enabled = ecra.jornadaVista > 1) { Text("◀", fontSize = 20.sp) }
+                    Text("Jornada ${ecra.jornadaVista}", Modifier.weight(1f), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    TextButton(onClick = { aoMudarJornada(1) }, enabled = ecra.jornadaVista < ecra.jornada) { Text("▶", fontSize = 20.sp) }
+                }
+                Text(
+                    "Toca num jogo para ver o relato.", Modifier.fillMaxWidth().padding(bottom = 6.dp),
+                    textAlign = TextAlign.Center, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
             items(ecra.resultados) { r ->
-                Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    Modifier.fillMaxWidth().clickable { aoAbrirJogo(r.indice) }.padding(vertical = 11.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
                     Text(r.casa, Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Text("${r.golosCasa} - ${r.golosFora}", Modifier.width(64.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
                     Text(r.fora, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
+                HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
             }
             if (ecra.terminada) {
                 item {
                     Text("Época terminada. Toca em «Jornada» para começar a próxima.", fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 12.dp))
                 }
             }
+        }
+    }
+}
+
+// --------------------------------------------------------------- jogadores
+
+@Composable
+private fun Jogadores(ecra: EstadoEcra) {
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
+        if (ecra.marcadores.isEmpty()) {
+            item { Text("Ainda não há golos esta época.", Modifier.padding(top = 12.dp)) }
+        }
+        listaMelhores("Melhores marcadores", "Golos", ecra.marcadores)
+        listaMelhores("Assistências", "Ass.", ecra.assistencias)
+        listaMelhores("Melhores notas médias", "Nota", ecra.notas)
+    }
+}
+
+/** Uma lista de dez jogadores com título (não aparece se estiver vazia). */
+private fun androidx.compose.foundation.lazy.LazyListScope.listaMelhores(titulo: String, coluna: String, linhas: List<LinhaJogadorUi>) {
+    if (linhas.isEmpty()) return
+    item {
+        Row(Modifier.padding(top = 14.dp, bottom = 4.dp), verticalAlignment = Alignment.Bottom) {
+            Text(titulo, Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Celula("Jogos", 48.dp, negrito = true)
+            Celula(coluna, 48.dp, negrito = true)
+        }
+    }
+    items(linhas.size) { i ->
+        val l = linhas[i]
+        Row(Modifier.padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
+            Celula("${i + 1}", 26.dp)
+            Text(l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(l.clube, Modifier.width(44.dp), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Celula("${l.jogos}", 48.dp)
+            Celula(l.valor, 48.dp, negrito = true)
         }
     }
 }
@@ -253,6 +314,7 @@ private fun Historico(ecra: EstadoEcra) {
                         Text("${e.campeao} (${e.pontos} pts)")
                     }
                     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+                    if (e.marcador.isNotEmpty()) Text("Melhor marcador: ${e.marcador}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                     if (e.sobem.isNotEmpty()) Text("Subiram: ${e.sobem}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                     if (e.descem.isNotEmpty()) Text("Desceram: ${e.descem}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                 }
@@ -264,29 +326,60 @@ private fun Historico(ecra: EstadoEcra) {
 // ----------------------------------------------------------------- plantel
 
 @Composable
-private fun JanelaPlantel(plantel: PlantelUi, aoFechar: () -> Unit) {
-    Dialog(onDismissRequest = aoFechar) {
-        Surface(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxHeight(0.9f)) {
+private fun JanelaPlantel(
+    plantel: PlantelUi, aoFechar: () -> Unit,
+    aoMudarFormacao: (String, Formacao?) -> Unit, aoMudarMentalidade: (String, Mentalidade?) -> Unit,
+) {
+    Dialog(onDismissRequest = aoFechar, properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)) {
+        Surface(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.92f)) {
             Column(Modifier.padding(12.dp)) {
                 Text(plantel.titulo, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 Text(plantel.detalhes, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Row(Modifier.padding(top = 10.dp, bottom = 4.dp)) {
-                    Celula("Pos", 42.dp, negrito = true)
+
+                // Tática: "Auto" deixa o treinador (computador) decidir.
+                Text("Formação (em uso: ${plantel.formacaoEmUso})", fontSize = 13.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilterChip(plantel.formacao == null, { aoMudarFormacao(plantel.equipaId, null) }, { Text("Auto") })
+                    for (f in Formacao.entries) {
+                        FilterChip(plantel.formacao == f, { aoMudarFormacao(plantel.equipaId, f) }, { Text(f.nome) })
+                    }
+                }
+                Text("Mentalidade", fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilterChip(plantel.mentalidade == null, { aoMudarMentalidade(plantel.equipaId, null) }, { Text("Auto") })
+                    for (m in Mentalidade.entries) {
+                        FilterChip(plantel.mentalidade == m, { aoMudarMentalidade(plantel.equipaId, m) }, { Text(m.nome) })
+                    }
+                }
+
+                Row(Modifier.padding(top = 6.dp, bottom = 4.dp)) {
+                    Celula("Pos", 40.dp, negrito = true)
                     Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                    Celula("Id.", negrito = true)
-                    Celula("Ger", 34.dp, negrito = true)
-                    Celula("Pot", 34.dp, negrito = true)
-                    Celula("Valor", 66.dp, negrito = true)
+                    Celula("Id.", 28.dp, negrito = true)
+                    Celula("Ger", negrito = true)
+                    Celula("J", 26.dp, negrito = true)
+                    Celula("G", 26.dp, negrito = true)
+                    Celula("A", 26.dp, negrito = true)
+                    Celula("Nota", 38.dp, negrito = true)
                 }
                 LazyColumn(Modifier.weight(1f)) {
                     items(plantel.jogadores) { j ->
-                        Row(Modifier.padding(vertical = 5.dp)) {
-                            Celula(j.posicao, 42.dp)
-                            Text(j.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Celula(j.idade.toString())
-                            Celula(j.geral.toString(), 34.dp, negrito = true)
-                            Celula(j.potencial.toString(), 34.dp)
-                            Celula(j.valor, 66.dp)
+                        Column(Modifier.padding(vertical = 5.dp)) {
+                            Row {
+                                Celula(j.posicao, 40.dp)
+                                Text(j.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                Celula(j.idade.toString(), 28.dp)
+                                Celula(j.geral.toString(), negrito = true)
+                                Celula(j.jogos.toString(), 26.dp)
+                                Celula(j.golos.toString(), 26.dp)
+                                Celula(j.assistencias.toString(), 26.dp)
+                                Celula(j.nota, 38.dp)
+                            }
+                            val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+                            Row(Modifier.padding(start = 40.dp)) {
+                                Text("Potencial ${j.potencial} · ${j.valor}", fontSize = 12.sp, color = secundaria)
+                                if (j.estado.isNotEmpty()) Text("  ·  ${j.estado}", fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
+                            }
                         }
                     }
                 }

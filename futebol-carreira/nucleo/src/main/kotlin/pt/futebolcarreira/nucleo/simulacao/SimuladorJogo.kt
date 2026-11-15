@@ -4,12 +4,12 @@ import pt.futebolcarreira.nucleo.modelos.Equipa
 import kotlin.math.exp
 import kotlin.random.Random
 
-/** Resultado final de um jogo. */
-data class Resultado(val casa: String, val fora: String, val golosCasa: Int, val golosFora: Int)
+/** Resultado final de um jogo ("relatorio" só existe nos jogos simulados em detalhe). */
+class Resultado(val casa: String, val fora: String, val golosCasa: Int, val golosFora: Int, val relatorio: RelatorioJogo? = null)
 
 /**
- * Simulação rápida de um jogo (só o resultado).
- * Na Fase 2 passa a haver simulação detalhada: marcadores, cartões, lesões, etc.
+ * Simulação rápida de um jogo (só o resultado), para quando o detalhe não interessa.
+ * A simulação detalhada (marcadores, cartões, lesões...) está em MotorJogo.
  */
 object SimuladorJogo {
     /** Média de golos da equipa da casa entre equipas iguais. */

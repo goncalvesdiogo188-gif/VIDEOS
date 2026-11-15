@@ -33,6 +33,22 @@ class Equipa(
     @Transient
     var titulos: Int = 0
 
+    /** Formação usada nos jogos. */
+    @Transient
+    var formacao: Formacao = Formacao.F433
+        set(valor) {
+            field = valor
+            invalidarForca()
+        }
+
+    /** true = o treinador (computador) escolhe a formação que melhor serve o plantel. */
+    @Transient
+    var formacaoAutomatica = true
+
+    /** Mentalidade fixa; null = o treinador decide jogo a jogo. */
+    @Transient
+    var mentalidade: Mentalidade? = null
+
     @Transient
     private var forcaGuardada: Forca? = null
 
@@ -41,13 +57,16 @@ class Equipa(
         forcaGuardada = null
     }
 
-    /** Escolhe os 11 melhores jogadores para a formação (4-3-3). */
-    fun melhorOnze(): List<LugarOnze> {
+    /**
+     * Escolhe os melhores jogadores para os 11 lugares da formação.
+     * "candidatos" permite deixar de fora lesionados e castigados.
+     */
+    fun melhorOnze(formacao: Formacao = this.formacao, candidatos: List<Jogador> = plantel): List<LugarOnze> {
         val usados = HashSet<Int>()
-        return FORMACAO.map { lugar ->
-            val melhor = plantel.filter { it.id !in usados }.maxByOrNull { notaNoLugar(it, lugar) }
+        return formacao.lugares.map { lugar ->
+            val melhor = candidatos.filter { it.id !in usados }.maxByOrNull { notaNoLugar(it, lugar) }
             if (melhor == null) {
-                // Plantel com menos de 11 jogadores: o lugar fica muito fraco.
+                // Menos de 11 jogadores: o lugar fica muito fraco.
                 LugarOnze(lugar, null, 20)
             } else {
                 usados += melhor.id
@@ -56,23 +75,19 @@ class Equipa(
         }
     }
 
-    /** Nota de um jogador num certo lugar (penaliza quem joga fora de posição). */
-    private fun notaNoLugar(j: Jogador, lugar: String): Int = when {
-        j.posicao == lugar -> j.geral()
-        lugar == "GR" || j.posicao == "GR" -> maxOf(1, j.geral() - 40)
-        j.posicao in POSICOES_PARECIDAS.getValue(lugar) -> maxOf(1, j.geral() - 5)
-        else -> maxOf(1, j.geral() - 12)
-    }
-
-    /** Força da equipa, calculada a partir do melhor onze. */
+    /** Força da equipa com todos os jogadores, na formação atual (inclui o bónus da formação). */
     fun forca(): Forca {
         forcaGuardada?.let { return it }
+        return calcularForca(formacao).also { forcaGuardada = it }
+    }
+
+    private fun calcularForca(formacao: Formacao): Forca {
         var somaAtaque = 0.0
         var pesoAtaque = 0.0
         var somaDefesa = 0.0
         var pesoDefesa = 0.0
         var soma = 0.0
-        for (entrada in melhorOnze()) {
+        for (entrada in melhorOnze(formacao)) {
             val pa = PESO_ATAQUE.getValue(entrada.lugar)
             val pd = PESO_DEFESA.getValue(entrada.lugar)
             somaAtaque += entrada.nota * pa
@@ -81,12 +96,29 @@ class Equipa(
             pesoDefesa += pd
             soma += entrada.nota
         }
-        return Forca(somaAtaque / pesoAtaque, somaDefesa / pesoDefesa, soma / FORMACAO.size).also { forcaGuardada = it }
+        return Forca(somaAtaque / pesoAtaque + formacao.ataque, somaDefesa / pesoDefesa + formacao.defesa, soma / formacao.lugares.size)
+    }
+
+    /**
+     * Escolhe a formação que melhor aproveita o plantel (só se estiver em modo automático).
+     * Entre formações quase iguais, cada clube tem a sua preferência, para haver variedade.
+     */
+    fun escolherFormacao() {
+        if (!formacaoAutomatica) return
+        val notas = Formacao.entries.associateWith { calcularForca(it).geral }
+        val melhor = notas.values.max()
+        val boas = notas.filterValues { it >= melhor - 0.7 }.keys.toList()
+        formacao = boas[Math.floorMod(id.hashCode(), boas.size)]
     }
 
     companion object {
-        /** Tática base usada para escolher o melhor onze (4-3-3). */
-        val FORMACAO = listOf("GR", "DD", "DC", "DC", "DE", "MDC", "MC", "MC", "ED", "EE", "PL")
+        /** Nota de um jogador num certo lugar (penaliza quem joga fora de posição). */
+        fun notaNoLugar(j: Jogador, lugar: String): Int = when {
+            j.posicao == lugar -> j.geral()
+            lugar == "GR" || j.posicao == "GR" -> maxOf(1, j.geral() - 40)
+            j.posicao in POSICOES_PARECIDAS.getValue(lugar) -> maxOf(1, j.geral() - 5)
+            else -> maxOf(1, j.geral() - 12)
+        }
 
         /** Posições parecidas: um jogador pode tapar um buraco com pequena penalização. */
         val POSICOES_PARECIDAS = mapOf(
@@ -97,7 +129,7 @@ class Equipa(
         )
 
         /** Quanto cada lugar do onze conta para o ataque e para a defesa. */
-        val PESO_ATAQUE = mapOf("GR" to 0.0, "DD" to 0.5, "DE" to 0.5, "DC" to 0.0, "MDC" to 0.5, "MC" to 1.5, "ED" to 2.0, "EE" to 2.0, "PL" to 3.0)
-        val PESO_DEFESA = mapOf("GR" to 3.0, "DD" to 1.5, "DE" to 1.5, "DC" to 2.0, "MDC" to 1.5, "MC" to 0.5, "ED" to 0.0, "EE" to 0.0, "PL" to 0.0)
+        val PESO_ATAQUE = mapOf("GR" to 0.0, "DD" to 0.5, "DE" to 0.5, "DC" to 0.0, "MDC" to 0.5, "MC" to 1.5, "MOC" to 2.0, "ED" to 2.0, "EE" to 2.0, "PL" to 3.0)
+        val PESO_DEFESA = mapOf("GR" to 3.0, "DD" to 1.5, "DE" to 1.5, "DC" to 2.0, "MDC" to 1.5, "MC" to 0.5, "MOC" to 0.0, "ED" to 0.0, "EE" to 0.0, "PL" to 0.0)
     }
 }
