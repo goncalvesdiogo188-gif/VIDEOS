@@ -32,6 +32,7 @@ import pt.futebolcarreira.EmblemaUi
 
 internal val LARGURA_NUMERO = 30.dp
 internal val COR_SUBIDA = Color(0x8C2E7D32)
+internal val COR_PLAYOFF = Color(0x8C9E7A00)
 internal val COR_DESCIDA = Color(0x8CB71C1C)
 internal val COR_VITORIA = Color(0xFF2E7D32)
 internal val COR_EMPATE = Color(0xFF757575)

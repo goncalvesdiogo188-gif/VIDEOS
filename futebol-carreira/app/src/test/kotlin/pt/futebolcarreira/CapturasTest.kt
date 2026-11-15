@@ -214,4 +214,34 @@ class CapturasTest {
         assertEquals(clubeFinal, jogo.ui?.clube)
         capturar("21-carreira-carregada")
     }
+
+    /** Ecrãs da fase 7 (taças, Europa, seleções) com dados de demonstração. */
+    @Test
+    fun ecrasDaFase7() {
+        esperar { !jogo.ocupado }
+        jogo.abrirNovaCarreira()
+        esperar { jogo.paises.isNotEmpty() && !jogo.ocupado }
+        val clube = jogo.paises[0].ligas[0].clubes[4]
+        jogo.comecarCarreira(pt.futebolcarreira.nucleo.carreira.ModoCarreira.TREINADOR, "Zé Mister", clube.id, "")
+        esperar { jogo.ecra == Ecra.CARREIRA && !jogo.ocupado }
+        jogo.mostrarDemonstracaoFase7()
+        regra.waitForIdle()
+
+        tocar("Liga")
+        capturar("30-taca")
+        jogo.escolherCompeticao("lc")
+        regra.waitForIdle()
+        capturar("31-europa-fase-liga")
+        tocar("Eliminatórias")
+        capturar("32-europa-eliminatorias")
+
+        tocar("Mais")
+        tocar("Seleções")
+        capturar("33-selecoes")
+        tocar("Convocados")
+        capturar("34-selecoes-convocados")
+
+        tocar("Início")
+        capturar("35-inicio-taca")
+    }
 }
