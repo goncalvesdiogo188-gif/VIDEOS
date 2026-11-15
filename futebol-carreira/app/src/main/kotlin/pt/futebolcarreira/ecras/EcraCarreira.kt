@@ -1,0 +1,316 @@
+package pt.futebolcarreira.ecras
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import pt.futebolcarreira.CarreiraUi
+import pt.futebolcarreira.JogoCalendarioUi
+import pt.futebolcarreira.JogoViewModel
+import pt.futebolcarreira.LinhaUi
+
+/**
+ * Ecrã central da carreira. Em baixo há cinco separadores:
+ * Início (próximo jogo e mensagens), Plantel, Liga, Calendário e Mais.
+ */
+
+private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "🏆" to "Liga", "📅" to "Calendário", "☰" to "Mais")
+
+@Composable
+fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0) {
+    var separador by rememberSaveable { mutableIntStateOf(separadorInicial) }
+
+    Scaffold(
+        topBar = { Cabecalho(ui, jogo.ocupado) },
+        bottomBar = {
+            NavigationBar {
+                SEPARADORES.forEachIndexed { i, (simbolo, nome) ->
+                    NavigationBarItem(
+                        selected = separador == i, onClick = { separador = i },
+                        icon = { Text(simbolo, fontSize = 20.sp) }, label = { Text(nome, maxLines = 1) },
+                    )
+                }
+            }
+        },
+    ) { margens ->
+        Box(Modifier.padding(margens).fillMaxSize()) {
+            when (separador) {
+                0 -> Inicio(ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 2 })
+                1 -> ConteudoPlantel(ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade)
+                2 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
+                3 -> Calendario(ui.calendario, jogo::abrirJogoDoClube)
+                else -> Mais(ui, !jogo.ocupado, jogo::simularEpoca, jogo::sairParaMenu)
+            }
+        }
+    }
+}
+
+/** Barra de topo: emblema e nome do clube, época, data e estado do mercado. */
+@Composable
+private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
+    Surface(color = MaterialTheme.colorScheme.surfaceContainer) {
+        Column(Modifier.statusBarsPadding()) {
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Emblema(ui.emblema, 44.dp)
+                Column(Modifier.weight(1f)) {
+                    Text(ui.clube, fontWeight = FontWeight.Bold, fontSize = 18.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text("Época ${ui.epoca} · ${ui.data}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                }
+                if (ui.mercadoAberto) {
+                    Surface(color = MaterialTheme.colorScheme.tertiary, shape = MaterialTheme.shapes.small) {
+                        Text(
+                            "Mercado\naberto", Modifier.padding(horizontal = 8.dp, vertical = 3.dp), fontSize = 11.sp, lineHeight = 12.sp,
+                            fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onTertiary, textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+            }
+            // Barra de progresso enquanto se simula ou grava.
+            if (ocupado) LinearProgressIndicator(Modifier.fillMaxWidth()) else Spacer(Modifier.height(4.dp))
+        }
+    }
+}
+
+// ------------------------------------------------------------------ início
+
+@Composable
+private fun Inicio(
+    ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
+    aoAbrirJogo: (Int) -> Unit, aoVerLiga: () -> Unit,
+) {
+    val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+    LazyColumn(
+        Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        // ---- O que há para fazer a seguir ----
+        item {
+            Bloco {
+                val proximo = ui.proximo
+                when {
+                    ui.terminada -> {
+                        Rotulo("Época ${ui.epoca} terminada")
+                        Text(ui.resumoFim, Modifier.padding(vertical = 8.dp))
+                        BotaoGrande("Começar a época ${ui.proximaEpoca}", ativo = ativo, aoTocar = aoNovaEpoca)
+                    }
+                    proximo == null -> {
+                        Rotulo("Fim do campeonato")
+                        Text("O ${ui.clube} já fez todos os jogos. Avança para as outras ligas acabarem a época.", Modifier.padding(vertical = 8.dp))
+                        BotaoGrande("Avançar", ativo = ativo, aoTocar = aoJogar)
+                    }
+                    else -> {
+                        Rotulo("Próximo jogo · Jornada ${proximo.jornada} de ${proximo.totalJornadas}")
+                        Row(Modifier.fillMaxWidth().padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                            // A equipa da casa aparece sempre à esquerda.
+                            val eu: @Composable () -> Unit = { EquipaGrande(ui.clube, ui.emblema) }
+                            val adversario: @Composable () -> Unit = { EquipaGrande(proximo.adversario, proximo.emblemaAdversario) }
+                            Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { if (proximo.emCasa) eu() else adversario() }
+                            Text("vs", color = secundaria, fontSize = 16.sp)
+                            Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { if (proximo.emCasa) adversario() else eu() }
+                        }
+                        Text(
+                            "${proximo.data} · ${if (proximo.emCasa) "em casa" else "fora"}", Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center, fontWeight = FontWeight.Bold,
+                        )
+                        Text(
+                            "Adversário: ${proximo.detalhes}", Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                            textAlign = TextAlign.Center, fontSize = 13.sp, color = secundaria,
+                        )
+                        BotaoGrande("Jogar", ativo = ativo, aoTocar = aoJogar)
+                    }
+                }
+            }
+        }
+
+        // ---- Classificação e último jogo, lado a lado ----
+        item {
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Bloco(Modifier.weight(1f), aoTocar = aoVerLiga) {
+                    Rotulo("Classificação")
+                    Text("${ui.posicao}.º lugar", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text("${ui.pontos} pontos · ${ui.nomeLiga}", fontSize = 13.sp, color = secundaria, maxLines = 2)
+                }
+                val ultimo = ui.ultimo
+                Bloco(Modifier.weight(1f), aoTocar = ultimo?.let { { aoAbrirJogo(it.jornada) } }) {
+                    Rotulo("Último jogo")
+                    if (ultimo == null) {
+                        Text("—", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        Text("Ainda não jogaste", fontSize = 13.sp, color = secundaria)
+                    } else {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Desfecho(ultimo.desfecho)
+                            Text(ultimo.resultado, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        }
+                        Text(
+                            "${if (ultimo.emCasa) "em casa com" else "fora com"} ${ultimo.adversario}",
+                            fontSize = 13.sp, color = secundaria, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                }
+            }
+        }
+
+        // ---- O jogador do utilizador (via de jogador) ----
+        ui.meuJogador?.let { j ->
+            item {
+                Bloco {
+                    Rotulo("O teu jogador")
+                    Text(j.nome, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text(j.linha1)
+                    Text(j.linha2, fontSize = 13.sp, color = secundaria)
+                }
+            }
+        }
+
+        // ---- A zona da tabela onde está o clube ----
+        item {
+            Bloco(aoTocar = aoVerLiga) {
+                Rotulo(ui.nomeLiga)
+                for (l in ui.miniTabela) LinhaMiniTabela(l)
+            }
+        }
+
+        // ---- Mensagens ----
+        item { Rotulo("Mensagens", Modifier.padding(top = 6.dp, start = 4.dp)) }
+        items(ui.mensagens) { m ->
+            Bloco {
+                Row {
+                    Text(m.titulo, Modifier.weight(1f), fontWeight = FontWeight.Bold)
+                    Text(m.data, fontSize = 12.sp, color = secundaria, modifier = Modifier.padding(start = 8.dp))
+                }
+                Text(m.texto, fontSize = 14.sp, color = secundaria)
+            }
+        }
+    }
+}
+
+@Composable
+private fun EquipaGrande(nome: String, emblema: pt.futebolcarreira.EmblemaUi) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Emblema(emblema, 56.dp)
+        Text(nome, Modifier.padding(top = 4.dp), fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, maxLines = 2, fontSize = 14.sp)
+    }
+}
+
+@Composable
+private fun LinhaMiniTabela(l: LinhaUi) {
+    val cor = if (l.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+    Row(Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+        Celula("${l.posicao}", 26.dp, negrito = l.meu, cor = cor)
+        Text(
+            l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, color = cor,
+            fontWeight = if (l.meu) FontWeight.Bold else FontWeight.Normal,
+        )
+        Celula("${l.j}", negrito = l.meu, cor = cor)
+        Celula("%+d".format(l.gm - l.gs), 36.dp, negrito = l.meu, cor = cor)
+        Celula("${l.pts}", 36.dp, negrito = true, cor = cor)
+    }
+}
+
+// -------------------------------------------------------------- calendário
+
+@Composable
+private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit) {
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
+        item {
+            Text(
+                "Jogos do teu clube nesta época. Toca num jogo já feito para ver o relato.\nMercado de transferências: julho, agosto e janeiro.",
+                Modifier.padding(vertical = 10.dp), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        items(jogos, key = { it.jornada }) { j ->
+            val toque = if (j.temRelato) Modifier.clickable { aoAbrirJogo(j.jornada) } else Modifier
+            Row(
+                Modifier.fillMaxWidth().then(toque).padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Column(Modifier.width(54.dp)) {
+                    Text("J${j.jornada}", fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                    Text(j.data, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                }
+                Emblema(j.emblema, 32.dp)
+                Column(Modifier.weight(1f)) {
+                    Text(j.adversario, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text(if (j.emCasa) "Casa" else "Fora", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                if (j.desfecho.isNotEmpty()) {
+                    Text(j.resultado, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    Desfecho(j.desfecho)
+                }
+            }
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+        }
+    }
+}
+
+// -------------------------------------------------------------------- mais
+
+@Composable
+private fun Mais(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit) {
+    var confirmar by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Bloco {
+            Rotulo("A tua carreira")
+            Text(ui.utilizador, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Text("${ui.modo.nome} do ${ui.clube}")
+        }
+        Bloco {
+            Rotulo("Gravação")
+            Text("O jogo grava-se sozinho depois de cada jornada. Podes fechar a aplicação quando quiseres.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+            Text("Simular o resto da época", fontSize = 16.sp)
+        }
+        OutlinedButton(onClick = aoSair, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+            Text("Gravar e sair para o menu", fontSize = 16.sp)
+        }
+    }
+    if (confirmar) {
+        AlertDialog(
+            onDismissRequest = { confirmar = false },
+            title = { Text("Simular o resto da época?") },
+            text = { Text("Todos os jogos que faltam são jogados de seguida, sem parar. Não dá para voltar atrás.") },
+            confirmButton = { TextButton(onClick = { confirmar = false; aoSimularEpoca() }) { Text("Simular") } },
+            dismissButton = { TextButton(onClick = { confirmar = false }) { Text("Cancelar") } },
+        )
+    }
+}

@@ -13,8 +13,8 @@ android {
         applicationId = "pt.futebolcarreira"
         minSdk = 26          // Android 8.0 ou mais recente
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.2 (Fase 2)"
+        versionCode = 3
+        versionName = "0.3 (Fase 3)"
     }
 
     // Chave de TESTE, partilhada no repositório para as atualizações instalarem por cima
@@ -51,6 +51,21 @@ android {
     buildFeatures {
         compose = true
     }
+
+    // Testes dos ecrãs num telemóvel simulado (Robolectric), que também guardam capturas de ecrã.
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            all {
+                it.systemProperty("roborazzi.test.record", "true")
+                it.maxHeapSize = "2g"
+                it.testLogging {
+                    events("passed", "failed")
+                    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -61,4 +76,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+
+    // Só para os testes dos ecrãs (não entram no APK).
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi:1.46.1")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
 }

@@ -9,106 +9,62 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pt.futebolcarreira.nucleo.carreira.Carreira
+import pt.futebolcarreira.nucleo.carreira.JogoDoClube
+import pt.futebolcarreira.nucleo.carreira.ModoCarreira
+import pt.futebolcarreira.nucleo.carreira.ResumoGravacao
 import pt.futebolcarreira.nucleo.dados.BaseDados
+import pt.futebolcarreira.nucleo.modelos.Equipa
 import pt.futebolcarreira.nucleo.modelos.Formacao
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
-import pt.futebolcarreira.nucleo.simulacao.GestorEpocas
+import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
+import pt.futebolcarreira.nucleo.simulacao.FichaJogador
 import pt.futebolcarreira.nucleo.simulacao.LadoRelatorio
 import pt.futebolcarreira.nucleo.simulacao.Relato
+import pt.futebolcarreira.nucleo.simulacao.Resultado
 import pt.futebolcarreira.nucleo.simulacao.TipoEvento
 
-// ---- O que o ecrã mostra (cópias simples dos dados, seguras para desenhar) ----
-
-enum class Zona { NORMAL, SUBIDA, DESCIDA }
-
-class OpcaoLiga(val id: String, val texto: String)
-
-class LinhaUi(
-    val posicao: Int, val equipaId: String, val nome: String,
-    val j: Int, val v: Int, val e: Int, val d: Int, val gm: Int, val gs: Int, val pts: Int,
-    val zona: Zona,
-)
-
-class ResultadoUi(val indice: Int, val casa: String, val golosCasa: Int, val golosFora: Int, val fora: String)
-
-class EpocaUi(val epoca: String, val campeao: String, val pontos: Int, val sobem: String, val descem: String, val marcador: String)
-
-/** Linha de uma lista de melhores jogadores (marcadores, assistências, notas). */
-class LinhaJogadorUi(val nome: String, val clube: String, val jogos: Int, val valor: String)
-
-class JogadorUi(
-    val posicao: String, val nome: String, val idade: Int, val geral: Int, val potencial: Int, val valor: String,
-    val jogos: Int, val golos: Int, val assistencias: Int, val nota: String,
-    /** "" se está apto; senão o motivo (lesão ou castigo). */
-    val estado: String,
-)
-
-class PlantelUi(
-    val equipaId: String, val titulo: String, val detalhes: String, val jogadores: List<JogadorUi>,
-    /** null = automática. */
-    val formacao: Formacao?, val formacaoEmUso: String, val mentalidade: Mentalidade?,
-)
-
-/** Um acontecimento no relato. "tipo" null = frase do narrador (início, intervalo, fim). */
-class EventoUi(val minuto: Int, val minutoTexto: String, val texto: String, val tipo: TipoEvento?, val casa: Boolean, val golosCasa: Int, val golosFora: Int)
-
-class FichaUi(
-    val lugar: String, val nome: String, val nota: String, val titular: Boolean,
-    val golos: Int, val assistencias: Int, val amarelos: Int, val vermelho: Boolean, val lesionado: Boolean,
-    val entrou: Int, val saiu: Int,
-)
-
-/** Um jogo aberto para ver o relato, as estatísticas e as notas. */
-class JogoUi(
-    val casa: String, val fora: String, val golosCasa: Int, val golosFora: Int, val duracao: Int,
-    val taticaCasa: String, val taticaFora: String,
-    val eventos: List<EventoUi>,
-    /** nome da estatística, valor da casa, valor de fora. */
-    val estatisticas: List<Triple<String, String, String>>,
-    val fichasCasa: List<FichaUi>, val fichasFora: List<FichaUi>,
-    val melhorEmCampo: String,
-)
-
-class EstadoEcra(
-    val titulo: String = "",
-    val ligas: List<OpcaoLiga> = emptyList(),
-    val ligaId: String = "",
-    val tabela: List<LinhaUi> = emptyList(),
-    /** Jornadas já jogadas e a que está a ser mostrada nos resultados. */
-    val jornada: Int = 0,
-    val jornadaVista: Int = 0,
-    val resultados: List<ResultadoUi> = emptyList(),
-    val terminada: Boolean = false,
-    val marcadores: List<LinhaJogadorUi> = emptyList(),
-    val assistencias: List<LinhaJogadorUi> = emptyList(),
-    val notas: List<LinhaJogadorUi> = emptyList(),
-    val historico: List<EpocaUi> = emptyList(),
-    val titulos: List<Pair<String, Int>> = emptyList(),
-    val erros: List<String> = emptyList(),
-)
-
 /**
- * Liga os ecrãs ao núcleo do jogo. As simulações correm em segundo plano para
- * a aplicação não "congelar"; no fim, o ecrã recebe uma cópia nova dos dados.
+ * Liga os ecrãs ao núcleo do jogo. Tudo o que demora (carregar, simular, gravar)
+ * corre em segundo plano para a aplicação não "congelar"; no fim, os ecrãs
+ * recebem uma cópia nova dos dados para mostrar.
  */
 class JogoViewModel(app: Application) : AndroidViewModel(app) {
-    private var bd = BaseDados()
-    private var gestor: GestorEpocas? = null
-    private var ligaId = "POR1"
+    private val armazem = Armazem(app.filesDir)
+
+    /** A carreira aberta (null = estamos nos menus). */
+    private var carreira: Carreira? = null
+
+    /** Liga à vista no separador «Liga» ("" = a do clube). */
+    private var ligaId = ""
 
     /** Jornada escolhida nos resultados; null = a última jogada. */
     private var jornadaEscolhida: Int? = null
 
-    /** O que o ecrã mostra neste momento. */
-    var ecra by mutableStateOf(EstadoEcra())
+    /** Há alterações (por exemplo, de tática) que ainda não foram gravadas. */
+    private var porGravar = false
+
+    var ecra by mutableStateOf(Ecra.MENU)
         private set
 
-    /** true enquanto se carrega ou simula (os botões ficam desligados). */
+    /** true enquanto se carrega, simula ou grava (os botões ficam desligados). */
     var ocupado by mutableStateOf(false)
         private set
 
-    /** Plantel aberto (null = nenhum). */
+    /** Carreiras gravadas (para o menu). */
+    var gravacoes by mutableStateOf<List<ResumoGravacao>>(emptyList())
+        private set
+
+    /** Países, ligas e clubes para escolher numa carreira nova. */
+    var paises by mutableStateOf<List<PaisUi>>(emptyList())
+        private set
+
+    /** O que os ecrãs da carreira mostram (null = nenhuma carreira aberta). */
+    var ui by mutableStateOf<CarreiraUi?>(null)
+        private set
+
+    /** Plantel de outro clube aberto numa janela (null = nenhum). */
     var plantel by mutableStateOf<PlantelUi?>(null)
         private set
 
@@ -116,14 +72,49 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var jogo by mutableStateOf<JogoUi?>(null)
         private set
 
+    /** Mensagem a mostrar ao utilizador (erros, avisos); null = nenhuma. */
+    var aviso by mutableStateOf<String?>(null)
+        private set
+
     init {
-        novoJogo()
+        executar({ armazem.listar() }) { gravacoes = it }
     }
 
-    /** Carrega a base de dados de raiz e começa na primeira época. */
-    fun novoJogo() = executar {
+    fun fecharAviso() {
+        aviso = null
+    }
+
+    // ------------------------------------------------------------------ menus
+
+    fun abrirMenu() {
+        if (!ocupado) ecra = Ecra.MENU
+    }
+
+    fun abrirCarregar() {
+        if (!ocupado) ecra = Ecra.CARREGAR
+    }
+
+    /** Abre o ecrã de nova carreira (e carrega a lista de clubes, da primeira vez). */
+    fun abrirNovaCarreira() {
+        if (ocupado) return
+        ecra = Ecra.NOVA_CARREIRA
+        if (paises.isNotEmpty()) return
+        executar({
+            val bd = lerBaseDados()
+            bd.paises.values.map { pais ->
+                PaisUi(pais.id, pais.nome, bd.ligasDoPais(pais.id).map { liga ->
+                    LigaOpcaoUi(liga.id, liga.nome, bd.equipasDaLiga(liga.id).sortedByDescending { it.reputacao }.map { e ->
+                        ClubeUi(e.id, e.nome, e.cidade, emblema(e), ((e.reputacao - 28) / 12).coerceIn(1, 5), e.forca().geral.toInt())
+                    })
+                })
+            }
+        }) { paises = it }
+    }
+
+    /** Lê a base de dados que vem com a aplicação (pasta assets/dados). */
+    private fun lerBaseDados(): BaseDados {
         val assets = getApplication<Application>().assets
-        bd = BaseDados()
+        val bd = BaseDados()
         bd.carregar { caminho ->
             try {
                 assets.open("dados/$caminho").bufferedReader().use { it.readText() }
@@ -131,48 +122,334 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 null  // ficheiro não existe
             }
         }
-        gestor = GestorEpocas(bd)
+        check(bd.equipas.isNotEmpty()) { "Base de dados vazia. ${bd.erros.take(3).joinToString(" ")}" }
+        return bd
     }
 
-    /** Simula uma jornada (ou começa a época seguinte, se esta já acabou). */
-    fun jornadaSeguinte() = executar {
-        gestor?.let { if (it.epocaTerminada()) it.avancarParaEpocaSeguinte() else it.simularJornada() }
+    /** Cria uma carreira nova, grava-a e abre-a. */
+    fun comecarCarreira(modo: ModoCarreira, nome: String, equipaId: String, posicao: String) = executar({
+        val c = Carreira.nova(lerBaseDados(), "c${System.currentTimeMillis()}", nome, modo, equipaId, posicao)
+        armazem.gravar(c)
+        c to criarUi(c, ligaVista = "")
+    }) { (c, novo) -> abrir(c, novo) }
+
+    fun carregarCarreira(id: String) = executar({
+        val c = armazem.carregar(id)
+        c to criarUi(c, ligaVista = "")
+    }) { (c, novo) -> abrir(c, novo) }
+
+    /** Abre a carreira gravada mais recentemente. */
+    fun continuar() {
+        gravacoes.firstOrNull()?.let { carregarCarreira(it.id) }
     }
 
-    /** Simula até ao fim da época (começando a seguinte, se esta já acabou). */
-    fun simularEpocas(quantas: Int) = executar {
-        gestor?.let { g ->
-            repeat(quantas) {
-                if (g.epocaTerminada()) g.avancarParaEpocaSeguinte()
-                g.simularAteAoFim()
-            }
+    fun apagarCarreira(id: String) = executar({
+        armazem.apagar(id)
+        armazem.listar()
+    }) { gravacoes = it }
+
+    private fun abrir(c: Carreira, novo: CarreiraUi) {
+        carreira = c
+        ligaId = ""
+        jornadaEscolhida = null
+        porGravar = false
+        plantel = null
+        jogo = null
+        ui = novo
+        ecra = Ecra.CARREIRA
+    }
+
+    /** Grava e volta ao menu principal. */
+    fun sairParaMenu() = executar({
+        carreira?.let { armazem.gravar(it) }
+        armazem.listar()
+    }) {
+        gravacoes = it
+        carreira = null
+        ui = null
+        plantel = null
+        jogo = null
+        ecra = Ecra.MENU
+    }
+
+    /** Chamado quando a aplicação vai para segundo plano: grava o que estiver por gravar. */
+    fun aoSairDaApp() {
+        val c = carreira ?: return
+        if (ocupado || !porGravar) return
+        try {
+            armazem.gravar(c)
+            porGravar = false
+        } catch (e: Exception) {
+            aviso = "Não foi possível gravar: ${e.message}"
         }
+    }
+
+    // --------------------------------------------------------------- carreira
+
+    /** Joga a próxima jornada do clube e abre o jogo em direto. */
+    fun avancar() = naCarreira { c ->
+        c.avancar()?.resultado?.let { criarJogo(c, it, emDireto = true) }
+    }
+
+    fun novaEpoca() = naCarreira { c ->
+        c.novaEpoca()
+        null
+    }
+
+    /** Simula todos os jogos que faltam nesta época. */
+    fun simularEpoca() = naCarreira { c ->
+        c.simularEpoca()
+        null
+    }
+
+    /** Corre uma ação na carreira em segundo plano, grava e atualiza os ecrãs. */
+    private fun naCarreira(acao: (Carreira) -> JogoUi?) {
+        val c = carreira ?: return
+        jornadaEscolhida = null
+        val ligaVista = ligaId
+        executar({
+            val jogoParaAbrir = acao(c)
+            armazem.gravar(c)
+            criarUi(c, ligaVista) to jogoParaAbrir
+        }) { (novo, jogoParaAbrir) ->
+            porGravar = false
+            ui = novo
+            if (jogoParaAbrir != null) jogo = jogoParaAbrir
+        }
+    }
+
+    /** Volta a criar a cópia dos dados para os ecrãs (depois de uma mudança rápida, sem simulação). */
+    private fun atualizar() {
+        val c = carreira ?: return
+        ui = criarUi(c, ligaId)
     }
 
     fun escolherLiga(id: String) {
         if (ocupado) return
         ligaId = id
-        ecra = criarEstado()
+        jornadaEscolhida = null
+        atualizar()
     }
 
     /** Anda para a jornada anterior (-1) ou seguinte (+1) nos resultados. */
     fun mudarJornada(passo: Int) {
         if (ocupado) return
-        val total = ecra.jornada
-        if (total == 0) return
-        jornadaEscolhida = (ecra.jornadaVista + passo).coerceIn(1, total).takeIf { it < total }
-        ecra = criarEstado()
+        val liga = ui?.liga ?: return
+        if (liga.jornada == 0) return
+        jornadaEscolhida = (liga.jornadaVista + passo).coerceIn(1, liga.jornada).takeIf { it < liga.jornada }
+        atualizar()
     }
 
+    /** Muda a formação do clube do utilizador (null = o adjunto decide). Conta a partir do jogo seguinte. */
+    fun mudarFormacao(formacao: Formacao?) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.TREINADOR) return
+        c.equipa.formacaoAutomatica = formacao == null
+        if (formacao == null) c.equipa.escolherFormacao() else c.equipa.formacao = formacao
+        porGravar = true
+        atualizar()
+    }
+
+    /** Muda a mentalidade do clube do utilizador (null = decide-se jogo a jogo). */
+    fun mudarMentalidade(mentalidade: Mentalidade?) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.TREINADOR) return
+        c.equipa.mentalidade = mentalidade
+        porGravar = true
+        atualizar()
+    }
+
+    /** Abre a janela com o plantel de um clube qualquer. */
     fun abrirPlantel(equipaId: String) {
+        val c = carreira ?: return
         if (ocupado) return
-        val equipa = bd.equipas[equipaId] ?: return
+        c.bd.equipas[equipaId]?.let { plantel = criarPlantel(c, it) }
+    }
+
+    fun fecharPlantel() {
+        plantel = null
+    }
+
+    /** Abre um jogo da jornada que está à vista no separador «Liga». */
+    fun abrirJogo(indice: Int) {
+        val c = carreira ?: return
+        val liga = ui?.liga ?: return
+        if (ocupado) return
+        val resultado = c.gestor.estado[liga.ligaId]?.resultados?.getOrNull(liga.jornadaVista - 1)?.getOrNull(indice) ?: return
+        abrirJogo(c, resultado)
+    }
+
+    /** Abre um jogo do clube do utilizador (do calendário ou do ecrã inicial). */
+    fun abrirJogoDoClube(jornada: Int) {
+        val c = carreira ?: return
+        if (ocupado) return
+        c.jogosDoClube().firstOrNull { it.jornada == jornada }?.resultado?.let { abrirJogo(c, it) }
+    }
+
+    private fun abrirJogo(c: Carreira, resultado: Resultado) {
+        val novo = criarJogo(c, resultado, emDireto = false)
+        if (novo == null) aviso = "O relato deste jogo não ficou gravado. Só se guardam os relatos dos jogos do teu clube." else jogo = novo
+    }
+
+    fun fecharJogo() {
+        jogo = null
+    }
+
+    // ------------------------------------------------- cópias para os ecrãs
+
+    /** Corre "trabalho" em segundo plano e entrega o resultado a "depois" (já no ecrã). */
+    private fun <T> executar(trabalho: () -> T, depois: (T) -> Unit) {
+        if (ocupado) return
+        ocupado = true
+        viewModelScope.launch {
+            try {
+                depois(withContext(Dispatchers.Default) { trabalho() })
+            } catch (e: Exception) {
+                aviso = "Ocorreu um erro: ${e.message ?: e.javaClass.simpleName}"
+            } finally {
+                ocupado = false
+            }
+        }
+    }
+
+    /** Copia da carreira tudo o que os ecrãs precisam de mostrar. */
+    private fun criarUi(c: Carreira, ligaVista: String): CarreiraUi {
+        val g = c.gestor
+        val equipa = c.equipa
+        val ordem = c.estadoLiga.tabela.ordenada()
+        val posicao = c.posicao()
+        val tabela = linhasTabela(c, equipa.liga)
+        val calendario = c.jogosDoClube().map { jogoCalendario(it) }
+        val proximo = c.proximoJogo()
+        val terminada = g.epocaTerminada()
+
+        // As cinco linhas da tabela à volta do clube.
+        val primeira = (posicao - 3).coerceIn(0, maxOf(0, tabela.size - 5))
+        val resumo = g.historico.lastOrNull()?.takeIf { terminada }?.ligas?.get(equipa.liga)
+        val nome = { id: String -> c.bd.equipas[id]?.nome ?: id }
+
+        return CarreiraUi(
+            clube = equipa.nome,
+            emblema = emblema(equipa),
+            epoca = g.nomeEpoca(),
+            data = CalendarioDatas.texto(g.data),
+            mercadoAberto = CalendarioDatas.mercadoAberto(g.data),
+            modo = c.info.modo,
+            utilizador = c.info.nome,
+            nomeLiga = c.liga.nome,
+            posicao = posicao,
+            pontos = ordem.getOrNull(posicao - 1)?.pts ?: 0,
+            proximo = proximo?.let {
+                val adversario = it.adversario
+                val lugar = ordem.indexOfFirst { l -> l.id == adversario.id } + 1
+                ProximoJogoUi(
+                    it.jornada, c.estadoLiga.totalJornadas, CalendarioDatas.texto(it.data), it.emCasa, adversario.nome, emblema(adversario),
+                    "$lugar.º lugar · Geral ${adversario.forca().geral.toInt()} · ${adversario.formacao.nome}",
+                )
+            },
+            ultimo = calendario.lastOrNull { it.desfecho.isNotEmpty() },
+            terminada = terminada,
+            resumoFim = if (resumo == null) "" else listOfNotNull(
+                "O ${equipa.nome} terminou em $posicao.º lugar.",
+                "Vencedor: ${nome(resumo.campeao)} (${resumo.pontos} pontos).",
+                resumo.sobem.takeIf { it.isNotEmpty() }?.let { "Sobem: ${it.joinToString { id -> nome(id) }}." },
+                resumo.descem.takeIf { it.isNotEmpty() }?.let { "Descem: ${it.joinToString { id -> nome(id) }}." },
+                resumo.melhorMarcador.takeIf { it.isNotEmpty() }?.let { "Melhor marcador: $it (${resumo.clubeMarcador}), ${resumo.golosMarcador} golos." },
+            ).joinToString("\n"),
+            proximaEpoca = g.nomeEpoca(g.ano + 1),
+            miniTabela = tabela.drop(primeira).take(5),
+            mensagens = c.mensagens.map { MensagemUi(CalendarioDatas.textoCurto(java.time.LocalDate.parse(it.data)), it.titulo, it.texto) },
+            meuJogador = c.jogador?.let { j ->
+                val e = j.epoca
+                MeuJogadorUi(
+                    j.nome,
+                    "${j.posicao} · ${j.idade} anos · Geral ${j.geral()} · Potencial ${j.potencial}",
+                    "Esta época: ${e.jogos} jogos, ${e.golos} golos, ${e.assistencias} assistências" +
+                        (if (e.jogos > 0) ", nota média %.1f".format(e.notaMedia()) else "") + estado(j).let { if (it.isEmpty()) "" else "\n$it" },
+                )
+            },
+            calendario = calendario,
+            plantel = criarPlantel(c, equipa),
+            liga = criarLiga(c, ligaVista),
+        )
+    }
+
+    private fun jogoCalendario(j: JogoDoClube) = JogoCalendarioUi(
+        j.jornada, CalendarioDatas.textoCurto(j.data), j.adversario.nome, emblema(j.adversario), j.emCasa,
+        resultado = if (j.resultado == null) "" else "${j.golosMarcados}-${j.golosSofridos}",
+        desfecho = when {
+            j.resultado == null -> ""
+            j.golosMarcados > j.golosSofridos -> "V"
+            j.golosMarcados < j.golosSofridos -> "D"
+            else -> "E"
+        },
+        temRelato = j.resultado?.relatorio != null,
+    )
+
+    /** Tabela de uma liga, com as zonas de subida e descida. */
+    private fun linhasTabela(c: Carreira, liga: String): List<LinhaUi> {
+        val competicao = c.bd.competicoes.getValue(liga)
+        // Quantas sobem desta liga = quantas descem da liga de cima.
+        val sobem = c.bd.competicoes.values.firstOrNull { it.descePara == liga }?.descidas ?: 0
+        val ordem = c.gestor.estado.getValue(liga).tabela.ordenada()
+        return ordem.mapIndexed { i, l ->
+            val zona = when {
+                (competicao.nivel == 1 && i == 0) || i < sobem -> Zona.SUBIDA
+                competicao.descePara.isNotEmpty() && i >= ordem.size - competicao.descidas -> Zona.DESCIDA
+                else -> Zona.NORMAL
+            }
+            LinhaUi(i + 1, l.id, c.bd.equipas[l.id]?.nome ?: l.id, l.j, l.v, l.e, l.d, l.gm, l.gs, l.pts, zona, l.id == c.info.equipaId)
+        }
+    }
+
+    /** O separador «Liga»: tabela, resultados, melhores jogadores e histórico da liga escolhida. */
+    private fun criarLiga(c: Carreira, ligaVista: String): LigaUi {
+        val g = c.gestor
+        val id = ligaVista.takeIf { it in g.estado } ?: c.equipa.liga
+        ligaId = id
+        val estado = g.estado.getValue(id)
+        val nome = { equipa: String -> c.bd.equipas[equipa]?.nome ?: equipa }
+
+        // Jornada à vista nos resultados (a última, se não houver outra escolhida).
+        val vista = (jornadaEscolhida ?: estado.jornada).coerceIn(0, estado.jornada)
+        val linhaJogador = { j: Jogador, valor: String -> LinhaJogadorUi(j.nome, c.bd.equipas[j.equipa]?.abreviatura ?: "", j.epoca.jogos, valor) }
+        // Para a nota média só conta quem jogou pelo menos metade dos jogos.
+        val minimoJogos = maxOf(1, estado.jornada / 2)
+        val historico = g.historico.reversed().mapNotNull { resumo ->
+            resumo.ligas[id]?.let {
+                EpocaUi(
+                    g.nomeEpoca(resumo.ano), nome(it.campeao), it.pontos,
+                    it.sobem.joinToString { e -> nome(e) }, it.descem.joinToString { e -> nome(e) },
+                    if (it.melhorMarcador.isEmpty()) "" else "${it.melhorMarcador} (${it.clubeMarcador}), ${it.golosMarcador} golos",
+                )
+            }
+        }
+        return LigaUi(
+            ligas = c.bd.paises.values.flatMap { pais -> c.bd.ligasDoPais(pais.id).map { OpcaoLiga(it.id, "${pais.nome} – ${it.nome}") } },
+            ligaId = id,
+            tabela = linhasTabela(c, id),
+            jornada = estado.jornada,
+            jornadaVista = vista,
+            dataJornada = estado.datas.getOrNull(vista - 1)?.let { CalendarioDatas.texto(it) } ?: "",
+            resultados = estado.resultados.getOrNull(vista - 1).orEmpty().mapIndexed { i, r ->
+                ResultadoUi(i, nome(r.casa), r.golosCasa, r.golosFora, nome(r.fora), r.relatorio != null, r.casa == c.info.equipaId || r.fora == c.info.equipaId)
+            },
+            marcadores = g.melhores(id, 10) { it.epoca.golos.toDouble() }.map { linhaJogador(it, "${it.epoca.golos}") },
+            assistencias = g.melhores(id, 10) { it.epoca.assistencias.toDouble() }.map { linhaJogador(it, "${it.epoca.assistencias}") },
+            notas = g.melhores(id, 10, minimoJogos) { it.epoca.notaMedia() }.map { linhaJogador(it, "%.2f".format(it.epoca.notaMedia())) },
+            historico = historico,
+            titulos = historico.groupingBy { it.campeao }.eachCount().toList().sortedByDescending { it.second },
+        )
+    }
+
+    private fun criarPlantel(c: Carreira, equipa: Equipa): PlantelUi {
         val forca = equipa.forca()
-        plantel = PlantelUi(
-            equipaId = equipaId,
+        return PlantelUi(
+            equipaId = equipa.id,
             titulo = "${equipa.nome} (${equipa.abreviatura})",
             detalhes = "${equipa.estadio} · ${equipa.capacidade} lugares\n" +
                 "Reputação ${equipa.reputacao} · Ataque ${forca.ataque.toInt()} · Defesa ${forca.defesa.toInt()} · Títulos ${equipa.titulos}",
+            emblema = emblema(equipa),
             jogadores = equipa.plantel
                 .sortedWith(compareBy<Jogador> { Jogador.POSICOES.indexOf(it.posicao) }.thenByDescending { it.geral() })
                 .map {
@@ -180,49 +457,32 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                         it.posicao, it.nome, it.idade, it.geral(), it.potencial, formatarEuros(it.valorMercado()),
                         it.epoca.jogos, it.epoca.golos, it.epoca.assistencias,
                         if (it.epoca.jogos == 0) "-" else "%.1f".format(it.epoca.notaMedia()),
-                        when {
-                            it.lesao > 0 -> "Lesionado: falha ${jogos(it.lesao)}"
-                            it.suspensao > 0 -> "Castigado: falha ${jogos(it.suspensao)}"
-                            else -> ""
-                        },
+                        estado(it), it.id == c.info.jogadorId,
                     )
                 },
             formacao = equipa.formacao.takeIf { !equipa.formacaoAutomatica },
             formacaoEmUso = equipa.formacao.nome,
             mentalidade = equipa.mentalidade,
+            podeMudarTatica = equipa.id == c.info.equipaId && c.info.modo == ModoCarreira.TREINADOR,
         )
+    }
+
+    /** "" se o jogador está apto; senão o motivo por que não pode jogar. */
+    private fun estado(j: Jogador): String = when {
+        j.lesao > 0 -> "Lesionado: falha ${jogos(j.lesao)}"
+        j.suspensao > 0 -> "Castigado: falha ${jogos(j.suspensao)}"
+        else -> ""
     }
 
     private fun jogos(n: Int) = if (n == 1) "1 jogo" else "$n jogos"
 
-    fun fecharPlantel() {
-        plantel = null
-    }
-
-    /** Escolhe a formação de uma equipa (null = o treinador decide). Conta a partir do jogo seguinte. */
-    fun mudarFormacao(equipaId: String, formacao: Formacao?) {
-        if (ocupado) return
-        val equipa = bd.equipas[equipaId] ?: return
-        equipa.formacaoAutomatica = formacao == null
-        if (formacao == null) equipa.escolherFormacao() else equipa.formacao = formacao
-        abrirPlantel(equipaId)
-    }
-
-    /** Escolhe a mentalidade de uma equipa (null = o treinador decide jogo a jogo). */
-    fun mudarMentalidade(equipaId: String, mentalidade: Mentalidade?) {
-        if (ocupado) return
-        val equipa = bd.equipas[equipaId] ?: return
-        equipa.mentalidade = mentalidade
-        abrirPlantel(equipaId)
-    }
-
-    /** Abre um jogo da jornada que está à vista. */
-    fun abrirJogo(indice: Int) {
-        if (ocupado) return
-        val estado = gestor?.estado?.get(ligaId) ?: return
-        val r = estado.resultados.getOrNull(ecra.jornadaVista - 1)?.getOrNull(indice)?.relatorio ?: return
-        val casa = bd.equipas[r.casa.equipa]?.nome ?: r.casa.equipa
-        val fora = bd.equipas[r.fora.equipa]?.nome ?: r.fora.equipa
+    /** Prepara um jogo para o ecrã de jogo. Devolve null se o relato não existir. */
+    private fun criarJogo(c: Carreira, resultado: Resultado, emDireto: Boolean): JogoUi? {
+        val r = resultado.relatorio ?: return null
+        val equipaCasa = c.bd.equipas[r.casa.equipa] ?: return null
+        val equipaFora = c.bd.equipas[r.fora.equipa] ?: return null
+        val casa = equipaCasa.nome
+        val fora = equipaFora.nome
 
         val eventos = mutableListOf(EventoUi(0, "", "Apita o árbitro: começa o jogo!", null, true, 0, 0))
         var golosCasa = 0
@@ -244,9 +504,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
 
         val ec = r.casa.estatisticas
         val ef = r.fora.estatisticas
-        val melhor = r.melhorEmCampo
-        jogo = JogoUi(
-            casa, fora, r.golosCasa, r.golosFora, r.duracao,
+        return JogoUi(
+            casa, fora, emblema(equipaCasa), emblema(equipaFora), r.golosCasa, r.golosFora, r.duracao,
             "${r.casa.formacao.nome} · ${r.casa.mentalidade.nome}", "${r.fora.formacao.nome} · ${r.fora.mentalidade.nome}",
             eventos,
             listOf(
@@ -259,12 +518,13 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 Triple("Cartões vermelhos", "${ec.vermelhos}", "${ef.vermelhos}"),
             ),
             fichas(r.casa), fichas(r.fora),
-            melhor?.let { "${it.jogador.nome} (%.1f)".format(it.nota) } ?: "",
+            r.melhorEmCampo?.let { "${it.jogador.nome} (%.1f)".format(it.nota) } ?: "",
+            emDireto,
         )
     }
 
     private fun fichas(lado: LadoRelatorio): List<FichaUi> = lado.fichas
-        .sortedWith(compareByDescending<pt.futebolcarreira.nucleo.simulacao.FichaJogador> { it.titular }.thenBy { it.entrou })
+        .sortedWith(compareByDescending<FichaJogador> { it.titular }.thenBy { it.entrou })
         .map {
             FichaUi(
                 it.lugar, it.jogador.nome, "%.1f".format(it.nota), it.titular,
@@ -272,80 +532,21 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             )
         }
 
-    fun fecharJogo() {
-        jogo = null
-    }
-
-    /** Corre "acao" em segundo plano e depois atualiza o ecrã. */
-    private fun executar(acao: () -> Unit) {
-        if (ocupado) return
-        ocupado = true
-        jornadaEscolhida = null
-        viewModelScope.launch {
-            val novo = withContext(Dispatchers.Default) {
-                acao()
-                criarEstado()
-            }
-            ecra = novo
-            ocupado = false
-        }
-    }
-
-    /** Copia do núcleo tudo o que o ecrã precisa de mostrar para a liga escolhida. */
-    private fun criarEstado(): EstadoEcra {
-        val g = gestor ?: return EstadoEcra(erros = bd.erros.toList())
-        if (ligaId !in g.estado) ligaId = g.estado.keys.firstOrNull() ?: return EstadoEcra(erros = bd.erros.toList())
-        val liga = bd.competicoes.getValue(ligaId)
-        val estado = g.estado.getValue(ligaId)
-        val nome = { id: String -> bd.equipas[id]?.nome ?: id }
-
-        // Quantas sobem desta liga = quantas descem da liga de cima.
-        val sobem = bd.competicoes.values.firstOrNull { it.descePara == ligaId }?.descidas ?: 0
-        val ordem = estado.tabela.ordenada()
-        val tabela = ordem.mapIndexed { i, l ->
-            val zona = when {
-                (liga.nivel == 1 && i == 0) || i < sobem -> Zona.SUBIDA
-                liga.descePara.isNotEmpty() && i >= ordem.size - liga.descidas -> Zona.DESCIDA
-                else -> Zona.NORMAL
-            }
-            LinhaUi(i + 1, l.id, nome(l.id), l.j, l.v, l.e, l.d, l.gm, l.gs, l.pts, zona)
-        }
-
-        val historico = g.historico.reversed().mapNotNull { resumo ->
-            resumo.ligas[ligaId]?.let {
-                EpocaUi(
-                    g.nomeEpoca(resumo.ano), nome(it.campeao), it.pontos,
-                    it.sobem.joinToString { id -> nome(id) }, it.descem.joinToString { id -> nome(id) },
-                    if (it.melhorMarcador.isEmpty()) "" else "${it.melhorMarcador} (${it.clubeMarcador}), ${it.golosMarcador} golos",
-                )
-            }
-        }
-        // Jornada à vista nos resultados (a última, se não houver outra escolhida).
-        val vista = (jornadaEscolhida ?: estado.jornada).coerceIn(0, estado.jornada)
-        if (vista == estado.jornada) jornadaEscolhida = null
-        val linhaJogador = { j: Jogador, valor: String -> LinhaJogadorUi(j.nome, bd.equipas[j.equipa]?.abreviatura ?: "", j.epoca.jogos, valor) }
-        // Para a nota média só conta quem jogou pelo menos metade dos jogos.
-        val minimoJogos = maxOf(1, estado.jornada / 2)
-        val situacao = if (g.epocaTerminada()) "Época terminada" else "Jornada ${estado.jornada}/${estado.totalJornadas}"
-        return EstadoEcra(
-            titulo = "Época ${g.nomeEpoca()} · $situacao",
-            ligas = bd.paises.values.flatMap { pais -> bd.ligasDoPais(pais.id).map { OpcaoLiga(it.id, "${pais.nome} – ${it.nome}") } },
-            ligaId = ligaId,
-            tabela = tabela,
-            jornada = estado.jornada,
-            jornadaVista = vista,
-            resultados = estado.resultados.getOrNull(vista - 1).orEmpty()
-                .mapIndexed { i, r -> ResultadoUi(i, nome(r.casa), r.golosCasa, r.golosFora, nome(r.fora)) },
-            terminada = g.epocaTerminada(),
-            marcadores = g.melhores(ligaId, 10) { it.epoca.golos.toDouble() }.map { linhaJogador(it, "${it.epoca.golos}") },
-            assistencias = g.melhores(ligaId, 10) { it.epoca.assistencias.toDouble() }.map { linhaJogador(it, "${it.epoca.assistencias}") },
-            notas = g.melhores(ligaId, 10, minimoJogos) { it.epoca.notaMedia() }.map { linhaJogador(it, "%.2f".format(it.epoca.notaMedia())) },
-            historico = historico,
-            titulos = historico.groupingBy { it.campeao }.eachCount().toList().sortedByDescending { it.second },
-            erros = bd.erros.toList(),
-        )
-    }
-
     private fun formatarEuros(valor: Int): String =
         if (valor >= 1_000_000) "%.1f M€".format(valor / 1_000_000.0) else "${valor / 1000} m€"
+
+    /** Emblema de um clube a partir das cores da base de dados ("#rrggbb"). */
+    private fun emblema(e: Equipa): EmblemaUi {
+        val fundo = cor(e.cores.getOrNull(0)) ?: 0xFF2E7D32
+        var letras = cor(e.cores.getOrNull(1)) ?: 0xFFFFFFFF
+        // Se as duas cores forem parecidas, as letras ficam a preto ou a branco para se lerem.
+        if (kotlin.math.abs(brilho(fundo) - brilho(letras)) < 90) letras = if (brilho(fundo) > 140) 0xFF000000 else 0xFFFFFFFF
+        return EmblemaUi(e.abreviatura, fundo, letras)
+    }
+
+    private fun cor(texto: String?): Long? =
+        texto?.removePrefix("#")?.takeIf { it.length == 6 }?.toLongOrNull(16)?.let { 0xFF000000 or it }
+
+    private fun brilho(cor: Long): Int =
+        ((((cor shr 16) and 0xFF) * 299 + ((cor shr 8) and 0xFF) * 587 + (cor and 0xFF) * 114) / 1000).toInt()
 }

@@ -115,6 +115,16 @@ class BaseDados {
         return ficheiros
     }
 
+    /** Como "paraJson", mas com todos os ficheiros (países, competições e nomes): serve para gravar uma carreira. */
+    fun paraJsonCompleto(): Map<String, String> {
+        val ficheiros = LinkedHashMap<String, String>()
+        ficheiros["paises.json"] = JSON.encodeToString(ListSerializer(Pais.serializer()), paises.values.toList())
+        ficheiros["competicoes.json"] = JSON.encodeToString(ListSerializer(Competicao.serializer()), competicoes.values.toList())
+        ficheiros["nomes.json"] = JSON.encodeToString(MapSerializer(String.serializer(), ListaNomes.serializer()), nomes)
+        ficheiros += paraJson()
+        return ficheiros
+    }
+
     private fun <T> lerJson(
         caminho: String,
         ler: (String) -> String?,

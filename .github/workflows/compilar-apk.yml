@@ -8,6 +8,7 @@ on:
       - "futebol-carreira/**"
       - ".github/workflows/compilar-apk.yml"
       - "!futebol-carreira/apk/**"
+      - "!futebol-carreira/capturas/**"
   workflow_dispatch:
 
 permissions:
@@ -47,3 +48,20 @@ jobs:
           git add apk/futebol-carreira.apk
           git diff --cached --quiet || git commit -m "APK compilado automaticamente [skip ci]"
           git push
+
+      # Percorre a aplicação num telemóvel simulado e guarda imagens dos ecrãs.
+      # Se isto falhar, o APK já ficou guardado no passo anterior.
+      - name: Testar os ecrãs e tirar capturas
+        continue-on-error: true
+        run: ./gradlew --console=plain :app:testDebugUnitTest
+
+      - name: Guardar as capturas no repositório
+        run: |
+          if ls app/build/outputs/roborazzi/*.png >/dev/null 2>&1; then
+            rm -rf capturas
+            mkdir -p capturas
+            cp app/build/outputs/roborazzi/*.png capturas/
+            git add -A capturas
+            git diff --cached --quiet || git commit -m "Capturas dos ecrãs [skip ci]"
+            git push
+          fi

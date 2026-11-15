@@ -48,25 +48,22 @@ No fim deve aparecer `BUILD SUCCESSFUL`.
 
 ## Parte C — Como testar cada fase
 
-### Fase 1
-1. Abre a app. Aparece a tabela da "Portugal – Liga Lusitana" a zeros.
-2. Toca em **Jornada** algumas vezes: a tabela muda. No separador **Jogos** vês os jogos da jornada.
-3. Toca em **Época**: a época vai até ao fim. A verde está o campeão (ou quem sobe), a vermelho quem desce.
-4. Toca em **10 épocas** e vê o separador **Histórico**.
-5. Toca no nome da liga (em cima) e escolhe "Portugal – Liga Lusitana 2": confirma que as equipas que subiram/desceram trocaram de divisão.
-6. Toca numa equipa da tabela para ver o plantel.
-7. Roda o telemóvel: deitado, a tabela mostra também os golos marcados e sofridos.
-8. **Recomeçar** volta à primeira época.
+As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dentro da carreira: está tudo nos separadores **Liga** e **Plantel**.
 
-### Fase 2
-1. Toca em **Jornada** e abre o separador **Jogos**. Toca num jogo: abre o relato, com golos, cartões, lesões e substituições.
-2. No jogo aberto, vê os separadores **Estatísticas** (posse, remates, cantos...) e **Notas** (nota de cada jogador).
-3. Toca em **▶ Ver em direto**: o jogo volta a passar minuto a minuto, com o marcador a mudar. **Saltar para o fim** acaba logo.
-4. Fecha o jogo e usa as setas **◀ ▶** para ver jornadas anteriores.
-5. Simula mais jornadas e abre o separador **Jogadores**: melhores marcadores, assistências e notas médias da liga.
-6. Toca numa equipa da tabela: cada jogador mostra jogos (J), golos (G), assistências (A) e nota. Quem está lesionado ou castigado aparece a vermelho.
-7. Na mesma janela, muda a **Formação** e a **Mentalidade** da equipa (por exemplo 5-3-2 e Defensiva), fecha e simula uma época: essa equipa deve marcar e sofrer menos golos. **Auto** devolve a decisão ao computador.
-8. No **Histórico** aparece agora também o melhor marcador de cada época.
+### Fase 3
+1. Abre a app: aparece o menu principal. Toca em **Nova carreira**.
+2. Escolhe **Treinador**, escreve o teu nome, escolhe país, liga e clube, e toca em **Começar carreira**.
+3. No separador **Início** vês o próximo jogo (adversário, data, casa ou fora). Toca em **Jogar**: o jogo passa em direto; **Saltar para o fim** acaba logo. Fecha o jogo.
+4. De volta ao **Início**: a data avançou, aparece o último resultado, a tua classificação e uma mensagem com o resumo do jogo.
+5. **Plantel**: muda a formação e a mentalidade (valem a partir do jogo seguinte).
+6. **Liga**: tabela (o teu clube tem uma seta), jogos de cada jornada, melhores jogadores e histórico. No topo podes escolher outra liga.
+7. **Calendário**: todos os jogos do teu clube com datas; toca num já jogado para rever o relato.
+8. **Mais → Simular o resto da época**: a época vai até ao fim. No **Início** aparece o resumo e o botão para começar a época seguinte.
+9. Fecha a aplicação por completo e volta a abri-la: toca em **Continuar** e confirma que está tudo como deixaste.
+10. **Mais → Gravar e sair para o menu**, depois **Nova carreira** com **Jogador**: escolhe posição e clube. No **Início** aparece o cartão «O teu jogador» e no plantel o teu nome está destacado. (Nesta via ainda não mexes na tática; o modo completo chega na Fase 9.)
+11. No menu, **Carregar carreira** mostra as duas carreiras; **Apagar** elimina uma.
+
+As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados
 Os ficheiros estão em `app/src/main/assets/dados/`:

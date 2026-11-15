@@ -1,5 +1,6 @@
 package pt.futebolcarreira.ecras
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,8 +37,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import pt.futebolcarreira.EventoUi
 import pt.futebolcarreira.FichaUi
@@ -60,9 +59,9 @@ private const val PAUSA_POR_MINUTO = 350L
 @Composable
 fun EcraJogo(jogo: JogoUi, aoFechar: () -> Unit) {
     var separador by remember { mutableIntStateOf(0) }
-    // Minuto até onde o relato é mostrado; no fim do jogo mostra-se tudo.
-    var minuto by remember(jogo) { mutableIntStateOf(jogo.duracao) }
-    var emDireto by remember(jogo) { mutableStateOf(false) }
+    // Minuto até onde o relato é mostrado; fora do direto mostra-se tudo.
+    var minuto by remember(jogo) { mutableIntStateOf(if (jogo.emDireto) 0 else jogo.duracao) }
+    var emDireto by remember(jogo) { mutableStateOf(jogo.emDireto) }
 
     LaunchedEffect(emDireto) {
         if (emDireto) {
@@ -79,49 +78,51 @@ fun EcraJogo(jogo: JogoUi, aoFechar: () -> Unit) {
     val ultimo = visiveis.lastOrNull()
     val acabou = minuto >= jogo.duracao
 
-    Dialog(onDismissRequest = aoFechar, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Surface(Modifier.fillMaxSize()) {
-            Column(Modifier.systemBarsPadding()) {
-                // ---- Marcador ----
-                Surface(color = MaterialTheme.colorScheme.surfaceVariant) {
-                    Column(Modifier.fillMaxWidth().padding(12.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(jogo.casa, Modifier.weight(1f), textAlign = TextAlign.End, fontWeight = FontWeight.Bold, maxLines = 2)
-                            Text(
-                                "${ultimo?.golosCasa ?: 0} - ${ultimo?.golosFora ?: 0}", Modifier.width(96.dp),
-                                textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 30.sp,
-                            )
-                            Text(jogo.fora, Modifier.weight(1f), fontWeight = FontWeight.Bold, maxLines = 2)
-                        }
-                        val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
-                        Row {
-                            Text(jogo.taticaCasa, Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 12.sp, color = secundaria)
-                            Text(if (acabou) "Final" else Relato.minuto(minuto), Modifier.width(96.dp), textAlign = TextAlign.Center, fontSize = 13.sp)
-                            Text(jogo.taticaFora, Modifier.weight(1f), fontSize = 12.sp, color = secundaria)
-                        }
+    // O botão "voltar" do telemóvel fecha o jogo.
+    BackHandler(onBack = aoFechar)
+    Surface(Modifier.fillMaxSize()) {
+        Column(Modifier.systemBarsPadding()) {
+            // ---- Marcador ----
+            Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh) {
+                Column(Modifier.fillMaxWidth().padding(12.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Emblema(jogo.emblemaCasa, 34.dp)
+                        Text(jogo.casa, Modifier.weight(1f), fontWeight = FontWeight.Bold, maxLines = 2)
+                        Text(
+                            "${ultimo?.golosCasa ?: 0} - ${ultimo?.golosFora ?: 0}", Modifier.width(96.dp),
+                            textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 30.sp,
+                        )
+                        Text(jogo.fora, Modifier.weight(1f), textAlign = TextAlign.End, fontWeight = FontWeight.Bold, maxLines = 2)
+                        Emblema(jogo.emblemaFora, 34.dp)
+                    }
+                    val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+                    Row {
+                        Text(jogo.taticaCasa, Modifier.weight(1f), fontSize = 12.sp, color = secundaria)
+                        Text(if (acabou) "Final" else Relato.minuto(minuto), Modifier.width(96.dp), textAlign = TextAlign.Center, fontSize = 13.sp)
+                        Text(jogo.taticaFora, Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 12.sp, color = secundaria)
                     }
                 }
-                TabRow(selectedTabIndex = separador) {
-                    listOf("Relato", "Estatísticas", "Notas").forEachIndexed { i, nome ->
-                        Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome) })
-                    }
+            }
+            TabRow(selectedTabIndex = separador) {
+                listOf("Relato", "Estatísticas", "Notas").forEachIndexed { i, nome ->
+                    Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome) })
                 }
-                Box(Modifier.weight(1f)) {
-                    when (separador) {
-                        // No direto, o mais recente aparece em cima.
-                        0 -> ListaRelato(if (emDireto) visiveis.reversed() else visiveis)
-                        1 -> if (acabou) Estatisticas(jogo) else Aviso()
-                        else -> if (acabou) Notas(jogo) else Aviso()
-                    }
+            }
+            Box(Modifier.weight(1f)) {
+                when (separador) {
+                    // No direto, o mais recente aparece em cima.
+                    0 -> ListaRelato(if (emDireto) visiveis.reversed() else visiveis)
+                    1 -> if (acabou) Estatisticas(jogo) else Aviso()
+                    else -> if (acabou) Notas(jogo) else Aviso()
                 }
-                Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (emDireto) {
-                        OutlinedButton(onClick = { emDireto = false; minuto = jogo.duracao }, modifier = Modifier.weight(1f)) { Text("Saltar para o fim") }
-                    } else {
-                        OutlinedButton(onClick = { separador = 0; emDireto = true }, modifier = Modifier.weight(1f)) { Text("▶ Ver em direto") }
-                    }
-                    Button(onClick = aoFechar, modifier = Modifier.weight(1f)) { Text("Fechar") }
+            }
+            Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (emDireto) {
+                    OutlinedButton(onClick = { emDireto = false; minuto = jogo.duracao }, modifier = Modifier.weight(1f)) { Text("Saltar para o fim") }
+                } else {
+                    OutlinedButton(onClick = { separador = 0; emDireto = true }, modifier = Modifier.weight(1f)) { Text("▶ Ver em direto") }
                 }
+                Button(onClick = aoFechar, modifier = Modifier.weight(1f)) { Text("Fechar") }
             }
         }
     }
@@ -148,7 +149,7 @@ private fun ListaRelato(eventos: List<EventoUi>) {
                 )
                 if (e.tipo == TipoEvento.GOLO) Text("${e.golosCasa}-${e.golosFora}", fontWeight = FontWeight.Bold, modifier = Modifier.padding(start = 6.dp))
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
     }
 }
@@ -184,7 +185,7 @@ private fun Estatisticas(jogo: JogoUi) {
                 Text(nome, Modifier.weight(1f), textAlign = TextAlign.Center)
                 Text(fora, Modifier.width(56.dp), textAlign = TextAlign.End, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.surfaceVariant)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
         }
         if (jogo.melhorEmCampo.isNotEmpty()) {
             item { Text("Melhor em campo: ${jogo.melhorEmCampo}", Modifier.padding(top = 14.dp), fontWeight = FontWeight.Bold) }

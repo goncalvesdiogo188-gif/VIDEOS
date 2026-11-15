@@ -52,7 +52,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Ecrã de teste: tabela, resultados, plantéis e histórico de campeões.
 - [x] Testes automáticos (`./gradlew :nucleo:test`).
 
-## Fase 2 — Simulação detalhada de jogos (sem 3D) ✅ (à espera de confirmação)
+## Fase 2 — Simulação detalhada de jogos (sem 3D) ✅
 - [x] Motor de jogo minuto a minuto (`MotorJogo.kt`): remates, golos com marcador e assistência, penáltis.
 - [x] Cartões (com castigos), lesões (com jornadas de paragem), substituições e cansaço.
 - [x] Táticas: 5 formações e 3 mentalidades com efeito no jogo; o computador escolhe sozinho ou fica fixo.
@@ -61,12 +61,16 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Desempate por confronto direto na tabela.
 - [x] Testes automáticos da Fase 2 (`Fase2Test.kt`).
 
-## Fase 3 — Menus, navegação e gravação
-- [ ] Menu principal, novo jogo (escolher via jogador/treinador, país, clube).
-- [ ] Ecrã central da carreira (próximo jogo, tabela, notícias).
-- [ ] Calendário com datas reais (dias, semanas, janelas de mercado).
-- [ ] Gravar e carregar carreira (ficheiro na memória da aplicação).
-- [ ] Tema visual próprio para ecrã tátil.
+## Fase 3 — Menus, navegação e gravação ✅ (à espera de confirmação)
+- [x] Menu principal: continuar, nova carreira, carregar carreira (com apagar).
+- [x] Nova carreira: via de treinador ou de jogador, nome, país, liga e clube.
+- [x] Via de jogador (versão inicial): cria-se um jovem de 17 anos no clube escolhido; quando se reforma passa a treinador. O modo completo chega na Fase 9.
+- [x] Ecrã central da carreira com 5 separadores: Início (próximo jogo, classificação, mensagens), Plantel, Liga, Calendário e Mais.
+- [x] Calendário com datas reais: jornadas ao sábado de agosto a maio, paragens para seleções, janelas de mercado (julho, agosto e janeiro).
+- [x] Mensagens automáticas: resultado de cada jogo, lesões, castigos, mercado, fim de época.
+- [x] Gravação automática depois de cada jornada (`Gravador.kt`, `Armazem.kt`); várias carreiras em paralelo.
+- [x] Tema visual próprio (escuro, verde relvado), emblemas com as cores dos clubes, botões grandes.
+- [x] Testes automáticos da Fase 3 (`Fase3Test.kt`) e teste dos ecrãs com capturas (`CapturasTest.kt`, pasta `capturas/`).
 
 ## Fase 4 — Gestão do clube (modo treinador)
 - [ ] Plantel, onze inicial, suplentes, tática e instruções.
@@ -122,13 +126,15 @@ futebol-carreira/
 ├── PLANO.md                 este ficheiro
 ├── GUIA_INSTALACAO.md       instalar, abrir, testar
 ├── apk/futebol-carreira.apk APK de teste, pronto a instalar no telemóvel
+├── capturas/                imagens dos ecrãs, tiradas automaticamente a cada compilação
 ├── chaves/teste.keystore    chave de TESTE (não serve para a Play Store)
 ├── settings.gradle.kts …    configuração da compilação (Gradle)
 ├── nucleo/                  DADOS E SIMULAÇÃO (Kotlin puro, sem Android)
 │   └── src/main/kotlin/pt/futebolcarreira/nucleo/
-│       ├── modelos/         Jogador, Equipa, Competicao
+│       ├── modelos/         Jogador, Equipa, Competicao, Tatica
 │       ├── dados/           ler/gravar JSON, gerador de jogadores
-│       ├── simulacao/       calendário, tabela, jogo, épocas
+│       ├── simulacao/       calendário e datas, tabela, motor de jogo, épocas
+│       ├── carreira/        a carreira do utilizador e a gravação
 │       └── ferramentas/     gerar a base de dados fictícia
 │   └── src/test/            testes automáticos
 └── app/                     APLICAÇÃO ANDROID
@@ -140,6 +146,8 @@ futebol-carreira/
         ├── kotlin/pt/futebolcarreira/
         │   ├── MainActivity.kt      arranque da aplicação
         │   ├── JogoViewModel.kt     liga os ecrãs ao núcleo
-        │   └── ecras/               ecrãs (Jetpack Compose)
+        │   ├── ModelosUi.kt         o que cada ecrã mostra
+        │   ├── Armazem.kt           ficheiros das carreiras gravadas
+        │   └── ecras/               ecrãs (Jetpack Compose): menu, nova carreira, carreira, liga, plantel, jogo
         └── res/                     ícone e textos
 ```

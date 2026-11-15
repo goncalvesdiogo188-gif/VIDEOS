@@ -1,8 +1,10 @@
 package pt.futebolcarreira.nucleo.simulacao
 
+import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
 /** Um jogo marcado: ids da equipa da casa e da equipa visitante. */
+@Serializable
 data class Jogo(val casa: String, val fora: String)
 
 /**

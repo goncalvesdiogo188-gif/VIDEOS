@@ -1,5 +1,6 @@
 package pt.futebolcarreira.nucleo.simulacao
 
+import kotlinx.serialization.Serializable
 import pt.futebolcarreira.nucleo.modelos.Formacao
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
@@ -42,6 +43,7 @@ class FichaJogador(val jogador: Jogador, val lugar: String, val titular: Boolean
 }
 
 /** Números de uma equipa num jogo. */
+@Serializable
 class EstatisticasEquipa {
     var posse = 50
     var remates = 0

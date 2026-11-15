@@ -1,44 +1,59 @@
 package pt.futebolcarreira.nucleo.simulacao
 
+import kotlinx.serialization.Serializable
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.dados.GeradorJogadores
 import pt.futebolcarreira.nucleo.modelos.Jogador
+import java.time.LocalDate
 import kotlin.random.Random
 
-/** Estado de uma liga durante a época. */
-class EstadoLiga(val calendario: List<List<Jogo>>, val tabela: TabelaClassificativa) {
+/** Estado de uma liga durante a época. "datas" tem o dia de cada jornada. */
+class EstadoLiga(val calendario: List<List<Jogo>>, val tabela: TabelaClassificativa, val datas: List<LocalDate>) {
     /** Resultados já jogados, jornada a jornada. */
     val resultados = mutableListOf<List<Resultado>>()
     val jornada get() = resultados.size
     val totalJornadas get() = calendario.size
+
+    /** Dia da próxima jornada (null se a liga já acabou). */
+    val proximaData: LocalDate? get() = datas.getOrNull(jornada)
 }
 
 /** Resumo de uma liga numa época terminada. */
-class ResumoLiga(val campeao: String, val pontos: Int) {
+@Serializable
+class ResumoLiga(
+    val campeao: String,
+    val pontos: Int,
+    val sobem: MutableList<String> = mutableListOf(),
+    val descem: MutableList<String> = mutableListOf(),
     /** Melhor marcador da liga: nome, sigla do clube e golos. */
-    var melhorMarcador = ""
-    var clubeMarcador = ""
-    var golosMarcador = 0
-    val sobem = mutableListOf<String>()
-    val descem = mutableListOf<String>()
-}
+    var melhorMarcador: String = "",
+    var clubeMarcador: String = "",
+    var golosMarcador: Int = 0,
+)
 
 /** Resumo de uma época terminada (id da liga -> resumo). */
+@Serializable
 class ResumoEpoca(val ano: Int, val ligas: Map<String, ResumoLiga>)
 
 /**
- * Conduz as épocas: cria calendários, simula jornadas, fecha a época
- * (campeões, subidas e descidas) e prepara a seguinte.
+ * Conduz as épocas: cria calendários com datas, simula os jogos dia a dia,
+ * fecha a época (campeões, subidas e descidas) e prepara a seguinte.
  *
  * "semente" igual dá sempre os mesmos resultados (útil para testes); null = ao acaso.
+ * "iniciar" = false cria o gestor vazio, para ser preenchido a partir de uma gravação.
  */
-class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2026) {
+class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2026, iniciar: Boolean = true) {
     private val rng: Random = if (semente != null) Random(semente) else Random.Default
-    private val gerador = GeradorJogadores(bd.nomes, rng)
-    private var epocaFechada = false
+    internal val gerador = GeradorJogadores(bd.nomes, rng)
+    internal var epocaFechada = false
 
+    /** Ano em que a época começou (2026 = época 2026/27). */
     var ano = anoInicial
-        private set
+        internal set
+
+    /** Dia em que o jogo vai. */
+    var data: LocalDate = CalendarioDatas.inicioDaEpoca(anoInicial)
+        internal set
 
     /** Estado de cada liga nesta época (id da liga -> estado). */
     val estado = LinkedHashMap<String, EstadoLiga>()
@@ -47,7 +62,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     val historico = mutableListOf<ResumoEpoca>()
 
     init {
-        iniciarEpoca()
+        if (iniciar) iniciarEpoca()
     }
 
     /** Nome da época, por exemplo "2026/27". */
@@ -57,6 +72,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     private fun iniciarEpoca() {
         estado.clear()
         epocaFechada = false
+        data = CalendarioDatas.inicioDaEpoca(ano)
         // Época nova: estatísticas a zero, todos recuperados, e cada treinador escolhe a formação.
         for (equipa in bd.equipas.values) {
             for (j in equipa.plantel) {
@@ -68,30 +84,46 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         }
         for (liga in bd.competicoes.values) {
             val ids = bd.equipasDaLiga(liga.id).map { it.id }.sorted()
+            val calendario = GeradorCalendario.gerar(ids, liga.voltas, rng)
             estado[liga.id] = EstadoLiga(
-                GeradorCalendario.gerar(ids, liga.voltas, rng),
+                calendario,
                 TabelaClassificativa(ids, liga.pontosVitoria, liga.pontosEmpate),
+                CalendarioDatas.jornadas(ano, calendario.size),
             )
         }
     }
 
     fun epocaTerminada(): Boolean = estado.values.all { it.jornada >= it.totalJornadas }
 
-    /** Simula a jornada seguinte de todas as ligas. Devolve false se já não havia jogos. */
-    fun simularJornada(): Boolean {
-        var houveJogos = false
+    /** O próximo dia com jogos, em qualquer liga (null se a época acabou). */
+    fun proximaData(): LocalDate? = estado.values.mapNotNull { it.proximaData }.minOrNull()
+
+    /** Joga todas as jornadas marcadas até ao dia "dia" (inclusive) e põe o jogo nesse dia. */
+    fun simularAte(dia: LocalDate) {
         for (e in estado.values) {
-            if (e.jornada >= e.totalJornadas) continue
-            e.resultados += e.calendario[e.jornada].map { jogo ->
-                val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
-                MotorJogo.aplicar(relatorio)
-                e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
-                Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
+            while (true) {
+                val proxima = e.proximaData ?: break
+                if (proxima > dia) break
+                jogarJornada(e)
             }
-            houveJogos = true
         }
+        if (dia > data) data = dia
         if (epocaTerminada() && !epocaFechada) fecharEpoca()
-        return houveJogos
+    }
+
+    private fun jogarJornada(e: EstadoLiga) {
+        e.resultados += e.calendario[e.jornada].map { jogo ->
+            val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
+            MotorJogo.aplicar(relatorio)
+            e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
+            Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
+        }
+    }
+
+    /** Avança para o próximo dia com jogos e joga-os. Devolve false se já não havia jogos. */
+    fun simularJornada(): Boolean {
+        simularAte(proximaData() ?: return false)
+        return true
     }
 
     /** Jogadores da liga que já jogaram esta época. */
@@ -142,7 +174,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         historico += ResumoEpoca(ano, resumos)
     }
 
-    /** Aplica subidas/descidas, faz evoluir os jogadores e começa a época seguinte. */
+    /** Aplica subidas/descidas, faz evoluir os jogadores e começa a época seguinte (a 1 de julho). */
     fun avancarParaEpocaSeguinte() {
         if (!epocaTerminada()) return
         for ((ligaId, resumo) in historico.last().ligas) {
