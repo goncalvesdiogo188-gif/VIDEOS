@@ -68,6 +68,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var plantel by mutableStateOf<PlantelUi?>(null)
         private set
 
+    /** Janela para escolher um titular (null = fechada). */
+    var escolha by mutableStateOf<EscolhaUi?>(null)
+        private set
+
     /** Jogo aberto (null = nenhum). */
     var jogo by mutableStateOf<JogoUi?>(null)
         private set
@@ -206,11 +210,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     private fun naCarreira(acao: (Carreira) -> JogoUi?) {
         val c = carreira ?: return
         jornadaEscolhida = null
-        val ligaVista = ligaId
         executar({
             val jogoParaAbrir = acao(c)
             armazem.gravar(c)
-            criarUi(c, ligaVista) to jogoParaAbrir
+            criarUi(c, ligaId) to jogoParaAbrir
         }) { (novo, jogoParaAbrir) ->
             porGravar = false
             ui = novo
@@ -257,6 +260,61 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         c.equipa.mentalidade = mentalidade
         porGravar = true
         atualizar()
+    }
+
+    /** Abre a lista de jogadores que podem ocupar um lugar do onze. */
+    fun abrirEscolha(indice: Int) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.TREINADOR) return
+        val equipa = c.equipa
+        val onze = equipa.onzeParaJogo()
+        val lugar = onze.getOrNull(indice)?.lugar ?: return
+        escolha = EscolhaUi(indice, lugar, equipa.plantel
+            .sortedByDescending { Equipa.notaNoLugar(it, lugar) }
+            .map { j ->
+                val titular = onze.firstOrNull { it.jogador === j }
+                CandidatoUi(
+                    j.id, j.posicao, j.nome, Equipa.notaNoLugar(j, lugar),
+                    aviso = estado(j).ifEmpty { if (titular != null) "No onze (${titular.lugar})" else "" },
+                    apto = j.disponivel,
+                )
+            })
+    }
+
+    fun fecharEscolha() {
+        escolha = null
+    }
+
+    /** Põe o jogador escolhido no lugar que estava aberto. */
+    fun escolherTitular(jogadorId: Int) {
+        val c = carreira ?: return
+        val aberta = escolha ?: return
+        escolha = null
+        val jogador = c.bd.jogadores[jogadorId]?.takeIf { it.disponivel && it.equipa == c.info.equipaId } ?: return
+        c.equipa.definirTitular(aberta.indice, jogador)
+        porGravar = true
+        atualizar()
+    }
+
+    /** Volta a deixar o adjunto escolher o onze. */
+    fun onzeAutomatico() {
+        val c = carreira ?: return
+        if (ocupado) return
+        c.equipa.onzeManual = null
+        porGravar = true
+        atualizar()
+    }
+
+    /** Aceita a proposta de um clube (muda de clube). */
+    fun aceitarProposta(equipaId: String) = naCarreira { c ->
+        c.aceitarProposta(equipaId)
+        ligaId = ""
+        null
+    }
+
+    fun recusarPropostas() = naCarreira { c ->
+        c.recusarPropostas()
+        null
     }
 
     /** Abre a janela com o plantel de um clube qualquer. */
@@ -369,6 +427,13 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                         (if (e.jogos > 0) ", nota média %.1f".format(e.notaMedia()) else "") + estado(j).let { if (it.isEmpty()) "" else "\n$it" },
                 )
             },
+            direcao = if (c.info.modo == ModoCarreira.TREINADOR) DirecaoUi(c.info.objetivoTexto, c.info.confiancaDirecao, c.info.confiancaAdeptos) else null,
+            propostas = c.info.propostas.mapNotNull { id ->
+                c.bd.equipas[id]?.let { e ->
+                    PropostaUi(id, e.nome, emblema(e), "${c.bd.competicoes[e.liga]?.nome ?: ""} · Reputação ${e.reputacao} · Geral ${e.forca().geral.toInt()}")
+                }
+            },
+            despedido = c.info.despedido,
             calendario = calendario,
             plantel = criarPlantel(c, equipa),
             liga = criarLiga(c, ligaVista),
@@ -445,6 +510,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun criarPlantel(c: Carreira, equipa: Equipa): PlantelUi {
         val forca = equipa.forca()
+        val onze = equipa.onzeParaJogo()
         return PlantelUi(
             equipaId = equipa.id,
             titulo = "${equipa.nome} (${equipa.abreviatura})",
@@ -465,6 +531,9 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             formacaoEmUso = equipa.formacao.nome,
             mentalidade = equipa.mentalidade,
             podeMudarTatica = equipa.id == c.info.equipaId && c.info.modo == ModoCarreira.TREINADOR,
+            onze = onze.mapIndexed { i, l -> LugarUi(i, l.lugar, l.jogador?.nome ?: "(vazio)", l.jogador?.posicao ?: "", l.nota) },
+            suplentes = equipa.suplentesParaJogo(onze).joinToString { it.nome },
+            onzeManual = equipa.onzeManual != null,
         )
     }
 

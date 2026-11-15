@@ -70,12 +70,25 @@ class JogadorUi(
     val meu: Boolean = false,
 )
 
+/** Um lugar do onze inicial e quem lá joga. */
+class LugarUi(val indice: Int, val lugar: String, val nome: String, val posicao: String, val nota: Int)
+
+/** Um jogador que pode ser escolhido para um lugar do onze. "aviso" explica se já é titular ou se não pode jogar. */
+class CandidatoUi(val jogadorId: Int, val posicao: String, val nome: String, val nota: Int, val aviso: String, val apto: Boolean)
+
+/** Janela para escolher quem joga num lugar. */
+class EscolhaUi(val indice: Int, val lugar: String, val candidatos: List<CandidatoUi>)
+
 class PlantelUi(
     val equipaId: String, val titulo: String, val detalhes: String, val emblema: EmblemaUi, val jogadores: List<JogadorUi>,
     /** null = automática. */
     val formacao: Formacao?, val formacaoEmUso: String, val mentalidade: Mentalidade?,
     /** true se o utilizador pode mudar a tática (é o treinador deste clube). */
     val podeMudarTatica: Boolean,
+    /** O onze para o próximo jogo, os suplentes, e se o onze foi escolhido à mão. */
+    val onze: List<LugarUi>,
+    val suplentes: String,
+    val onzeManual: Boolean,
 )
 
 // ------------------------------------------------------------------- jogo
@@ -123,6 +136,12 @@ class MensagemUi(val data: String, val titulo: String, val texto: String)
 
 class MeuJogadorUi(val nome: String, val linha1: String, val linha2: String)
 
+/** Objetivo da direção e confiança no treinador (0 a 100). */
+class DirecaoUi(val objetivo: String, val direcao: Int, val adeptos: Int)
+
+/** Um clube que quer contratar o treinador. */
+class PropostaUi(val equipaId: String, val nome: String, val emblema: EmblemaUi, val detalhes: String)
+
 /** Tudo o que os ecrãs da carreira mostram. */
 class CarreiraUi(
     val clube: String,
@@ -145,6 +164,10 @@ class CarreiraUi(
     val miniTabela: List<LinhaUi>,
     val mensagens: List<MensagemUi>,
     val meuJogador: MeuJogadorUi?,
+    /** Só na via de treinador. */
+    val direcao: DirecaoUi?,
+    val propostas: List<PropostaUi>,
+    val despedido: Boolean,
     val calendario: List<JogoCalendarioUi>,
     val plantel: PlantelUi,
     val liga: LigaUi,

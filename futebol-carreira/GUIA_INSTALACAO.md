@@ -63,6 +63,13 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 10. **Mais → Gravar e sair para o menu**, depois **Nova carreira** com **Jogador**: escolhe posição e clube. No **Início** aparece o cartão «O teu jogador» e no plantel o teu nome está destacado. (Nesta via ainda não mexes na tática; o modo completo chega na Fase 9.)
 11. No menu, **Carregar carreira** mostra as duas carreiras; **Apagar** elimina uma.
 
+### Fase 4
+1. Começa uma **Nova carreira** como treinador (as carreiras antigas continuam com os clubes inventados).
+2. No **Início** aparece o cartão **Objetivo da direção**, com as barras de confiança da direção e dos adeptos. Joga alguns jogos e vê as barras mexer.
+3. Em **Plantel**, no «Onze para o próximo jogo», toca num lugar e escolhe outro jogador. Joga e confirma nas **Notas** do jogo que ele foi titular. **Escolha automática** devolve a escolha ao adjunto.
+4. Para ver um despedimento depressa: escolhe um clube grande, põe os piores jogadores no onze e joga várias jornadas. Quando fores despedido, o **Início** mostra propostas de outros clubes; aceita uma para continuar.
+5. No fim de uma boa época podem aparecer propostas de clubes maiores: podes **Aceitar** ou **Recusar e ficar**.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados

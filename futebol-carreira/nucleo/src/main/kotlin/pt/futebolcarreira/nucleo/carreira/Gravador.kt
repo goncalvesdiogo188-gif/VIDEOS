@@ -38,7 +38,10 @@ class ResumoGravacao(
 // ---- Formato do ficheiro de gravação (só os dados; sem lógica) ----
 
 @Serializable
-private class EquipaG(val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean, val mentalidade: Mentalidade? = null)
+private class EquipaG(
+    val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean,
+    val mentalidade: Mentalidade? = null, val onze: List<Int>? = null,
+)
 
 @Serializable
 private class JogadorG(
@@ -141,7 +144,7 @@ object Gravador {
             info = c.info,
             ano = g.ano,
             data = g.data.toString(),
-            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade) },
+            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual) },
             jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || !it.disponivel }.sortedBy { it.id }.map {
                 val e = it.epoca
                 JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao)
@@ -169,6 +172,7 @@ object Gravador {
             equipa.formacaoAutomatica = e.automatica
             equipa.formacao = e.formacao
             equipa.mentalidade = e.mentalidade
+            equipa.onzeManual = e.onze
         }
         for (g in gravacao.jogadores) {
             val j = bd.jogadores[g.id] ?: continue

@@ -1,5 +1,6 @@
 package pt.futebolcarreira.ecras
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import pt.futebolcarreira.nucleo.modelos.Mentalidade
 internal fun ConteudoPlantel(
     plantel: PlantelUi, modifier: Modifier = Modifier,
     aoMudarFormacao: (Formacao?) -> Unit = {}, aoMudarMentalidade: (Mentalidade?) -> Unit = {},
+    aoEscolherLugar: (Int) -> Unit = {}, aoOnzeAutomatico: () -> Unit = {},
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     Column(modifier) {
@@ -66,17 +68,32 @@ internal fun ConteudoPlantel(
             )
         }
 
-        Row(Modifier.padding(top = 8.dp, bottom = 4.dp)) {
-            Celula("Pos", 40.dp, negrito = true)
-            Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-            Celula("Id.", 28.dp, negrito = true)
-            Celula("Ger", negrito = true)
-            Celula("J", 26.dp, negrito = true)
-            Celula("G", 26.dp, negrito = true)
-            Celula("A", 26.dp, negrito = true)
-            Celula("Nota", 38.dp, negrito = true)
-        }
         LazyColumn(Modifier.weight(1f)) {
+            // ---- Onze inicial: tocar num lugar para trocar o jogador ----
+            item {
+                Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Rotulo("Onze para o próximo jogo", Modifier.weight(1f))
+                    if (plantel.podeMudarTatica && plantel.onzeManual) {
+                        TextButton(onClick = aoOnzeAutomatico) { Text("Escolha automática") }
+                    }
+                }
+                if (plantel.podeMudarTatica) Text("Toca num lugar para trocar o jogador.", fontSize = 12.sp, color = secundaria)
+            }
+            items(plantel.onze) { l ->
+                val toque = if (plantel.podeMudarTatica) Modifier.clickable { aoEscolherLugar(l.indice) } else Modifier
+                Row(Modifier.fillMaxWidth().then(toque).padding(vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Celula(l.lugar, 44.dp, negrito = true, cor = MaterialTheme.colorScheme.primary)
+                    Text(l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    // Avisa quando o jogador está fora da sua posição.
+                    if (l.posicao.isNotEmpty() && l.posicao != l.lugar) Text("é ${l.posicao}", fontSize = 12.sp, color = MaterialTheme.colorScheme.tertiary)
+                    Celula(l.nota.toString(), 36.dp, negrito = true)
+                }
+            }
+            item {
+                Text("Suplentes: ${plantel.suplentes}", fontSize = 12.sp, color = secundaria, modifier = Modifier.padding(vertical = 6.dp))
+                Rotulo("Plantel completo", Modifier.padding(top = 8.dp))
+                CabecalhoPlantel()
+            }
             items(plantel.jogadores) { j ->
                 val cor = if (j.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                 Column(Modifier.padding(vertical = 5.dp)) {
@@ -98,6 +115,48 @@ internal fun ConteudoPlantel(
                         if (j.estado.isNotEmpty()) Text("  ·  ${j.estado}", fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun CabecalhoPlantel() {
+    Row(Modifier.padding(top = 6.dp, bottom = 4.dp)) {
+        Celula("Pos", 40.dp, negrito = true)
+        Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+        Celula("Id.", 28.dp, negrito = true)
+        Celula("Ger", negrito = true)
+        Celula("J", 26.dp, negrito = true)
+        Celula("G", 26.dp, negrito = true)
+        Celula("A", 26.dp, negrito = true)
+        Celula("Nota", 38.dp, negrito = true)
+    }
+}
+
+/** Janela para escolher quem joga num lugar do onze: os melhores para esse lugar aparecem primeiro. */
+@Composable
+internal fun JanelaEscolha(escolha: pt.futebolcarreira.EscolhaUi, aoEscolher: (Int) -> Unit, aoFechar: () -> Unit) {
+    Dialog(onDismissRequest = aoFechar, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        Surface(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth(0.94f).fillMaxHeight(0.85f)) {
+            Column(Modifier.padding(12.dp)) {
+                Text("Quem joga a ${escolha.lugar}?", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("O número é a nota do jogador neste lugar.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                LazyColumn(Modifier.weight(1f).padding(top = 6.dp)) {
+                    items(escolha.candidatos) { c ->
+                        val cor = if (c.apto) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
+                        val toque = if (c.apto) Modifier.clickable { aoEscolher(c.jogadorId) } else Modifier
+                        Row(Modifier.fillMaxWidth().then(toque).padding(vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Celula(c.posicao, 44.dp, cor = cor)
+                            Column(Modifier.weight(1f)) {
+                                Text(c.nome, fontSize = 14.sp, color = cor, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                if (c.aviso.isNotEmpty()) Text(c.aviso, fontSize = 12.sp, color = if (c.apto) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error)
+                            }
+                            Celula(c.nota.toString(), 36.dp, negrito = true, cor = cor)
+                        }
+                    }
+                }
+                TextButton(onClick = aoFechar, modifier = Modifier.align(Alignment.End)) { Text("Cancelar") }
             }
         }
     }

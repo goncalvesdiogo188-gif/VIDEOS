@@ -72,8 +72,14 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
     ) { margens ->
         Box(Modifier.padding(margens).fillMaxSize()) {
             when (separador) {
-                0 -> Inicio(ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 2 })
-                1 -> ConteudoPlantel(ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade)
+                0 -> Inicio(
+                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 2 },
+                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas,
+                )
+                1 -> ConteudoPlantel(
+                    ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
+                    jogo::abrirEscolha, jogo::onzeAutomatico,
+                )
                 2 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
                 3 -> Calendario(ui.calendario, jogo::abrirJogoDoClube)
                 else -> Mais(ui, !jogo.ocupado, jogo::simularEpoca, jogo::sairParaMenu)
@@ -117,13 +123,36 @@ private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
 private fun Inicio(
     ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
     aoAbrirJogo: (Int) -> Unit, aoVerLiga: () -> Unit,
+    aoAceitar: (String) -> Unit, aoRecusar: () -> Unit,
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     LazyColumn(
         Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        // ---- Propostas de outros clubes (obrigatório escolher uma, se o treinador foi despedido) ----
+        if (ui.propostas.isNotEmpty()) {
+            item {
+                Bloco {
+                    Rotulo(if (ui.despedido) "Foste despedido · escolhe um novo clube" else "Propostas de outros clubes")
+                    for (p in ui.propostas) {
+                        Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Emblema(p.emblema, 40.dp)
+                            Column(Modifier.weight(1f)) {
+                                Text(p.nome, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                Text(p.detalhes, fontSize = 12.sp, color = secundaria)
+                            }
+                            OutlinedButton(onClick = { aoAceitar(p.equipaId) }, enabled = ativo) { Text("Aceitar") }
+                        }
+                    }
+                    if (!ui.despedido) {
+                        TextButton(onClick = aoRecusar, enabled = ativo, modifier = Modifier.align(Alignment.End)) { Text("Recusar e ficar") }
+                    }
+                }
+            }
+        }
+
         // ---- O que há para fazer a seguir ----
-        item {
+        if (!ui.despedido) item {
             Bloco {
                 val proximo = ui.proximo
                 when {
@@ -189,6 +218,18 @@ private fun Inicio(
             }
         }
 
+        // ---- Direção e adeptos (via de treinador) ----
+        ui.direcao?.let { d ->
+            item {
+                Bloco {
+                    Rotulo("Objetivo da direção")
+                    Text(d.objetivo, fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 6.dp))
+                    Confianca("Direção", d.direcao)
+                    Confianca("Adeptos", d.adeptos)
+                }
+            }
+        }
+
         // ---- O jogador do utilizador (via de jogador) ----
         ui.meuJogador?.let { j ->
             item {
@@ -220,6 +261,23 @@ private fun Inicio(
                 Text(m.texto, fontSize = 14.sp, color = secundaria)
             }
         }
+    }
+}
+
+/** Barra de confiança (0 a 100) com uma palavra que a descreve. */
+@Composable
+private fun Confianca(quem: String, valor: Int) {
+    val (palavra, cor) = when {
+        valor >= 75 -> "muito satisfeita" to COR_VITORIA
+        valor >= 50 -> "satisfeita" to MaterialTheme.colorScheme.primary
+        valor >= 30 -> "preocupada" to MaterialTheme.colorScheme.tertiary
+        else -> "lugar em risco" to COR_DERROTA
+    }
+    Row(Modifier.padding(top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(quem, Modifier.width(70.dp), fontSize = 13.sp)
+        LinearProgressIndicator(progress = { valor / 100f }, modifier = Modifier.weight(1f).height(8.dp), color = cor)
+        Text(if (quem == "Adeptos") palavra.replace("satisfeita", "satisfeitos").replace("preocupada", "preocupados") else palavra,
+            Modifier.width(120.dp).padding(start = 8.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

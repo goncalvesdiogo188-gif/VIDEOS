@@ -37,9 +37,18 @@ class Equipa(
     @Transient
     var formacao: Formacao = Formacao.F433
         set(valor) {
+            // Outra formação tem outros lugares: o onze escolhido à mão deixa de servir.
+            if (valor != field) onzeManual = null
             field = valor
             invalidarForca()
         }
+
+    /**
+     * Onze escolhido pelo treinador: o id do jogador de cada lugar da formação, pela mesma ordem.
+     * null = o adjunto escolhe sempre os melhores.
+     */
+    @Transient
+    var onzeManual: List<Int>? = null
 
     /** true = o treinador (computador) escolhe a formação que melhor serve o plantel. */
     @Transient
@@ -73,6 +82,49 @@ class Equipa(
                 LugarOnze(lugar, melhor, notaNoLugar(melhor, lugar))
             }
         }
+    }
+
+    /**
+     * O onze para o próximo jogo, só com jogadores aptos. Respeita as escolhas do
+     * treinador; os lugares de quem não pode jogar são dados ao melhor que sobra.
+     */
+    fun onzeParaJogo(): List<LugarOnze> {
+        val aptos = plantel.filter { it.disponivel }
+        val manual = onzeManual ?: return melhorOnze(formacao, aptos)
+        val lugares = formacao.lugares
+        val escolhidos = arrayOfNulls<Jogador>(lugares.size)
+        val usados = HashSet<Int>()
+        for (i in lugares.indices) {
+            val j = aptos.firstOrNull { it.id == manual.getOrNull(i) } ?: continue
+            if (usados.add(j.id)) escolhidos[i] = j
+        }
+        for (i in lugares.indices) {
+            if (escolhidos[i] != null) continue
+            escolhidos[i] = aptos.filter { it.id !in usados }.maxByOrNull { notaNoLugar(it, lugares[i]) }?.also { usados += it.id }
+        }
+        return lugares.mapIndexed { i, lugar ->
+            val j = escolhidos[i]
+            if (j == null) LugarOnze(lugar, null, 20) else LugarOnze(lugar, j, notaNoLugar(j, lugar))
+        }
+    }
+
+    /** O banco para o próximo jogo: um guarda-redes e os melhores jogadores de campo que sobram. */
+    fun suplentesParaJogo(onze: List<LugarOnze>, quantos: Int = 7): List<Jogador> {
+        val restantes = plantel.filter { j -> j.disponivel && onze.none { it.jogador === j } }.sortedByDescending { it.geral() }
+        val banco = mutableListOf<Jogador>()
+        restantes.firstOrNull { it.posicao == "GR" }?.let { banco += it }
+        banco += restantes.filter { it.posicao != "GR" }.take(quantos - banco.size)
+        return banco
+    }
+
+    /** O treinador põe um jogador num lugar do onze. Se ele já lá estava noutro lugar, os dois trocam. */
+    fun definirTitular(indice: Int, jogador: Jogador) {
+        val atual = onzeParaJogo().map { it.jogador?.id ?: 0 }.toMutableList()
+        if (indice !in atual.indices) return
+        val outro = atual.indexOf(jogador.id)
+        if (outro >= 0) atual[outro] = atual[indice]
+        atual[indice] = jogador.id
+        onzeManual = atual
     }
 
     /** Força da equipa com todos os jogadores, na formação atual (inclui o bónus da formação). */

@@ -26,6 +26,16 @@ class InfoCarreira(
     var equipaId: String,
     /** Só na via de jogador: o id do jogador do utilizador. */
     var jogadorId: Int? = null,
+    /** Objetivo da direção para esta época: o lugar mínimo na tabela e a frase que o descreve. */
+    var objetivoPosicao: Int = 0,
+    var objetivoTexto: String = "",
+    /** Confiança da direção e dos adeptos no treinador (0 a 100). */
+    var confiancaDirecao: Int = 60,
+    var confiancaAdeptos: Int = 60,
+    /** true = o treinador foi despedido e tem de aceitar uma proposta para continuar. */
+    var despedido: Boolean = false,
+    /** Clubes (ids) que querem contratar o treinador. */
+    val propostas: MutableList<String> = mutableListOf(),
 )
 
 /** Uma mensagem na caixa de entrada (resultados, lesões, avisos...). */
@@ -102,7 +112,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
      * Devolve o jogo do clube, ou null se não houve nenhum.
      */
     fun avancar(): JogoDoClube? {
-        if (gestor.epocaTerminada()) return null
+        if (gestor.epocaTerminada() || info.despedido) return null
         val alvo = proximoJogo()
         if (alvo == null) {
             gestor.simularAteAoFim()
@@ -112,20 +122,31 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             avisarMercado(antes, gestor.data)
         }
         val jogado = alvo?.let { a -> jogosDoClube().first { it.jornada == a.jornada } }
-        if (jogado != null) mensagemDoJogo(jogado)
-        if (gestor.epocaTerminada()) mensagemFimDeEpoca()
+        if (jogado != null) {
+            mensagemDoJogo(jogado)
+            avaliarJogo(jogado)
+        }
+        if (gestor.epocaTerminada()) {
+            mensagemFimDeEpoca()
+            avaliarEpoca()
+        }
         return jogado
     }
 
     /** Simula tudo o que falta desta época (modo "férias"). */
     fun simularEpoca() {
-        while (!gestor.epocaTerminada()) avancar()
+        while (!gestor.epocaTerminada() && !info.despedido) avancar()
     }
 
     /** Começa a época seguinte (só depois de esta acabar). */
     fun novaEpoca() {
-        if (!gestor.epocaTerminada()) return
+        if (!gestor.epocaTerminada() || info.despedido) return
         gestor.avancarParaEpocaSeguinte()
+        // Propostas que ficaram por aceitar perdem-se; a confiança volta a aproximar-se do normal.
+        info.propostas.clear()
+        info.confiancaDirecao = (info.confiancaDirecao + 60) / 2
+        info.confiancaAdeptos = (info.confiancaAdeptos + 60) / 2
+        definirObjetivo()
         baseDadosPorGravar = true
         // O jogador do utilizador pode ter chegado ao fim da carreira: passa a treinador do clube.
         if (info.modo == ModoCarreira.JOGADOR && jogador == null) {
@@ -137,6 +158,123 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             "Começa a época ${gestor.nomeEpoca()}",
             "O teu clube joga nesta competição: ${liga.nome}. O primeiro jogo é a ${proximoJogo()?.let { CalendarioDatas.textoCurto(it.data) } ?: "?"}.",
         )
+    }
+
+    // ------------------------------------------------ direção e adeptos
+
+    private val eTreinador get() = info.modo == ModoCarreira.TREINADOR
+
+    /** A direção define o objetivo conforme a reputação do clube em relação aos outros da liga. */
+    fun definirObjetivo() {
+        val equipas = bd.equipasDaLiga(equipa.liga).sortedByDescending { it.reputacao }
+        val n = equipas.size
+        val lugar = equipas.indexOfFirst { it.id == info.equipaId } + 1
+        // Quantas equipas sobem desta liga (0 se for a primeira divisão).
+        val sobem = bd.competicoes.values.firstOrNull { it.descePara == liga.id }?.descidas ?: 0
+        val (posicao, texto) = when {
+            sobem > 0 && lugar <= sobem + 1 -> sobem to "Subir de divisão"
+            sobem > 0 && lugar <= 6 -> 6 to "Ficar nos seis primeiros"
+            sobem == 0 && lugar <= 2 -> 1 to "Ser campeão"
+            sobem == 0 && lugar <= 5 -> 4 to "Ficar nos quatro primeiros"
+            lugar <= n / 2 -> n / 2 to "Ficar na primeira metade da tabela"
+            liga.descidas > 0 -> n - liga.descidas to "Evitar a descida"
+            else -> n - 3 to "Fugir aos últimos lugares"
+        }
+        info.objetivoPosicao = posicao
+        info.objetivoTexto = texto
+    }
+
+    /** Depois de cada jogo, a direção e os adeptos ficam mais (ou menos) contentes com o treinador. */
+    private fun avaliarJogo(jogo: JogoDoClube) {
+        if (!eTreinador) return
+        // Diferença de qualidade: positiva se o adversário é mais forte.
+        val diferenca = jogo.adversario.forca().geral - equipa.forca().geral
+        val saldo = jogo.golosMarcados - jogo.golosSofridos
+        var direcao = when {
+            saldo > 0 -> if (diferenca >= 3) 4 else 3
+            saldo == 0 -> if (diferenca >= 4) 1 else -1
+            else -> if (diferenca >= 6) -2 else if (diferenca <= -3) -4 else -3
+        }
+        val adeptos = when {
+            saldo > 0 -> 4
+            saldo == 0 -> -1
+            else -> if (saldo <= -3) -7 else -5
+        }
+        // Com a época já lançada, conta também a distância ao objetivo.
+        if (estadoLiga.jornada >= 6) {
+            val atraso = posicao() - info.objetivoPosicao
+            direcao += when {
+                atraso <= 0 -> 1
+                atraso >= 8 -> -2
+                atraso >= 4 -> -1
+                else -> 0
+            }
+        }
+        info.confiancaDirecao = (info.confiancaDirecao + direcao).coerceIn(0, 100)
+        info.confiancaAdeptos = (info.confiancaAdeptos + adeptos).coerceIn(0, 100)
+        if (info.confiancaDirecao < LIMITE_DESPEDIMENTO && estadoLiga.jornada >= 8 && !gestor.epocaTerminada()) despedir()
+    }
+
+    /** No fim da época faz-se o balanço: objetivo cumprido ou não, propostas de outros clubes ou despedimento. */
+    private fun avaliarEpoca() {
+        if (!eTreinador) return
+        val atraso = posicao() - info.objetivoPosicao
+        val (direcao, adeptos, frase) = when {
+            atraso <= 0 -> Triple(15, 10, "Objetivo cumprido (${info.objetivoTexto.lowercase()}). A direção está satisfeita com o teu trabalho.")
+            atraso <= 2 -> Triple(-5, -5, "O objetivo (${info.objetivoTexto.lowercase()}) ficou por pouco. A direção esperava mais.")
+            else -> Triple(-18, -12, "O objetivo (${info.objetivoTexto.lowercase()}) ficou longe. A direção está descontente.")
+        }
+        info.confiancaDirecao = (info.confiancaDirecao + direcao).coerceIn(0, 100)
+        info.confiancaAdeptos = (info.confiancaAdeptos + adeptos).coerceIn(0, 100)
+        mensagem("Balanço da direção", frase)
+        if (info.confiancaDirecao < LIMITE_FIM_DE_EPOCA) {
+            despedir()
+        } else if (info.confiancaDirecao >= 72) {
+            // Bom trabalho chama a atenção de clubes maiores.
+            val reputacao = equipa.reputacao
+            val interessados = bd.equipas.values
+                .filter { it.id != info.equipaId && it.reputacao in (reputacao + 2)..(reputacao + 12) }
+                .shuffled().take(2)
+            if (interessados.isNotEmpty()) {
+                info.propostas += interessados.map { it.id }
+                mensagem("Propostas de outros clubes", "O teu trabalho não passou despercebido: ${interessados.joinToString(" e ") { it.nome }} querem contratar-te. Podes aceitar ou ficar.")
+            }
+        }
+    }
+
+    /** A direção despede o treinador; aparecem propostas de clubes mais modestos. */
+    private fun despedir() {
+        info.despedido = true
+        val reputacao = equipa.reputacao
+        val interessados = bd.equipas.values
+            .filter { it.id != info.equipaId && it.reputacao in (reputacao - 14)..(reputacao - 3) }
+            .shuffled().take(3)
+            .ifEmpty { bd.equipas.values.filter { it.id != info.equipaId }.sortedBy { it.reputacao }.take(3) }
+        info.propostas.clear()
+        info.propostas += interessados.map { it.id }
+        mensagem("Foste despedido", "A direção perdeu a confiança em ti e rescindiu o contrato. Tens propostas de: ${interessados.joinToString { it.nome }}.")
+    }
+
+    /** O treinador aceita uma proposta e muda de clube. */
+    fun aceitarProposta(equipaId: String) {
+        if (equipaId !in info.propostas) return
+        // O clube antigo volta a ser gerido pelo computador.
+        equipa.onzeManual = null
+        equipa.formacaoAutomatica = true
+        equipa.mentalidade = null
+        equipa.escolherFormacao()
+        info.equipaId = equipaId
+        info.despedido = false
+        info.propostas.clear()
+        info.confiancaDirecao = 60
+        info.confiancaAdeptos = 60
+        definirObjetivo()
+        mensagem("Novo clube: ${equipa.nome}", "Assinaste contrato. Objetivo da direção: ${info.objetivoTexto.lowercase()}.")
+    }
+
+    /** O treinador recusa as propostas (só se não estiver despedido). */
+    fun recusarPropostas() {
+        if (!info.despedido) info.propostas.clear()
     }
 
     private fun mensagem(titulo: String, texto: String) {
@@ -200,6 +338,9 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
 
     companion object {
         const val MAX_MENSAGENS = 60
+        /** Abaixo desta confiança, a direção despede a meio da época / no fim da época. */
+        const val LIMITE_DESPEDIMENTO = 10
+        const val LIMITE_FIM_DE_EPOCA = 25
 
         /**
          * Começa uma carreira nova num clube.
@@ -213,6 +354,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             val info = InfoCarreira(id, nome.trim().ifEmpty { "Sem Nome" }, modo, equipaId)
             val carreira = Carreira(bd, gestor, info)
             val equipa = carreira.equipa
+            carreira.definirObjetivo()
             if (modo == ModoCarreira.JOGADOR) {
                 // Um jovem promissor: ainda abaixo dos titulares, mas com muito para crescer.
                 val nivel = equipa.melhorOnze().map { it.nota }.average() - 8.0
@@ -225,7 +367,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
                 info.jogadorId = jovem.id
                 carreira.mensagem("Bem-vindo: ${equipa.nome}", "Assinaste o teu primeiro contrato. Trabalha para ganhar um lugar na equipa!")
             } else {
-                carreira.mensagem("Bem-vindo: ${equipa.nome}", "A direção apresentou-te como novo treinador. A época ${gestor.nomeEpoca()} está a começar.")
+                carreira.mensagem("Bem-vindo: ${equipa.nome}", "A direção apresentou-te como novo treinador. Objetivo para ${gestor.nomeEpoca()}: ${info.objetivoTexto.lowercase()}.")
             }
             return carreira
         }

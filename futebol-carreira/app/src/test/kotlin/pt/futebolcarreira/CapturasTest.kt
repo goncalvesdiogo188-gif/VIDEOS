@@ -111,6 +111,14 @@ class CapturasTest {
         tocarComScroll("Defensiva")
         assertEquals("5-3-2", jogo.ui?.plantel?.formacaoEmUso)
         capturar("11-plantel-tatica")
+        // Trocar o guarda-redes titular (a janela de escolha é aberta e respondida sem captura).
+        jogo.abrirEscolha(0)
+        val suplente = jogo.escolha!!.candidatos.first { it.posicao == "GR" && it.aviso.isEmpty() }
+        jogo.escolherTitular(suplente.jogadorId)
+        regra.waitForIdle()
+        assertEquals(suplente.nome, jogo.ui?.plantel?.onze?.first()?.nome)
+        assertTrue(jogo.ui?.plantel?.onzeManual == true)
+        capturar("11b-plantel-onze-manual")
         tocar("Liga")
         capturar("12-liga-tabela")
         tocar("Jogos")
@@ -125,9 +133,17 @@ class CapturasTest {
         // ---- Fim de época e época seguinte ----
         jogo.simularEpoca()
         esperar { !jogo.ocupado }
-        assertTrue(jogo.ui?.terminada == true)
         tocar("Início")
         capturar("17-fim-de-epoca")
+        // Se a direção despediu o treinador (ou se há propostas), aceita-se a primeira para poder continuar.
+        if (jogo.ui?.despedido == true) {
+            jogo.aceitarProposta(jogo.ui!!.propostas.first().equipaId)
+            esperar { !jogo.ocupado }
+            jogo.simularEpoca()
+            esperar { !jogo.ocupado }
+        }
+        assertTrue(jogo.ui?.terminada == true)
+        val clubeFinal = jogo.ui!!.clube
         jogo.novaEpoca()
         esperar { !jogo.ocupado }
         assertEquals("2027/28", jogo.ui?.epoca)
@@ -143,10 +159,10 @@ class CapturasTest {
         capturar("19-menu-com-gravacao")
         tocar("Carregar carreira")
         capturar("20-carregar")
-        tocar(clube.nome)
+        tocar(clubeFinal)
         esperar { jogo.ecra == Ecra.CARREIRA && !jogo.ocupado }
         assertEquals("2027/28", jogo.ui?.epoca)
-        assertEquals(clube.nome, jogo.ui?.clube)
+        assertEquals(clubeFinal, jogo.ui?.clube)
         capturar("21-carreira-carregada")
     }
 }

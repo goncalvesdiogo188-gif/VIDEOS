@@ -6,7 +6,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 (O projeto começou em Godot 4; a pedido do utilizador passou para Android nativo e a Fase 1 foi reescrita.)
 
 **Regras do projeto**
-- Nomes fictícios por defeito; toda a base de dados está em JSON editável (pasta `dados/`).
+- Clubes e ligas com nomes reais (época 2025/26), a pedido do utilizador, porque o jogo é só para uso pessoal e não vai ser publicado. Os jogadores são, por agora, inventados. Toda a base de dados está em JSON editável (pasta `dados/`).
 - Código separado em: dados e simulação (módulo `nucleo`, Kotlin puro), interface (módulo `app`) e, mais tarde, partida 3D.
 - Uma fase pequena de cada vez. Só se avança depois de o utilizador testar e confirmar.
 - Comentários em português; este ficheiro é atualizado no fim de cada fase.
@@ -42,8 +42,8 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 
 ## Fase 1 — Base de dados e competições ✅
 - [x] Estrutura de pastas (dados / scripts / cenas / ferramentas / testes).
-- [x] Base de dados em JSON: 6 países, 12 ligas (2 divisões por país), 228 equipas, 5472 jogadores com atributos, posição, idade, pé, potencial.
-- [x] Ferramenta que gera a base de dados fictícia (`./gradlew :nucleo:gerarBaseDados`).
+- [x] Base de dados em JSON: 6 países, 12 ligas (2 divisões por país), 234 clubes reais, 5616 jogadores inventados com atributos, posição, idade, pé, potencial.
+- [x] Ferramenta que gera a base de dados (`./gradlew :nucleo:gerarBaseDados`).
 - [x] Carregador de JSON com mensagens de erro claras (`BaseDados.kt`).
 - [x] Gerador de calendários (todos contra todos, casa e fora).
 - [x] Tabela classificativa (pontos, diferença de golos, golos marcados).
@@ -61,7 +61,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Desempate por confronto direto na tabela.
 - [x] Testes automáticos da Fase 2 (`Fase2Test.kt`).
 
-## Fase 3 — Menus, navegação e gravação ✅ (à espera de confirmação)
+## Fase 3 — Menus, navegação e gravação ✅
 - [x] Menu principal: continuar, nova carreira, carregar carreira (com apagar).
 - [x] Nova carreira: via de treinador ou de jogador, nome, país, liga e clube.
 - [x] Via de jogador (versão inicial): cria-se um jovem de 17 anos no clube escolhido; quando se reforma passa a treinador. O modo completo chega na Fase 9.
@@ -72,10 +72,13 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Tema visual próprio (escuro, verde relvado), emblemas com as cores dos clubes, botões grandes.
 - [x] Testes automáticos da Fase 3 (`Fase3Test.kt`) e teste dos ecrãs com capturas (`CapturasTest.kt`, pasta `capturas/`).
 
-## Fase 4 — Gestão do clube (modo treinador)
-- [ ] Plantel, onze inicial, suplentes, tática e instruções.
-- [ ] Objetivos da direção e confiança (direção e adeptos).
-- [ ] Despedimento e propostas de outros clubes.
+## Fase 4 — Gestão do clube (modo treinador) ✅ (à espera de confirmação)
+- [x] Onze inicial escolhido pelo treinador (tocar num lugar para trocar o jogador); suplentes e lesionados tratados automaticamente.
+- [x] Objetivo da direção para a época, conforme a força do clube na liga.
+- [x] Confiança da direção e dos adeptos, que sobe e desce com os resultados e com a distância ao objetivo.
+- [x] Despedimento (a meio ou no fim da época) e propostas de outros clubes; mudar de clube.
+- [x] Testes automáticos da Fase 4 (`Fase4Test.kt`).
+- [ ] Substituições feitas pelo treinador durante o jogo: ficam para a fase do jogo em 3D (Fase 11), quando o jogo passar a ser jogado ao vivo.
 
 ## Fase 5 — Transferências e finanças
 - [ ] Contratos: salário, duração, cláusula de rescisão, prémios.
@@ -135,7 +138,7 @@ futebol-carreira/
 │       ├── dados/           ler/gravar JSON, gerador de jogadores
 │       ├── simulacao/       calendário e datas, tabela, motor de jogo, épocas
 │       ├── carreira/        a carreira do utilizador e a gravação
-│       └── ferramentas/     gerar a base de dados fictícia
+│       └── ferramentas/     gerar a base de dados
 │   └── src/test/            testes automáticos
 └── app/                     APLICAÇÃO ANDROID
     └── src/main/

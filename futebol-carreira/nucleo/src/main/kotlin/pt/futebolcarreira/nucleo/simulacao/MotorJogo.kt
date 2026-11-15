@@ -64,15 +64,11 @@ object MotorJogo {
         var geral = 0.0
 
         init {
-            val aptos = equipa.plantel.filter { it.disponivel }
-            val onze = equipa.melhorOnze(formacao, aptos)
+            val onze = equipa.onzeParaJogo()
             onze.forEachIndexed { i, lugar ->
                 lugar.jogador?.let { j -> colocar(i, FichaJogador(j, lugar.lugar, true, 0).also { fichas += it }) }
             }
-            // Banco: um guarda-redes e os melhores jogadores de campo que sobram.
-            val restantes = aptos.filter { j -> onze.none { it.jogador === j } }.sortedByDescending { it.geral() }
-            restantes.firstOrNull { it.posicao == "GR" }?.let { banco += it }
-            banco += restantes.filter { it.posicao != "GR" }.take(SUPLENTES - banco.size)
+            banco += equipa.suplentesParaJogo(onze, SUPLENTES)
             recalcular()
         }
 
