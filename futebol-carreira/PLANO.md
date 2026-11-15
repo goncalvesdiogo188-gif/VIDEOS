@@ -20,12 +20,12 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | Fase | Tema | Estado |
 |---|---|---|
 | 0 | Ferramentas e projeto (Android nativo) | ✅ |
-| 1 | Base de dados e competições (ligas) | ✅ à espera de confirmação |
-| 2 | Simulação detalhada de jogos (sem 3D) | ⬜ |
-| 3 | Menus, navegação e gravação | ⬜ |
-| 4 | Gestão do clube (modo treinador) | ⬜ |
-| 5 | Transferências e finanças | ⬜ |
-| 6 | Treino, scouting e academia | ⬜ |
+| 1 | Base de dados e competições (ligas) | ✅ |
+| 2 | Simulação detalhada de jogos (sem 3D) | ✅ |
+| 3 | Menus, navegação e gravação | ✅ |
+| 4 | Gestão do clube (modo treinador) | ✅ |
+| 5 | Transferências e finanças | ✅ à espera de confirmação |
+| 6 | Treino, scouting e academia | ✅ à espera de confirmação |
 | 7 | Taças, Europa e seleções | ✅ à espera de confirmação |
 | 8 | Notícias, rivalidades e ambiente | ⬜ |
 | 9 | Modo carreira de jogador | ⬜ |

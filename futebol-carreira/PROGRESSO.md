@@ -91,8 +91,8 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): <N> testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), mais um teste que junta tudo.
-- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Guarda <M> imagens dos ecrãs na pasta `capturas/`.
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 57 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), mais um teste que junta tudo.
+- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Guarda 40 imagens dos ecrãs na pasta `capturas/`.
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados dos clubes reais**: vêm da minha memória, não de uma fonte verificada. Pode haver um estádio, uma lotação ou uma cor errada.
 

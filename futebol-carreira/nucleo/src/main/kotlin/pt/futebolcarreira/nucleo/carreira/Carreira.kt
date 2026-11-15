@@ -390,7 +390,7 @@ class Carreira(
             val reputacao = equipa.reputacao
             val interessados = bd.equipas.values
                 .filter { it.id != info.equipaId && it.reputacao in (reputacao + 2)..(reputacao + 12) }
-                .shuffled().take(2)
+                .shuffled(gestor.aleatorio).take(2)
             if (interessados.isNotEmpty()) {
                 info.propostas += interessados.map { it.id }
                 mensagem("Propostas de outros clubes", "O teu trabalho não passou despercebido: ${interessados.joinToString(" e ") { it.nome }} querem contratar-te. Podes aceitar ou ficar.")
@@ -404,7 +404,7 @@ class Carreira(
         val reputacao = equipa.reputacao
         val interessados = bd.equipas.values
             .filter { it.id != info.equipaId && it.reputacao in (reputacao - 14)..(reputacao - 3) }
-            .shuffled().take(3)
+            .shuffled(gestor.aleatorio).take(3)
             .ifEmpty { bd.equipas.values.filter { it.id != info.equipaId }.sortedBy { it.reputacao }.take(3) }
         info.propostas.clear()
         info.propostas += interessados.map { it.id }
