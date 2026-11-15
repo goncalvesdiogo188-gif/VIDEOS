@@ -1,5 +1,6 @@
 package pt.futebolcarreira.nucleo.modelos
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlin.math.pow
@@ -41,6 +42,12 @@ class Jogador(
     var potencial: Int = 0,
     /** Nome do atributo -> valor (1 a 99). */
     val atributos: MutableMap<String, Int> = mutableMapOf(),
+    /** Salário por ano, em euros (0 = ainda por definir). */
+    var salario: Int = 0,
+    /** Ano em que o contrato acaba (no verão desse ano). */
+    @SerialName("contrato_ate") var contratoAte: Int = 0,
+    /** Id do clube dono do jogador, se estiver emprestado ("" = não está emprestado). */
+    @SerialName("emprestado_por") var emprestadoPor: String = "",
 ) {
     /** Estatísticas da época em curso. */
     @Transient
@@ -84,6 +91,12 @@ class Jogador(
         }
         return (base * fatorIdade / 10_000.0).roundToInt() * 10_000
     }
+
+    /** Salário anual que um jogador com esta qualidade costuma ganhar. */
+    fun salarioJusto(): Int = (1.17.pow(geral() - 50) * 60.0).roundToInt().coerceAtLeast(12) * 1000
+
+    /** Cláusula de rescisão: pagando este valor, o clube não pode recusar a venda. */
+    fun clausula(): Long = valorMercado() * 3L
 
     /** Corrige valores em falta ou inválidos depois de ler do JSON. */
     fun normalizar() {

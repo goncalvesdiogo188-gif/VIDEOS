@@ -65,13 +65,39 @@ class BaseDados {
                 adicionarJogador(j)
             }
         }
+        // Jogadores sem clube (opcional).
+        for (j in lerJson("jogadores/livres.json", ler, ListSerializer(Jogador.serializer()), obrigatorio = false).orEmpty()) {
+            j.normalizar()
+            j.equipa = ""
+            if (j.id <= 0 || j.id in jogadores) j.id = 0
+            adicionarJogador(j)
+        }
         return erros.isEmpty()
+    }
+
+    /** Jogadores sem clube. */
+    fun livres(): List<Jogador> = jogadores.values.filter { it.equipa.isEmpty() }
+
+    /** Muda um jogador de clube ("" = fica sem clube). */
+    fun mudarDeEquipa(j: Jogador, destino: String) {
+        equipas[j.equipa]?.let {
+            it.plantel.remove(j)
+            it.invalidarForca()
+        }
+        j.equipa = destino
+        equipas[destino]?.let {
+            it.plantel += j
+            it.invalidarForca()
+        }
     }
 
     /** Regista um jogador e coloca-o no plantel da sua equipa. */
     fun adicionarJogador(j: Jogador) {
         if (j.id <= 0) j.id = proximoId
         proximoId = maxOf(proximoId, j.id + 1)
+        // Contrato em falta: salário de acordo com a qualidade e duração de 1 a 4 anos.
+        if (j.salario <= 0) j.salario = j.salarioJusto()
+        if (j.contratoAte <= 0) j.contratoAte = 2027 + j.id % 4
         jogadores[j.id] = j
         val equipa = equipas[j.equipa]
         if (equipa != null) {
@@ -111,6 +137,10 @@ class BaseDados {
             // Um jogador por linha: fica fácil de ler e de editar.
             ficheiros["jogadores/$pais.json"] = doPais.flatMap { it.plantel }
                 .joinToString(",\n", "[\n", "\n]\n") { "\t" + JSON.encodeToString(Jogador.serializer(), it) }
+        }
+        val livres = livres().sortedBy { it.id }
+        if (livres.isNotEmpty()) {
+            ficheiros["jogadores/livres.json"] = livres.joinToString(",\n", "[\n", "\n]\n") { "\t" + JSON.encodeToString(Jogador.serializer(), it) }
         }
         return ficheiros
     }

@@ -9,6 +9,21 @@ class LugarOnze(val lugar: String, val jogador: Jogador?, val nota: Int)
 /** Força de uma equipa (escala 1 a 99). */
 class Forca(val ataque: Double, val defesa: Double, val geral: Double)
 
+/** Receitas e despesas de um clube numa época, em euros. */
+@Serializable
+class ContasEpoca {
+    var bilheteira = 0L
+    var patrocinios = 0L
+    var premios = 0L
+    var vendas = 0L
+    var salarios = 0L
+    var compras = 0L
+    var obras = 0L
+
+    fun receitas() = bilheteira + patrocinios + premios + vendas
+    fun despesas() = salarios + compras + obras
+}
+
 /** Um clube: dados gerais e plantel. */
 @Serializable
 class Equipa(
@@ -28,6 +43,13 @@ class Equipa(
 ) {
     @Transient
     val plantel: MutableList<Jogador> = mutableListOf()
+
+    /** Receitas e despesas da época em curso. */
+    @Transient
+    var contas = ContasEpoca()
+
+    /** Soma dos salários anuais do plantel. */
+    fun folhaSalarial(): Long = plantel.sumOf { it.salario.toLong() }
 
     /** Campeonatos ganhos durante o jogo. */
     @Transient

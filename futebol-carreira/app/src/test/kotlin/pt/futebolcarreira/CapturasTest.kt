@@ -79,6 +79,33 @@ class CapturasTest {
         assertEquals(clube.nome, jogo.ui?.clube)
         capturar("04-inicio")
 
+        // ---- Mercado (está aberto em julho): procurar, abrir a ficha de um jogador e fazer uma proposta ----
+        tocar("Mercado")
+        capturar("04b-mercado")
+        jogo.filtrarMercado("PL", FiltroMercado.POSSO_PAGAR)
+        regra.waitForIdle()
+        val alvo = jogo.ui!!.mercado.jogadores.last()
+        jogo.abrirJogador(alvo.id)
+        capturar("04c-ficha-jogador")
+        val caixa = jogo.ui!!.financas.caixa
+        jogo.negociar(AcaoMercado.PAGAR_PEDIDO)
+        esperar { !jogo.ocupado }
+        assertTrue(jogo.aviso != null)
+        if (jogo.aviso == "Negócio fechado!") {
+            assertTrue(jogo.ui!!.plantel.jogadores.any { it.id == alvo.id })
+            assertTrue(jogo.ui!!.financas.caixa != caixa)
+        }
+        jogo.fecharAviso()
+        jogo.fecharJogador()
+        // Vender um suplente.
+        val suplente = jogo.ui!!.plantel.jogadores.filter { it.posicao == "MC" }.minBy { it.geral }
+        jogo.abrirJogador(suplente.id)
+        jogo.negociar(AcaoMercado.VENDER)
+        esperar { !jogo.ocupado }
+        jogo.fecharAviso()
+        jogo.fecharJogador()
+        tocar("Início")
+
         // ---- Primeiro jogo: relógio parado para apanhar o direto a meio ----
         regra.mainClock.autoAdvance = false
         regra.onNodeWithText("Jogar").performClick()
@@ -125,9 +152,11 @@ class CapturasTest {
         capturar("13-liga-jogos")
         tocar("Jogadores")
         capturar("14-liga-jogadores")
-        tocar("Calendário")
-        capturar("15-calendario")
         tocar("Mais")
+        capturar("15-financas")
+        tocar("Calendário")
+        capturar("15b-calendario")
+        tocar("Opções")
         capturar("16-mais")
 
         // ---- Fim de época e época seguinte ----
@@ -153,6 +182,7 @@ class CapturasTest {
 
         // ---- Gravar, sair e voltar a carregar ----
         tocar("Mais")
+        tocar("Opções")
         tocar("Gravar e sair para o menu")
         esperar { jogo.ecra == Ecra.MENU && !jogo.ocupado }
         assertEquals(1, jogo.gravacoes.size)

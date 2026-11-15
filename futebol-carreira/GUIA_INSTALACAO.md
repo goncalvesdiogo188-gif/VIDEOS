@@ -57,7 +57,7 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 4. De volta ao **Início**: a data avançou, aparece o último resultado, a tua classificação e uma mensagem com o resumo do jogo.
 5. **Plantel**: muda a formação e a mentalidade (valem a partir do jogo seguinte).
 6. **Liga**: tabela (o teu clube tem uma seta), jogos de cada jornada, melhores jogadores e histórico. No topo podes escolher outra liga.
-7. **Calendário**: todos os jogos do teu clube com datas; toca num já jogado para rever o relato.
+7. **Mais → Calendário**: todos os jogos do teu clube com datas; toca num já jogado para rever o relato.
 8. **Mais → Simular o resto da época**: a época vai até ao fim. No **Início** aparece o resumo e o botão para começar a época seguinte.
 9. Fecha a aplicação por completo e volta a abri-la: toca em **Continuar** e confirma que está tudo como deixaste.
 10. **Mais → Gravar e sair para o menu**, depois **Nova carreira** com **Jogador**: escolhe posição e clube. No **Início** aparece o cartão «O teu jogador» e no plantel o teu nome está destacado. (Nesta via ainda não mexes na tática; o modo completo chega na Fase 9.)
@@ -69,6 +69,15 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 3. Em **Plantel**, no «Onze para o próximo jogo», toca num lugar e escolhe outro jogador. Joga e confirma nas **Notas** do jogo que ele foi titular. **Escolha automática** devolve a escolha ao adjunto.
 4. Para ver um despedimento depressa: escolhe um clube grande, põe os piores jogadores no onze e joga várias jornadas. Quando fores despedido, o **Início** mostra propostas de outros clubes; aceita uma para continuar.
 5. No fim de uma boa época podem aparecer propostas de clubes maiores: podes **Aceitar** ou **Recusar e ficar**.
+
+### Fase 5
+1. Começa uma **Nova carreira** como treinador (as antigas não têm contratos nem contas a sério). A época começa em julho, com o mercado aberto.
+2. Abre **Mercado**: em cima está o dinheiro em caixa. Usa os filtros (**Posso pagar**, **Sem clube**, posição) e toca num jogador para abrir a ficha com os atributos.
+3. Na ficha, toca em **Pagar o que pedem**: o jogador aparece no teu **Plantel** e o dinheiro sai da caixa. Experimenta também **Oferecer** menos noutro jogador: o clube pode recusar e fechar a porta.
+4. Em **Plantel**, toca num jogador teu e escolhe **Pôr à venda** ou **Emprestar**.
+5. Em **Mais → Finanças** vês as receitas e as despesas da época; **Aumentar lugares** faz obras no estádio.
+6. Joga até setembro: o mercado fecha (só podes contratar jogadores sem clube) e volta a abrir em janeiro. Nas mensagens aparecem negócios dos outros clubes.
+7. Simula até ao fim da época e começa a seguinte: a mensagem «Contratos e empréstimos» diz quem renovou e quem voltou de empréstimo.
 
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 

@@ -3,6 +3,7 @@ package pt.futebolcarreira.nucleo.simulacao
 import kotlinx.serialization.Serializable
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.dados.GeradorJogadores
+import pt.futebolcarreira.nucleo.modelos.ContasEpoca
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import java.time.LocalDate
 import kotlin.random.Random
@@ -58,6 +59,14 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Estado de cada liga nesta época (id da liga -> estado). */
     val estado = LinkedHashMap<String, EstadoLiga>()
 
+    /** Frases sobre o que aconteceu na mudança de época (empréstimos que acabam, renovações...). */
+    val avisos = mutableListOf<String>()
+
+    /** Id do clube do utilizador (para os avisos lhe dizerem respeito). */
+    var clubeDoUtilizador: String = ""
+
+    internal val aleatorio get() = rng
+
     /** Uma entrada por época terminada. */
     val historico = mutableListOf<ResumoEpoca>()
 
@@ -81,6 +90,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 j.suspensao = 0
             }
             equipa.escolherFormacao()
+            equipa.contas = ContasEpoca()
         }
         for (liga in bd.competicoes.values) {
             val ids = bd.equipasDaLiga(liga.id).map { it.id }.sorted()
@@ -116,6 +126,8 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
             MotorJogo.aplicar(relatorio)
             e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
+            Financas.jornada(bd.equipas.getValue(jogo.casa), true, e.totalJornadas)
+            Financas.jornada(bd.equipas.getValue(jogo.fora), false, e.totalJornadas)
             Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
         }
     }
@@ -171,6 +183,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         for ((ligaId, resumo) in resumos) {
             if (bd.competicoes.getValue(ligaId).nivel == 1) bd.equipas.getValue(resumo.campeao).titulos++
         }
+        // Prémios de classificação.
+        for ((ligaId, e) in estado) {
+            val ordem = e.tabela.ordenada()
+            ordem.forEachIndexed { i, linha ->
+                Financas.premio(bd.equipas.getValue(linha.id), i + 1, ordem.size, bd.competicoes.getValue(ligaId).nivel)
+            }
+        }
         historico += ResumoEpoca(ano, resumos)
     }
 
@@ -195,7 +214,10 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 }
             }
         }
-        EvolucaoPlantel.aplicar(bd, gerador, rng)
+        avisos.clear()
+        FimDeEpoca.contratos(bd, ano, rng, avisos, clubeDoUtilizador)
+        EvolucaoPlantel.aplicar(bd, gerador, rng, ano + 1)
+        FimDeEpoca.completarPlanteis(bd, gerador, ano + 1)
         ano++
         iniciarEpoca()
     }

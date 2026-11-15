@@ -72,7 +72,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Tema visual próprio (escuro, verde relvado), emblemas com as cores dos clubes, botões grandes.
 - [x] Testes automáticos da Fase 3 (`Fase3Test.kt`) e teste dos ecrãs com capturas (`CapturasTest.kt`, pasta `capturas/`).
 
-## Fase 4 — Gestão do clube (modo treinador) ✅ (à espera de confirmação)
+## Fase 4 — Gestão do clube (modo treinador) ✅
 - [x] Onze inicial escolhido pelo treinador (tocar num lugar para trocar o jogador); suplentes e lesionados tratados automaticamente.
 - [x] Objetivo da direção para a época, conforme a força do clube na liga.
 - [x] Confiança da direção e dos adeptos, que sobe e desce com os resultados e com a distância ao objetivo.
@@ -80,10 +80,15 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Testes automáticos da Fase 4 (`Fase4Test.kt`).
 - [ ] Substituições feitas pelo treinador durante o jogo: ficam para a fase do jogo em 3D (Fase 11), quando o jogo passar a ser jogado ao vivo.
 
-## Fase 5 — Transferências e finanças
-- [ ] Contratos: salário, duração, cláusula de rescisão, prémios.
-- [ ] Mercado: propostas, negociação, empréstimos, jogadores livres; IA dos outros clubes.
-- [ ] Finanças: orçamento, salários, bilheteira, patrocínios, prémios, obras no estádio.
+## Fase 5 — Transferências e finanças ✅ (à espera de confirmação)
+- [x] Contratos: salário anual, ano em que o contrato acaba e cláusula de rescisão (três vezes o valor de mercado).
+- [x] Mercado (julho, agosto e janeiro): comprar pelo preço pedido ou arriscar uma proposta mais baixa, vender, pedir e ceder por empréstimo, contratar jogadores sem clube.
+- [x] Os outros clubes também compram e vendem entre si.
+- [x] Fim de época: emprestados voltam, contratos renovam-se ou os jogadores ficam livres, plantéis curtos são completados.
+- [x] Finanças: dinheiro em caixa, bilheteira, patrocínios e televisão, prémios de classificação, salários; obras para aumentar o estádio.
+- [x] Ficha de cada jogador com todos os atributos.
+- [x] Testes automáticos da Fase 5 (`Fase5Test.kt`).
+- [ ] Ainda simples, a melhorar mais tarde: os contratos do teu clube renovam-se sozinhos; não há negociação de salário nem prémios; os outros clubes não fazem propostas pelos teus jogadores (és tu que os pões à venda).
 
 ## Fase 6 — Treino, scouting e academia
 - [ ] Treino e evolução por atributos, potencial, forma e moral (substitui a evolução provisória).

@@ -101,7 +101,7 @@ class Fase1Test {
             for (liga in bd.competicoes.values) {
                 assertEquals(gestor.estado.getValue(liga.id).tabela.linhas.size, bd.equipasDaLiga(liga.id).size, "${liga.id} mantém o número de equipas")
             }
-            assertTrue(bd.equipas.values.all { it.plantel.size == 24 }, "plantéis mantêm 24 jogadores")
+            assertTrue(bd.equipas.values.all { it.plantel.size >= 22 }, "plantéis completos")
         }
         assertEquals(2031, gestor.ano)
         println("5 épocas simuladas em ${System.currentTimeMillis() - inicio} ms")

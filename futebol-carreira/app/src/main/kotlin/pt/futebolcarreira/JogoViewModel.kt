@@ -11,7 +11,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.futebolcarreira.nucleo.carreira.Carreira
 import pt.futebolcarreira.nucleo.carreira.JogoDoClube
+import pt.futebolcarreira.nucleo.carreira.Mercado
 import pt.futebolcarreira.nucleo.carreira.ModoCarreira
+import pt.futebolcarreira.nucleo.carreira.Resposta
+import pt.futebolcarreira.nucleo.simulacao.Financas
 import pt.futebolcarreira.nucleo.carreira.ResumoGravacao
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.modelos.Equipa
@@ -71,6 +74,13 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     /** Janela para escolher um titular (null = fechada). */
     var escolha by mutableStateOf<EscolhaUi?>(null)
         private set
+
+    /** Ficha de jogador aberta (null = fechada). */
+    var ficha by mutableStateOf<FichaJogadorUi?>(null)
+        private set
+
+    private var filtroPosicao: String? = null
+    private var filtroMercado = FiltroMercado.TODOS
 
     /** Jogo aberto (null = nenhum). */
     var jogo by mutableStateOf<JogoUi?>(null)
@@ -159,6 +169,9 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         porGravar = false
         plantel = null
         jogo = null
+        ficha = null
+        filtroPosicao = null
+        filtroMercado = FiltroMercado.TODOS
         ui = novo
         ecra = Ecra.CARREIRA
     }
@@ -207,7 +220,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Corre uma ação na carreira em segundo plano, grava e atualiza os ecrãs. */
-    private fun naCarreira(acao: (Carreira) -> JogoUi?) {
+    private fun naCarreira(depois: () -> Unit = {}, acao: (Carreira) -> JogoUi?) {
         val c = carreira ?: return
         jornadaEscolhida = null
         executar({
@@ -218,6 +231,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             porGravar = false
             ui = novo
             if (jogoParaAbrir != null) jogo = jogoParaAbrir
+            depois()
         }
     }
 
@@ -315,6 +329,151 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     fun recusarPropostas() = naCarreira { c ->
         c.recusarPropostas()
         null
+    }
+
+    // ------------------------------------------------------------- mercado
+
+    fun filtrarMercado(posicao: String?, filtro: FiltroMercado) {
+        if (ocupado) return
+        filtroPosicao = posicao
+        filtroMercado = filtro
+        atualizar()
+    }
+
+    /** Abre a ficha de um jogador (de qualquer clube). */
+    fun abrirJogador(id: Int) {
+        val c = carreira ?: return
+        if (ocupado) return
+        plantel = null
+        c.bd.jogadores[id]?.let { ficha = criarFicha(c, it) }
+    }
+
+    fun fecharJogador() {
+        ficha = null
+    }
+
+    /** Faz um negócio com o jogador da ficha aberta e mostra a resposta. */
+    fun negociar(acao: AcaoMercado) {
+        val c = carreira ?: return
+        val id = ficha?.id ?: return
+        val j = c.bd.jogadores[id] ?: return
+        if (ocupado) return
+        var resposta = Resposta.NAO_PERMITIDO
+        // Quando o trabalho acabar, mostra a resposta e atualiza (ou fecha) a ficha.
+        val depois = {
+            aviso = resposta.frase
+            ficha = if (resposta == Resposta.ACEITE && (acao == AcaoMercado.VENDER || acao == AcaoMercado.EMPRESTAR)) null
+            else c.bd.jogadores[id]?.let { criarFicha(c, it) }
+        }
+        naCarreira(depois) {
+            val m = c.mercado
+            resposta = when (acao) {
+                AcaoMercado.PAGAR_PEDIDO -> m.comprar(j, m.pedido(j))
+                AcaoMercado.OFERECER_90 -> m.comprar(j, m.pedido(j) * 9 / 10)
+                AcaoMercado.OFERECER_80 -> m.comprar(j, m.pedido(j) * 8 / 10)
+                AcaoMercado.PEDIR_EMPRESTIMO -> m.pedirEmprestimo(j)
+                AcaoMercado.CONTRATAR_LIVRE -> m.contratarLivre(j)
+                AcaoMercado.VENDER -> m.vender(j)
+                AcaoMercado.EMPRESTAR -> m.emprestar(j)
+            }
+            null
+        }
+    }
+
+    fun ampliarEstadio() {
+        val c = carreira ?: return
+        var resposta = Resposta.NAO_PERMITIDO
+        naCarreira({ if (resposta != Resposta.ACEITE) aviso = resposta.frase }) {
+            resposta = c.mercado.ampliarEstadio()
+            null
+        }
+    }
+
+    private fun criarFicha(c: Carreira, j: Jogador): FichaJogadorUi {
+        val m = c.mercado
+        val dono = c.bd.equipas[j.equipa]
+        val meu = j.equipa == c.info.equipaId
+        val treinador = c.info.modo == ModoCarreira.TREINADOR && !c.info.despedido
+        val emprestado = j.emprestadoPor.isNotEmpty()
+        val botoes = mutableListOf<BotaoMercadoUi>()
+        var nota = ""
+        when {
+            !treinador -> nota = if (c.info.modo == ModoCarreira.JOGADOR) "Na via de jogador não tratas de transferências." else ""
+            dono == null -> botoes += BotaoMercadoUi(AcaoMercado.CONTRATAR_LIVRE, "Contratar (sem custo de transferência)")
+            emprestado -> nota = "Está emprestado por ${c.bd.equipas[j.emprestadoPor]?.nome} até ao fim da época."
+            !m.aberto -> nota = "O mercado está fechado. Abre em julho, agosto e janeiro."
+            meu -> {
+                botoes += BotaoMercadoUi(AcaoMercado.VENDER, "Pôr à venda (cerca de ${Mercado.euros(j.valorMercado().toLong())})")
+                botoes += BotaoMercadoUi(AcaoMercado.EMPRESTAR, "Emprestar até ao fim da época")
+            }
+            j.id in m.recusados -> nota = "O clube já recusou uma proposta tua e não negoceia mais nesta janela."
+            else -> {
+                val pedido = m.pedido(j)
+                botoes += BotaoMercadoUi(AcaoMercado.PAGAR_PEDIDO, "Pagar o que pedem: ${Mercado.euros(pedido)}")
+                botoes += BotaoMercadoUi(AcaoMercado.OFERECER_90, "Oferecer ${Mercado.euros(pedido * 9 / 10)} (podem recusar)")
+                botoes += BotaoMercadoUi(AcaoMercado.OFERECER_80, "Oferecer ${Mercado.euros(pedido * 8 / 10)} (arriscado)")
+                botoes += BotaoMercadoUi(AcaoMercado.PEDIR_EMPRESTIMO, "Pedir emprestado até ao fim da época")
+            }
+        }
+        val e = j.epoca
+        return FichaJogadorUi(
+            j.id, j.nome,
+            "${j.posicao} · ${j.idade} anos · pé ${j.pe} · ${c.bd.paises[j.nacionalidade]?.nome ?: j.nacionalidade}",
+            dono?.nome ?: "Sem clube", dono?.let { emblema(it) },
+            j.geral(), j.potencial,
+            listOf("Ritmo" to "ritmo", "Remate" to "remate", "Passe" to "passe", "Drible" to "drible", "Defesa" to "defesa", "Físico" to "fisico", "Guarda-redes" to "guarda_redes")
+                .map { (nome, chave) -> nome to j.atributo(chave) },
+            listOfNotNull(
+                "Valor de mercado" to Mercado.euros(j.valorMercado().toLong()),
+                "Cláusula de rescisão" to Mercado.euros(j.clausula()),
+                "Salário por ano" to Mercado.euros(j.salario.toLong()),
+                if (dono != null) "Contrato até" to "${j.contratoAte}" else null,
+                "Esta época" to "${e.jogos} jogos, ${e.golos} golos, ${e.assistencias} assist." + (if (e.jogos > 0) ", nota %.1f".format(e.notaMedia()) else ""),
+                estado(j).takeIf { it.isNotEmpty() }?.let { "Estado" to it },
+            ),
+            botoes, nota,
+        )
+    }
+
+    private fun criarMercado(c: Carreira): MercadoUi {
+        val caixa = c.equipa.orcamento
+        val candidatos = c.bd.jogadores.values.asSequence()
+            .filter { it.equipa != c.info.equipaId && it.emprestadoPor.isEmpty() }
+            .filter { filtroPosicao == null || it.posicao == filtroPosicao }
+            .filter {
+                when (filtroMercado) {
+                    FiltroMercado.TODOS -> true
+                    FiltroMercado.LIVRES -> it.equipa.isEmpty()
+                    FiltroMercado.POSSO_PAGAR -> it.equipa.isEmpty() || it.valorMercado() * 1.2 <= caixa
+                }
+            }
+            .sortedByDescending { it.geral() }
+            .take(60).toList()
+        return MercadoUi(
+            c.mercado.aberto, Mercado.euros(caixa), filtroPosicao, filtroMercado,
+            candidatos.map { j ->
+                val dono = c.bd.equipas[j.equipa]
+                LinhaMercadoUi(j.id, j.posicao, j.nome, dono?.abreviatura ?: "livre", j.idade, j.geral(), if (dono == null) "livre" else Mercado.euros(c.mercado.pedido(j)))
+            },
+        )
+    }
+
+    private fun criarFinancas(c: Carreira): FinancasUi {
+        val e = c.equipa
+        val k = e.contas
+        val m = c.mercado
+        return FinancasUi(
+            caixa = Mercado.euros(e.orcamento), caixaNegativa = e.orcamento < 0,
+            folhaSalarial = Mercado.euros(e.folhaSalarial()),
+            receitas = listOf("Bilheteira" to k.bilheteira, "Patrocínios e televisão" to k.patrocinios, "Prémios" to k.premios, "Vendas de jogadores" to k.vendas)
+                .map { it.first to Mercado.euros(it.second) },
+            despesas = listOf("Salários" to k.salarios, "Compras de jogadores" to k.compras, "Obras no estádio" to k.obras)
+                .map { it.first to Mercado.euros(it.second) },
+            saldo = Mercado.euros(k.receitas() - k.despesas()),
+            estadio = "${e.estadio}: ${e.capacidade} lugares · cerca de ${Financas.assistencia(e)} espectadores e ${Mercado.euros(Financas.bilheteira(e))} por jogo",
+            obras = "Aumentar ${m.lugaresNovos()} lugares por ${Mercado.euros(m.custoAmpliacao())}",
+            podeAmpliar = c.info.modo == ModoCarreira.TREINADOR && !c.info.despedido && e.orcamento >= m.custoAmpliacao(),
+        )
     }
 
     /** Abre a janela com o plantel de um clube qualquer. */
@@ -434,6 +593,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 }
             },
             despedido = c.info.despedido,
+            mercado = criarMercado(c),
+            financas = criarFinancas(c),
             calendario = calendario,
             plantel = criarPlantel(c, equipa),
             liga = criarLiga(c, ligaVista),
@@ -521,7 +682,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 .sortedWith(compareBy<Jogador> { Jogador.POSICOES.indexOf(it.posicao) }.thenByDescending { it.geral() })
                 .map {
                     JogadorUi(
-                        it.posicao, it.nome, it.idade, it.geral(), it.potencial, formatarEuros(it.valorMercado()),
+                        it.id, it.posicao, it.nome, it.idade, it.geral(), it.potencial, formatarEuros(it.valorMercado()),
                         it.epoca.jogos, it.epoca.golos, it.epoca.assistencias,
                         if (it.epoca.jogos == 0) "-" else "%.1f".format(it.epoca.notaMedia()),
                         estado(it), it.id == c.info.jogadorId,
@@ -603,7 +764,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         }
 
     private fun formatarEuros(valor: Int): String =
-        if (valor >= 1_000_000) "%.1f M€".format(valor / 1_000_000.0) else "${valor / 1000} mil €"
+        if (valor >= 1_000_000) "%.1f M€".format(valor / 1_000_000.0) else "${valor / 1000} mil €"  // igual a Mercado.euros
 
     /** Emblema de um clube a partir das cores da base de dados ("#rrggbb"). */
     private fun emblema(e: Equipa): EmblemaUi {

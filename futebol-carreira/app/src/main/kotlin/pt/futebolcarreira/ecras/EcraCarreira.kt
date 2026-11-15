@@ -25,6 +25,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -48,10 +50,11 @@ import pt.futebolcarreira.LinhaUi
 
 /**
  * Ecrã central da carreira. Em baixo há cinco separadores:
- * Início (próximo jogo e mensagens), Plantel, Liga, Calendário e Mais.
+ * Início (próximo jogo e mensagens), Plantel, Mercado, Liga e Mais
+ * (em «Mais» estão as finanças, o calendário e as opções).
  */
 
-private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "🏆" to "Liga", "📅" to "Calendário", "☰" to "Mais")
+private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "💰" to "Mercado", "🏆" to "Liga", "☰" to "Mais")
 
 @Composable
 fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0) {
@@ -73,16 +76,16 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
         Box(Modifier.padding(margens).fillMaxSize()) {
             when (separador) {
                 0 -> Inicio(
-                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 2 },
+                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, aoVerLiga = { separador = 3 },
                     aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas,
                 )
                 1 -> ConteudoPlantel(
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
-                    jogo::abrirEscolha, jogo::onzeAutomatico,
+                    jogo::abrirEscolha, jogo::onzeAutomatico, jogo::abrirJogador,
                 )
-                2 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
-                3 -> Calendario(ui.calendario, jogo::abrirJogoDoClube)
-                else -> Mais(ui, !jogo.ocupado, jogo::simularEpoca, jogo::sairParaMenu)
+                2 -> SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
+                3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
+                else -> Mais(ui, !jogo.ocupado, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirJogoDoClube, jogo::ampliarEstadio)
             }
         }
     }
@@ -343,7 +346,27 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
 // -------------------------------------------------------------------- mais
 
 @Composable
-private fun Mais(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit) {
+private fun Mais(
+    ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit,
+    aoAbrirJogo: (Int) -> Unit, aoAmpliar: () -> Unit,
+) {
+    var separador by rememberSaveable { mutableIntStateOf(0) }
+    Column(Modifier.fillMaxSize()) {
+        TabRow(selectedTabIndex = separador) {
+            listOf("Finanças", "Calendário", "Opções").forEachIndexed { i, nome ->
+                Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome) })
+            }
+        }
+        when (separador) {
+            0 -> SeparadorFinancas(ui.financas, ativo, aoAmpliar)
+            1 -> Calendario(ui.calendario, aoAbrirJogo)
+            else -> Opcoes(ui, ativo, aoSimularEpoca, aoSair)
+        }
+    }
+}
+
+@Composable
+private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit) {
     var confirmar by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Bloco {

@@ -37,7 +37,7 @@ import pt.futebolcarreira.nucleo.modelos.Mentalidade
 internal fun ConteudoPlantel(
     plantel: PlantelUi, modifier: Modifier = Modifier,
     aoMudarFormacao: (Formacao?) -> Unit = {}, aoMudarMentalidade: (Mentalidade?) -> Unit = {},
-    aoEscolherLugar: (Int) -> Unit = {}, aoOnzeAutomatico: () -> Unit = {},
+    aoEscolherLugar: (Int) -> Unit = {}, aoOnzeAutomatico: () -> Unit = {}, aoAbrirJogador: (Int) -> Unit = {},
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     Column(modifier) {
@@ -91,12 +91,12 @@ internal fun ConteudoPlantel(
             }
             item {
                 Text("Suplentes: ${plantel.suplentes}", fontSize = 12.sp, color = secundaria, modifier = Modifier.padding(vertical = 6.dp))
-                Rotulo("Plantel completo", Modifier.padding(top = 8.dp))
+                Rotulo("Plantel completo · toca num jogador para ver a ficha", Modifier.padding(top = 8.dp))
                 CabecalhoPlantel()
             }
             items(plantel.jogadores) { j ->
                 val cor = if (j.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                Column(Modifier.padding(vertical = 5.dp)) {
+                Column(Modifier.fillMaxWidth().clickable { aoAbrirJogador(j.id) }.padding(vertical = 5.dp)) {
                     Row {
                         Celula(j.posicao, 40.dp, cor = cor)
                         Text(
@@ -164,11 +164,11 @@ internal fun JanelaEscolha(escolha: pt.futebolcarreira.EscolhaUi, aoEscolher: (I
 
 /** Janela com o plantel de outro clube (só para ver). */
 @Composable
-internal fun JanelaPlantel(plantel: PlantelUi, aoFechar: () -> Unit) {
+internal fun JanelaPlantel(plantel: PlantelUi, aoFechar: () -> Unit, aoAbrirJogador: (Int) -> Unit) {
     Dialog(onDismissRequest = aoFechar, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         Surface(shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth(0.96f).fillMaxHeight(0.92f)) {
             Column(Modifier.padding(horizontal = 12.dp)) {
-                ConteudoPlantel(plantel, Modifier.weight(1f))
+                ConteudoPlantel(plantel, Modifier.weight(1f), aoAbrirJogador = aoAbrirJogador)
                 TextButton(onClick = aoFechar, modifier = Modifier.align(Alignment.End)) { Text("Fechar") }
             }
         }

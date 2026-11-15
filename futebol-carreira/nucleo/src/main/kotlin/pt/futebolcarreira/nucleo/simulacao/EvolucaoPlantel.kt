@@ -10,14 +10,14 @@ import kotlin.random.Random
  * PROVISÓRIO: mais tarde é substituído pelo sistema completo de treino e academia.
  */
 object EvolucaoPlantel {
-    fun aplicar(bd: BaseDados, gerador: GeradorJogadores, rng: Random) {
+    fun aplicar(bd: BaseDados, gerador: GeradorJogadores, rng: Random, anoNovo: Int = 2027) {
         for (equipa in bd.equipas.values) {
             for (j in equipa.plantel.toList()) {
                 j.idade++
                 val limiteReforma = if (j.posicao == "GR") 37 else 35
                 if (j.idade >= limiteReforma && (j.idade >= limiteReforma + 3 || rng.nextDouble() < 0.5)) {
                     bd.removerJogador(j)
-                    bd.adicionarJogador(gerador.criarJovem(equipa, j.posicao))
+                    bd.adicionarJogador(gerador.criarJovem(equipa, j.posicao).also { it.contratoAte = anoNovo + 3 })
                     continue
                 }
                 val geral = j.geral()

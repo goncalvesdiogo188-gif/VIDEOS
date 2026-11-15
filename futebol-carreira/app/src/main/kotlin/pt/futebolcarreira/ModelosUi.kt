@@ -62,6 +62,7 @@ class LigaUi(
 // ---------------------------------------------------------------- plantel
 
 class JogadorUi(
+    val id: Int,
     val posicao: String, val nome: String, val idade: Int, val geral: Int, val potencial: Int, val valor: String,
     val jogos: Int, val golos: Int, val assistencias: Int, val nota: String,
     /** "" se está apto; senão o motivo (lesão ou castigo). */
@@ -136,6 +137,43 @@ class MensagemUi(val data: String, val titulo: String, val texto: String)
 
 class MeuJogadorUi(val nome: String, val linha1: String, val linha2: String)
 
+// ---------------------------------------------------- mercado e finanças
+
+/** O que se pode fazer com um jogador no mercado. */
+enum class AcaoMercado { PAGAR_PEDIDO, OFERECER_90, OFERECER_80, PEDIR_EMPRESTIMO, CONTRATAR_LIVRE, VENDER, EMPRESTAR }
+
+class BotaoMercadoUi(val acao: AcaoMercado, val texto: String)
+
+/** Ficha completa de um jogador: atributos, contrato e o que se pode fazer com ele. */
+class FichaJogadorUi(
+    val id: Int, val nome: String, val linha1: String, val clube: String, val emblema: EmblemaUi?,
+    val geral: Int, val potencial: Int,
+    /** nome do atributo, valor (1 a 99). */
+    val atributos: List<Pair<String, Int>>,
+    /** título, valor (valor de mercado, salário, contrato...). */
+    val detalhes: List<Pair<String, String>>,
+    val botoes: List<BotaoMercadoUi>,
+    /** Explica por que não há botões (mercado fechado, etc.); "" se não for preciso. */
+    val nota: String,
+)
+
+enum class FiltroMercado(val nome: String) { TODOS("Todos"), POSSO_PAGAR("Posso pagar"), LIVRES("Sem clube") }
+
+class LinhaMercadoUi(val id: Int, val posicao: String, val nome: String, val clube: String, val idade: Int, val geral: Int, val preco: String)
+
+class MercadoUi(
+    val aberto: Boolean, val caixa: String, val posicao: String?, val filtro: FiltroMercado,
+    val jogadores: List<LinhaMercadoUi>,
+)
+
+class FinancasUi(
+    val caixa: String, val caixaNegativa: Boolean, val folhaSalarial: String,
+    /** descrição, valor por extenso. */
+    val receitas: List<Pair<String, String>>, val despesas: List<Pair<String, String>>,
+    val saldo: String,
+    val estadio: String, val obras: String, val podeAmpliar: Boolean,
+)
+
 /** Objetivo da direção e confiança no treinador (0 a 100). */
 class DirecaoUi(val objetivo: String, val direcao: Int, val adeptos: Int)
 
@@ -168,6 +206,8 @@ class CarreiraUi(
     val direcao: DirecaoUi?,
     val propostas: List<PropostaUi>,
     val despedido: Boolean,
+    val mercado: MercadoUi,
+    val financas: FinancasUi,
     val calendario: List<JogoCalendarioUi>,
     val plantel: PlantelUi,
     val liga: LigaUi,

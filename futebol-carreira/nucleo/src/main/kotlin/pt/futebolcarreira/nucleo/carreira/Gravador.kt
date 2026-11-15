@@ -5,6 +5,7 @@ import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import pt.futebolcarreira.nucleo.dados.BaseDados
+import pt.futebolcarreira.nucleo.modelos.ContasEpoca
 import pt.futebolcarreira.nucleo.modelos.Formacao
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
@@ -40,7 +41,7 @@ class ResumoGravacao(
 @Serializable
 private class EquipaG(
     val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean,
-    val mentalidade: Mentalidade? = null, val onze: List<Int>? = null,
+    val mentalidade: Mentalidade? = null, val onze: List<Int>? = null, val contas: ContasEpoca? = null,
 )
 
 @Serializable
@@ -144,7 +145,7 @@ object Gravador {
             info = c.info,
             ano = g.ano,
             data = g.data.toString(),
-            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual) },
+            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas) },
             jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || !it.disponivel }.sortedBy { it.id }.map {
                 val e = it.epoca
                 JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao)
@@ -173,6 +174,7 @@ object Gravador {
             equipa.formacao = e.formacao
             equipa.mentalidade = e.mentalidade
             equipa.onzeManual = e.onze
+            e.contas?.let { equipa.contas = it }
         }
         for (g in gravacao.jogadores) {
             val j = bd.jogadores[g.id] ?: continue

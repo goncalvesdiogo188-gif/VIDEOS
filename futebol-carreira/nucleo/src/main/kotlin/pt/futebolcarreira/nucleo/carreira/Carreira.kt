@@ -70,6 +70,13 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
      */
     var baseDadosPorGravar = true
 
+    /** Transferências, empréstimos e obras. */
+    val mercado = Mercado(this)
+
+    init {
+        gestor.clubeDoUtilizador = info.equipaId
+    }
+
     /** O clube do utilizador. */
     val equipa: Equipa get() = bd.equipas.getValue(info.equipaId)
 
@@ -118,8 +125,13 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             gestor.simularAteAoFim()
         } else {
             val antes = gestor.data
+            // Enquanto o mercado está aberto, os outros clubes também compram e vendem.
+            val negocios = mercado.negociosDosOutros(6)
+            if (negocios.isNotEmpty()) mensagem("Mercado: negócios dos outros clubes", negocios.take(4).joinToString(" "))
             gestor.simularAte(alvo.data)
             avisarMercado(antes, gestor.data)
+            // Caixa negativa preocupa a direção.
+            if (equipa.orcamento < 0 && eTreinador) info.confiancaDirecao = (info.confiancaDirecao - 1).coerceAtLeast(0)
         }
         val jogado = alvo?.let { a -> jogosDoClube().first { it.jornada == a.jornada } }
         if (jogado != null) {
@@ -141,7 +153,10 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
     /** Começa a época seguinte (só depois de esta acabar). */
     fun novaEpoca() {
         if (!gestor.epocaTerminada() || info.despedido) return
+        gestor.clubeDoUtilizador = info.equipaId
         gestor.avancarParaEpocaSeguinte()
+        mercado.recusados.clear()
+        if (gestor.avisos.isNotEmpty()) mensagem("Contratos e empréstimos", gestor.avisos.joinToString(" "))
         // Propostas que ficaram por aceitar perdem-se; a confiança volta a aproximar-se do normal.
         info.propostas.clear()
         info.confiancaDirecao = (info.confiancaDirecao + 60) / 2
@@ -264,6 +279,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
         equipa.mentalidade = null
         equipa.escolherFormacao()
         info.equipaId = equipaId
+        gestor.clubeDoUtilizador = equipaId
         info.despedido = false
         info.propostas.clear()
         info.confiancaDirecao = 60
@@ -277,7 +293,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
         if (!info.despedido) info.propostas.clear()
     }
 
-    private fun mensagem(titulo: String, texto: String) {
+    internal fun mensagem(titulo: String, texto: String) {
         mensagens.add(0, Mensagem(gestor.data.toString(), titulo, texto))
         while (mensagens.size > MAX_MENSAGENS) mensagens.removeAt(mensagens.lastIndex)
     }
@@ -286,6 +302,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
     private fun avisarMercado(antes: LocalDate, depois: LocalDate) {
         val abertoAntes = CalendarioDatas.mercadoAberto(antes)
         val abertoDepois = CalendarioDatas.mercadoAberto(depois)
+        if (abertoAntes != abertoDepois) mercado.recusados.clear()
         if (abertoAntes && !abertoDepois) mensagem("Mercado fechado", "O mercado de transferências fechou.")
         if (!abertoAntes && abertoDepois) mensagem("Mercado aberto", "O mercado de transferências abriu e fica aberto até ao fim do mês.")
     }

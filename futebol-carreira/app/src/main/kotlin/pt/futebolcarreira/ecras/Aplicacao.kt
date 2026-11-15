@@ -30,7 +30,8 @@ fun Aplicacao(jogo: JogoViewModel) {
         }
 
         jogo.jogo?.let { EcraJogo(it, jogo::fecharJogo) }
-        jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel) }
+        jogo.ficha?.let { EcraJogador(it, !jogo.ocupado, jogo::negociar, jogo::fecharJogador) }
+        jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel, jogo::abrirJogador) }
         jogo.escolha?.let { JanelaEscolha(it, jogo::escolherTitular, jogo::fecharEscolha) }
         jogo.aviso?.let { texto ->
             AlertDialog(
