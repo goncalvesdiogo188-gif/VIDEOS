@@ -1,0 +1,8 @@
+[
+	{ "id": "POR", "nome": "Portugal" },
+	{ "id": "ESP", "nome": "Espanha" },
+	{ "id": "ING", "nome": "Inglaterra" },
+	{ "id": "ITA", "nome": "Itália" },
+	{ "id": "ALE", "nome": "Alemanha" },
+	{ "id": "FRA", "nome": "França" }
+]

@@ -1,0 +1,578 @@
+[
+	{
+		"id": "FRA_01",
+		"nome": "SC Beaurivage",
+		"abreviatura": "BEA",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Beaurivage",
+		"estadio": "Stade Municipal Beaurivage",
+		"capacidade": 69500,
+		"reputacao": 85,
+		"orcamento": 215800000,
+		"cores": [
+			"#d62828",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "FRA_02",
+		"nome": "US Montclair",
+		"abreviatura": "MOC",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Montclair",
+		"estadio": "Stade Municipal Montclair",
+		"capacidade": 64700,
+		"reputacao": 83,
+		"orcamento": 163200000,
+		"cores": [
+			"#2a9d8f",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_03",
+		"nome": "SC Port-Lumière",
+		"abreviatura": "POL",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Port-Lumière",
+		"estadio": "Parc Port-Lumière",
+		"capacidade": 55800,
+		"reputacao": 79,
+		"orcamento": 93400000,
+		"cores": [
+			"#111111",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "FRA_04",
+		"nome": "SC Valdoré",
+		"abreviatura": "VAR",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Valdoré",
+		"estadio": "Parc Valdoré",
+		"capacidade": 51500,
+		"reputacao": 77,
+		"orcamento": 70700000,
+		"cores": [
+			"#f4a261",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "FRA_05",
+		"nome": "Union Saint-Aubry",
+		"abreviatura": "SAI",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Saint-Aubry",
+		"estadio": "Stade Municipal Saint-Aubry",
+		"capacidade": 51500,
+		"reputacao": 77,
+		"orcamento": 70700000,
+		"cores": [
+			"#2a9d8f",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_06",
+		"nome": "FC Rochebrune",
+		"abreviatura": "ROH",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Rochebrune",
+		"estadio": "Parc Rochebrune",
+		"capacidade": 47500,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#9d0208",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "FRA_07",
+		"nome": "US Clairval",
+		"abreviatura": "CLA",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Clairval",
+		"estadio": "Parc Clairval",
+		"capacidade": 45500,
+		"reputacao": 74,
+		"orcamento": 46600000,
+		"cores": [
+			"#ffd60a",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "FRA_08",
+		"nome": "Olympique Belleroche",
+		"abreviatura": "BEE",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Belleroche",
+		"estadio": "Stade Municipal Belleroche",
+		"capacidade": 39900,
+		"reputacao": 71,
+		"orcamento": 30700000,
+		"cores": [
+			"#e85d04",
+			"#d62828"
+		]
+	},
+	{
+		"id": "FRA_09",
+		"nome": "Stade Grandpré",
+		"abreviatura": "GRA",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Grandpré",
+		"estadio": "Stade Grandpré",
+		"capacidade": 41800,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#2b9348",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_10",
+		"nome": "FC Châteauvert",
+		"abreviatura": "CHÂ",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Châteauvert",
+		"estadio": "Parc Châteauvert",
+		"capacidade": 36400,
+		"reputacao": 69,
+		"orcamento": 23300000,
+		"cores": [
+			"#111111",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "FRA_11",
+		"nome": "Olympique Fontenelle",
+		"abreviatura": "FOE",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Fontenelle",
+		"estadio": "Stade Fontenelle",
+		"capacidade": 31500,
+		"reputacao": 66,
+		"orcamento": 15400000,
+		"cores": [
+			"#ffd60a",
+			"#e85d04"
+		]
+	},
+	{
+		"id": "FRA_12",
+		"nome": "AS Mirebois",
+		"abreviatura": "MIE",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Mirebois",
+		"estadio": "Parc Mirebois",
+		"capacidade": 34700,
+		"reputacao": 68,
+		"orcamento": 20300000,
+		"cores": [
+			"#1d3557",
+			"#111111"
+		]
+	},
+	{
+		"id": "FRA_13",
+		"nome": "Stade Lac-d'Argent",
+		"abreviatura": "LAC",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Lac-d'Argent",
+		"estadio": "Stade Municipal Lac-d'Argent",
+		"capacidade": 33100,
+		"reputacao": 67,
+		"orcamento": 17700000,
+		"cores": [
+			"#8d99ae",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "FRA_14",
+		"nome": "US Villeneuve-les-Pins",
+		"abreviatura": "VIE",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Villeneuve-les-Pins",
+		"estadio": "Stade Municipal Villeneuve-les-Pins",
+		"capacidade": 28400,
+		"reputacao": 64,
+		"orcamento": 11700000,
+		"cores": [
+			"#d62828",
+			"#9d0208"
+		]
+	},
+	{
+		"id": "FRA_15",
+		"nome": "SC Hauterive",
+		"abreviatura": "HAU",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Hauterive",
+		"estadio": "Parc Hauterive",
+		"capacidade": 25500,
+		"reputacao": 62,
+		"orcamento": 8900000,
+		"cores": [
+			"#111111",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "FRA_16",
+		"nome": "FC Bois-Joli",
+		"abreviatura": "BOI",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Bois-Joli",
+		"estadio": "Stade Bois-Joli",
+		"capacidade": 22800,
+		"reputacao": 60,
+		"orcamento": 6800000,
+		"cores": [
+			"#1d3557",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "FRA_17",
+		"nome": "AS Sablonne",
+		"abreviatura": "SAB",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Sablonne",
+		"estadio": "Parc Sablonne",
+		"capacidade": 22800,
+		"reputacao": 60,
+		"orcamento": 6800000,
+		"cores": [
+			"#6a4c93",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "FRA_18",
+		"nome": "AS Cormeray",
+		"abreviatura": "COR",
+		"pais": "FRA",
+		"liga": "FRA1",
+		"cidade": "Cormeray",
+		"estadio": "Parc Cormeray",
+		"capacidade": 20200,
+		"reputacao": 58,
+		"orcamento": 5200000,
+		"cores": [
+			"#f4a261",
+			"#0077b6"
+		]
+	},
+	{
+		"id": "FRA_19",
+		"nome": "Olympique Dambreuil",
+		"abreviatura": "DAM",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Dambreuil",
+		"estadio": "Stade Municipal Dambreuil",
+		"capacidade": 21500,
+		"reputacao": 59,
+		"orcamento": 5900000,
+		"cores": [
+			"#7b2cbf",
+			"#d62828"
+		]
+	},
+	{
+		"id": "FRA_20",
+		"nome": "Union Estival",
+		"abreviatura": "EST",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Estival",
+		"estadio": "Stade Municipal Estival",
+		"capacidade": 20200,
+		"reputacao": 58,
+		"orcamento": 5200000,
+		"cores": [
+			"#6a4c93",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_21",
+		"nome": "Stade Florimont",
+		"abreviatura": "FLO",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Florimont",
+		"estadio": "Stade Municipal Florimont",
+		"capacidade": 17800,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#ffffff",
+			"#0077b6"
+		]
+	},
+	{
+		"id": "FRA_22",
+		"nome": "Stade Givrac",
+		"abreviatura": "GIV",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Givrac",
+		"estadio": "Parc Givrac",
+		"capacidade": 17800,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#f4a261",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "FRA_23",
+		"nome": "SC Lorvigny",
+		"abreviatura": "LOR",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Lorvigny",
+		"estadio": "Stade Lorvigny",
+		"capacidade": 16700,
+		"reputacao": 55,
+		"orcamento": 3500000,
+		"cores": [
+			"#e85d04",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "FRA_24",
+		"nome": "SC Marsanne-sur-Mer",
+		"abreviatura": "MAS",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Marsanne-sur-Mer",
+		"estadio": "Stade Municipal Marsanne-sur-Mer",
+		"capacidade": 14600,
+		"reputacao": 53,
+		"orcamento": 2700000,
+		"cores": [
+			"#0077b6",
+			"#d62828"
+		]
+	},
+	{
+		"id": "FRA_25",
+		"nome": "FC Noirétang",
+		"abreviatura": "NOI",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Noirétang",
+		"estadio": "Parc Noirétang",
+		"capacidade": 15600,
+		"reputacao": 54,
+		"orcamento": 3100000,
+		"cores": [
+			"#f4a261",
+			"#d62828"
+		]
+	},
+	{
+		"id": "FRA_26",
+		"nome": "Racing Ormeville",
+		"abreviatura": "ORM",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Ormeville",
+		"estadio": "Stade Ormeville",
+		"capacidade": 13600,
+		"reputacao": 52,
+		"orcamento": 2400000,
+		"cores": [
+			"#7b2cbf",
+			"#d62828"
+		]
+	},
+	{
+		"id": "FRA_27",
+		"nome": "Stade Pierrelune",
+		"abreviatura": "PIR",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Pierrelune",
+		"estadio": "Stade Municipal Pierrelune",
+		"capacidade": 15600,
+		"reputacao": 54,
+		"orcamento": 3100000,
+		"cores": [
+			"#d62828",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "FRA_28",
+		"nome": "SC Quincy-le-Haut",
+		"abreviatura": "QUI",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Quincy-le-Haut",
+		"estadio": "Parc Quincy-le-Haut",
+		"capacidade": 13600,
+		"reputacao": 52,
+		"orcamento": 2400000,
+		"cores": [
+			"#e85d04",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_29",
+		"nome": "AS Rivelande",
+		"abreviatura": "RIL",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Rivelande",
+		"estadio": "Stade Rivelande",
+		"capacidade": 11800,
+		"reputacao": 50,
+		"orcamento": 1900000,
+		"cores": [
+			"#ffffff",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "FRA_30",
+		"nome": "US Sérignac",
+		"abreviatura": "SÉR",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Sérignac",
+		"estadio": "Parc Sérignac",
+		"capacidade": 10900,
+		"reputacao": 49,
+		"orcamento": 1700000,
+		"cores": [
+			"#8d99ae",
+			"#111111"
+		]
+	},
+	{
+		"id": "FRA_31",
+		"nome": "Stade Tournelle",
+		"abreviatura": "TOU",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Tournelle",
+		"estadio": "Parc Tournelle",
+		"capacidade": 11800,
+		"reputacao": 50,
+		"orcamento": 1900000,
+		"cores": [
+			"#2a9d8f",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "FRA_32",
+		"nome": "US Urville",
+		"abreviatura": "URV",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Urville",
+		"estadio": "Parc Urville",
+		"capacidade": 7300,
+		"reputacao": 44,
+		"orcamento": 900000,
+		"cores": [
+			"#111111",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "FRA_33",
+		"nome": "Union Vauxbleu",
+		"abreviatura": "VAU",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Vauxbleu",
+		"estadio": "Stade Municipal Vauxbleu",
+		"capacidade": 10100,
+		"reputacao": 48,
+		"orcamento": 1500000,
+		"cores": [
+			"#6a4c93",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "FRA_34",
+		"nome": "Étoile Aigremont",
+		"abreviatura": "AIG",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Aigremont",
+		"estadio": "Parc Aigremont",
+		"capacidade": 7900,
+		"reputacao": 45,
+		"orcamento": 1100000,
+		"cores": [
+			"#e85d04",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "FRA_35",
+		"nome": "AS Brumeval",
+		"abreviatura": "BRU",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Brumeval",
+		"estadio": "Stade Municipal Brumeval",
+		"capacidade": 8600,
+		"reputacao": 46,
+		"orcamento": 1200000,
+		"cores": [
+			"#f4a261",
+			"#111111"
+		]
+	},
+	{
+		"id": "FRA_36",
+		"nome": "Olympique Castelnoir",
+		"abreviatura": "CAN",
+		"pais": "FRA",
+		"liga": "FRA2",
+		"cidade": "Castelnoir",
+		"estadio": "Stade Castelnoir",
+		"capacidade": 7300,
+		"reputacao": 44,
+		"orcamento": 900000,
+		"cores": [
+			"#f4a261",
+			"#9d0208"
+		]
+	}
+]

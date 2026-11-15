@@ -1,0 +1,642 @@
+[
+	{
+		"id": "ESP_01",
+		"nome": "Deportivo Valdorado",
+		"abreviatura": "VAD",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Valdorado",
+		"estadio": "Campo de Valdorado",
+		"capacidade": 71900,
+		"reputacao": 86,
+		"orcamento": 248100000,
+		"cores": [
+			"#d62828",
+			"#111111"
+		]
+	},
+	{
+		"id": "ESP_02",
+		"nome": "Deportivo Puerto Blanco",
+		"abreviatura": "PUE",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Puerto Blanco",
+		"estadio": "Campo de Puerto Blanco",
+		"capacidade": 69500,
+		"reputacao": 85,
+		"orcamento": 215800000,
+		"cores": [
+			"#e85d04",
+			"#0077b6"
+		]
+	},
+	{
+		"id": "ESP_03",
+		"nome": "UD Sierralta",
+		"abreviatura": "SIE",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Sierralta",
+		"estadio": "Campo de Sierralta",
+		"capacidade": 67100,
+		"reputacao": 84,
+		"orcamento": 187600000,
+		"cores": [
+			"#0077b6",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_04",
+		"nome": "CF Villaclara",
+		"abreviatura": "VIC",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Villaclara",
+		"estadio": "Campo de Villaclara",
+		"capacidade": 62400,
+		"reputacao": 82,
+		"orcamento": 141900000,
+		"cores": [
+			"#f4a261",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "ESP_05",
+		"nome": "CD Monteazul",
+		"abreviatura": "MOT",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Monteazul",
+		"estadio": "Campo de Monteazul",
+		"capacidade": 55800,
+		"reputacao": 79,
+		"orcamento": 93400000,
+		"cores": [
+			"#d62828",
+			"#9d0208"
+		]
+	},
+	{
+		"id": "ESP_06",
+		"nome": "UD Castroviejo",
+		"abreviatura": "CAT",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Castroviejo",
+		"estadio": "Estadio Nuevo Castroviejo",
+		"capacidade": 49500,
+		"reputacao": 76,
+		"orcamento": 61500000,
+		"cores": [
+			"#e85d04",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "ESP_07",
+		"nome": "Real Rioseco",
+		"abreviatura": "RIS",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Rioseco",
+		"estadio": "Campo de Rioseco",
+		"capacidade": 51500,
+		"reputacao": 77,
+		"orcamento": 70700000,
+		"cores": [
+			"#7b2cbf",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "ESP_08",
+		"nome": "Atlético Torrealba",
+		"abreviatura": "TOE",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Torrealba",
+		"estadio": "Campo de Torrealba",
+		"capacidade": 43600,
+		"reputacao": 73,
+		"orcamento": 40500000,
+		"cores": [
+			"#9d0208",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "ESP_09",
+		"nome": "CD Campoverde",
+		"abreviatura": "CAP",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Campoverde",
+		"estadio": "Estadio Nuevo Campoverde",
+		"capacidade": 45500,
+		"reputacao": 74,
+		"orcamento": 46600000,
+		"cores": [
+			"#9d0208",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "ESP_10",
+		"nome": "Racing Bahía Dorada",
+		"abreviatura": "BAH",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Bahía Dorada",
+		"estadio": "Campo de Bahía Dorada",
+		"capacidade": 39900,
+		"reputacao": 71,
+		"orcamento": 30700000,
+		"cores": [
+			"#d62828",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "ESP_11",
+		"nome": "UD Almenar",
+		"abreviatura": "ALE",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Almenar",
+		"estadio": "Estadio Municipal de Almenar",
+		"capacidade": 39900,
+		"reputacao": 71,
+		"orcamento": 30700000,
+		"cores": [
+			"#9d0208",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_12",
+		"nome": "Peñarroja CF",
+		"abreviatura": "PEÑ",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Peñarroja",
+		"estadio": "Estadio Municipal de Peñarroja",
+		"capacidade": 41800,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#1d3557",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "ESP_13",
+		"nome": "UD Fuentesanta",
+		"abreviatura": "FUE",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Fuentesanta",
+		"estadio": "Estadio Municipal de Fuentesanta",
+		"capacidade": 36400,
+		"reputacao": 69,
+		"orcamento": 23300000,
+		"cores": [
+			"#2b9348",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "ESP_14",
+		"nome": "Villarmosa CF",
+		"abreviatura": "VIR",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Villarmosa",
+		"estadio": "Estadio Municipal de Villarmosa",
+		"capacidade": 34700,
+		"reputacao": 68,
+		"orcamento": 20300000,
+		"cores": [
+			"#e85d04",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "ESP_15",
+		"nome": "Sporting Costalinda",
+		"abreviatura": "COT",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Costalinda",
+		"estadio": "Estadio Municipal de Costalinda",
+		"capacidade": 31500,
+		"reputacao": 66,
+		"orcamento": 15400000,
+		"cores": [
+			"#7b2cbf",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_16",
+		"nome": "Sporting Robledal",
+		"abreviatura": "ROB",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Robledal",
+		"estadio": "Estadio Municipal de Robledal",
+		"capacidade": 31500,
+		"reputacao": 66,
+		"orcamento": 15400000,
+		"cores": [
+			"#f4a261",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "ESP_17",
+		"nome": "UD Olivares del Sur",
+		"abreviatura": "OLI",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Olivares del Sur",
+		"estadio": "Campo de Olivares del Sur",
+		"capacidade": 29900,
+		"reputacao": 65,
+		"orcamento": 13400000,
+		"cores": [
+			"#2a9d8f",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "ESP_18",
+		"nome": "Sporting Marazul",
+		"abreviatura": "MAR",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Marazul",
+		"estadio": "Estadio Municipal de Marazul",
+		"capacidade": 26900,
+		"reputacao": 63,
+		"orcamento": 10200000,
+		"cores": [
+			"#ffffff",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "ESP_19",
+		"nome": "UD Solana",
+		"abreviatura": "SOL",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Solana",
+		"estadio": "Estadio Municipal de Solana",
+		"capacidade": 26900,
+		"reputacao": 63,
+		"orcamento": 10200000,
+		"cores": [
+			"#9d0208",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "ESP_20",
+		"nome": "Sporting Pinarejo",
+		"abreviatura": "PIA",
+		"pais": "ESP",
+		"liga": "ESP1",
+		"cidade": "Pinarejo",
+		"estadio": "Estadio Nuevo Pinarejo",
+		"capacidade": 26900,
+		"reputacao": 63,
+		"orcamento": 10200000,
+		"cores": [
+			"#2b9348",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ESP_21",
+		"nome": "SD Vegafría",
+		"abreviatura": "VEG",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Vegafría",
+		"estadio": "Campo de Vegafría",
+		"capacidade": 28400,
+		"reputacao": 64,
+		"orcamento": 11700000,
+		"cores": [
+			"#ffffff",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "ESP_22",
+		"nome": "SD Lagunilla",
+		"abreviatura": "LAU",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Lagunilla",
+		"estadio": "Estadio Municipal de Lagunilla",
+		"capacidade": 24100,
+		"reputacao": 61,
+		"orcamento": 7800000,
+		"cores": [
+			"#f4a261",
+			"#111111"
+		]
+	},
+	{
+		"id": "ESP_23",
+		"nome": "Atlético Cerro Alto",
+		"abreviatura": "CER",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Cerro Alto",
+		"estadio": "Campo de Cerro Alto",
+		"capacidade": 22800,
+		"reputacao": 60,
+		"orcamento": 6800000,
+		"cores": [
+			"#7b2cbf",
+			"#9d0208"
+		]
+	},
+	{
+		"id": "ESP_24",
+		"nome": "CF Aldeanueva",
+		"abreviatura": "ALD",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Aldeanueva",
+		"estadio": "Campo de Aldeanueva",
+		"capacidade": 19000,
+		"reputacao": 57,
+		"orcamento": 4600000,
+		"cores": [
+			"#7b2cbf",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_25",
+		"nome": "Portonuevo CF",
+		"abreviatura": "POT",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Portonuevo",
+		"estadio": "Estadio Municipal de Portonuevo",
+		"capacidade": 21500,
+		"reputacao": 59,
+		"orcamento": 5900000,
+		"cores": [
+			"#ffffff",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "ESP_26",
+		"nome": "UD Zarzalejo",
+		"abreviatura": "ZAR",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Zarzalejo",
+		"estadio": "Estadio Municipal de Zarzalejo",
+		"capacidade": 17800,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#f4a261",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "ESP_27",
+		"nome": "Sporting Encinar",
+		"abreviatura": "ENC",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Encinar",
+		"estadio": "Estadio Municipal de Encinar",
+		"capacidade": 20200,
+		"reputacao": 58,
+		"orcamento": 5200000,
+		"cores": [
+			"#ffd60a",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "ESP_28",
+		"nome": "Racing Molinoviejo",
+		"abreviatura": "MOL",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Molinoviejo",
+		"estadio": "Campo de Molinoviejo",
+		"capacidade": 17800,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#0077b6",
+			"#111111"
+		]
+	},
+	{
+		"id": "ESP_29",
+		"nome": "Valdehierro CF",
+		"abreviatura": "VAH",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Valdehierro",
+		"estadio": "Estadio Nuevo Valdehierro",
+		"capacidade": 15600,
+		"reputacao": 54,
+		"orcamento": 3100000,
+		"cores": [
+			"#8d99ae",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "ESP_30",
+		"nome": "Arenales CF",
+		"abreviatura": "ARE",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Arenales",
+		"estadio": "Estadio Nuevo Arenales",
+		"capacidade": 16700,
+		"reputacao": 55,
+		"orcamento": 3500000,
+		"cores": [
+			"#ffd60a",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_31",
+		"nome": "Sporting Brisamar",
+		"abreviatura": "BRI",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Brisamar",
+		"estadio": "Estadio Nuevo Brisamar",
+		"capacidade": 14600,
+		"reputacao": 53,
+		"orcamento": 2700000,
+		"cores": [
+			"#1d3557",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "ESP_32",
+		"nome": "Peñablanca CF",
+		"abreviatura": "PEA",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Peñablanca",
+		"estadio": "Estadio Nuevo Peñablanca",
+		"capacidade": 13600,
+		"reputacao": 52,
+		"orcamento": 2400000,
+		"cores": [
+			"#6a4c93",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_33",
+		"nome": "Sporting Rocafuerte",
+		"abreviatura": "ROC",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Rocafuerte",
+		"estadio": "Campo de Rocafuerte",
+		"capacidade": 13600,
+		"reputacao": 52,
+		"orcamento": 2400000,
+		"cores": [
+			"#f4a261",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "ESP_34",
+		"nome": "CF Trigales",
+		"abreviatura": "TRI",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Trigales",
+		"estadio": "Estadio Nuevo Trigales",
+		"capacidade": 11800,
+		"reputacao": 50,
+		"orcamento": 1900000,
+		"cores": [
+			"#ffffff",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_35",
+		"nome": "UD Miraflor",
+		"abreviatura": "MIA",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Miraflor",
+		"estadio": "Campo de Miraflor",
+		"capacidade": 11800,
+		"reputacao": 50,
+		"orcamento": 1900000,
+		"cores": [
+			"#7b2cbf",
+			"#111111"
+		]
+	},
+	{
+		"id": "ESP_36",
+		"nome": "Real Navalonga",
+		"abreviatura": "NAV",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Navalonga",
+		"estadio": "Estadio Nuevo Navalonga",
+		"capacidade": 13600,
+		"reputacao": 52,
+		"orcamento": 2400000,
+		"cores": [
+			"#e85d04",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "ESP_37",
+		"nome": "CD Casalta",
+		"abreviatura": "CAA",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Casalta",
+		"estadio": "Estadio Nuevo Casalta",
+		"capacidade": 10900,
+		"reputacao": 49,
+		"orcamento": 1700000,
+		"cores": [
+			"#9d0208",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "ESP_38",
+		"nome": "SD Viñaroja",
+		"abreviatura": "VIÑ",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Viñaroja",
+		"estadio": "Campo de Viñaroja",
+		"capacidade": 9300,
+		"reputacao": 47,
+		"orcamento": 1300000,
+		"cores": [
+			"#2b9348",
+			"#d62828"
+		]
+	},
+	{
+		"id": "ESP_39",
+		"nome": "Real Hondonada",
+		"abreviatura": "HON",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Hondonada",
+		"estadio": "Estadio Municipal de Hondonada",
+		"capacidade": 10900,
+		"reputacao": 49,
+		"orcamento": 1700000,
+		"cores": [
+			"#d62828",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "ESP_40",
+		"nome": "Deportivo Altavista",
+		"abreviatura": "ALT",
+		"pais": "ESP",
+		"liga": "ESP2",
+		"cidade": "Altavista",
+		"estadio": "Estadio Nuevo Altavista",
+		"capacidade": 10100,
+		"reputacao": 48,
+		"orcamento": 1500000,
+		"cores": [
+			"#ffd60a",
+			"#e85d04"
+		]
+	}
+]

@@ -1,0 +1,578 @@
+[
+	{
+		"id": "POR_01",
+		"nome": "Atlético de Valverde",
+		"abreviatura": "VAL",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Valverde",
+		"estadio": "Estádio Municipal de Valverde",
+		"capacidade": 62400,
+		"reputacao": 82,
+		"orcamento": 141900000,
+		"cores": [
+			"#111111",
+			"#e85d04"
+		]
+	},
+	{
+		"id": "POR_02",
+		"nome": "Leões de Ribadouro",
+		"abreviatura": "RIB",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Ribadouro",
+		"estadio": "Estádio Municipal de Ribadouro",
+		"capacidade": 58000,
+		"reputacao": 80,
+		"orcamento": 107400000,
+		"cores": [
+			"#8d99ae",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "POR_03",
+		"nome": "Vitória de Montebelo",
+		"abreviatura": "MON",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Montebelo",
+		"estadio": "Parque Desportivo de Montebelo",
+		"capacidade": 47500,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#7b2cbf",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "POR_04",
+		"nome": "Vitória de Vila Serrana",
+		"abreviatura": "VIL",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Vila Serrana",
+		"estadio": "Parque Desportivo de Vila Serrana",
+		"capacidade": 45500,
+		"reputacao": 74,
+		"orcamento": 46600000,
+		"cores": [
+			"#ffd60a",
+			"#8d99ae"
+		]
+	},
+	{
+		"id": "POR_05",
+		"nome": "Estrela de Pedralva",
+		"abreviatura": "PED",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Pedralva",
+		"estadio": "Estádio Municipal de Pedralva",
+		"capacidade": 41800,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#2b9348",
+			"#e85d04"
+		]
+	},
+	{
+		"id": "POR_06",
+		"nome": "Desportivo de Costa Nova",
+		"abreviatura": "COS",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Costa Nova",
+		"estadio": "Estádio Municipal de Costa Nova",
+		"capacidade": 39900,
+		"reputacao": 71,
+		"orcamento": 30700000,
+		"cores": [
+			"#f4a261",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "POR_07",
+		"nome": "Académico de Castrelo",
+		"abreviatura": "CAS",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Castrelo",
+		"estadio": "Estádio Municipal de Castrelo",
+		"capacidade": 38200,
+		"reputacao": 70,
+		"orcamento": 26700000,
+		"cores": [
+			"#111111",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "POR_08",
+		"nome": "Académico de Alvorada",
+		"abreviatura": "ALV",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Alvorada",
+		"estadio": "Estádio de Alvorada",
+		"capacidade": 38200,
+		"reputacao": 70,
+		"orcamento": 26700000,
+		"cores": [
+			"#8d99ae",
+			"#d62828"
+		]
+	},
+	{
+		"id": "POR_09",
+		"nome": "CF Fonte Santa",
+		"abreviatura": "FON",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Fonte Santa",
+		"estadio": "Estádio Municipal de Fonte Santa",
+		"capacidade": 34700,
+		"reputacao": 68,
+		"orcamento": 20300000,
+		"cores": [
+			"#111111",
+			"#0077b6"
+		]
+	},
+	{
+		"id": "POR_10",
+		"nome": "Atlético de Serra Azul",
+		"abreviatura": "SER",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Serra Azul",
+		"estadio": "Estádio de Serra Azul",
+		"capacidade": 29900,
+		"reputacao": 65,
+		"orcamento": 13400000,
+		"cores": [
+			"#0077b6",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "POR_11",
+		"nome": "Estrela de Monfalim",
+		"abreviatura": "MOF",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Monfalim",
+		"estadio": "Estádio Municipal de Monfalim",
+		"capacidade": 28400,
+		"reputacao": 64,
+		"orcamento": 11700000,
+		"cores": [
+			"#e85d04",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "POR_12",
+		"nome": "Leões de Rio Largo",
+		"abreviatura": "RIO",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Rio Largo",
+		"estadio": "Estádio de Rio Largo",
+		"capacidade": 25500,
+		"reputacao": 62,
+		"orcamento": 8900000,
+		"cores": [
+			"#7b2cbf",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "POR_13",
+		"nome": "Sporting de Torre Velha",
+		"abreviatura": "TOR",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Torre Velha",
+		"estadio": "Parque Desportivo de Torre Velha",
+		"capacidade": 24100,
+		"reputacao": 61,
+		"orcamento": 7800000,
+		"cores": [
+			"#2b9348",
+			"#9d0208"
+		]
+	},
+	{
+		"id": "POR_14",
+		"nome": "Vitória de Almendra",
+		"abreviatura": "ALM",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Almendra",
+		"estadio": "Estádio Municipal de Almendra",
+		"capacidade": 22800,
+		"reputacao": 60,
+		"orcamento": 6800000,
+		"cores": [
+			"#111111",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "POR_15",
+		"nome": "CF Vale Dourado",
+		"abreviatura": "VAE",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Vale Dourado",
+		"estadio": "Parque Desportivo de Vale Dourado",
+		"capacidade": 24100,
+		"reputacao": 61,
+		"orcamento": 7800000,
+		"cores": [
+			"#e85d04",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "POR_16",
+		"nome": "Sporting de Penha Alta",
+		"abreviatura": "PEN",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Penha Alta",
+		"estadio": "Parque Desportivo de Penha Alta",
+		"capacidade": 20200,
+		"reputacao": 58,
+		"orcamento": 5200000,
+		"cores": [
+			"#2a9d8f",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "POR_17",
+		"nome": "União de Sobreiral",
+		"abreviatura": "SOB",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Sobreiral",
+		"estadio": "Estádio Municipal de Sobreiral",
+		"capacidade": 17800,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#6a4c93",
+			"#111111"
+		]
+	},
+	{
+		"id": "POR_18",
+		"nome": "União de Lagoa Verde",
+		"abreviatura": "LAG",
+		"pais": "POR",
+		"liga": "POR1",
+		"cidade": "Lagoa Verde",
+		"estadio": "Estádio Municipal de Lagoa Verde",
+		"capacidade": 16700,
+		"reputacao": 55,
+		"orcamento": 3500000,
+		"cores": [
+			"#d62828",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "POR_19",
+		"nome": "Atlético de Entroncado",
+		"abreviatura": "ENT",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Entroncado",
+		"estadio": "Estádio Municipal de Entroncado",
+		"capacidade": 16700,
+		"reputacao": 55,
+		"orcamento": 3500000,
+		"cores": [
+			"#7b2cbf",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "POR_20",
+		"nome": "SC Pinhal Manso",
+		"abreviatura": "PIN",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Pinhal Manso",
+		"estadio": "Parque Desportivo de Pinhal Manso",
+		"capacidade": 15600,
+		"reputacao": 54,
+		"orcamento": 3100000,
+		"cores": [
+			"#ffd60a",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "POR_21",
+		"nome": "SC Ribeira Clara",
+		"abreviatura": "RIE",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Ribeira Clara",
+		"estadio": "Parque Desportivo de Ribeira Clara",
+		"capacidade": 15600,
+		"reputacao": 54,
+		"orcamento": 3100000,
+		"cores": [
+			"#e85d04",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "POR_22",
+		"nome": "Estrela de Mirandal",
+		"abreviatura": "MIR",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Mirandal",
+		"estadio": "Parque Desportivo de Mirandal",
+		"capacidade": 12700,
+		"reputacao": 51,
+		"orcamento": 2100000,
+		"cores": [
+			"#e85d04",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "POR_23",
+		"nome": "Vitória de Salgueiral",
+		"abreviatura": "SAL",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Salgueiral",
+		"estadio": "Estádio Municipal de Salgueiral",
+		"capacidade": 12700,
+		"reputacao": 51,
+		"orcamento": 2100000,
+		"cores": [
+			"#d62828",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "POR_24",
+		"nome": "GD Cabo Raso",
+		"abreviatura": "CAB",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Cabo Raso",
+		"estadio": "Estádio de Cabo Raso",
+		"capacidade": 12700,
+		"reputacao": 51,
+		"orcamento": 2100000,
+		"cores": [
+			"#6a4c93",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "POR_25",
+		"nome": "Vitória de Arrifal",
+		"abreviatura": "ARR",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Arrifal",
+		"estadio": "Parque Desportivo de Arrifal",
+		"capacidade": 10900,
+		"reputacao": 49,
+		"orcamento": 1700000,
+		"cores": [
+			"#f4a261",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "POR_26",
+		"nome": "FC Vila Mourisca",
+		"abreviatura": "VIA",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Vila Mourisca",
+		"estadio": "Estádio de Vila Mourisca",
+		"capacidade": 12700,
+		"reputacao": 51,
+		"orcamento": 2100000,
+		"cores": [
+			"#d62828",
+			"#0077b6"
+		]
+	},
+	{
+		"id": "POR_27",
+		"nome": "SC Porto Sereno",
+		"abreviatura": "POR",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Porto Sereno",
+		"estadio": "Parque Desportivo de Porto Sereno",
+		"capacidade": 10100,
+		"reputacao": 48,
+		"orcamento": 1500000,
+		"cores": [
+			"#e85d04",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "POR_28",
+		"nome": "Desportivo de Carvalhedo",
+		"abreviatura": "CAR",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Carvalhedo",
+		"estadio": "Estádio Municipal de Carvalhedo",
+		"capacidade": 9300,
+		"reputacao": 47,
+		"orcamento": 1300000,
+		"cores": [
+			"#6a4c93",
+			"#2a9d8f"
+		]
+	},
+	{
+		"id": "POR_29",
+		"nome": "Atlético de Fozmar",
+		"abreviatura": "FOZ",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Fozmar",
+		"estadio": "Estádio Municipal de Fozmar",
+		"capacidade": 10100,
+		"reputacao": 48,
+		"orcamento": 1500000,
+		"cores": [
+			"#ffffff",
+			"#7b2cbf"
+		]
+	},
+	{
+		"id": "POR_30",
+		"nome": "CF Santa Luzia do Monte",
+		"abreviatura": "SAN",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Santa Luzia do Monte",
+		"estadio": "Parque Desportivo de Santa Luzia do Monte",
+		"capacidade": 10100,
+		"reputacao": 48,
+		"orcamento": 1500000,
+		"cores": [
+			"#6a4c93",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "POR_31",
+		"nome": "GD Barrocal",
+		"abreviatura": "BAR",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Barrocal",
+		"estadio": "Parque Desportivo de Barrocal",
+		"capacidade": 7900,
+		"reputacao": 45,
+		"orcamento": 1100000,
+		"cores": [
+			"#6a4c93",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "POR_32",
+		"nome": "Académico de Azenha Nova",
+		"abreviatura": "AZE",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Azenha Nova",
+		"estadio": "Parque Desportivo de Azenha Nova",
+		"capacidade": 7300,
+		"reputacao": 44,
+		"orcamento": 900000,
+		"cores": [
+			"#f4a261",
+			"#1d3557"
+		]
+	},
+	{
+		"id": "POR_33",
+		"nome": "Vitória de Moinhos Altos",
+		"abreviatura": "MOI",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Moinhos Altos",
+		"estadio": "Estádio Municipal de Moinhos Altos",
+		"capacidade": 7900,
+		"reputacao": 45,
+		"orcamento": 1100000,
+		"cores": [
+			"#0077b6",
+			"#2b9348"
+		]
+	},
+	{
+		"id": "POR_34",
+		"nome": "Vitória de Campo Raso",
+		"abreviatura": "CAM",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Campo Raso",
+		"estadio": "Estádio de Campo Raso",
+		"capacidade": 7900,
+		"reputacao": 45,
+		"orcamento": 1100000,
+		"cores": [
+			"#ffd60a",
+			"#6a4c93"
+		]
+	},
+	{
+		"id": "POR_35",
+		"nome": "GD Urzeira",
+		"abreviatura": "URZ",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Urzeira",
+		"estadio": "Parque Desportivo de Urzeira",
+		"capacidade": 6100,
+		"reputacao": 42,
+		"orcamento": 800000,
+		"cores": [
+			"#7b2cbf",
+			"#d62828"
+		]
+	},
+	{
+		"id": "POR_36",
+		"nome": "Sporting de Atalaia do Mar",
+		"abreviatura": "ATA",
+		"pais": "POR",
+		"liga": "POR2",
+		"cidade": "Atalaia do Mar",
+		"estadio": "Estádio Municipal de Atalaia do Mar",
+		"capacidade": 6100,
+		"reputacao": 42,
+		"orcamento": 800000,
+		"cores": [
+			"#2b9348",
+			"#9d0208"
+		]
+	}
+]

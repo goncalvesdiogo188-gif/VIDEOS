@@ -1,0 +1,33 @@
+; Ficheiro de configuração do projeto Godot.
+; Normalmente não se edita à mão: usa-se o menu Projeto > Definições do Projeto.
+
+config_version=5
+
+[application]
+
+config/name="Futebol Carreira"
+config/description="Jogo de futebol com modo carreira (jogador e treinador)."
+run/main_scene="res://cenas/teste_liga.tscn"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+
+[autoload]
+
+Jogo="*res://scripts/jogo.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=4
+
+[gui]
+
+theme/default_font_size=20
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

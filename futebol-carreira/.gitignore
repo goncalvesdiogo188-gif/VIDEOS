@@ -1,0 +1,8 @@
+# Pasta de cache do Godot (é recriada automaticamente)
+.godot/
+# Ficheiros de exportação e chaves (nunca partilhar chaves!)
+*.apk
+*.aab
+*.keystore
+*.jks
+export_credentials.cfg
