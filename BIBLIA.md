@@ -1,0 +1,61 @@
+# BÍBLIA DA CONTA — "O teu cérebro explica a vida adulta"
+
+Este ficheiro é a regra de ouro. Tudo o que a fábrica escreve tem de cumprir isto.
+
+## 1. A conta
+- **Nicho:** o cérebro explica a vida adulta — dinheiro, hábitos, procrastinação, sono, compras por impulso, redes sociais, motivação, rotinas.
+- **Tom:** humor leve, situações do dia a dia em que toda a gente se revê. Primeiro rir, depois aprender.
+- **Público:** Portugal e Brasil. Escrever em **português neutro**: frases curtas, sem calão de um só país.
+  - Evitar: "fixe", "bué", "giro" (PT) e "legal", "cara", "a gente vai" (BR).
+  - Preferir palavras comuns aos dois: "ótimo", "incrível", "vamos", "dinheiro".
+  - Em vez de "telemóvel" (PT) ou "celular" (BR), dizer **"o telefone"**. Em vez de "ecrã"/"tela", evitar a palavra.
+  - Tratar o espectador por **"tu"** só em frases sem verbo conjugado difícil; preferir construções neutras ("Já te aconteceu?", "Experimenta isto").
+- **Meta:** 10 000 seguidores com Reels de 20–30 s.
+
+## 2. As personagens (originais — nunca copiar séries, estúdios ou estilos existentes)
+| | **Neurão** | **Zé Neurónio** |
+|---|---|---|
+| Aspeto | Cérebro rosa-escuro, óculos retangulares, laço azul | Cérebro rosa-claro, redondo, uma "antena" de neurónio na cabeça |
+| Personalidade | Convencido, acha-se génio, explica tudo com ar superior | Atrapalhado, alegre, distraído |
+| Papel | Começa a explicação, muitas vezes exagera ou engana-se | **Fecha sempre a lição** com uma frase simples e certeira |
+| Voz | Mais grave, segura | Mais aguda, animada |
+
+## 3. Estrutura de cada Reel (20–30 s)
+1. **Gancho (0–3 s):** pergunta ou situação que prende. Ex.: "Porque é que compras coisas que não precisas?"
+2. **Explicação do Neurão (2–3 falas):** a "ciência" com ar de génio (dopamina, recompensa, hábito...).
+3. **Reviravolta cómica do Zé (1–2 falas):** confusão, exemplo absurdo, piada.
+4. **Lição final do Zé (1 fala):** dica prática e simples. É a frase que as pessoas guardam.
+- Total: **5 a 7 falas**, no máximo **12 palavras por fala**, vídeo com **no máximo 30 s**.
+
+## 4. Regras de conteúdo
+- **Proibido:** promessas de ganhos ("vais ficar rico"), conselhos de investimento específicos (ações, cripto, produtos financeiros), conselhos médicos, diagnósticos.
+- Ciência simples e verdadeira. Se não houver certeza, falar de forma geral ("o cérebro gosta de recompensas rápidas").
+- Nada de política, religião, insultos ou humor que goze com grupos de pessoas.
+- Nunca usar nomes, personagens, frases ou músicas de séries, filmes ou marcas.
+
+## 5. Carrossel (extra, 1080x1350)
+- 5 a 7 slides a partir do mesmo guião: capa (gancho) → 3 a 5 slides de explicação → slide final com a lição + "Guarda para não esquecer".
+
+## 6. Legenda e hashtags
+- Legenda: 1 frase de gancho + 1 pergunta para comentários + "Segue para mais".
+- **5 hashtags:** 2 do nicho em português, 2 do tema, 1 geral. Ex.: `#cerebro #psicologia #procrastinacao #habitos #vidaadulta`.
+
+## 7. Formato do guião (ficheiro JSON em `guioes/`)
+```json
+{
+  "tema": "compras por impulso",
+  "titulo": "Porque compras o que não precisas?",
+  "cenario": "loja",
+  "falas": [
+    {"quem": "neurao", "texto": "...", "expressao": "convencido", "pose": "aponta"},
+    {"quem": "ze", "texto": "...", "expressao": "alegre", "pose": "normal"}
+  ],
+  "carrossel": [{"titulo": "...", "texto": "..."}],
+  "legenda": "...",
+  "hashtags": ["#...", "#...", "#...", "#...", "#..."]
+}
+```
+- `quem`: `neurao` ou `ze`. A **última fala é sempre do `ze`**.
+- `expressao`: neutro, convencido, alegre, confuso, surpreendido, triste, pensativo.
+- `pose`: normal, aponta, bracos_ar, mao_queixo, encolhe.
+- `cenario`: sala, quarto, loja.

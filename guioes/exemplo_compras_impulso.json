@@ -1,0 +1,21 @@
+{
+  "tema": "compras por impulso",
+  "titulo": "Porque compras o que não precisas?",
+  "cenario": "loja",
+  "falas": [
+    {"quem": "neurao", "texto": "Sabes porque compraste aquilo de que não precisavas?", "expressao": "convencido", "pose": "aponta"},
+    {"quem": "neurao", "texto": "Simples. O teu cérebro adora uma coisa: dopamina!", "expressao": "convencido", "pose": "normal"},
+    {"quem": "neurao", "texto": "Um desconto dá prazer antes mesmo de pagar.", "expressao": "alegre", "pose": "bracos_ar"},
+    {"quem": "ze", "texto": "Então o meu carrinho cheio é culpa da química?", "expressao": "confuso", "pose": "mao_queixo"},
+    {"quem": "neurao", "texto": "Exato. A culpa nunca é minha. Sou um génio.", "expressao": "convencido", "pose": "encolhe"},
+    {"quem": "ze", "texto": "Truque: espera 24 horas antes de comprar. A vontade passa!", "expressao": "alegre", "pose": "aponta"}
+  ],
+  "carrossel": [
+    {"titulo": "Porque compras o que não precisas?", "texto": "O culpado mora na tua cabeça."},
+    {"titulo": "Dopamina", "texto": "O cérebro dá-te prazer só de imaginar a compra."},
+    {"titulo": "O desconto engana", "texto": "O prazer chega antes de pagares. A conta chega depois."},
+    {"titulo": "Truque das 24 horas", "texto": "Espera um dia antes de comprar. A vontade quase sempre passa."}
+  ],
+  "legenda": "O teu carrinho cheio tem explicação científica. Qual foi a última coisa que compraste sem precisar? Segue para mais!",
+  "hashtags": ["#cerebro", "#psicologia", "#comprasporimpulso", "#dinheiro", "#vidaadulta"]
+}

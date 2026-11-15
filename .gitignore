@@ -1,8 +1,4 @@
 __pycache__/
 *.pyc
-output/stills/
-output/*_preview.mp4
-output/*.raw.wav
-output/mix.wav
-skills/pinky-brain-episode-workspace/
-episodes/*/render.log
+out/
+*.wav
