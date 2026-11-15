@@ -34,6 +34,38 @@ object Financas {
         e.orcamento += patrocinio + bilhetes - salarios
     }
 
+    /**
+     * Bilheteira de um jogo de taça. Em casa, fica toda para a casa; em campo neutro divide-se
+     * em partes iguais, com a receita do estádio maior dos dois.
+     */
+    fun bilheteiraTaca(casa: Equipa, fora: Equipa, neutro: Boolean) {
+        if (!neutro) {
+            val valor = bilheteira(casa)
+            casa.contas.bilheteira += valor
+            casa.orcamento += valor
+            return
+        }
+        val metade = maxOf(bilheteira(casa), bilheteira(fora)) / 2
+        for (e in listOf(casa, fora)) {
+            e.contas.bilheteira += metade
+            e.orcamento += metade
+        }
+    }
+
+    /** Prémio por ganhar uma eliminatória da taça ("ronda" = 0 na primeira); quem ganha a final recebe bastante mais. */
+    fun premioTaca(e: Equipa, ronda: Int, campeao: Boolean) {
+        val valor = 20_000L * (ronda + 1) + (if (campeao) 400_000L else 0L)
+        e.contas.premios += valor
+        e.orcamento += valor
+    }
+
+    /** Prémio da supertaça: o vencedor recebe o triplo do vencido. */
+    fun premioSupertaca(e: Equipa, vencedor: Boolean) {
+        val valor = if (vencedor) 300_000L else 100_000L
+        e.contas.premios += valor
+        e.orcamento += valor
+    }
+
     /** Prémio de classificação no fim da época (quanto mais acima, maior). */
     fun premio(e: Equipa, posicao: Int, equipas: Int, nivel: Int) {
         val valor = (equipas - posicao + 1) * (if (nivel == 1) 400_000L else 80_000L)

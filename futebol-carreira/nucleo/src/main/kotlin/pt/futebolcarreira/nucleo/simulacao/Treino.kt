@@ -45,8 +45,9 @@ object Treino {
     fun evoluir(j: Jogador, equipa: Equipa, rng: Random, naAcademia: Boolean) {
         val pesos = Jogador.PESOS[j.posicao] ?: Jogador.PESOS.getValue("MC")
         val foco = equipa.focoTreino.atributos
-        val temJogado = j.epoca.jogos > j.jogosNoUltimoTreino
-        j.jogosNoUltimoTreino = j.epoca.jogos
+        val jogosTotais = j.epoca.jogos + j.epocaTaca.jogos
+        val temJogado = jogosTotais > j.jogosNoUltimoTreino
+        j.jogosNoUltimoTreino = jogosTotais
         val geral = j.geral()
 
         if (j.idade <= 28 && geral < j.potencial) {

@@ -15,7 +15,7 @@ import pt.futebolcarreira.nucleo.modelos.Pais
  *
  * Ficheiros (dentro da pasta "dados"):
  *   paises.json            lista de países
- *   competicoes.json       ligas
+ *   competicoes.json       ligas, taças e supertaças
  *   nomes.json             nomes próprios e apelidos por país (para gerar jogadores)
  *   equipas/<PAIS>.json    clubes de cada país
  *   jogadores/<PAIS>.json  jogadores dos clubes de cada país
@@ -141,6 +141,28 @@ class BaseDados {
     fun ligasDoPais(pais: String): List<Competicao> =
         competicoes.values.filter { it.pais == pais && it.tipo == "liga" }.sortedBy { it.nivel }
 
+    /** Taças e supertaças de um país. */
+    fun tacasDoPais(pais: String): List<Competicao> =
+        competicoes.values.filter { it.pais == pais && (it.eTaca || it.eSupertaca) }
+
+    /**
+     * Acrescenta as taças e supertaças habituais aos países que não as têm
+     * (gravações antigas, de antes da Fase 7, só tinham ligas).
+     */
+    fun garantirTacas() {
+        for (pais in paises.keys) {
+            val (taca, supertaca) = NOMES_TACAS[pais] ?: continue
+            val liga = ligasDoPais(pais).firstOrNull() ?: continue
+            if (competicoes.values.none { it.pais == pais && it.eTaca }) {
+                competicoes["${pais}_TACA"] = Competicao("${pais}_TACA", taca, pais, nivel = 0, tipo = "taca")
+            }
+            if (competicoes.values.none { it.pais == pais && it.eSupertaca }) {
+                val ref = competicoes.values.first { it.pais == pais && it.eTaca }.id
+                competicoes["${pais}_SUPER"] = Competicao("${pais}_SUPER", supertaca, pais, nivel = 0, tipo = "supertaca", ligaRef = liga.id, tacaRef = ref)
+            }
+        }
+    }
+
     /**
      * Converte equipas e jogadores em texto JSON, por ficheiro (caminho -> conteúdo).
      * Usado pelo gerador e, mais tarde, pelo editor.
@@ -191,6 +213,15 @@ class BaseDados {
     }
 
     companion object {
+        private val NOMES_TACAS = mapOf(
+            "POR" to ("Taça de Portugal" to "Supertaça Cândido de Oliveira"),
+            "ESP" to ("Copa del Rey" to "Supercopa de España"),
+            "ING" to ("FA Cup" to "FA Community Shield"),
+            "ITA" to ("Coppa Italia" to "Supercoppa Italiana"),
+            "ALE" to ("DFB-Pokal" to "DFL-Supercup"),
+            "FRA" to ("Coupe de France" to "Trophée des Champions"),
+        )
+
         /** Leitor de JSON tolerante: ignora campos desconhecidos e aceita campos em falta. */
         val JSON = Json {
             ignoreUnknownKeys = true

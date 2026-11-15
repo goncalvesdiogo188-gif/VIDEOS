@@ -513,7 +513,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     fun abrirJogoDoClube(jornada: Int) {
         val c = carreira ?: return
         if (ocupado) return
-        c.jogosDoClube().firstOrNull { it.jornada == jornada }?.resultado?.let { abrirJogo(c, it) }
+        c.jogosDeLiga().firstOrNull { it.jornada == jornada }?.resultado?.let { abrirJogo(c, it) }
     }
 
     private fun abrirJogo(c: Carreira, resultado: Resultado) {
@@ -549,7 +549,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         val ordem = c.estadoLiga.tabela.ordenada()
         val posicao = c.posicao()
         val tabela = linhasTabela(c, equipa.liga)
-        val calendario = c.jogosDoClube().map { jogoCalendario(it) }
+        // Por agora o calendário do ecrã só mostra a liga (as taças entram quando o ecrã for feito).
+        val calendario = c.jogosDeLiga().map { jogoCalendario(it) }
         val proximo = c.proximoJogo()
         val terminada = g.epocaTerminada()
 

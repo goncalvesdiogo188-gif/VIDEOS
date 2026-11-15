@@ -43,7 +43,7 @@ object MotorJogo {
     const val AMARELOS_PARA_CASTIGO = 5
 
     /** Um dos lados durante o jogo. */
-    private class Lado(val equipa: Equipa, val casa: Boolean, val rng: Random) {
+    private class Lado(val equipa: Equipa, val casa: Boolean, val rng: Random, val neutro: Boolean = false) {
         val formacao: Formacao = equipa.formacao
         val lugares = formacao.lugares
         val emCampo = arrayOfNulls<FichaJogador>(11)
@@ -187,25 +187,41 @@ object MotorJogo {
         }
     }
 
-    /** Simula um jogo e devolve o relatório. Não altera os jogadores. */
-    fun simular(casa: Equipa, fora: Equipa, rng: Random): RelatorioJogo {
-        val c = Lado(casa, true, rng)
-        val f = Lado(fora, false, rng)
+    /**
+     * Simula um jogo e devolve o relatório. Não altera os jogadores.
+     *
+     * "neutro" = campo neutro (ninguém joga em casa).
+     * "precisaProlongamento" (só nas eliminatórias): recebe os golos da casa e da fora aos 90 minutos e diz
+     * se é preciso prolongamento (30 minutos a mais). Assim serve para jogos únicos e para a segunda mão,
+     * onde conta o resultado agregado. Os penáltis não são daqui: ver "Penaltis".
+     */
+    fun simular(
+        casa: Equipa, fora: Equipa, rng: Random, neutro: Boolean = false,
+        precisaProlongamento: ((Int, Int) -> Boolean)? = null,
+    ): RelatorioJogo {
+        val c = Lado(casa, true, rng, neutro)
+        val f = Lado(fora, false, rng, neutro)
         val eventos = mutableListOf<Evento>()
         escolherMentalidadeInicial(c, f)
         escolherMentalidadeInicial(f, c)
         val geralInicialCasa = c.geral
         val geralInicialFora = f.geral
 
-        val duracao = 90 + rng.nextInt(1, 7)
-        for (minuto in 1..duracao) {
+        val descontos = rng.nextInt(1, 7)
+        var prolongamento = false
+        fun jogar(minuto: Int) {
             if (minuto % 5 == 0) {
                 c.recalcular()
                 f.recalcular()
             }
-            // Momentos em que os treinadores mexem na equipa.
-            val trocas = when (minuto) { 46 -> 1; 60 -> 2; 70 -> 1; 80 -> 1; else -> 0 }
+            // Momentos em que os treinadores mexem na equipa (no prolongamento ainda há uma troca extra).
+            val trocas = when {
+                minuto == 46 -> 1; minuto == 60 -> 2; minuto == 70 -> 1; minuto == 80 -> 1
+                prolongamento && (minuto == 91 || minuto == 106) -> 1
+                else -> 0
+            }
             if (trocas > 0) {
+                if (minuto == 91) { c.substituicoes++; f.substituicoes++ }   // no prolongamento há uma troca a mais
                 for (lado in listOf(c, f)) {
                     // Ao intervalo só há troca de vez em quando.
                     if (minuto != 46 || rng.nextDouble() < 0.3) lado.trocasDoTreinador(trocas, minuto, eventos)
@@ -222,6 +238,20 @@ object MotorJogo {
             f.cansar()
         }
 
+        var duracao = if (precisaProlongamento == null) 90 + descontos else 90
+        for (minuto in 1..duracao) jogar(minuto)
+        if (precisaProlongamento != null) {
+            if (precisaProlongamento(c.golos, f.golos)) {
+                prolongamento = true
+                for (minuto in 91..120) jogar(minuto)
+                duracao = 120 + rng.nextInt(1, 4)
+                for (minuto in 121..duracao) jogar(minuto)
+            } else {
+                duracao = 90 + descontos
+                for (minuto in 91..duracao) jogar(minuto)
+            }
+        }
+
         // Posse de bola: depende da qualidade das equipas e de jogar em casa.
         val posse = (51.0 + (geralInicialCasa - geralInicialFora) * 0.9 + rng.gauss(0.0, 4.0)).roundToInt().coerceIn(25, 75)
         c.estatisticas.posse = posse
@@ -231,7 +261,7 @@ object MotorJogo {
         return RelatorioJogo(
             LadoRelatorio(casa.id, c.formacao, c.mentalidadeInicial, c.fichas, c.estatisticas, c.indisponiveis),
             LadoRelatorio(fora.id, f.formacao, f.mentalidadeInicial, f.fichas, f.estatisticas, f.indisponiveis),
-            c.golos, f.golos, duracao, eventos,
+            c.golos, f.golos, duracao, eventos, prolongamento,
         )
     }
 
@@ -263,7 +293,11 @@ object MotorJogo {
         val est = lado.estatisticas
 
         // ---- Remates e golos ----
-        val base = if (lado.casa) SimuladorJogo.GOLOS_BASE_CASA else SimuladorJogo.GOLOS_BASE_FORA
+        val base = when {
+            lado.neutro -> (SimuladorJogo.GOLOS_BASE_CASA + SimuladorJogo.GOLOS_BASE_FORA) / 2   // sem vantagem de campo
+            lado.casa -> SimuladorJogo.GOLOS_BASE_CASA
+            else -> SimuladorJogo.GOLOS_BASE_FORA
+        }
         val ataque = lado.ataque + lado.mentalidade.ataque
         val defesa = adversario.defesa + adversario.mentalidade.defesa
         // Golos que a equipa marcaria, em média, num jogo inteiro a este ritmo.
@@ -386,9 +420,11 @@ object MotorJogo {
 
     /**
      * Passa o relatório para os jogadores: estatísticas da época, lesões e castigos.
+     * "taca" = jogo de taça: jogos, golos e notas vão para "epocaTaca" (a liga fica só com os seus números),
+     * mas os cartões e as lesões contam sempre (os castigos valem em todas as competições).
      * Quem estava de fora (lesionado ou castigado) fica um jogo mais perto de voltar.
      */
-    fun aplicar(relatorio: RelatorioJogo) {
+    fun aplicar(relatorio: RelatorioJogo, taca: Boolean = false) {
         for (lado in listOf(relatorio.casa, relatorio.fora)) {
             for (j in lado.indisponiveis) {
                 if (j.lesao > 0) j.lesao--
@@ -397,10 +433,11 @@ object MotorJogo {
             for (ficha in lado.fichas) {
                 val j = ficha.jogador
                 val e = j.epoca
-                e.jogos++
-                e.golos += ficha.golos
-                e.assistencias += ficha.assistencias
-                e.somaNotas += ficha.nota
+                val n = if (taca) j.epocaTaca else e
+                n.jogos++
+                n.golos += ficha.golos
+                n.assistencias += ficha.assistencias
+                n.somaNotas += ficha.nota
                 if (ficha.vermelho) {
                     e.vermelhos++
                     j.suspensao += if (ficha.vermelhoDireto) 2 else 1

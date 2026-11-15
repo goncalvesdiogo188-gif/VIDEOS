@@ -25,9 +25,10 @@ class Fase1Test {
     fun `base de dados carrega e esta completa`() {
         val bd = carregar()
         assertEquals(6, bd.paises.size)
-        assertEquals(12, bd.competicoes.size)
+        assertEquals(12, bd.competicoes.values.count { it.eLiga })   // mais 6 taças e 6 supertaças (Fase 7)
+        assertEquals(24, bd.competicoes.size)
         assertEquals(234, bd.equipas.size)
-        for (liga in bd.competicoes.values) {
+        for (liga in bd.competicoes.values.filter { it.eLiga }) {
             val n = bd.equipasDaLiga(liga.id).size
             assertTrue(n >= 2 && n % 2 == 0, "liga ${liga.id} com número par de equipas ($n)")
         }
@@ -98,7 +99,7 @@ class Fase1Test {
             gestor.avancarParaEpocaSeguinte()
             p1.descem.forEach { assertEquals("POR2", bd.equipas.getValue(it).liga) }
             p2.sobem.forEach { assertEquals("POR1", bd.equipas.getValue(it).liga) }
-            for (liga in bd.competicoes.values) {
+            for (liga in bd.competicoes.values.filter { it.eLiga }) {
                 assertEquals(gestor.estado.getValue(liga.id).tabela.linhas.size, bd.equipasDaLiga(liga.id).size, "${liga.id} mantém o número de equipas")
             }
             assertTrue(bd.equipas.values.all { it.plantel.size >= 22 }, "plantéis completos")

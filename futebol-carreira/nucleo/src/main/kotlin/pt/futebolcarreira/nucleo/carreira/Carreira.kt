@@ -6,6 +6,8 @@ import pt.futebolcarreira.nucleo.modelos.Competicao
 import pt.futebolcarreira.nucleo.modelos.Equipa
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
+import pt.futebolcarreira.nucleo.simulacao.Confronto
+import pt.futebolcarreira.nucleo.simulacao.EstadoEliminatoria
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
 import pt.futebolcarreira.nucleo.simulacao.GestorEpocas
 import pt.futebolcarreira.nucleo.simulacao.Resultado
@@ -42,7 +44,14 @@ class InfoCarreira(
 @Serializable
 class Mensagem(val data: String, val titulo: String, val texto: String)
 
-/** Um jogo do clube do utilizador no calendário. "resultado" é null se ainda não se jogou. */
+/**
+ * Um jogo do clube do utilizador no calendário (de qualquer competição). "resultado" é null se ainda não se jogou.
+ *
+ * Nas ligas, "jornada" é o número da jornada e "indice" a posição do jogo na jornada.
+ * Nas taças, "jornada" é o número da ronda (1 = primeira) e "indice" a posição do confronto na ronda;
+ * "perna" distingue as mãos (0 = jogo único, 1 = ida, 2 = volta). Num mesmo dia o clube só tem um jogo,
+ * por isso (competicaoId, data) identifica o jogo.
+ */
 class JogoDoClube(
     val jornada: Int,
     val indice: Int,
@@ -50,7 +59,28 @@ class JogoDoClube(
     val adversario: Equipa,
     val emCasa: Boolean,
     val resultado: Resultado?,
+    val competicaoId: String = "",
+    val competicaoNome: String = "",
+    /** "liga", "taca" ou "supertaca". */
+    val tipo: String = "liga",
+    /** Nome da ronda ("Oitavos de final"...); vazio nas ligas. */
+    val ronda: String = "",
+    /** Campo neutro: "emCasa" só diz qual dos lados está nomeado primeiro no resultado. */
+    val neutro: Boolean = false,
+    val perna: Int = 0,
+    /** O confronto a que pertence (só nas taças): agregado, prolongamento, penáltis, quem passou. */
+    val confronto: Confronto? = null,
+    /** É a última ronda da competição (a final). */
+    val eFinal: Boolean = false,
+    /** Índice da ronda (0 = primeira), só nas taças. */
+    val indiceRonda: Int = 0,
+    /** Id do clube a que o jogo diz respeito. */
+    val clubeId: String = "",
 ) {
+    /** Só nas taças: true se o clube passou, false se foi eliminado, null se ainda não está decidido. */
+    val passou: Boolean? get() = confronto?.vencedor?.let { it == clubeId }
+    val eLiga get() = tipo == "liga"
+
     /** Golos do clube do utilizador e do adversário (só depois de jogado). */
     val golosMarcados get() = resultado?.let { if (emCasa) it.golosCasa else it.golosFora } ?: 0
     val golosSofridos get() = resultado?.let { if (emCasa) it.golosFora else it.golosCasa } ?: 0
@@ -100,8 +130,20 @@ class Carreira(
     /** Lugar do clube na tabela (1 = primeiro). */
     fun posicao(): Int = estadoLiga.tabela.ordenada().indexOfFirst { it.id == info.equipaId } + 1
 
-    /** Todos os jogos do clube nesta época, por ordem. */
-    fun jogosDoClube(): List<JogoDoClube> {
+    /** A taça nacional do país do clube nesta época (null em gravações antigas, até à época seguinte). */
+    val taca: EstadoEliminatoria? get() = gestor.tacaDoPais(liga.pais)
+
+    /** A supertaça do país do clube nesta época. */
+    val supertaca: EstadoEliminatoria? get() = gestor.tacaDoPais(liga.pais, supertaca = true)
+
+    /**
+     * Todos os jogos do clube nesta época, em todas as competições, por ordem de data.
+     * Das taças só entram os confrontos já sorteados (o adversário seguinte só se conhece depois do sorteio).
+     */
+    fun jogosDoClube(): List<JogoDoClube> = (jogosDeLiga() + jogosDeTacas()).sortedBy { it.data }
+
+    /** Só os jogos da liga. */
+    fun jogosDeLiga(): List<JogoDoClube> {
         val e = estadoLiga
         return e.calendario.mapIndexedNotNull { jornada, jogos ->
             val indice = jogos.indexOfFirst { it.casa == info.equipaId || it.fora == info.equipaId }
@@ -112,7 +154,25 @@ class Carreira(
                 jornada + 1, indice, e.datas[jornada],
                 bd.equipas.getValue(if (emCasa) jogo.fora else jogo.casa), emCasa,
                 e.resultados.getOrNull(jornada)?.getOrNull(indice),
+                competicaoId = liga.id, competicaoNome = liga.nome, clubeId = info.equipaId,
             )
+        }
+    }
+
+    /** Os jogos do clube nas taças e supertaças (só dos confrontos já sorteados). */
+    fun jogosDeTacas(): List<JogoDoClube> = gestor.eliminatorias.values.flatMap { t ->
+        val comp = bd.competicoes[t.id] ?: return@flatMap emptyList()
+        t.rondas.flatMapIndexed { r, ronda ->
+            val indice = ronda.confrontos.indexOfFirst { it.envolve(info.equipaId) }
+            if (indice < 0) return@flatMapIndexed emptyList()
+            val c = ronda.confrontos[indice]
+            c.datas.mapIndexed { i, data ->
+                JogoDoClube(
+                    r + 1, indice, data, bd.equipas.getValue(c.adversarioDe(info.equipaId)), c.casaDoJogo(i) == info.equipaId,
+                    c.jogos.getOrNull(i), comp.id, comp.nome, comp.tipo, ronda.nome, c.neutro,
+                    if (c.idaEVolta) i + 1 else 0, c, r == t.defs.size - 1, r, info.equipaId,
+                )
+            }
         }
     }
 
@@ -129,7 +189,7 @@ class Carreira(
      */
     fun avancar(): JogoDoClube? {
         if (gestor.epocaTerminada() || info.despedido) return null
-        val alvo = proximoJogo()
+        var alvo = proximoJogo()
         val antes = gestor.data
         if (alvo == null) {
             gestor.simularAteAoFim()
@@ -137,7 +197,14 @@ class Carreira(
             // Enquanto o mercado está aberto, os outros clubes também compram e vendem.
             val negocios = mercado.negociosDosOutros(6)
             if (negocios.isNotEmpty()) mensagem("Mercado: negócios dos outros clubes", negocios.take(4).joinToString(" "))
-            gestor.simularAte(alvo.data)
+            // Dia a dia: um sorteio de taça feito pelo caminho pode trazer um jogo do clube antes do que se esperava.
+            while (true) {
+                val proxima = gestor.proximaData() ?: break
+                if (proxima > alvo!!.data) break
+                gestor.simularAte(proxima)
+                if (proxima == alvo.data) break
+                alvo = proximoJogo() ?: break
+            }
             avisarMercado(antes, gestor.data)
             // Caixa negativa preocupa a direção.
             if (equipa.orcamento < 0 && eTreinador) info.confiancaDirecao = (info.confiancaDirecao - 1).coerceAtLeast(0)
@@ -149,10 +216,15 @@ class Carreira(
             gestor.noticias.clear()
         }
         olheiros.verificar()
-        val jogado = alvo?.let { a -> jogosDoClube().first { it.jornada == a.jornada } }
+        val jogado = alvo?.let { a -> jogosDoClube().firstOrNull { it.competicaoId == a.competicaoId && it.data == a.data } }
         if (jogado != null) {
-            mensagemDoJogo(jogado)
-            avaliarJogo(jogado)
+            if (jogado.eLiga) {
+                mensagemDoJogo(jogado)
+                avaliarJogo(jogado)
+            } else {
+                mensagemDaTaca(jogado)
+                avaliarJogoDeTaca(jogado)
+            }
         }
         if (gestor.epocaTerminada()) {
             mensagemFimDeEpoca()
@@ -330,14 +402,8 @@ class Carreira(
         if (!abertoAntes && abertoDepois) mensagem("Mercado aberto", "O mercado de transferências abriu e fica aberto até ao fim do mês.")
     }
 
-    /** Resumo do jogo do clube: resultado, marcadores, lesões e castigos. */
-    private fun mensagemDoJogo(jogo: JogoDoClube) {
-        val marcador = "${jogo.golosMarcados}-${jogo.golosSofridos}"
-        val titulo = when {
-            jogo.golosMarcados > jogo.golosSofridos -> "Vitória por $marcador"
-            jogo.golosMarcados < jogo.golosSofridos -> "Derrota por $marcador"
-            else -> "Empate a ${jogo.golosMarcados}"
-        } + (if (jogo.emCasa) " em casa contra " else " fora contra ") + jogo.adversario.nome
+    /** Golos, lesões e castigos do jogo do clube (e a nota do jogador do utilizador). */
+    private fun linhasDoRelatorio(jogo: JogoDoClube): MutableList<String> {
         val linhas = mutableListOf<String>()
         val relatorio = jogo.resultado?.relatorio
         if (relatorio != null) {
@@ -355,22 +421,91 @@ class Carreira(
             }
             if (info.jogadorId != null && lado.fichas.none { it.jogador.id == info.jogadorId }) linhas += "Não saíste do banco."
         }
+        return linhas
+    }
+
+    /** Resumo do jogo do clube: resultado, marcadores, lesões e castigos. */
+    private fun mensagemDoJogo(jogo: JogoDoClube) {
+        val marcador = "${jogo.golosMarcados}-${jogo.golosSofridos}"
+        val titulo = when {
+            jogo.golosMarcados > jogo.golosSofridos -> "Vitória por $marcador"
+            jogo.golosMarcados < jogo.golosSofridos -> "Derrota por $marcador"
+            else -> "Empate a ${jogo.golosMarcados}"
+        } + (if (jogo.emCasa) " em casa contra " else " fora contra ") + jogo.adversario.nome
+        val linhas = linhasDoRelatorio(jogo)
         linhas += "O teu clube está em ${posicao()}.º lugar com ${estadoLiga.tabela.linhas.getValue(info.equipaId).pts} pontos."
         mensagem(titulo, linhas.joinToString(" "))
     }
 
+    /** Resumo de um jogo de taça ou supertaça: resultado, prolongamento e penáltis, e o que isso quer dizer para o clube. */
+    private fun mensagemDaTaca(jogo: JogoDoClube) {
+        val resultado = jogo.resultado ?: return
+        val c = jogo.confronto
+        val marcador = "${jogo.golosMarcados}-${jogo.golosSofridos}"
+        val extra = (if (resultado.prolongamento) " a.p." else "") +
+            (if (resultado.penaltis) " (g.p. ${if (jogo.emCasa) resultado.penaltisCasa else resultado.penaltisFora}-${if (jogo.emCasa) resultado.penaltisFora else resultado.penaltisCasa})" else "")
+        val resumo = when {
+            jogo.golosMarcados > jogo.golosSofridos -> "Vitória por $marcador"
+            jogo.golosMarcados < jogo.golosSofridos -> "Derrota por $marcador"
+            else -> "Empate a ${jogo.golosMarcados}"
+        } + extra
+        val onde = when {
+            jogo.neutro -> " em campo neutro contra "
+            jogo.emCasa -> " em casa contra "
+            else -> " fora contra "
+        }
+        val titulo = "${jogo.competicaoNome} (${jogo.ronda}): $resumo$onde${jogo.adversario.nome}"
+        val linhas = linhasDoRelatorio(jogo)
+        val nome = jogo.competicaoNome
+        val seguinte = gestor.eliminatorias[jogo.competicaoId]?.defs?.getOrNull(jogo.indiceRonda + 1)?.nome
+        when {
+            c == null -> Unit
+            jogo.passou == true && jogo.eFinal -> linhas += "O teu clube vence a $nome!"
+            jogo.passou == true -> linhas += "O teu clube passa à próxima eliminatória" + (seguinte?.let { " ($it)" } ?: "") + "."
+            jogo.passou == false -> linhas += if (jogo.eFinal) "O teu clube perde a final e fica a um passo da glória." else "O teu clube está eliminado da competição."
+            else -> linhas += "Primeira mão: $marcador. A segunda mão é a ${CalendarioDatas.textoCurto(c.datas.last())}."
+        }
+        if (c != null && c.idaEVolta && jogo.perna == 2) linhas += "Resultado agregado: ${c.golos(info.equipaId)}-${c.golos(jogo.adversario.id)}."
+        mensagem(titulo, linhas.joinToString(" "))
+    }
+
+    /** Taças: vitórias contam um pouco, sair cedo contra um adversário bem mais fraco custa um pouco. */
+    private fun avaliarJogoDeTaca(jogo: JogoDoClube) {
+        if (!eTreinador) return
+        val passou = jogo.passou ?: return
+        val diferenca = jogo.adversario.forca().geral - equipa.forca().geral
+        val (direcao, adeptos) = when {
+            jogo.tipo == "supertaca" -> if (passou) 2 to 3 else 0 to -1
+            passou && jogo.eFinal -> 5 to 7
+            passou -> 1 to 2
+            diferenca <= -6 && !jogo.eFinal -> -3 to -4
+            else -> 0 to -1
+        }
+        info.confiancaDirecao = (info.confiancaDirecao + direcao).coerceIn(0, 100)
+        info.confiancaAdeptos = (info.confiancaAdeptos + adeptos).coerceIn(0, 100)
+    }
+
     private fun mensagemFimDeEpoca() {
-        val resumo = gestor.historico.last().ligas[equipa.liga] ?: return
+        val epoca = gestor.historico.last()
+        val resumo = epoca.ligas[equipa.liga] ?: return
         val destino = when {
             info.equipaId == resumo.campeao && liga.nivel == 1 -> " O teu clube é campeão!"
             info.equipaId in resumo.sobem -> " O teu clube sobe de divisão!"
             info.equipaId in resumo.descem -> " O teu clube desce de divisão."
             else -> ""
         }
+        // Taças do país: quem ganhou e como correu ao clube.
+        val tacas = StringBuilder()
+        for ((id, t) in epoca.tacas + epoca.supertacas) {
+            val comp = bd.competicoes[id] ?: continue
+            if (comp.pais != liga.pais) continue
+            val vencedor = bd.equipas[t.vencedor]?.nome ?: continue
+            tacas.append(if (t.vencedor == info.equipaId) " O teu clube venceu a ${comp.nome}!" else " ${comp.nome}: $vencedor.")
+        }
         mensagem(
             "Fim da época ${gestor.nomeEpoca()}",
             "${equipa.nome}: ${posicao()}.º lugar (${liga.nome}).$destino " +
-                "Vencedor: ${bd.equipas[resumo.campeao]?.nome} (${resumo.pontos} pontos).",
+                "Vencedor: ${bd.equipas[resumo.campeao]?.nome} (${resumo.pontos} pontos).$tacas",
         )
     }
 

@@ -7,7 +7,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 class Pais(val id: String = "", val nome: String = "")
 
-/** Uma competição. Na Fase 1 só existem ligas (todos contra todos). */
+/**
+ * Uma competição: liga (todos contra todos, tipo "liga"), taça nacional (eliminatórias, tipo "taca")
+ * ou supertaça (um só jogo, tipo "supertaca").
+ */
 @Serializable
 class Competicao(
     val id: String = "",
@@ -24,7 +27,18 @@ class Competicao(
     val descidas: Int = 0,
     /** Id da liga para onde descem ("" = ninguém desce). */
     @SerialName("desce_para") val descePara: String = "",
-)
+    /** Taças: true = cada eliminatória é a duas mãos (as nacionais são a jogo único). */
+    @SerialName("ida_e_volta") val idaEVolta: Boolean = false,
+    /** Taças: a final joga-se em campo neutro. */
+    @SerialName("final_neutra") val finalNeutra: Boolean = true,
+    /** Supertaça: a liga cujo campeão joga e a taça cujo vencedor joga. */
+    @SerialName("liga_ref") val ligaRef: String = "",
+    @SerialName("taca_ref") val tacaRef: String = "",
+) {
+    val eLiga get() = tipo == "liga"
+    val eTaca get() = tipo == "taca"
+    val eSupertaca get() = tipo == "supertaca"
+}
 
 /** Listas de nomes próprios e apelidos de um país (para gerar jogadores). */
 @Serializable

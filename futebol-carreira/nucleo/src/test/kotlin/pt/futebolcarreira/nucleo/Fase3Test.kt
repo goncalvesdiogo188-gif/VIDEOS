@@ -49,14 +49,18 @@ class Fase3Test {
         val clube = bd.equipasDaLiga("POR1").first().id
         val c = Carreira.nova(bd, "teste", "Ana Treinadora", ModoCarreira.TREINADOR, clube, semente = 5)
         assertEquals(LocalDate.of(2026, 7, 1), c.gestor.data)
-        assertEquals(34, c.jogosDoClube().size)
+        assertEquals(34, c.jogosDeLiga().size)
+        assertTrue(c.jogosDoClube().size >= 34, "o calendário inclui também as taças")
         assertNull(c.ultimoJogo())
         var jogos = 0
         while (!c.gestor.epocaTerminada()) {
             val proximo = assertNotNull(c.proximoJogo())
             val jogado = assertNotNull(c.avancar())
-            jogos++
+            assertEquals(proximo.competicaoId, jogado.competicaoId)
             assertEquals(proximo.jornada, jogado.jornada)
+            // As taças também aparecem no avanço; aqui só se contam os jogos da liga.
+            if (!jogado.eLiga) continue
+            jogos++
             assertEquals(jogos, jogado.jornada)
             assertNotNull(jogado.resultado?.relatorio)
             assertTrue(c.gestor.data >= jogado.data)
@@ -66,8 +70,8 @@ class Fase3Test {
             }
             if (jogos == 34) break
         }
-        // A liga portuguesa acaba antes das ligas de 20 equipas: o avanço seguinte fecha a época.
-        if (!c.gestor.epocaTerminada()) assertNull(c.avancar())
+        // A liga acaba antes da final da taça: o que falta (taça, ligas maiores) joga-se até ao fim da época.
+        c.simularEpoca()
         assertTrue(c.gestor.epocaTerminada())
         assertEquals(34, jogos)
         assertTrue(c.mensagens.any { it.titulo.startsWith("Fim da época") })

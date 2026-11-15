@@ -80,6 +80,14 @@ class Equipa(
     @Transient
     var titulos: Int = 0
 
+    /** Taças nacionais ganhas durante o jogo. */
+    @Transient
+    var tacas: Int = 0
+
+    /** Supertaças ganhas durante o jogo. */
+    @Transient
+    var supertacas: Int = 0
+
     /** Formação usada nos jogos. */
     @Transient
     var formacao: Formacao = Formacao.F433

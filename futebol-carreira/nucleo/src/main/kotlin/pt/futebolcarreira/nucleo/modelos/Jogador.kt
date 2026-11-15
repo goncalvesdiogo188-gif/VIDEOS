@@ -55,6 +55,10 @@ class Jogador(
     @Transient
     val epoca = EstatisticasEpoca()
 
+    /** Jogos, golos, assistências e notas nas taças e supertaças (os cartões contam sempre em "epoca", por causa dos castigos). */
+    @Transient
+    val epocaTaca = EstatisticasEpoca()
+
     /** Jornadas que ainda falta para recuperar de lesão (0 = apto). */
     @Transient
     var lesao = 0

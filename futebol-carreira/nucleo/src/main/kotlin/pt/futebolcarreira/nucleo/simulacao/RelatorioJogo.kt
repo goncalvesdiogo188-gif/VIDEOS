@@ -74,6 +74,8 @@ class RelatorioJogo(
     /** Último minuto jogado (90 + descontos). */
     val duracao: Int,
     val eventos: List<Evento>,
+    /** true se o jogo foi a prolongamento: os golos do prolongamento já estão em "golosCasa"/"golosFora". */
+    val prolongamento: Boolean = false,
 ) {
     /** O jogador com melhor nota. */
     val melhorEmCampo: FichaJogador? get() = (casa.fichas + fora.fichas).maxByOrNull { it.nota }

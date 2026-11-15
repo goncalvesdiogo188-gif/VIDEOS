@@ -11,6 +11,8 @@ import pt.futebolcarreira.nucleo.modelos.Formacao
 import pt.futebolcarreira.nucleo.modelos.Intensidade
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
+import pt.futebolcarreira.nucleo.simulacao.Confronto
+import pt.futebolcarreira.nucleo.simulacao.DefRonda
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
 import pt.futebolcarreira.nucleo.simulacao.EstatisticasEquipa
 import pt.futebolcarreira.nucleo.simulacao.Evento
@@ -20,6 +22,7 @@ import pt.futebolcarreira.nucleo.simulacao.Jogo
 import pt.futebolcarreira.nucleo.simulacao.LadoRelatorio
 import pt.futebolcarreira.nucleo.simulacao.RelatorioJogo
 import pt.futebolcarreira.nucleo.simulacao.Resultado
+import pt.futebolcarreira.nucleo.simulacao.Ronda
 import pt.futebolcarreira.nucleo.simulacao.ResumoEpoca
 import pt.futebolcarreira.nucleo.simulacao.TabelaClassificativa
 import pt.futebolcarreira.nucleo.simulacao.TipoEvento
@@ -45,6 +48,7 @@ private class EquipaG(
     val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean,
     val mentalidade: Mentalidade? = null, val onze: List<Int>? = null, val contas: ContasEpoca? = null,
     val foco: FocoTreino = FocoTreino.EQUILIBRADO, val intensidade: Intensidade = Intensidade.NORMAL,
+    val tacas: Int = 0, val supertacas: Int = 0,
 )
 
 @Serializable
@@ -52,11 +56,39 @@ private class JogadorG(
     val id: Int, val jogos: Int, val golos: Int, val assistencias: Int, val amarelos: Int, val vermelhos: Int,
     val somaNotas: Double, val lesao: Int, val suspensao: Int, val forma: Int = 50, val moral: Int = 50,
     val jogosTreino: Int = 0,
+    val jogosTaca: Int = 0, val golosTaca: Int = 0, val assistenciasTaca: Int = 0, val somaNotasTaca: Double = 0.0,
 )
 
 /** "resultados": por jornada, por jogo, [golos da casa, golos de fora]. */
 @Serializable
 private class LigaG(val calendario: List<List<Jogo>>, val datas: List<String>, val resultados: List<List<List<Int>>>)
+
+/** Um jogo de taça (casa e fora vêm do confronto: a joga em casa nas mãos pares). */
+@Serializable
+private class JogoElimG(
+    val golosCasa: Int, val golosFora: Int, val prolongamento: Boolean = false,
+    val penaltisCasa: Int = 0, val penaltisFora: Int = 0,
+)
+
+@Serializable
+private class ConfrontoG(
+    val a: String, val b: String, val datas: List<String>, val neutro: Boolean = false,
+    val jogos: List<JogoElimG> = emptyList(), val vencedor: String? = null,
+)
+
+@Serializable
+private class RondaG(val nome: String, val datas: List<String>, val neutro: Boolean, val confrontos: List<ConfrontoG>, val isentos: List<String>)
+
+/** Estado de uma taça ou supertaça: "defs" são todas as rondas previstas, "rondas" só as já sorteadas. */
+@Serializable
+private class ElimG(
+    val participantes: List<String>,
+    val defs: List<RondaG>,
+    val rondas: List<RondaG>,
+    val campeao: String? = null,
+    val finalista: String? = null,
+    val concluida: Boolean = false,
+)
 
 @Serializable
 private class EventoG(
@@ -78,7 +110,10 @@ private class LadoG(
 )
 
 @Serializable
-private class RelatorioG(val casa: LadoG, val fora: LadoG, val golosCasa: Int, val golosFora: Int, val duracao: Int, val eventos: List<EventoG>)
+private class RelatorioG(
+    val casa: LadoG, val fora: LadoG, val golosCasa: Int, val golosFora: Int, val duracao: Int, val eventos: List<EventoG>,
+    val prolongamento: Boolean = false,
+)
 
 @Serializable
 private class Gravacao(
@@ -90,7 +125,15 @@ private class Gravacao(
     /** Só os jogadores com alguma coisa para guardar (jogos, lesão ou castigo). */
     val jogadores: List<JogadorG>,
     val ligas: Map<String, LigaG>,
-    /** Relatórios dos jogos do clube do utilizador: "liga/jornada/jogo" -> relatório. */
+    /**
+     * Taças e supertaças (id -> estado). null = gravação antiga, de antes das taças: nesse caso a época em curso
+     * continua sem taças e elas começam na época seguinte.
+     */
+    val eliminatorias: Map<String, ElimG>? = null,
+    /**
+     * Relatórios dos jogos do clube do utilizador: "liga/jornada/jogo" -> relatório;
+     * nas taças "T/competição/ronda/confronto/mão".
+     */
     val relatorios: Map<String, RelatorioG> = emptyMap(),
     val historico: List<ResumoEpoca> = emptyList(),
     val mensagens: List<Mensagem> = emptyList(),
@@ -146,16 +189,31 @@ object Gravador {
             }
             LigaG(e.calendario, e.datas.map { it.toString() }, e.resultados.map { jogos -> jogos.map { listOf(it.golosCasa, it.golosFora) } })
         }
+        val elims = g.eliminatorias.mapValues { (id, t) ->
+            t.rondas.forEachIndexed { r, ronda ->
+                ronda.confrontos.forEachIndexed { k, conf ->
+                    if (!conf.envolve(c.info.equipaId)) return@forEachIndexed
+                    conf.jogos.forEachIndexed { i, jogo ->
+                        jogo.relatorio?.let { relatorios["T/$id/$r/$k/$i"] = paraG(it) }
+                    }
+                }
+            }
+            ElimG(
+                t.participantes, t.defs.map { paraG(it, emptyList(), emptyList()) },
+                t.rondas.map { paraG(it.def, it.confrontos, it.isentos) }, t.campeao, t.finalista, t.concluida,
+            )
+        }
         val gravacao = Gravacao(
             info = c.info,
             ano = g.ano,
             data = g.data.toString(),
-            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas, it.focoTreino, it.intensidade) },
-            jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || !it.disponivel || it.forma != 50 || it.moral != 50 }.sortedBy { it.id }.map {
+            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas, it.focoTreino, it.intensidade, it.tacas, it.supertacas) },
+            jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || it.epocaTaca.jogos > 0 || !it.disponivel || it.forma != 50 || it.moral != 50 }.sortedBy { it.id }.map {
                 val e = it.epoca
-                JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao, it.forma, it.moral, it.jogosNoUltimoTreino)
+                JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao, it.forma, it.moral, it.jogosNoUltimoTreino, it.epocaTaca.jogos, it.epocaTaca.golos, it.epocaTaca.assistencias, it.epocaTaca.somaNotas)
             },
             ligas = ligas,
+            eliminatorias = elims,
             relatorios = relatorios,
             historico = g.historico.toList(),
             mensagens = c.mensagens.toList(),
@@ -171,11 +229,14 @@ object Gravador {
         val bd = BaseDados()
         bd.carregar { ficheiros[it] }
         require(bd.equipas.isNotEmpty()) { "Gravação sem equipas: ${bd.erros.take(3)}" }
+        bd.garantirTacas()   // gravações antigas não tinham taças: ficam definidas para a época seguinte
         require(gravacao.info.equipaId in bd.equipas) { "O clube da carreira não existe na gravação" }
 
         for (e in gravacao.equipas) {
             val equipa = bd.equipas[e.id] ?: continue
             equipa.titulos = e.titulos
+            equipa.tacas = e.tacas
+            equipa.supertacas = e.supertacas
             equipa.formacaoAutomatica = e.automatica
             equipa.formacao = e.formacao
             equipa.mentalidade = e.mentalidade
@@ -192,6 +253,10 @@ object Gravador {
             j.epoca.amarelos = g.amarelos
             j.epoca.vermelhos = g.vermelhos
             j.epoca.somaNotas = g.somaNotas
+            j.epocaTaca.jogos = g.jogosTaca
+            j.epocaTaca.golos = g.golosTaca
+            j.epocaTaca.assistencias = g.assistenciasTaca
+            j.epocaTaca.somaNotas = g.somaNotasTaca
             j.lesao = g.lesao
             j.suspensao = g.suspensao
             j.forma = g.forma
@@ -215,6 +280,25 @@ object Gravador {
             }
             gestor.estado[ligaId] = estado
         }
+        for ((id, g) in gravacao.eliminatorias.orEmpty()) {
+            val comp = bd.competicoes[id] ?: continue
+            val defs = g.defs.map { DefRonda(it.nome, it.datas.map(LocalDate::parse), it.neutro) }
+            val t = gestor.eliminatoriaVazia(comp, g.participantes, defs)
+            val rondas = g.rondas.mapIndexed { r, rg ->
+                val confrontos = rg.confrontos.mapIndexed { k, cg ->
+                    Confronto(cg.a, cg.b, cg.datas.map(LocalDate::parse), cg.neutro).also { conf ->
+                        cg.jogos.forEachIndexed { i, jg ->
+                            val relatorio = gravacao.relatorios["T/$id/$r/$k/$i"]?.let { deG(it, bd) }
+                            conf.jogos += Resultado(conf.casaDoJogo(i), conf.foraDoJogo(i), jg.golosCasa, jg.golosFora, relatorio, jg.prolongamento, jg.penaltisCasa, jg.penaltisFora)
+                        }
+                        conf.vencedor = cg.vencedor
+                    }
+                }
+                Ronda(defs[r], confrontos, rg.isentos)
+            }
+            t.restaurar(rondas, g.campeao, g.finalista, g.concluida)
+            gestor.eliminatorias[id] = t
+        }
         gestor.historico += gravacao.historico
         gestor.epocaFechada = gestor.epocaTerminada()
 
@@ -224,9 +308,21 @@ object Gravador {
         }
     }
 
+    private fun paraG(def: DefRonda, confrontos: List<Confronto>, isentos: List<String>) = RondaG(
+        def.nome, def.datas.map { it.toString() }, def.neutro,
+        confrontos.map { c ->
+            ConfrontoG(
+                c.a, c.b, c.datas.map { it.toString() }, c.neutro,
+                c.jogos.map { JogoElimG(it.golosCasa, it.golosFora, it.prolongamento, it.penaltisCasa, it.penaltisFora) }, c.vencedor,
+            )
+        },
+        isentos,
+    )
+
     private fun paraG(r: RelatorioJogo) = RelatorioG(
         paraG(r.casa), paraG(r.fora), r.golosCasa, r.golosFora, r.duracao,
         r.eventos.map { EventoG(it.minuto, it.tipo, it.casa, it.jogador.id, it.outro?.id, it.penalti, it.golosCasa, it.golosFora) },
+        r.prolongamento,
     )
 
     private fun paraG(l: LadoRelatorio) = LadoG(
@@ -250,7 +346,7 @@ object Gravador {
                 it.penalti, it.golosCasa, it.golosFora,
             )
         }
-        return RelatorioJogo(casa, fora, r.golosCasa, r.golosFora, r.duracao, eventos)
+        return RelatorioJogo(casa, fora, r.golosCasa, r.golosFora, r.duracao, eventos, r.prolongamento)
     }
 
     private fun deG(l: LadoG, bd: BaseDados): LadoRelatorio? {
