@@ -26,7 +26,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | 4 | Gestão do clube (modo treinador) | ⬜ |
 | 5 | Transferências e finanças | ⬜ |
 | 6 | Treino, scouting e academia | ⬜ |
-| 7 | Taças, Europa e seleções | ⬜ |
+| 7 | Taças, Europa e seleções | ✅ à espera de confirmação |
 | 8 | Notícias, rivalidades e ambiente | ⬜ |
 | 9 | Modo carreira de jogador | ⬜ |
 | 10 | Editor e importação de JSON | ⬜ |
@@ -101,10 +101,15 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Testes automáticos da Fase 6 (`Fase6Test.kt`).
 - [ ] Ficou de fora: a equipa B/sub-23 a jogar a sua própria competição. A academia faz esse papel por agora; os outros clubes ainda não têm academia própria (renovam o plantel com jovens da formação, como antes).
 
-## Fase 7 — Taças, Europa e seleções
-- [ ] Taça nacional e supertaça por país.
-- [ ] Competições europeias: fase de liga + eliminatórias, com apuramento pelas ligas.
-- [ ] Seleções: Euro, Mundial e Liga das Nações (convocatórias, qualificação).
+## Fase 7 — Taças, Europa e seleções ✅ (à espera de confirmação)
+- [x] Taças nacionais dos 6 países, com os nomes reais (Taça de Portugal, Copa del Rey, FA Cup, Coppa Italia, DFB-Pokal, Coupe de France): todos os clubes das duas divisões, eliminatórias a uma só mão às quartas-feiras (fim de setembro a abril), o clube da divisão inferior joga em casa, os melhores clubes folgam na(s) primeira(s) ronda(s), prolongamento («a.p.») e penáltis («g.p.»), final em campo neutro no fim de maio. Prémios por ronda e por ganhar a taça.
+- [x] Supertaças (Supertaça Cândido de Oliveira, Supercopa de España, FA Community Shield, Supercoppa Italiana, DFL-Supercup, Trophée des Champions): campeão da liga contra vencedor da taça (o segundo classificado, se for o mesmo clube), no primeiro sábado de agosto; na primeira época, os dois clubes com mais reputação.
+- [x] Competições europeias: Liga dos Campeões (lugares 1 a 4 da primeira divisão de cada país) e Liga Europa (lugares 5 a 8); na primeira época, por reputação. 24 clubes cada, fase de liga com 6 jogos (3 em casa, 3 fora, sem adversários do mesmo país), os lugares 1 a 8 vão direitos aos oitavos, do 9.º ao 24.º jogam um play-off a duas mãos, depois oitavos, quartos e meias-finais a duas mãos e final a um jogo em campo neutro (Campeões no último sábado de maio, Liga Europa na quarta-feira anterior). Campeões à terça, Liga Europa à quinta. Prémios grandes (vencedor da Champions cerca de 20 a 25 M€, da Liga Europa cerca de 8 M€).
+- [x] Seleções: 56 nações com nomes reais (nos 6 países da base de dados jogam jogadores reais do jogo dessa nacionalidade; as outras 50 têm plantéis inventados que não estão no mercado). Liga das Nações todos os anos (32 nações europeias, Liga A e B, grupos nas paragens de setembro, outubro e novembro, Final Four da Liga A no fim de maio/junho), Euro 2028, 2032… (qualificação na época anterior, fase final com 24 equipas em junho) e Mundial 2030, 2034… (32 equipas). Convocatórias de 23 jogadores antes de cada janela, com mensagem quando os teus jogadores são chamados. Ranking ao estilo Elo (como o da FIFA). Lesões nas seleções passam para os clubes; cartões, castigos e estatísticas não.
+- [x] Ecrãs: o seletor do separador Liga passa a listar também taças, supertaças e competições europeias (eliminatórias com a.p./g.p., tabela da fase de liga com zonas, histórico de vencedores); **Mais → Seleções** (torneios, grupos, eliminatórias, ranking, convocatórias, vencedores); o Início e o calendário mostram a competição e a ronda de cada jogo; tocar num jogo já jogado do teu clube abre o relato.
+- [x] Gravações da versão 0.6 continuam a carregar; taças, Europa e seleções começam do zero na época seguinte nas carreiras antigas.
+- [x] Testes automáticos da Fase 7 (`Fase7Test.kt`, `Fase7EuropaTest.kt`, `Fase7SelecoesTest.kt` e um teste de integração).
+- [ ] Ficou de fora ou simples: as seleções são simuladas em segundo plano (não treinas nenhuma); na via de jogador ainda não há carreira na seleção (Fase 9); não há subidas e descidas na Liga das Nações; os anfitriões do Euro e do Mundial são ignorados (campo neutro); as nações não europeias só jogam nas épocas de Mundial; os sorteios das eliminatórias europeias não têm proteção de países.
 
 ## Fase 8 — Notícias, rivalidades e ambiente
 - [ ] Manchetes geradas a partir dos acontecimentos.

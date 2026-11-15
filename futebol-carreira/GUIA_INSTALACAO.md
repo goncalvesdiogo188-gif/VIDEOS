@@ -88,6 +88,17 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 6. Em **Plantel**, por baixo de cada jogador aparece a forma e a moral. Joga uns meses: no início de cada mês chega uma mensagem «Treino» com quem evoluiu.
 7. Começa a época seguinte: entra uma geração nova na academia.
 
+### Fase 7
+1. Começa uma **Nova carreira** como treinador (as carreiras antigas não têm taças, Europa nem seleções; só aparecem a partir da época seguinte). Para ver a Europa logo, escolhe um clube grande.
+2. Joga até ao início de agosto: no primeiro sábado há a **Supertaça** do teu país (na primeira época, entre os dois clubes com mais reputação). Se o teu clube for um deles, o jogo aparece no **Início**.
+3. Abre **Liga** e, no topo, escolhe a **Taça** do teu país (por exemplo, Taça de Portugal). Vês as rondas, quem joga e quem passou.
+4. Joga até uma quarta-feira de fim de setembro: aparece um jogo da taça. No **Início** e em **Mais → Jogos** o jogo mostra o nome da competição e a ronda. Se acabar empatado, há prolongamento («a.p.») e, se for preciso, penáltis («g.p.»).
+5. Toca num jogo já jogado do teu clube (em **Mais → Jogos**): abre o relato.
+6. Se o teu clube se apurou, vê a **Liga dos Campeões** ou a **Liga Europa** no seletor da **Liga**: a tabela da fase de liga tem zonas de cores (oitavos direitos, play-off, eliminado). Os jogos são à terça (Campeões) ou à quinta (Liga Europa).
+7. Abre **Mais → Seleções**: vês o ranking, os torneios, os grupos e as convocatórias. Em setembro joga-se a **Liga das Nações**; quando um jogador teu é chamado, chega uma mensagem.
+8. Usa **Mais → Simular o resto da época** e vê o fim: finais das taças em maio, final da Champions no último sábado de maio, e o histórico de vencedores em cada competição.
+9. Começa mais uma época e confirma que a taça, a Europa e a Liga das Nações voltam a começar. Em 2028 há o **Euro** e em 2030 o **Mundial**, em **Mais → Seleções**.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados
