@@ -134,7 +134,7 @@ private fun Inicio(
                     }
                     proximo == null -> {
                         Rotulo("Fim do campeonato")
-                        Text("O ${ui.clube} já fez todos os jogos. Avança para as outras ligas acabarem a época.", Modifier.padding(vertical = 8.dp))
+                        Text("O teu clube já fez todos os jogos. Avança para as outras ligas acabarem a época.", Modifier.padding(vertical = 8.dp))
                         BotaoGrande("Avançar", ativo = ativo, aoTocar = aoJogar)
                     }
                     else -> {
@@ -181,7 +181,7 @@ private fun Inicio(
                             Text(ultimo.resultado, fontSize = 22.sp, fontWeight = FontWeight.Bold)
                         }
                         Text(
-                            "${if (ultimo.emCasa) "em casa com" else "fora com"} ${ultimo.adversario}",
+                            "${if (ultimo.emCasa) "em casa" else "fora"} contra ${ultimo.adversario}",
                             fontSize = 13.sp, color = secundaria, maxLines = 2, overflow = TextOverflow.Ellipsis,
                         )
                     }
@@ -241,7 +241,7 @@ private fun LinhaMiniTabela(l: LinhaUi) {
             fontWeight = if (l.meu) FontWeight.Bold else FontWeight.Normal,
         )
         Celula("${l.j}", negrito = l.meu, cor = cor)
-        Celula("%+d".format(l.gm - l.gs), 36.dp, negrito = l.meu, cor = cor)
+        Celula(saldo(l.gm - l.gs), 36.dp, negrito = l.meu, cor = cor)
         Celula("${l.pts}", 36.dp, negrito = true, cor = cor)
     }
 }
@@ -291,7 +291,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoS
         Bloco {
             Rotulo("A tua carreira")
             Text(ui.utilizador, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            Text("${ui.modo.nome} do ${ui.clube}")
+            Text("${ui.modo.nome} · ${ui.clube}")
         }
         Bloco {
             Rotulo("Gravação")

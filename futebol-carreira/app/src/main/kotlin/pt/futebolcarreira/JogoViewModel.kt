@@ -344,13 +344,14 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 val lugar = ordem.indexOfFirst { l -> l.id == adversario.id } + 1
                 ProximoJogoUi(
                     it.jornada, c.estadoLiga.totalJornadas, CalendarioDatas.texto(it.data), it.emCasa, adversario.nome, emblema(adversario),
-                    "$lugar.º lugar · Geral ${adversario.forca().geral.toInt()} · ${adversario.formacao.nome}",
+                    // Antes da primeira jornada ainda não há classificação a sério.
+                    (if (c.estadoLiga.jornada > 0) "$lugar.º lugar · " else "") + "Geral ${adversario.forca().geral.toInt()} · ${adversario.formacao.nome}",
                 )
             },
             ultimo = calendario.lastOrNull { it.desfecho.isNotEmpty() },
             terminada = terminada,
             resumoFim = if (resumo == null) "" else listOfNotNull(
-                "O ${equipa.nome} terminou em $posicao.º lugar.",
+                "O teu clube terminou em $posicao.º lugar.",
                 "Vencedor: ${nome(resumo.campeao)} (${resumo.pontos} pontos).",
                 resumo.sobem.takeIf { it.isNotEmpty() }?.let { "Sobem: ${it.joinToString { id -> nome(id) }}." },
                 resumo.descem.takeIf { it.isNotEmpty() }?.let { "Descem: ${it.joinToString { id -> nome(id) }}." },
@@ -533,7 +534,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         }
 
     private fun formatarEuros(valor: Int): String =
-        if (valor >= 1_000_000) "%.1f M€".format(valor / 1_000_000.0) else "${valor / 1000} m€"
+        if (valor >= 1_000_000) "%.1f M€".format(valor / 1_000_000.0) else "${valor / 1000} mil €"
 
     /** Emblema de um clube a partir das cores da base de dados ("#rrggbb"). */
     private fun emblema(e: Equipa): EmblemaUi {

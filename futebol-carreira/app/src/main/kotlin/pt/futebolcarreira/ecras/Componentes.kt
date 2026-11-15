@@ -84,6 +84,9 @@ internal fun Celula(texto: String, largura: Dp = LARGURA_NUMERO, negrito: Boolea
     )
 }
 
+/** Diferença de golos com sinal: +3, 0, -2. */
+internal fun saldo(golos: Int): String = if (golos == 0) "0" else "%+d".format(golos)
+
 /** Quadradinho colorido com V, E ou D (vitória, empate, derrota). */
 @Composable
 internal fun Desfecho(letra: String) {

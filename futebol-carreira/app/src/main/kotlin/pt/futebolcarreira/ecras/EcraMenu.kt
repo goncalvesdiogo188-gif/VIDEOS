@@ -94,7 +94,7 @@ fun EcraCarregar(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoCarregar: 
         AlertDialog(
             onDismissRequest = { paraApagar = null },
             title = { Text("Apagar carreira?") },
-            text = { Text("A carreira de ${g.nome} no ${g.clube} vai ser apagada para sempre.") },
+            text = { Text("A carreira de ${g.nome} (${g.clube}) vai ser apagada para sempre.") },
             confirmButton = { TextButton(onClick = { paraApagar = null; aoApagar(g.id) }) { Text("Apagar", color = MaterialTheme.colorScheme.error) } },
             dismissButton = { TextButton(onClick = { paraApagar = null }) { Text("Cancelar") } },
         )

@@ -131,11 +131,11 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
         if (info.modo == ModoCarreira.JOGADOR && jogador == null) {
             info.modo = ModoCarreira.TREINADOR
             info.jogadorId = null
-            mensagem("Fim da carreira de jogador", "Penduraste as botas. O ${equipa.nome} convidou-te para treinador: começa uma nova vida no banco.")
+            mensagem("Fim da carreira de jogador", "Penduraste as botas. O clube convidou-te para treinador: começa uma nova vida no banco.")
         }
         mensagem(
             "Começa a época ${gestor.nomeEpoca()}",
-            "O ${equipa.nome} joga na ${liga.nome}. O primeiro jogo é a ${proximoJogo()?.let { CalendarioDatas.textoCurto(it.data) } ?: "?"}.",
+            "O teu clube joga nesta competição: ${liga.nome}. O primeiro jogo é a ${proximoJogo()?.let { CalendarioDatas.textoCurto(it.data) } ?: "?"}.",
         )
     }
 
@@ -159,7 +159,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             jogo.golosMarcados > jogo.golosSofridos -> "Vitória por $marcador"
             jogo.golosMarcados < jogo.golosSofridos -> "Derrota por $marcador"
             else -> "Empate a ${jogo.golosMarcados}"
-        } + (if (jogo.emCasa) " em casa com o " else " fora com o ") + jogo.adversario.nome
+        } + (if (jogo.emCasa) " em casa contra " else " fora contra ") + jogo.adversario.nome
         val linhas = mutableListOf<String>()
         val relatorio = jogo.resultado?.relatorio
         if (relatorio != null) {
@@ -177,22 +177,22 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             }
             if (info.jogadorId != null && lado.fichas.none { it.jogador.id == info.jogadorId }) linhas += "Não saíste do banco."
         }
-        linhas += "O ${equipa.nome} está em ${posicao()}.º lugar com ${estadoLiga.tabela.linhas.getValue(info.equipaId).pts} pontos."
+        linhas += "O teu clube está em ${posicao()}.º lugar com ${estadoLiga.tabela.linhas.getValue(info.equipaId).pts} pontos."
         mensagem(titulo, linhas.joinToString(" "))
     }
 
     private fun mensagemFimDeEpoca() {
         val resumo = gestor.historico.last().ligas[equipa.liga] ?: return
         val destino = when {
-            info.equipaId == resumo.campeao && liga.nivel == 1 -> " O ${equipa.nome} é campeão!"
-            info.equipaId in resumo.sobem -> " O ${equipa.nome} sobe de divisão!"
-            info.equipaId in resumo.descem -> " O ${equipa.nome} desce de divisão."
+            info.equipaId == resumo.campeao && liga.nivel == 1 -> " O teu clube é campeão!"
+            info.equipaId in resumo.sobem -> " O teu clube sobe de divisão!"
+            info.equipaId in resumo.descem -> " O teu clube desce de divisão."
             else -> ""
         }
         mensagem(
             "Fim da época ${gestor.nomeEpoca()}",
-            "O ${equipa.nome} terminou a ${liga.nome} em ${posicao()}.º lugar.$destino " +
-                "Vencedor da liga: ${bd.equipas[resumo.campeao]?.nome} (${resumo.pontos} pontos).",
+            "${equipa.nome}: ${posicao()}.º lugar (${liga.nome}).$destino " +
+                "Vencedor: ${bd.equipas[resumo.campeao]?.nome} (${resumo.pontos} pontos).",
         )
     }
 
@@ -223,9 +223,9 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
                 jovem.equipa = equipa.id
                 bd.adicionarJogador(jovem)
                 info.jogadorId = jovem.id
-                carreira.mensagem("Bem-vindo ao ${equipa.nome}", "Assinaste o teu primeiro contrato. Trabalha para ganhar um lugar na equipa!")
+                carreira.mensagem("Bem-vindo: ${equipa.nome}", "Assinaste o teu primeiro contrato. Trabalha para ganhar um lugar na equipa!")
             } else {
-                carreira.mensagem("Bem-vindo ao ${equipa.nome}", "A direção apresentou-te como novo treinador. A época ${gestor.nomeEpoca()} está a começar.")
+                carreira.mensagem("Bem-vindo: ${equipa.nome}", "A direção apresentou-te como novo treinador. A época ${gestor.nomeEpoca()} está a começar.")
             }
             return carreira
         }

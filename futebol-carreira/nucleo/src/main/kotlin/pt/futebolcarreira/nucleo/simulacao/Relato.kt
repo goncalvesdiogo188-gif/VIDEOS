@@ -14,10 +14,10 @@ object Relato {
             TipoEvento.GOLO -> {
                 val assistencia = e.outro?.let { " Assistência de ${it.nome}." } ?: ""
                 when {
-                    e.penalti -> "GOLO do $equipa! $nome não falha da marca de penálti."
-                    variante == 0 -> "GOLO do $equipa! $nome remata para o fundo da baliza.$assistencia"
-                    variante == 1 -> "GOLO! $nome marca para o $equipa.$assistencia"
-                    else -> "GOLO do $equipa! Grande finalização de $nome.$assistencia"
+                    e.penalti -> "GOLO! $nome ($equipa) não falha da marca de penálti."
+                    variante == 0 -> "GOLO! $nome ($equipa) remata para o fundo da baliza.$assistencia"
+                    variante == 1 -> "GOLO! $nome ($equipa) não perdoa na cara do guarda-redes.$assistencia"
+                    else -> "GOLO! Grande finalização de $nome ($equipa).$assistencia"
                 }
             }
             TipoEvento.DEFESA -> {
@@ -28,10 +28,10 @@ object Relato {
             TipoEvento.REMATE_FORA ->
                 if (variante == 0) "$nome ($equipa) remata ao lado." else "Remate de $nome ($equipa) por cima da baliza."
             TipoEvento.AMARELO -> "Cartão amarelo para $nome ($equipa)."
-            TipoEvento.SEGUNDO_AMARELO -> "Segundo amarelo para $nome! O $equipa fica com menos um jogador."
-            TipoEvento.VERMELHO -> "Cartão vermelho direto para $nome! O $equipa fica com menos um jogador."
+            TipoEvento.SEGUNDO_AMARELO -> "Segundo amarelo para $nome ($equipa), que é expulso!"
+            TipoEvento.VERMELHO -> "Cartão vermelho direto para $nome ($equipa)!"
             TipoEvento.LESAO -> "$nome ($equipa) está lesionado e não pode continuar."
-            TipoEvento.SUBSTITUICAO -> "Substituição no $equipa: sai $nome, entra ${e.outro?.nome ?: "?"}."
+            TipoEvento.SUBSTITUICAO -> "Substituição ($equipa): sai $nome, entra ${e.outro?.nome ?: "?"}."
         }
     }
 }

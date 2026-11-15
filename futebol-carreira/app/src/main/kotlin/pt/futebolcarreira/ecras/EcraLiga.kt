@@ -129,7 +129,7 @@ private fun Tabela(linhas: List<LinhaUi>, aoTocarEquipa: (String) -> Unit) {
                         Celula(l.gm.toString())
                         Celula(l.gs.toString())
                     }
-                    Celula("%+d".format(l.gm - l.gs), 36.dp)
+                    Celula(saldo(l.gm - l.gs), 36.dp)
                     Celula(l.pts.toString(), 36.dp, negrito = true)
                 }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
