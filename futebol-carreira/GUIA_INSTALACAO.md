@@ -79,6 +79,15 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 6. Joga até setembro: o mercado fecha (só podes contratar jogadores sem clube) e volta a abrir em janeiro. Nas mensagens aparecem negócios dos outros clubes.
 7. Simula até ao fim da época e começa a seguinte: a mensagem «Contratos e empréstimos» diz quem renovou e quem voltou de empréstimo.
 
+### Fase 6
+1. Começa uma **Nova carreira** como treinador (as antigas não têm academia nem instalações).
+2. Abre **Mais → Clube**: escolhe o foco e a intensidade do treino, vê o nível das instalações e melhora uma, se tiveres dinheiro.
+3. Na **Academia**, toca num jovem e escolhe **Subir ao plantel principal**: passa a aparecer em **Plantel**.
+4. Em **Olheiros**, escolhe um país e toca em **Enviar olheiro**. Joga 4 ou 5 jornadas: chega a mensagem «Relatório do olheiro» e a lista aparece em **Mais → Clube**.
+5. Abre a ficha de um jovem de outro clube: o potencial aparece como intervalo (por exemplo «72–80») até um olheiro o observar.
+6. Em **Plantel**, por baixo de cada jogador aparece a forma e a moral. Joga uns meses: no início de cada mês chega uma mensagem «Treino» com quem evoluiu.
+7. Começa a época seguinte: entra uma geração nova na academia.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados

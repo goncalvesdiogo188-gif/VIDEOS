@@ -3,6 +3,7 @@ package pt.futebolcarreira.nucleo.carreira
 import pt.futebolcarreira.nucleo.modelos.Equipa
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
+import pt.futebolcarreira.nucleo.simulacao.EvolucaoPlantel
 import kotlin.math.pow
 
 /** Resposta a uma tentativa de negócio. */
@@ -17,10 +18,12 @@ enum class Resposta(val frase: String) {
     JOGADOR_RECUSA("O jogador não quer mudar para um clube com menos reputação."),
     CLUBE_NAO_CEDE("O clube não o deixa sair: faz-lhe falta."),
     SEM_INTERESSADOS("Não apareceu nenhum clube interessado."),
-    NAO_PERMITIDO("Só o treinador pode tratar de transferências."),
+    NAO_PERMITIDO("Só o treinador pode tratar disto."),
+    NIVEL_MAXIMO("Já está no nível máximo."),
+    OLHEIRO_OCUPADO("O olheiro ainda não voltou da última viagem."),
 }
 
-const val MAX_PLANTEL = 30
+const val MAX_PLANTEL = EvolucaoPlantel.MAX_PLANTEL
 const val MIN_PLANTEL = 18
 
 /**

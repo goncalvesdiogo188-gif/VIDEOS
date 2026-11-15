@@ -6,6 +6,7 @@ import pt.futebolcarreira.nucleo.dados.GeradorJogadores
 import pt.futebolcarreira.nucleo.modelos.ContasEpoca
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import java.time.LocalDate
+import java.time.YearMonth
 import kotlin.random.Random
 
 /** Estado de uma liga durante a época. "datas" tem o dia de cada jornada. */
@@ -62,6 +63,9 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Frases sobre o que aconteceu na mudança de época (empréstimos que acabam, renovações...). */
     val avisos = mutableListOf<String>()
 
+    /** Frases sobre o treino do clube do utilizador (evolução, lesões); quem as lê deve esvaziar a lista. */
+    val noticias = mutableListOf<String>()
+
     /** Id do clube do utilizador (para os avisos lhe dizerem respeito). */
     var clubeDoUtilizador: String = ""
 
@@ -84,10 +88,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         data = CalendarioDatas.inicioDaEpoca(ano)
         // Época nova: estatísticas a zero, todos recuperados, e cada treinador escolhe a formação.
         for (equipa in bd.equipas.values) {
-            for (j in equipa.plantel) {
+            for (j in equipa.plantel + equipa.academia) {
                 j.epoca.limpar()
                 j.lesao = 0
                 j.suspensao = 0
+                j.forma = 50
+                j.moral = 50
+                j.jogosNoUltimoTreino = 0
             }
             equipa.escolherFormacao()
             equipa.contas = ContasEpoca()
@@ -117,6 +124,13 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 jogarJornada(e)
             }
         }
+        // Sempre que se muda de mês faz-se a conta do treino.
+        var mes = YearMonth.from(data)
+        while (mes < YearMonth.from(dia)) {
+            mes = mes.plusMonths(1)
+            val evolucao = Treino.mensal(bd, rng, clubeDoUtilizador)
+            if (evolucao.isNotEmpty()) noticias += "Treino de ${CalendarioDatas.mes(mes.minusMonths(1).monthValue)}: " + evolucao.take(8).joinToString() + (if (evolucao.size > 8) " e mais ${evolucao.size - 8}." else ".")
+        }
         if (dia > data) data = dia
         if (epocaTerminada() && !epocaFechada) fecharEpoca()
     }
@@ -125,6 +139,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         e.resultados += e.calendario[e.jornada].map { jogo ->
             val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
             MotorJogo.aplicar(relatorio)
+            Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
             e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
             Financas.jornada(bd.equipas.getValue(jogo.casa), true, e.totalJornadas)
             Financas.jornada(bd.equipas.getValue(jogo.fora), false, e.totalJornadas)
@@ -216,7 +231,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         }
         avisos.clear()
         FimDeEpoca.contratos(bd, ano, rng, avisos, clubeDoUtilizador)
-        EvolucaoPlantel.aplicar(bd, gerador, rng, ano + 1)
+        EvolucaoPlantel.aplicar(bd, gerador, rng, ano + 1, avisos, clubeDoUtilizador)
         FimDeEpoca.completarPlanteis(bd, gerador, ano + 1)
         ano++
         iniciarEpoca()

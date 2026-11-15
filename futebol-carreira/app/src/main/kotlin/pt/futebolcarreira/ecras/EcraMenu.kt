@@ -63,7 +63,7 @@ fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () 
             if (ocupado) LinearProgressIndicator(Modifier.fillMaxWidth())
         }
         Spacer(Modifier.height(36.dp))
-        Text("Versão de desenvolvimento 0.5 · Fase 5", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Versão de desenvolvimento 0.6 · Fase 6", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

@@ -1,5 +1,6 @@
 package pt.futebolcarreira.nucleo.modelos
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
@@ -19,9 +20,10 @@ class ContasEpoca {
     var salarios = 0L
     var compras = 0L
     var obras = 0L
+    var olheiros = 0L
 
     fun receitas() = bilheteira + patrocinios + premios + vendas
-    fun despesas() = salarios + compras + obras
+    fun despesas() = salarios + compras + obras + olheiros
 }
 
 /** Um clube: dados gerais e plantel. */
@@ -40,9 +42,32 @@ class Equipa(
     var reputacao: Int = 50,
     var orcamento: Long = 1_000_000,
     var cores: List<String> = listOf("#ffffff", "#000000"),
+    /** Instalações, de 1 a 5 (0 = por definir: fica de acordo com a reputação). */
+    @SerialName("nivel_treino") var nivelTreino: Int = 0,
+    @SerialName("nivel_academia") var nivelAcademia: Int = 0,
+    @SerialName("nivel_medico") var nivelMedico: Int = 0,
 ) {
     @Transient
     val plantel: MutableList<Jogador> = mutableListOf()
+
+    /** Jovens da academia: treinam, mas não jogam nem contam para o plantel. */
+    @Transient
+    val academia: MutableList<Jogador> = mutableListOf()
+
+    /** O que se treina mais e com que intensidade. */
+    @Transient
+    var focoTreino = FocoTreino.EQUILIBRADO
+
+    @Transient
+    var intensidade = Intensidade.NORMAL
+
+    /** Dá às instalações por definir o nível habitual de um clube com esta reputação. */
+    fun normalizar() {
+        val habitual = ((reputacao - 20) / 15).coerceIn(1, MAX_NIVEL)
+        if (nivelTreino !in 1..MAX_NIVEL) nivelTreino = habitual
+        if (nivelAcademia !in 1..MAX_NIVEL) nivelAcademia = habitual
+        if (nivelMedico !in 1..MAX_NIVEL) nivelMedico = habitual
+    }
 
     /** Receitas e despesas da época em curso. */
     @Transient
@@ -186,6 +211,8 @@ class Equipa(
     }
 
     companion object {
+        const val MAX_NIVEL = 5
+
         /** Nota de um jogador num certo lugar (penaliza quem joga fora de posição). */
         fun notaNoLugar(j: Jogador, lugar: String): Int = when {
             j.posicao == lugar -> j.geral()

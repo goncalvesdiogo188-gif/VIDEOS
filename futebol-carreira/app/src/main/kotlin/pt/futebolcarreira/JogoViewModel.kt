@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.futebolcarreira.nucleo.carreira.Carreira
+import pt.futebolcarreira.nucleo.carreira.Instalacao
 import pt.futebolcarreira.nucleo.carreira.JogoDoClube
 import pt.futebolcarreira.nucleo.carreira.Mercado
 import pt.futebolcarreira.nucleo.carreira.ModoCarreira
@@ -18,7 +19,9 @@ import pt.futebolcarreira.nucleo.simulacao.Financas
 import pt.futebolcarreira.nucleo.carreira.ResumoGravacao
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.modelos.Equipa
+import pt.futebolcarreira.nucleo.modelos.FocoTreino
 import pt.futebolcarreira.nucleo.modelos.Formacao
+import pt.futebolcarreira.nucleo.modelos.Intensidade
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
@@ -362,7 +365,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         // Quando o trabalho acabar, mostra a resposta e atualiza (ou fecha) a ficha.
         val depois = {
             aviso = resposta.frase
-            ficha = if (resposta == Resposta.ACEITE && (acao == AcaoMercado.VENDER || acao == AcaoMercado.EMPRESTAR)) null
+            ficha = if (resposta == Resposta.ACEITE && acao in listOf(AcaoMercado.VENDER, AcaoMercado.EMPRESTAR, AcaoMercado.DISPENSAR)) null
             else c.bd.jogadores[id]?.let { criarFicha(c, it) }
         }
         naCarreira(depois) {
@@ -375,6 +378,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 AcaoMercado.CONTRATAR_LIVRE -> m.contratarLivre(j)
                 AcaoMercado.VENDER -> m.vender(j)
                 AcaoMercado.EMPRESTAR -> m.emprestar(j)
+                AcaoMercado.PROMOVER -> c.academia.promover(j)
+                AcaoMercado.DISPENSAR -> c.academia.dispensar(j)
             }
             null
         }
@@ -400,6 +405,12 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         when {
             !treinador -> nota = if (c.info.modo == ModoCarreira.JOGADOR) "Na via de jogador não tratas de transferências." else ""
             dono == null -> botoes += BotaoMercadoUi(AcaoMercado.CONTRATAR_LIVRE, "Contratar (sem custo de transferência)")
+            j.academia && meu -> {
+                nota = "Está na academia: treina, mas ainda não joga. Aos 20 anos sobe ao plantel (se houver lugar) ou sai."
+                botoes += BotaoMercadoUi(AcaoMercado.PROMOVER, "Subir ao plantel principal")
+                botoes += BotaoMercadoUi(AcaoMercado.DISPENSAR, "Dispensar da academia")
+            }
+            j.academia -> nota = "Joga na academia de ${dono.nome}."
             emprestado -> nota = "Está emprestado por ${c.bd.equipas[j.emprestadoPor]?.nome} até ao fim da época."
             !m.aberto -> nota = "O mercado está fechado. Abre em julho, agosto e janeiro."
             meu -> {
@@ -420,10 +431,12 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             j.id, j.nome,
             "${j.posicao} · ${j.idade} anos · pé ${j.pe} · ${c.bd.paises[j.nacionalidade]?.nome ?: j.nacionalidade}",
             dono?.nome ?: "Sem clube", dono?.let { emblema(it) },
-            j.geral(), j.potencial,
+            j.geral(), c.olheiros.potencial(j),
             listOf("Ritmo" to "ritmo", "Remate" to "remate", "Passe" to "passe", "Drible" to "drible", "Defesa" to "defesa", "Físico" to "fisico", "Guarda-redes" to "guarda_redes")
                 .map { (nome, chave) -> nome to j.atributo(chave) },
             listOfNotNull(
+                if (!c.olheiros.conhece(j)) "Potencial" to "Estimado. Manda um olheiro ao país dele para saberes ao certo." else null,
+                if (meu && !j.academia) "Forma e moral" to formaMoral(j) else null,
                 "Valor de mercado" to Mercado.euros(j.valorMercado().toLong()),
                 "Cláusula de rescisão" to Mercado.euros(j.clausula()),
                 "Salário por ano" to Mercado.euros(j.salario.toLong()),
@@ -598,6 +611,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             calendario = calendario,
             plantel = criarPlantel(c, equipa),
             liga = criarLiga(c, ligaVista),
+            gestao = criarGestao(c),
         )
     }
 
@@ -682,10 +696,11 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 .sortedWith(compareBy<Jogador> { Jogador.POSICOES.indexOf(it.posicao) }.thenByDescending { it.geral() })
                 .map {
                     JogadorUi(
-                        it.id, it.posicao, it.nome, it.idade, it.geral(), it.potencial, formatarEuros(it.valorMercado()),
+                        it.id, it.posicao, it.nome, it.idade, it.geral(), c.olheiros.potencial(it), formatarEuros(it.valorMercado()),
                         it.epoca.jogos, it.epoca.golos, it.epoca.assistencias,
                         if (it.epoca.jogos == 0) "-" else "%.1f".format(it.epoca.notaMedia()),
                         estado(it), it.id == c.info.jogadorId,
+                        if (equipa.id == c.info.equipaId) formaMoral(it) else "",
                     )
                 },
             formacao = equipa.formacao.takeIf { !equipa.formacaoAutomatica },
@@ -695,6 +710,80 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             onze = onze.mapIndexed { i, l -> LugarUi(i, l.lugar, l.jogador?.nome ?: "(vazio)", l.jogador?.posicao ?: "", l.nota) },
             suplentes = equipa.suplentesParaJogo(onze).joinToString { it.nome },
             onzeManual = equipa.onzeManual != null,
+        )
+    }
+
+    /** Forma e moral por palavras: "forma boa · moral normal". */
+    private fun formaMoral(j: Jogador): String {
+        fun palavra(v: Int) = when {
+            v >= 72 -> "ótima"
+            v >= 58 -> "boa"
+            v >= 42 -> "normal"
+            v >= 28 -> "fraca"
+            else -> "má"
+        }
+        return "forma ${palavra(j.forma)} · moral ${palavra(j.moral)}"
+    }
+
+    // --------------------------------------------- treino, academia, olheiros
+
+    fun mudarFoco(foco: FocoTreino) = mudarClube { it.equipa.focoTreino = foco }
+
+    fun mudarIntensidade(intensidade: Intensidade) = mudarClube { it.equipa.intensidade = intensidade }
+
+    private fun mudarClube(acao: (Carreira) -> Unit) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.TREINADOR) return
+        acao(c)
+        porGravar = true
+        atualizar()
+    }
+
+    fun melhorarInstalacao(i: Instalacao) {
+        val c = carreira ?: return
+        var resposta = Resposta.NAO_PERMITIDO
+        naCarreira({ aviso = if (resposta == Resposta.ACEITE) "Obras feitas: ${i.nome.lowercase()} no nível ${c.academia.nivel(i)}." else resposta.frase }) {
+            resposta = c.academia.melhorar(i)
+            null
+        }
+    }
+
+    /** Manda o olheiro a um país, à procura de jovens de uma posição ("" = todas). */
+    fun enviarOlheiro(pais: String, posicao: String) {
+        val c = carreira ?: return
+        var resposta = Resposta.NAO_PERMITIDO
+        naCarreira({ aviso = if (resposta == Resposta.ACEITE) "O olheiro partiu. Volta daqui a 4 semanas com um relatório." else resposta.frase }) {
+            resposta = c.olheiros.enviar(pais, posicao)
+            null
+        }
+    }
+
+    private fun criarGestao(c: Carreira): GestaoClubeUi? {
+        if (c.info.modo != ModoCarreira.TREINADOR) return null
+        val e = c.equipa
+        val ativo = !c.info.despedido
+        val o = c.olheiros
+        return GestaoClubeUi(
+            e.focoTreino, e.intensidade,
+            Instalacao.entries.map { i ->
+                val custo = c.academia.custoMelhoria(i)
+                InstalacaoUi(
+                    i, i.nome, i.efeito, c.academia.nivel(i),
+                    if (custo == null) "Nível máximo" else "Melhorar por ${Mercado.euros(custo)}",
+                    ativo && custo != null && custo <= e.orcamento,
+                )
+            },
+            e.academia.sortedByDescending { it.potencial }.map { JovemUi(it.id, it.posicao, it.nome, it.idade, it.geral(), it.potencial) },
+            c.bd.paises.values.map { OpcaoPaisUi(it.id, it.nome, Mercado.euros(o.custo(it.id))) },
+            o.estado.missao?.let { m ->
+                "Em viagem: ${c.bd.paises[m.pais]?.nome ?: m.pais}" + (if (m.posicao.isNotEmpty()) " (${m.posicao})" else "") +
+                    ". Volta a ${CalendarioDatas.textoCurto(java.time.LocalDate.parse(m.regressa))}."
+            } ?: "",
+            o.estado.relatorio.mapNotNull { c.bd.jogadores[it] }.map { j ->
+                val dono = c.bd.equipas[j.equipa]
+                LinhaMercadoUi(j.id, j.posicao, j.nome, dono?.abreviatura ?: "livre", j.idade, j.geral(), "pot. ${j.potencial}")
+            },
+            Mercado.euros(e.orcamento),
         )
     }
 

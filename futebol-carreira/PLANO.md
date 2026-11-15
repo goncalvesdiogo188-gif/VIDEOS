@@ -90,10 +90,16 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Testes automáticos da Fase 5 (`Fase5Test.kt`).
 - [ ] Ainda simples, a melhorar mais tarde: os contratos do teu clube renovam-se sozinhos; não há negociação de salário nem prémios; os outros clubes não fazem propostas pelos teus jogadores (és tu que os pões à venda).
 
-## Fase 6 — Treino, scouting e academia
-- [ ] Treino e evolução por atributos, potencial, forma e moral (substitui a evolução provisória).
-- [ ] Lesões e recuperação.
-- [ ] Olheiros, relatórios e jovens promessas; academia e equipa B/sub-23.
+## Fase 6 — Treino, scouting e academia ✅ (à espera de confirmação)
+- [x] Treino mês a mês, atributo a atributo: os jovens aproximam-se do potencial (mais depressa se jogarem), os veteranos perdem qualidades a partir dos 31 anos (33 nos guarda-redes). Substitui a evolução provisória.
+- [x] Foco do treino (equilibrado, ataque, posse, defesa, físico) e intensidade (leve, normal, forte).
+- [x] Forma e moral de cada jogador, que mudam jogo a jogo e contam no resultado.
+- [x] Lesões no treino (mais com treino forte) e departamento médico que encurta as paragens.
+- [x] Instalações com 5 níveis (centro de treinos, academia, departamento médico), que se podem melhorar pagando.
+- [x] Academia: uma geração nova de jovens todos os verões; promover ao plantel ou dispensar; aos 20 anos sobem ou saem.
+- [x] Olheiros: o potencial dos jovens de outros clubes só se vê aproximado; o olheiro viaja 4 semanas a um país e traz um relatório com os melhores.
+- [x] Testes automáticos da Fase 6 (`Fase6Test.kt`).
+- [ ] Ficou de fora: a equipa B/sub-23 a jogar a sua própria competição. A academia faz esse papel por agora; os outros clubes ainda não têm academia própria (renovam o plantel com jovens da formação, como antes).
 
 ## Fase 7 — Taças, Europa e seleções
 - [ ] Taça nacional e supertaça por país.

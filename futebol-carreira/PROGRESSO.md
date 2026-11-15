@@ -1,7 +1,7 @@
 # Futebol Carreira — Progresso até agora
 
 Resumo do que já está feito no jogo, do que foi verificado e do que falta.
-Atualizado a 15 de novembro de 2026, no fim da Fase 5 (versão 0.5 da aplicação).
+Atualizado a 15 de novembro de 2026, no fim da Fase 6 (versão 0.6 da aplicação).
 
 ## Em que ponto estamos
 
@@ -13,8 +13,8 @@ Atualizado a 15 de novembro de 2026, no fim da Fase 5 (versão 0.5 da aplicaçã
 | 3 | Menus, carreira, calendário e gravação | Feita |
 | 4 | Gestão do clube (onze, direção, despedimento) | Feita |
 | 5 | Transferências e finanças | Feita, à espera da tua confirmação |
-| 6 | Treino, scouting e academia | Por fazer (é a próxima) |
-| 7 | Taças, competições europeias e seleções | Por fazer |
+| 6 | Treino, scouting e academia | Feita, à espera da tua confirmação |
+| 7 | Taças, competições europeias e seleções | Por fazer (é a próxima) |
 | 8 | Notícias e rivalidades | Por fazer |
 | 9 | Modo carreira de jogador completo | Por fazer |
 | 10 | Editor e importação de JSON | Por fazer |
@@ -68,10 +68,20 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Obras para aumentar o estádio.
 - Ficha de cada jogador com todos os atributos.
 
+### Treino, olheiros e academia (Fase 6)
+- Treino mês a mês, atributo a atributo: os jovens aproximam-se do potencial (mais depressa se jogarem) e os veteranos perdem qualidades. Numa época de teste, os jovens ganharam em média 4 pontos de geral e os veteranos com 33 anos ou mais perderam 2.
+- Foco do treino (ataque, posse, defesa, físico ou equilibrado) e intensidade (leve, normal, forte; o treino forte dá mais lesões).
+- Forma e moral de cada jogador, que mudam jogo a jogo e contam no resultado.
+- Lesões no treino; o departamento médico encurta as paragens.
+- Instalações com 5 níveis (centro de treinos, academia, departamento médico), que se melhoram pagando.
+- Academia: entram jovens todos os verões; podes subi-los ao plantel ou dispensá-los; aos 20 anos sobem ou saem.
+- Olheiros: o potencial dos jovens de outros clubes aparece como intervalo; o olheiro passa 4 semanas num país e traz os 5 melhores jovens.
+- Novo separador **Mais → Clube** com tudo isto.
+
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 16 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas e o mercado.
-- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, acabar a época, gravar e voltar a carregar) e passa. Guarda 25 imagens dos ecrãs na pasta `capturas/`.
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 21 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações e os olheiros.
+- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, acabar a época, gravar e voltar a carregar) e passa. Guarda 28 imagens dos ecrãs na pasta `capturas/`.
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados dos clubes reais**: vêm da minha memória, não de uma fonte verificada. Pode haver um estádio, uma lotação ou uma cor errada.
 
@@ -81,7 +91,8 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Os contratos do teu clube renovam-se sozinhos; não há negociação de salário nem prémios.
 - Os outros clubes não fazem propostas pelos teus jogadores: és tu que os pões à venda.
 - Na via de jogador não há tática, objetivos nem mercado.
-- A evolução dos jogadores de época para época é provisória (a Fase 6 trata disso).
+- Não há equipa B/sub-23 a jogar uma competição própria; a academia faz esse papel. Só o teu clube tem academia; os outros renovam o plantel com jovens da formação, como antes.
+- O olheiro procura só jovens (até 23 anos) e um país de cada vez.
 - Só fica gravado o relato dos jogos do teu clube; dos outros fica o resultado.
 - As carreiras criadas em versões antigas mantêm os dados antigos (clubes inventados, sem contratos). Para ver tudo o que há de novo, começa uma carreira nova.
 
@@ -108,7 +119,7 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 
 ## O que preciso de ti
 
-1. Experimentar a versão 0.5 no telemóvel e dizer-me o que funciona e o que não funciona.
-2. Dizer-me se os preços, os salários e a dificuldade te parecem bem.
+1. Experimentar a versão 0.6 no telemóvel e dizer-me o que funciona e o que não funciona.
+2. Dizer-me se os preços, os salários, a velocidade de evolução dos jogadores e a dificuldade te parecem bem.
 3. Dizer-me se queres jogadores reais (é um trabalho grande: mais de 5000 nomes e atributos).
-4. Confirmar para eu começar a Fase 6 (treino, scouting e academia).
+4. Confirmar para eu começar a Fase 7 (taças, competições europeias e seleções).

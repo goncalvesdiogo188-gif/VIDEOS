@@ -6,7 +6,9 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.modelos.ContasEpoca
+import pt.futebolcarreira.nucleo.modelos.FocoTreino
 import pt.futebolcarreira.nucleo.modelos.Formacao
+import pt.futebolcarreira.nucleo.modelos.Intensidade
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.CalendarioDatas
 import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
@@ -42,12 +44,14 @@ class ResumoGravacao(
 private class EquipaG(
     val id: String, val titulos: Int, val formacao: Formacao, val automatica: Boolean,
     val mentalidade: Mentalidade? = null, val onze: List<Int>? = null, val contas: ContasEpoca? = null,
+    val foco: FocoTreino = FocoTreino.EQUILIBRADO, val intensidade: Intensidade = Intensidade.NORMAL,
 )
 
 @Serializable
 private class JogadorG(
     val id: Int, val jogos: Int, val golos: Int, val assistencias: Int, val amarelos: Int, val vermelhos: Int,
-    val somaNotas: Double, val lesao: Int, val suspensao: Int,
+    val somaNotas: Double, val lesao: Int, val suspensao: Int, val forma: Int = 50, val moral: Int = 50,
+    val jogosTreino: Int = 0,
 )
 
 /** "resultados": por jornada, por jogo, [golos da casa, golos de fora]. */
@@ -90,6 +94,7 @@ private class Gravacao(
     val relatorios: Map<String, RelatorioG> = emptyMap(),
     val historico: List<ResumoEpoca> = emptyList(),
     val mensagens: List<Mensagem> = emptyList(),
+    val olheiros: EstadoOlheiros = EstadoOlheiros(),
 )
 
 private const val VERSAO = 1
@@ -145,15 +150,16 @@ object Gravador {
             info = c.info,
             ano = g.ano,
             data = g.data.toString(),
-            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas) },
-            jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || !it.disponivel }.sortedBy { it.id }.map {
+            equipas = bd.equipas.values.map { EquipaG(it.id, it.titulos, it.formacao, it.formacaoAutomatica, it.mentalidade, it.onzeManual, it.contas, it.focoTreino, it.intensidade) },
+            jogadores = bd.jogadores.values.filter { it.epoca.jogos > 0 || !it.disponivel || it.forma != 50 || it.moral != 50 }.sortedBy { it.id }.map {
                 val e = it.epoca
-                JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao)
+                JogadorG(it.id, e.jogos, e.golos, e.assistencias, e.amarelos, e.vermelhos, e.somaNotas, it.lesao, it.suspensao, it.forma, it.moral, it.jogosNoUltimoTreino)
             },
             ligas = ligas,
             relatorios = relatorios,
             historico = g.historico.toList(),
             mensagens = c.mensagens.toList(),
+            olheiros = c.olheiros.estado,
         )
         return JSON.encodeToString(Gravacao.serializer(), gravacao)
     }
@@ -175,6 +181,8 @@ object Gravador {
             equipa.mentalidade = e.mentalidade
             equipa.onzeManual = e.onze
             e.contas?.let { equipa.contas = it }
+            equipa.focoTreino = e.foco
+            equipa.intensidade = e.intensidade
         }
         for (g in gravacao.jogadores) {
             val j = bd.jogadores[g.id] ?: continue
@@ -186,6 +194,9 @@ object Gravador {
             j.epoca.somaNotas = g.somaNotas
             j.lesao = g.lesao
             j.suspensao = g.suspensao
+            j.forma = g.forma
+            j.moral = g.moral
+            j.jogosNoUltimoTreino = g.jogosTreino
         }
 
         val gestor = GestorEpocas(bd, anoInicial = gravacao.ano, iniciar = false)
@@ -207,7 +218,7 @@ object Gravador {
         gestor.historico += gravacao.historico
         gestor.epocaFechada = gestor.epocaTerminada()
 
-        return Carreira(bd, gestor, gravacao.info).also {
+        return Carreira(bd, gestor, gravacao.info, gravacao.olheiros).also {
             it.mensagens += gravacao.mensagens
             it.baseDadosPorGravar = false
         }

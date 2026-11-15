@@ -112,6 +112,7 @@ internal fun ConteudoPlantel(
                     }
                     Row(Modifier.padding(start = 40.dp)) {
                         Text("Potencial ${j.potencial} · ${j.valor}", fontSize = 12.sp, color = secundaria)
+                        if (j.forma.isNotEmpty()) Text("  ·  ${j.forma}", fontSize = 12.sp, color = secundaria, maxLines = 1, overflow = TextOverflow.Ellipsis)
                         if (j.estado.isNotEmpty()) Text("  ·  ${j.estado}", fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
                     }
                 }

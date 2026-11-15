@@ -55,6 +55,7 @@ class BaseDados {
                     continue
                 }
                 if (e.liga !in competicoes) erros += "A equipa ${e.id} está numa liga que não existe: '${e.liga}'"
+                e.normalizar()
                 equipas[e.id] = e
             }
         }
@@ -78,12 +79,14 @@ class BaseDados {
     /** Jogadores sem clube. */
     fun livres(): List<Jogador> = jogadores.values.filter { it.equipa.isEmpty() }
 
-    /** Muda um jogador de clube ("" = fica sem clube). */
+    /** Muda um jogador de clube ("" = fica sem clube). Quem estava numa academia deixa de estar. */
     fun mudarDeEquipa(j: Jogador, destino: String) {
         equipas[j.equipa]?.let {
             it.plantel.remove(j)
+            it.academia.remove(j)
             it.invalidarForca()
         }
+        j.academia = false
         j.equipa = destino
         equipas[destino]?.let {
             it.plantel += j
@@ -100,13 +103,25 @@ class BaseDados {
         if (j.contratoAte <= 0) j.contratoAte = 2027 + j.id % 4
         jogadores[j.id] = j
         val equipa = equipas[j.equipa]
-        if (equipa != null) {
+        if (equipa != null && j.academia) {
+            equipa.academia += j
+        } else if (equipa != null) {
             equipa.plantel += j
             equipa.invalidarForca()
-        } else if (j.equipa.isNotEmpty()) {
-            erros += "O jogador ${j.nome} (${j.id}) está numa equipa que não existe: '${j.equipa}'"
+        } else {
+            if (j.equipa.isNotEmpty()) erros += "O jogador ${j.nome} (${j.id}) está numa equipa que não existe: '${j.equipa}'"
             j.equipa = ""
+            j.academia = false
         }
+    }
+
+    /** Um jovem da academia sobe ao plantel principal. */
+    fun promover(j: Jogador) {
+        val equipa = equipas[j.equipa] ?: return
+        if (!equipa.academia.remove(j)) return
+        j.academia = false
+        equipa.plantel += j
+        equipa.invalidarForca()
     }
 
     /** Remove um jogador do jogo (por exemplo, quando se reforma). */
@@ -114,6 +129,7 @@ class BaseDados {
         jogadores.remove(j.id)
         equipas[j.equipa]?.let {
             it.plantel.remove(j)
+            it.academia.remove(j)
             it.invalidarForca()
         }
     }
@@ -135,7 +151,7 @@ class BaseDados {
             val doPais = equipas.values.filter { it.pais == pais }
             ficheiros["equipas/$pais.json"] = JSON_BONITO.encodeToString(ListSerializer(Equipa.serializer()), doPais) + "\n"
             // Um jogador por linha: fica fácil de ler e de editar.
-            ficheiros["jogadores/$pais.json"] = doPais.flatMap { it.plantel }
+            ficheiros["jogadores/$pais.json"] = doPais.flatMap { it.plantel + it.academia }
                 .joinToString(",\n", "[\n", "\n]\n") { "\t" + JSON.encodeToString(Jogador.serializer(), it) }
         }
         val livres = livres().sortedBy { it.id }

@@ -1,6 +1,9 @@
 package pt.futebolcarreira
 
+import pt.futebolcarreira.nucleo.carreira.Instalacao
 import pt.futebolcarreira.nucleo.carreira.ModoCarreira
+import pt.futebolcarreira.nucleo.modelos.FocoTreino
+import pt.futebolcarreira.nucleo.modelos.Intensidade
 import pt.futebolcarreira.nucleo.modelos.Formacao
 import pt.futebolcarreira.nucleo.modelos.Mentalidade
 import pt.futebolcarreira.nucleo.simulacao.TipoEvento
@@ -63,12 +66,16 @@ class LigaUi(
 
 class JogadorUi(
     val id: Int,
-    val posicao: String, val nome: String, val idade: Int, val geral: Int, val potencial: Int, val valor: String,
+    val posicao: String, val nome: String, val idade: Int, val geral: Int,
+    /** Exato ("78") ou estimado pelos olheiros ("72–80"). */
+    val potencial: String, val valor: String,
     val jogos: Int, val golos: Int, val assistencias: Int, val nota: String,
     /** "" se está apto; senão o motivo (lesão ou castigo). */
     val estado: String,
     /** true se é o jogador do utilizador (via de jogador). */
     val meu: Boolean = false,
+    /** Forma e moral por palavras (só no clube do utilizador; "" nos outros). */
+    val forma: String = "",
 )
 
 /** Um lugar do onze inicial e quem lá joga. */
@@ -140,14 +147,14 @@ class MeuJogadorUi(val nome: String, val linha1: String, val linha2: String)
 // ---------------------------------------------------- mercado e finanças
 
 /** O que se pode fazer com um jogador no mercado. */
-enum class AcaoMercado { PAGAR_PEDIDO, OFERECER_90, OFERECER_80, PEDIR_EMPRESTIMO, CONTRATAR_LIVRE, VENDER, EMPRESTAR }
+enum class AcaoMercado { PAGAR_PEDIDO, OFERECER_90, OFERECER_80, PEDIR_EMPRESTIMO, CONTRATAR_LIVRE, VENDER, EMPRESTAR, PROMOVER, DISPENSAR }
 
 class BotaoMercadoUi(val acao: AcaoMercado, val texto: String)
 
 /** Ficha completa de um jogador: atributos, contrato e o que se pode fazer com ele. */
 class FichaJogadorUi(
     val id: Int, val nome: String, val linha1: String, val clube: String, val emblema: EmblemaUi?,
-    val geral: Int, val potencial: Int,
+    val geral: Int, val potencial: String,
     /** nome do atributo, valor (1 a 99). */
     val atributos: List<Pair<String, Int>>,
     /** título, valor (valor de mercado, salário, contrato...). */
@@ -180,6 +187,26 @@ class DirecaoUi(val objetivo: String, val direcao: Int, val adeptos: Int)
 /** Um clube que quer contratar o treinador. */
 class PropostaUi(val equipaId: String, val nome: String, val emblema: EmblemaUi, val detalhes: String)
 
+// ------------------------------------------------- treino, academia, olheiros
+
+class InstalacaoUi(val instalacao: Instalacao, val nome: String, val efeito: String, val nivel: Int, val botao: String, val podeMelhorar: Boolean)
+
+class JovemUi(val id: Int, val posicao: String, val nome: String, val idade: Int, val geral: Int, val potencial: Int)
+
+class OpcaoPaisUi(val id: String, val nome: String, val custo: String)
+
+/** Treino, instalações, academia e olheiros do clube do utilizador (só na via de treinador). */
+class GestaoClubeUi(
+    val foco: FocoTreino, val intensidade: Intensidade,
+    val instalacoes: List<InstalacaoUi>,
+    val academia: List<JovemUi>,
+    val paises: List<OpcaoPaisUi>,
+    /** "" se o olheiro está livre; senão onde está e quando volta. */
+    val olheiroEmViagem: String,
+    val relatorio: List<LinhaMercadoUi>,
+    val caixa: String,
+)
+
 /** Tudo o que os ecrãs da carreira mostram. */
 class CarreiraUi(
     val clube: String,
@@ -211,4 +238,5 @@ class CarreiraUi(
     val calendario: List<JogoCalendarioUi>,
     val plantel: PlantelUi,
     val liga: LigaUi,
+    val gestao: GestaoClubeUi?,
 )

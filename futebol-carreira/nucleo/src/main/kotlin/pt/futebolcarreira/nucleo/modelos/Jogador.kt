@@ -48,6 +48,8 @@ class Jogador(
     @SerialName("contrato_ate") var contratoAte: Int = 0,
     /** Id do clube dono do jogador, se estiver emprestado ("" = não está emprestado). */
     @SerialName("emprestado_por") var emprestadoPor: String = "",
+    /** true = está na academia do clube (não conta para o plantel nem joga). */
+    var academia: Boolean = false,
 ) {
     /** Estatísticas da época em curso. */
     @Transient
@@ -60,6 +62,21 @@ class Jogador(
     /** Jogos de castigo que ainda falta cumprir (0 = pode jogar). */
     @Transient
     var suspensao = 0
+
+    /** Forma (0 a 100; 50 = normal): sobe com boas exibições e desce com as más ou com a falta de jogos. */
+    @Transient
+    var forma = 50
+
+    /** Moral (0 a 100; 50 = normal): sobe com as vitórias, desce com as derrotas e com a falta de minutos. */
+    @Transient
+    var moral = 50
+
+    /** Jogos que tinha quando foi feita a última conta do treino (para saber se tem jogado). */
+    @Transient
+    var jogosNoUltimoTreino = 0
+
+    /** Pontos de "geral" que a forma e a moral dão ou tiram num jogo (cerca de -4 a +4). */
+    fun bonusForma(): Double = (forma - 50) / 20.0 + (moral - 50) / 40.0
 
     /** Pode ser convocado para o próximo jogo? */
     val disponivel get() = lesao == 0 && suspensao == 0

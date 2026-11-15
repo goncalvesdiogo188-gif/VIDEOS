@@ -145,9 +145,14 @@ class Fase5Test {
         assertEquals(lugares + m.lugaresNovos().let { meu.capacidade - lugares }, meu.capacidade)
         assertTrue(meu.capacidade > lugares && meu.contas.obras > 0)
 
-        // Fim da época: os emprestados voltam a casa.
+        // Fim da época: os emprestados voltam a casa (contratos longos, para não ficarem livres por acaso).
+        emprestado.contratoAte = 2035
+        cedido.contratoAte = 2035
         c.simularEpoca()
-        if (c.info.despedido) c.aceitarProposta(c.info.propostas.first())
+        if (c.info.despedido) {
+            c.aceitarProposta(c.info.propostas.first())
+            c.simularEpoca()
+        }
         c.novaEpoca()
         assertEquals(dono, emprestado.equipa)
         assertEquals(meu.id, cedido.equipa)

@@ -13,7 +13,10 @@
 		"cores": [
 			"#dc052d",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_02",
@@ -29,7 +32,10 @@
 		"cores": [
 			"#e32221",
 			"#111111"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_03",
@@ -45,7 +51,10 @@
 		"cores": [
 			"#111111",
 			"#e1000f"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_04",
@@ -61,7 +70,10 @@
 		"cores": [
 			"#fde100",
 			"#111111"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_05",
@@ -77,7 +89,10 @@
 		"cores": [
 			"#111111",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_06",
@@ -93,7 +108,10 @@
 		"cores": [
 			"#c3141e",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_07",
@@ -109,7 +127,10 @@
 		"cores": [
 			"#ffffff",
 			"#dd0741"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_08",
@@ -125,7 +146,10 @@
 		"cores": [
 			"#1d9053",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_09",
@@ -141,7 +165,10 @@
 		"cores": [
 			"#ffffff",
 			"#e32219"
-		]
+		],
+		"nivel_treino": 4,
+		"nivel_academia": 4,
+		"nivel_medico": 4
 	},
 	{
 		"id": "ALE_10",
@@ -157,7 +184,10 @@
 		"cores": [
 			"#ffffff",
 			"#111111"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_11",
@@ -173,7 +203,10 @@
 		"cores": [
 			"#65b32e",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_12",
@@ -189,7 +222,10 @@
 		"cores": [
 			"#ffffff",
 			"#ba3733"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_13",
@@ -205,7 +241,10 @@
 		"cores": [
 			"#eb1923",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_14",
@@ -221,7 +260,10 @@
 		"cores": [
 			"#624839",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_15",
@@ -237,7 +279,10 @@
 		"cores": [
 			"#1961b5",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_16",
@@ -253,7 +298,10 @@
 		"cores": [
 			"#e2001a",
 			"#00428c"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_17",
@@ -269,7 +317,10 @@
 		"cores": [
 			"#ffffff",
 			"#ed1c24"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_18",
@@ -285,7 +336,10 @@
 		"cores": [
 			"#ffffff",
 			"#0a3f86"
-		]
+		],
+		"nivel_treino": 3,
+		"nivel_academia": 3,
+		"nivel_medico": 3
 	},
 	{
 		"id": "ALE_19",
@@ -301,7 +355,10 @@
 		"cores": [
 			"#00428c",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_20",
@@ -317,7 +374,10 @@
 		"cores": [
 			"#005ba5",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_21",
@@ -333,7 +393,10 @@
 		"cores": [
 			"#004d9d",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_22",
@@ -349,7 +412,10 @@
 		"cores": [
 			"#005ca9",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_23",
@@ -365,7 +431,10 @@
 		"cores": [
 			"#e2001a",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_24",
@@ -381,7 +450,10 @@
 		"cores": [
 			"#1c9b47",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_25",
@@ -397,7 +469,10 @@
 		"cores": [
 			"#d2122e",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_26",
@@ -413,7 +488,10 @@
 		"cores": [
 			"#00428c",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_27",
@@ -429,7 +507,10 @@
 		"cores": [
 			"#9d0208",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_28",
@@ -445,7 +526,10 @@
 		"cores": [
 			"#005ca9",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_29",
@@ -461,7 +545,10 @@
 		"cores": [
 			"#004e9e",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_30",
@@ -477,7 +564,10 @@
 		"cores": [
 			"#009932",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_31",
@@ -493,7 +583,10 @@
 		"cores": [
 			"#00804a",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_32",
@@ -509,7 +602,10 @@
 		"cores": [
 			"#ffd60a",
 			"#00428c"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_33",
@@ -525,7 +621,10 @@
 		"cores": [
 			"#00428c",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_34",
@@ -541,7 +640,10 @@
 		"cores": [
 			"#111111",
 			"#ffffff"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_35",
@@ -557,7 +659,10 @@
 		"cores": [
 			"#00428c",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	},
 	{
 		"id": "ALE_36",
@@ -573,6 +678,9 @@
 		"cores": [
 			"#ffd60a",
 			"#111111"
-		]
+		],
+		"nivel_treino": 2,
+		"nivel_academia": 2,
+		"nivel_medico": 2
 	}
 ]

@@ -76,7 +76,7 @@ object MotorJogo {
         fun colocar(i: Int, ficha: FichaJogador, energiaInicial: Double = 100.0) {
             emCampo[i] = ficha
             energia[i] = energiaInicial
-            notaBase[i] = Equipa.notaNoLugar(ficha.jogador, lugares[i]).toDouble()
+            notaBase[i] = Equipa.notaNoLugar(ficha.jogador, lugares[i]) + ficha.jogador.bonusForma()
             // Quem tem melhor físico cansa-se menos; o guarda-redes quase não se cansa.
             gasto[i] = if (lugares[i] == "GR") 0.1 else 0.35 + (100 - ficha.jogador.atributo("fisico")) * 0.005
         }

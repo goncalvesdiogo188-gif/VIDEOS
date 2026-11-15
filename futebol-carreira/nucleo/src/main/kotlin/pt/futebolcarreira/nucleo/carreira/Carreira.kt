@@ -60,7 +60,10 @@ class JogoDoClube(
  * Uma carreira: o mundo do jogo (base de dados + épocas) visto do lado do utilizador,
  * que é treinador de um clube ou jogador de um clube.
  */
-class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarreira) {
+class Carreira(
+    val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarreira,
+    estadoOlheiros: EstadoOlheiros = EstadoOlheiros(),
+) {
     /** Caixa de entrada: a mensagem mais recente fica em primeiro lugar. */
     val mensagens = mutableListOf<Mensagem>()
 
@@ -72,6 +75,12 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
 
     /** Transferências, empréstimos e obras. */
     val mercado = Mercado(this)
+
+    /** Jovens da academia e instalações do clube. */
+    val academia = Academia(this)
+
+    /** Viagens e relatórios do olheiro. */
+    val olheiros = Olheiros(this, estadoOlheiros)
 
     init {
         gestor.clubeDoUtilizador = info.equipaId
@@ -121,10 +130,10 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
     fun avancar(): JogoDoClube? {
         if (gestor.epocaTerminada() || info.despedido) return null
         val alvo = proximoJogo()
+        val antes = gestor.data
         if (alvo == null) {
             gestor.simularAteAoFim()
         } else {
-            val antes = gestor.data
             // Enquanto o mercado está aberto, os outros clubes também compram e vendem.
             val negocios = mercado.negociosDosOutros(6)
             if (negocios.isNotEmpty()) mensagem("Mercado: negócios dos outros clubes", negocios.take(4).joinToString(" "))
@@ -133,6 +142,13 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             // Caixa negativa preocupa a direção.
             if (equipa.orcamento < 0 && eTreinador) info.confiancaDirecao = (info.confiancaDirecao - 1).coerceAtLeast(0)
         }
+        // O treino do mês mexe nos atributos: a base de dados tem de voltar a ser gravada.
+        if (antes.monthValue != gestor.data.monthValue) baseDadosPorGravar = true
+        if (gestor.noticias.isNotEmpty()) {
+            if (eTreinador) mensagem("Treino", gestor.noticias.joinToString(" "))
+            gestor.noticias.clear()
+        }
+        olheiros.verificar()
         val jogado = alvo?.let { a -> jogosDoClube().first { it.jornada == a.jornada } }
         if (jogado != null) {
             mensagemDoJogo(jogado)
@@ -156,7 +172,10 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
         gestor.clubeDoUtilizador = info.equipaId
         gestor.avancarParaEpocaSeguinte()
         mercado.recusados.clear()
-        if (gestor.avisos.isNotEmpty()) mensagem("Contratos e empréstimos", gestor.avisos.joinToString(" "))
+        gestor.noticias.clear()
+        if (gestor.avisos.isNotEmpty()) mensagem("Plantel: o que mudou no verão", gestor.avisos.joinToString(" "))
+        val jovens = academia.novaGeracao()
+        if (eTreinador) mensagem("Academia: nova geração", "Entraram na academia: " + jovens.joinToString { "${it.nome} (${it.posicao}, ${it.idade} anos)" } + ".")
         // Propostas que ficaram por aceitar perdem-se; a confiança volta a aproximar-se do normal.
         info.propostas.clear()
         info.confiancaDirecao = (info.confiancaDirecao + 60) / 2
@@ -285,6 +304,10 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
         info.confiancaDirecao = 60
         info.confiancaAdeptos = 60
         definirObjetivo()
+        academia.garantirJovens()
+        // O olheiro do clube novo começa do zero.
+        olheiros.estado.missao = null
+        olheiros.estado.relatorio = emptyList()
         mensagem("Novo clube: ${equipa.nome}", "Assinaste contrato. Objetivo da direção: ${info.objetivoTexto.lowercase()}.")
     }
 
@@ -372,6 +395,7 @@ class Carreira(val bd: BaseDados, val gestor: GestorEpocas, val info: InfoCarrei
             val carreira = Carreira(bd, gestor, info)
             val equipa = carreira.equipa
             carreira.definirObjetivo()
+            carreira.academia.garantirJovens()
             if (modo == ModoCarreira.JOGADOR) {
                 // Um jovem promissor: ainda abaixo dos titulares, mas com muito para crescer.
                 val nivel = equipa.melhorOnze().map { it.nota }.average() - 8.0

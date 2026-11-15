@@ -50,6 +50,11 @@ object CalendarioDatas {
     fun mercadoAberto(data: LocalDate): Boolean = data.monthValue == 7 || data.monthValue == 8 || data.monthValue == 1
 
     private val MESES = listOf("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+    private val MESES_COMPLETOS = listOf("janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+
+    /** Nome do mês (1 = janeiro). */
+    fun mes(numero: Int): String = MESES_COMPLETOS[(numero - 1).coerceIn(0, 11)]
+
     private val DIAS = listOf("seg", "ter", "qua", "qui", "sex", "sáb", "dom")
 
     /** Data por extenso, curta: "sáb, 8 ago 2026". */

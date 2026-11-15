@@ -85,7 +85,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 )
                 2 -> SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
                 3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel)
-                else -> Mais(ui, !jogo.ocupado, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirJogoDoClube, jogo::ampliarEstadio)
+                else -> Mais(ui, !jogo.ocupado, jogo)
             }
         }
     }
@@ -346,21 +346,19 @@ private fun Calendario(jogos: List<JogoCalendarioUi>, aoAbrirJogo: (Int) -> Unit
 // -------------------------------------------------------------------- mais
 
 @Composable
-private fun Mais(
-    ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit,
-    aoAbrirJogo: (Int) -> Unit, aoAmpliar: () -> Unit,
-) {
+private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     var separador by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         TabRow(selectedTabIndex = separador) {
-            listOf("Finanças", "Calendário", "Opções").forEachIndexed { i, nome ->
-                Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome) })
+            listOf("Clube", "Finanças", "Jogos", "Opções").forEachIndexed { i, nome ->
+                Tab(selected = separador == i, onClick = { separador = i }, text = { Text(nome, maxLines = 1) })
             }
         }
         when (separador) {
-            0 -> SeparadorFinancas(ui.financas, ativo, aoAmpliar)
-            1 -> Calendario(ui.calendario, aoAbrirJogo)
-            else -> Opcoes(ui, ativo, aoSimularEpoca, aoSair)
+            0 -> SeparadorClube(ui.gestao, ativo, jogo)
+            1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
+            2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube)
+            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu)
         }
     }
 }

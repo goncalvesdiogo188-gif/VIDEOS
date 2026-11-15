@@ -61,7 +61,8 @@ object FimDeEpoca {
                 }
                 j.emprestadoPor = ""
             }
-            if (j.equipa.isEmpty() || j.contratoAte > fim) continue
+            // Os jovens da academia só assinam contrato a sério quando sobem ao plantel.
+            if (j.equipa.isEmpty() || j.academia || j.contratoAte > fim) continue
             val renova = j.equipa == clubeDoUtilizador || rng.nextDouble() < 0.8 || j.idade >= 33
             if (renova) {
                 j.contratoAte = fim + rng.nextInt(1, 4)
