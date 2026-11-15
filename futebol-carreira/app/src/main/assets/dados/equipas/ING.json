@@ -1,642 +1,706 @@
 [
 	{
 		"id": "ING_01",
-		"nome": "FC Ashford Vale",
-		"abreviatura": "ASH",
+		"nome": "Liverpool",
+		"abreviatura": "LIV",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Ashford Vale",
-		"estadio": "Ashford Vale Road Stadium",
-		"capacidade": 79500,
+		"cidade": "Liverpool",
+		"estadio": "Anfield",
+		"capacidade": 61276,
 		"reputacao": 89,
 		"orcamento": 377200000,
 		"cores": [
-			"#8d99ae",
-			"#7b2cbf"
+			"#c8102e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_02",
-		"nome": "Northbridge Town",
-		"abreviatura": "NOR",
+		"nome": "Arsenal",
+		"abreviatura": "ARS",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Northbridge",
-		"estadio": "Northbridge Arena",
-		"capacidade": 71900,
-		"reputacao": 86,
-		"orcamento": 248100000,
+		"cidade": "Londres",
+		"estadio": "Emirates Stadium",
+		"capacidade": 60704,
+		"reputacao": 88,
+		"orcamento": 328000000,
 		"cores": [
-			"#ffffff",
-			"#111111"
+			"#ef0107",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_03",
-		"nome": "Kingsmere Wanderers",
-		"abreviatura": "KIN",
+		"nome": "Manchester City",
+		"abreviatura": "MCI",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Kingsmere",
-		"estadio": "Kingsmere Park",
-		"capacidade": 64700,
-		"reputacao": 83,
-		"orcamento": 163200000,
+		"cidade": "Manchester",
+		"estadio": "Etihad Stadium",
+		"capacidade": 53400,
+		"reputacao": 88,
+		"orcamento": 328000000,
 		"cores": [
-			"#2a9d8f",
-			"#7b2cbf"
+			"#6cabdd",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_04",
-		"nome": "FC Redcliffe",
-		"abreviatura": "RED",
+		"nome": "Chelsea",
+		"abreviatura": "CHE",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Redcliffe",
-		"estadio": "Redcliffe Arena",
-		"capacidade": 60200,
-		"reputacao": 81,
-		"orcamento": 123500000,
+		"cidade": "Londres",
+		"estadio": "Stamford Bridge",
+		"capacidade": 40343,
+		"reputacao": 85,
+		"orcamento": 215800000,
 		"cores": [
-			"#d62828",
-			"#8d99ae"
+			"#034694",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_05",
-		"nome": "FC Westhaven",
-		"abreviatura": "WES",
+		"nome": "Newcastle United",
+		"abreviatura": "NEW",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Westhaven",
-		"estadio": "Westhaven Park",
-		"capacidade": 62400,
-		"reputacao": 82,
-		"orcamento": 141900000,
+		"cidade": "Newcastle",
+		"estadio": "St James' Park",
+		"capacidade": 52305,
+		"reputacao": 83,
+		"orcamento": 163200000,
 		"cores": [
-			"#7b2cbf",
+			"#111111",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_06",
-		"nome": "Blackmoor Town",
-		"abreviatura": "BLA",
+		"nome": "Aston Villa",
+		"abreviatura": "AVL",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Blackmoor",
-		"estadio": "Blackmoor Road Stadium",
-		"capacidade": 55800,
-		"reputacao": 79,
-		"orcamento": 93400000,
+		"cidade": "Birmingham",
+		"estadio": "Villa Park",
+		"capacidade": 42657,
+		"reputacao": 82,
+		"orcamento": 141900000,
 		"cores": [
-			"#ffffff",
-			"#6a4c93"
+			"#670e36",
+			"#95bfe5"
 		]
 	},
 	{
 		"id": "ING_07",
-		"nome": "Stonebridge Rovers",
-		"abreviatura": "STO",
+		"nome": "Nottingham Forest",
+		"abreviatura": "NFO",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Stonebridge",
-		"estadio": "Stonebridge Park",
-		"capacidade": 47500,
-		"reputacao": 75,
-		"orcamento": 53500000,
+		"cidade": "Nottingham",
+		"estadio": "City Ground",
+		"capacidade": 30445,
+		"reputacao": 79,
+		"orcamento": 93400000,
 		"cores": [
-			"#7b2cbf",
-			"#ffd60a"
+			"#dd0000",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_08",
-		"nome": "FC Elmhurst",
-		"abreviatura": "ELM",
+		"nome": "Brighton & Hove Albion",
+		"abreviatura": "BHA",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Elmhurst",
-		"estadio": "Elmhurst Arena",
-		"capacidade": 47500,
-		"reputacao": 75,
-		"orcamento": 53500000,
+		"cidade": "Brighton",
+		"estadio": "Amex Stadium",
+		"capacidade": 31800,
+		"reputacao": 79,
+		"orcamento": 93400000,
 		"cores": [
-			"#6a4c93",
-			"#111111"
+			"#0057b8",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_09",
-		"nome": "Harrowgate Athletic",
-		"abreviatura": "HAR",
+		"nome": "AFC Bournemouth",
+		"abreviatura": "BOU",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Harrowgate",
-		"estadio": "Harrowgate Road Stadium",
-		"capacidade": 47500,
-		"reputacao": 75,
-		"orcamento": 53500000,
+		"cidade": "Bournemouth",
+		"estadio": "Vitality Stadium",
+		"capacidade": 11307,
+		"reputacao": 78,
+		"orcamento": 81300000,
 		"cores": [
-			"#d62828",
-			"#9d0208"
+			"#da291c",
+			"#111111"
 		]
 	},
 	{
 		"id": "ING_10",
-		"nome": "Thornbury Albion",
-		"abreviatura": "THO",
+		"nome": "Brentford",
+		"abreviatura": "BRE",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Thornbury",
-		"estadio": "Thornbury Road Stadium",
-		"capacidade": 43600,
-		"reputacao": 73,
-		"orcamento": 40500000,
+		"cidade": "Londres",
+		"estadio": "Gtech Community Stadium",
+		"capacidade": 17250,
+		"reputacao": 77,
+		"orcamento": 70700000,
 		"cores": [
-			"#0077b6",
-			"#ffd60a"
+			"#e30613",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_11",
-		"nome": "Millbrook County",
-		"abreviatura": "MIL",
+		"nome": "Fulham",
+		"abreviatura": "FUL",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Millbrook",
-		"estadio": "Millbrook Park",
-		"capacidade": 41800,
-		"reputacao": 72,
-		"orcamento": 35300000,
+		"cidade": "Londres",
+		"estadio": "Craven Cottage",
+		"capacidade": 29600,
+		"reputacao": 77,
+		"orcamento": 70700000,
 		"cores": [
-			"#6a4c93",
+			"#ffffff",
 			"#111111"
 		]
 	},
 	{
 		"id": "ING_12",
-		"nome": "Oakfield Wanderers",
-		"abreviatura": "OAK",
+		"nome": "Crystal Palace",
+		"abreviatura": "CRY",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Oakfield",
-		"estadio": "Oakfield Road Stadium",
-		"capacidade": 39900,
-		"reputacao": 71,
-		"orcamento": 30700000,
+		"cidade": "Londres",
+		"estadio": "Selhurst Park",
+		"capacidade": 25486,
+		"reputacao": 79,
+		"orcamento": 93400000,
 		"cores": [
-			"#1d3557",
-			"#2b9348"
+			"#1b458f",
+			"#c4122e"
 		]
 	},
 	{
 		"id": "ING_13",
-		"nome": "Riverton Wanderers",
-		"abreviatura": "RIV",
+		"nome": "Everton",
+		"abreviatura": "EVE",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Riverton",
-		"estadio": "Riverton Arena",
-		"capacidade": 36400,
-		"reputacao": 69,
-		"orcamento": 23300000,
+		"cidade": "Liverpool",
+		"estadio": "Hill Dickinson Stadium",
+		"capacidade": 52888,
+		"reputacao": 77,
+		"orcamento": 70700000,
 		"cores": [
-			"#6a4c93",
-			"#2b9348"
-		]
-	},
-	{
-		"id": "ING_14",
-		"nome": "Castlewick Athletic",
-		"abreviatura": "CAL",
-		"pais": "ING",
-		"liga": "ING1",
-		"cidade": "Castlewick",
-		"estadio": "Castlewick Road Stadium",
-		"capacidade": 36400,
-		"reputacao": 69,
-		"orcamento": 23300000,
-		"cores": [
-			"#0077b6",
-			"#2b9348"
-		]
-	},
-	{
-		"id": "ING_15",
-		"nome": "Eastmarsh Athletic",
-		"abreviatura": "EAS",
-		"pais": "ING",
-		"liga": "ING1",
-		"cidade": "Eastmarsh",
-		"estadio": "Eastmarsh Arena",
-		"capacidade": 36400,
-		"reputacao": 69,
-		"orcamento": 23300000,
-		"cores": [
-			"#f4a261",
-			"#ffd60a"
-		]
-	},
-	{
-		"id": "ING_16",
-		"nome": "FC Whitcombe",
-		"abreviatura": "WHI",
-		"pais": "ING",
-		"liga": "ING1",
-		"cidade": "Whitcombe",
-		"estadio": "Whitcombe Park",
-		"capacidade": 34700,
-		"reputacao": 68,
-		"orcamento": 20300000,
-		"cores": [
-			"#ffd60a",
-			"#e85d04"
-		]
-	},
-	{
-		"id": "ING_17",
-		"nome": "Greywater City",
-		"abreviatura": "GRE",
-		"pais": "ING",
-		"liga": "ING1",
-		"cidade": "Greywater",
-		"estadio": "Greywater Park",
-		"capacidade": 28400,
-		"reputacao": 64,
-		"orcamento": 11700000,
-		"cores": [
-			"#6a4c93",
+			"#003399",
 			"#ffffff"
 		]
 	},
 	{
-		"id": "ING_18",
-		"nome": "Fernleigh Rovers",
-		"abreviatura": "FER",
+		"id": "ING_14",
+		"nome": "West Ham United",
+		"abreviatura": "WHU",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Fernleigh",
-		"estadio": "Fernleigh Park",
-		"capacidade": 28400,
-		"reputacao": 64,
-		"orcamento": 11700000,
+		"cidade": "Londres",
+		"estadio": "London Stadium",
+		"capacidade": 62500,
+		"reputacao": 77,
+		"orcamento": 70700000,
 		"cores": [
-			"#8d99ae",
-			"#2b9348"
+			"#7a263a",
+			"#1bb1e7"
 		]
 	},
 	{
-		"id": "ING_19",
-		"nome": "Dunmore Athletic",
-		"abreviatura": "DUN",
+		"id": "ING_15",
+		"nome": "Manchester United",
+		"abreviatura": "MUN",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Dunmore",
-		"estadio": "Dunmore Road Stadium",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
+		"cidade": "Manchester",
+		"estadio": "Old Trafford",
+		"capacidade": 74310,
+		"reputacao": 83,
+		"orcamento": 163200000,
 		"cores": [
-			"#0077b6",
+			"#da291c",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ING_16",
+		"nome": "Wolverhampton Wanderers",
+		"abreviatura": "WOL",
+		"pais": "ING",
+		"liga": "ING1",
+		"cidade": "Wolverhampton",
+		"estadio": "Molineux",
+		"capacidade": 31750,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#fdb913",
 			"#111111"
 		]
 	},
 	{
-		"id": "ING_20",
-		"nome": "Marlowe Athletic",
-		"abreviatura": "MAL",
+		"id": "ING_17",
+		"nome": "Tottenham Hotspur",
+		"abreviatura": "TOT",
 		"pais": "ING",
 		"liga": "ING1",
-		"cidade": "Marlowe",
-		"estadio": "Marlowe Arena",
-		"capacidade": 28400,
-		"reputacao": 64,
-		"orcamento": 11700000,
+		"cidade": "Londres",
+		"estadio": "Tottenham Hotspur Stadium",
+		"capacidade": 62850,
+		"reputacao": 83,
+		"orcamento": 163200000,
 		"cores": [
-			"#d62828",
-			"#e85d04"
+			"#ffffff",
+			"#132257"
+		]
+	},
+	{
+		"id": "ING_18",
+		"nome": "Leeds United",
+		"abreviatura": "LEE",
+		"pais": "ING",
+		"liga": "ING1",
+		"cidade": "Leeds",
+		"estadio": "Elland Road",
+		"capacidade": 37645,
+		"reputacao": 74,
+		"orcamento": 46600000,
+		"cores": [
+			"#ffffff",
+			"#1d428a"
+		]
+	},
+	{
+		"id": "ING_19",
+		"nome": "Burnley",
+		"abreviatura": "BRN",
+		"pais": "ING",
+		"liga": "ING1",
+		"cidade": "Burnley",
+		"estadio": "Turf Moor",
+		"capacidade": 21944,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#6c1d45",
+			"#99d6ea"
+		]
+	},
+	{
+		"id": "ING_20",
+		"nome": "Sunderland",
+		"abreviatura": "SUN",
+		"pais": "ING",
+		"liga": "ING1",
+		"cidade": "Sunderland",
+		"estadio": "Stadium of Light",
+		"capacidade": 49000,
+		"reputacao": 73,
+		"orcamento": 40500000,
+		"cores": [
+			"#eb172b",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_21",
-		"nome": "Ironvale Town",
-		"abreviatura": "IRO",
+		"nome": "Leicester City",
+		"abreviatura": "LEI",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Ironvale",
-		"estadio": "Ironvale Park",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
+		"cidade": "Leicester",
+		"estadio": "King Power Stadium",
+		"capacidade": 32259,
+		"reputacao": 70,
+		"orcamento": 26700000,
 		"cores": [
-			"#6a4c93",
-			"#9d0208"
+			"#003090",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_22",
-		"nome": "Southmere Town",
-		"abreviatura": "SOU",
+		"nome": "Ipswich Town",
+		"abreviatura": "IPS",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Southmere",
-		"estadio": "Southmere Park",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
+		"cidade": "Ipswich",
+		"estadio": "Portman Road",
+		"capacidade": 30056,
+		"reputacao": 69,
+		"orcamento": 23300000,
 		"cores": [
-			"#1d3557",
-			"#d62828"
+			"#3a64a3",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_23",
-		"nome": "FC Brackenhill",
-		"abreviatura": "BRA",
+		"nome": "Southampton",
+		"abreviatura": "SOU",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Brackenhill",
-		"estadio": "Brackenhill Park",
-		"capacidade": 24100,
-		"reputacao": 61,
-		"orcamento": 7800000,
+		"cidade": "Southampton",
+		"estadio": "St Mary's Stadium",
+		"capacidade": 32384,
+		"reputacao": 70,
+		"orcamento": 26700000,
 		"cores": [
-			"#6a4c93",
-			"#e85d04"
+			"#d71920",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_24",
-		"nome": "FC Lakewood",
-		"abreviatura": "LAK",
+		"nome": "Sheffield United",
+		"abreviatura": "SHU",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Lakewood",
-		"estadio": "Lakewood Arena",
-		"capacidade": 20200,
-		"reputacao": 58,
-		"orcamento": 5200000,
+		"cidade": "Sheffield",
+		"estadio": "Bramall Lane",
+		"capacidade": 32050,
+		"reputacao": 68,
+		"orcamento": 20300000,
 		"cores": [
-			"#111111",
-			"#6a4c93"
+			"#ee2737",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_25",
-		"nome": "FC Foxbury",
-		"abreviatura": "FOX",
+		"nome": "Coventry City",
+		"abreviatura": "COV",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Foxbury",
-		"estadio": "Foxbury Park",
-		"capacidade": 25500,
-		"reputacao": 62,
-		"orcamento": 8900000,
+		"cidade": "Coventry",
+		"estadio": "Coventry Building Society Arena",
+		"capacidade": 32609,
+		"reputacao": 67,
+		"orcamento": 17700000,
 		"cores": [
-			"#1d3557",
+			"#78bef0",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_26",
-		"nome": "Hollowell Rovers",
-		"abreviatura": "HOL",
+		"nome": "Bristol City",
+		"abreviatura": "BRC",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Hollowell",
-		"estadio": "Hollowell Arena",
-		"capacidade": 20200,
-		"reputacao": 58,
-		"orcamento": 5200000,
+		"cidade": "Bristol",
+		"estadio": "Ashton Gate",
+		"capacidade": 27000,
+		"reputacao": 65,
+		"orcamento": 13400000,
 		"cores": [
-			"#0077b6",
-			"#e85d04"
+			"#e21a23",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_27",
-		"nome": "Kestrel Bay Albion",
-		"abreviatura": "KES",
+		"nome": "Blackburn Rovers",
+		"abreviatura": "BLB",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Kestrel Bay",
-		"estadio": "Kestrel Bay Arena",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Blackburn",
+		"estadio": "Ewood Park",
+		"capacidade": 31367,
+		"reputacao": 64,
+		"orcamento": 11700000,
 		"cores": [
-			"#6a4c93",
-			"#2a9d8f"
+			"#009ee0",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_28",
-		"nome": "Longmead United",
-		"abreviatura": "LON",
+		"nome": "Millwall",
+		"abreviatura": "MIL",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Longmead",
-		"estadio": "Longmead Park",
-		"capacidade": 19000,
-		"reputacao": 57,
-		"orcamento": 4600000,
+		"cidade": "Londres",
+		"estadio": "The Den",
+		"capacidade": 20146,
+		"reputacao": 64,
+		"orcamento": 11700000,
 		"cores": [
-			"#e85d04",
-			"#f4a261"
+			"#001d5e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_29",
-		"nome": "Norcastle United",
-		"abreviatura": "NOC",
+		"nome": "West Bromwich Albion",
+		"abreviatura": "WBA",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Norcastle",
-		"estadio": "Norcastle Park",
-		"capacidade": 16700,
-		"reputacao": 55,
-		"orcamento": 3500000,
+		"cidade": "West Bromwich",
+		"estadio": "The Hawthorns",
+		"capacidade": 26850,
+		"reputacao": 66,
+		"orcamento": 15400000,
 		"cores": [
-			"#8d99ae",
-			"#6a4c93"
+			"#122f67",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_30",
-		"nome": "Pendlewood Athletic",
-		"abreviatura": "PEL",
+		"nome": "Middlesbrough",
+		"abreviatura": "MID",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Pendlewood",
-		"estadio": "Pendlewood Arena",
-		"capacidade": 19000,
-		"reputacao": 57,
-		"orcamento": 4600000,
+		"cidade": "Middlesbrough",
+		"estadio": "Riverside Stadium",
+		"capacidade": 34742,
+		"reputacao": 67,
+		"orcamento": 17700000,
 		"cores": [
-			"#111111",
-			"#8d99ae"
+			"#e11b22",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_31",
-		"nome": "Queensholt Wanderers",
-		"abreviatura": "QUE",
+		"nome": "Swansea City",
+		"abreviatura": "SWA",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Queensholt",
-		"estadio": "Queensholt Arena",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Swansea",
+		"estadio": "Swansea.com Stadium",
+		"capacidade": 21088,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#ffd60a",
-			"#0077b6"
+			"#ffffff",
+			"#111111"
 		]
 	},
 	{
 		"id": "ING_32",
-		"nome": "Ravenmoor Albion",
-		"abreviatura": "RAV",
+		"nome": "Sheffield Wednesday",
+		"abreviatura": "SHW",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Ravenmoor",
-		"estadio": "Ravenmoor Park",
-		"capacidade": 15600,
-		"reputacao": 54,
-		"orcamento": 3100000,
+		"cidade": "Sheffield",
+		"estadio": "Hillsborough",
+		"capacidade": 34835,
+		"reputacao": 61,
+		"orcamento": 7800000,
 		"cores": [
-			"#f4a261",
-			"#9d0208"
+			"#4482d0",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_33",
-		"nome": "Saltwick Athletic",
-		"abreviatura": "SAT",
+		"nome": "Norwich City",
+		"abreviatura": "NOR",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Saltwick",
-		"estadio": "Saltwick Park",
-		"capacidade": 15600,
-		"reputacao": 54,
-		"orcamento": 3100000,
+		"cidade": "Norwich",
+		"estadio": "Carrow Road",
+		"capacidade": 27359,
+		"reputacao": 65,
+		"orcamento": 13400000,
 		"cores": [
-			"#0077b6",
-			"#e85d04"
+			"#fff200",
+			"#00a650"
 		]
 	},
 	{
 		"id": "ING_34",
-		"nome": "Tidewell County",
-		"abreviatura": "TID",
+		"nome": "Watford",
+		"abreviatura": "WAT",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Tidewell",
-		"estadio": "Tidewell Arena",
-		"capacidade": 14600,
-		"reputacao": 53,
-		"orcamento": 2700000,
+		"cidade": "Watford",
+		"estadio": "Vicarage Road",
+		"capacidade": 22200,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#1d3557",
-			"#f4a261"
+			"#fbee23",
+			"#111111"
 		]
 	},
 	{
 		"id": "ING_35",
-		"nome": "FC Upperton",
-		"abreviatura": "UPP",
+		"nome": "Queens Park Rangers",
+		"abreviatura": "QPR",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Upperton",
-		"estadio": "Upperton Road Stadium",
-		"capacidade": 12700,
-		"reputacao": 51,
-		"orcamento": 2100000,
+		"cidade": "Londres",
+		"estadio": "Loftus Road",
+		"capacidade": 18439,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#7b2cbf",
-			"#d62828"
+			"#1d5ba4",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_36",
-		"nome": "Winterbourne Town",
-		"abreviatura": "WIN",
+		"nome": "Portsmouth",
+		"abreviatura": "PRT",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Winterbourne",
-		"estadio": "Winterbourne Road Stadium",
-		"capacidade": 14600,
-		"reputacao": 53,
-		"orcamento": 2700000,
+		"cidade": "Portsmouth",
+		"estadio": "Fratton Park",
+		"capacidade": 20899,
+		"reputacao": 61,
+		"orcamento": 7800000,
 		"cores": [
-			"#7b2cbf",
-			"#2a9d8f"
+			"#001489",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_37",
-		"nome": "Yarrowby Town",
-		"abreviatura": "YAR",
+		"nome": "Oxford United",
+		"abreviatura": "OXF",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Yarrowby",
-		"estadio": "Yarrowby Road Stadium",
-		"capacidade": 12700,
-		"reputacao": 51,
-		"orcamento": 2100000,
+		"cidade": "Oxford",
+		"estadio": "Kassam Stadium",
+		"capacidade": 12500,
+		"reputacao": 59,
+		"orcamento": 5900000,
 		"cores": [
-			"#2b9348",
-			"#d62828"
+			"#fff200",
+			"#001958"
 		]
 	},
 	{
 		"id": "ING_38",
-		"nome": "Abbotsley United",
-		"abreviatura": "ABB",
+		"nome": "Stoke City",
+		"abreviatura": "STK",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Abbotsley",
-		"estadio": "Abbotsley Road Stadium",
-		"capacidade": 10900,
-		"reputacao": 49,
-		"orcamento": 1700000,
+		"cidade": "Stoke-on-Trent",
+		"estadio": "bet365 Stadium",
+		"capacidade": 30089,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#e85d04",
-			"#f4a261"
+			"#e03a3e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ING_39",
-		"nome": "Coldharbour City",
-		"abreviatura": "COL",
+		"nome": "Derby County",
+		"abreviatura": "DER",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Coldharbour",
-		"estadio": "Coldharbour Road Stadium",
-		"capacidade": 11800,
-		"reputacao": 50,
-		"orcamento": 1900000,
+		"cidade": "Derby",
+		"estadio": "Pride Park",
+		"capacidade": 32956,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#6a4c93",
-			"#0077b6"
+			"#ffffff",
+			"#111111"
 		]
 	},
 	{
 		"id": "ING_40",
-		"nome": "Wrenfield Athletic",
+		"nome": "Preston North End",
+		"abreviatura": "PNE",
+		"pais": "ING",
+		"liga": "ING2",
+		"cidade": "Preston",
+		"estadio": "Deepdale",
+		"capacidade": 23408,
+		"reputacao": 61,
+		"orcamento": 7800000,
+		"cores": [
+			"#ffffff",
+			"#000055"
+		]
+	},
+	{
+		"id": "ING_41",
+		"nome": "Hull City",
+		"abreviatura": "HUL",
+		"pais": "ING",
+		"liga": "ING2",
+		"cidade": "Hull",
+		"estadio": "MKM Stadium",
+		"capacidade": 25586,
+		"reputacao": 62,
+		"orcamento": 8900000,
+		"cores": [
+			"#f5a12d",
+			"#111111"
+		]
+	},
+	{
+		"id": "ING_42",
+		"nome": "Birmingham City",
+		"abreviatura": "BIR",
+		"pais": "ING",
+		"liga": "ING2",
+		"cidade": "Birmingham",
+		"estadio": "St Andrew's",
+		"capacidade": 29409,
+		"reputacao": 66,
+		"orcamento": 15400000,
+		"cores": [
+			"#0000ff",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ING_43",
+		"nome": "Wrexham",
 		"abreviatura": "WRE",
 		"pais": "ING",
 		"liga": "ING2",
-		"cidade": "Wrenfield",
-		"estadio": "Wrenfield Road Stadium",
-		"capacidade": 10100,
-		"reputacao": 48,
-		"orcamento": 1500000,
+		"cidade": "Wrexham",
+		"estadio": "Racecourse Ground",
+		"capacidade": 13341,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#111111",
-			"#1d3557"
+			"#d2122e",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ING_44",
+		"nome": "Charlton Athletic",
+		"abreviatura": "CHA",
+		"pais": "ING",
+		"liga": "ING2",
+		"cidade": "Londres",
+		"estadio": "The Valley",
+		"capacidade": 27111,
+		"reputacao": 60,
+		"orcamento": 6800000,
+		"cores": [
+			"#d2122e",
+			"#ffffff"
 		]
 	}
 ]

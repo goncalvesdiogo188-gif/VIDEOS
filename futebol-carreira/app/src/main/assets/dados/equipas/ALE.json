@@ -1,578 +1,578 @@
 [
 	{
 		"id": "ALE_01",
-		"nome": "Fortuna Hohenberg",
-		"abreviatura": "HOH",
+		"nome": "Bayern München",
+		"abreviatura": "FCB",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Hohenberg",
-		"estadio": "Waldstadion Hohenberg",
-		"capacidade": 69500,
-		"reputacao": 85,
-		"orcamento": 215800000,
+		"cidade": "Munique",
+		"estadio": "Allianz Arena",
+		"capacidade": 75024,
+		"reputacao": 89,
+		"orcamento": 377200000,
 		"cores": [
-			"#d62828",
-			"#f4a261"
+			"#dc052d",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_02",
-		"nome": "Eintracht Steinhafen",
-		"abreviatura": "STE",
+		"nome": "Bayer Leverkusen",
+		"abreviatura": "B04",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Steinhafen",
-		"estadio": "Steinhafen-Stadion",
-		"capacidade": 69500,
-		"reputacao": 85,
-		"orcamento": 215800000,
+		"cidade": "Leverkusen",
+		"estadio": "BayArena",
+		"capacidade": 30210,
+		"reputacao": 84,
+		"orcamento": 187600000,
 		"cores": [
-			"#111111",
-			"#2b9348"
-		]
-	},
-	{
-		"id": "ALE_03",
-		"nome": "TSV Waldbruck",
-		"abreviatura": "WAL",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Waldbruck",
-		"estadio": "Waldstadion Waldbruck",
-		"capacidade": 62400,
-		"reputacao": 82,
-		"orcamento": 141900000,
-		"cores": [
-			"#2a9d8f",
-			"#ffffff"
-		]
-	},
-	{
-		"id": "ALE_04",
-		"nome": "Borussia Neustadt am See",
-		"abreviatura": "NEU",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Neustadt am See",
-		"estadio": "Neustadt am See-Stadion",
-		"capacidade": 55800,
-		"reputacao": 79,
-		"orcamento": 93400000,
-		"cores": [
-			"#8d99ae",
-			"#f4a261"
-		]
-	},
-	{
-		"id": "ALE_05",
-		"nome": "TSV Rheinmark",
-		"abreviatura": "RHE",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Rheinmark",
-		"estadio": "Rheinmark-Arena",
-		"capacidade": 49500,
-		"reputacao": 76,
-		"orcamento": 61500000,
-		"cores": [
-			"#2a9d8f",
-			"#1d3557"
-		]
-	},
-	{
-		"id": "ALE_06",
-		"nome": "SC Eisenburg",
-		"abreviatura": "EIS",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Eisenburg",
-		"estadio": "Waldstadion Eisenburg",
-		"capacidade": 49500,
-		"reputacao": 76,
-		"orcamento": 61500000,
-		"cores": [
-			"#9d0208",
-			"#ffd60a"
-		]
-	},
-	{
-		"id": "ALE_07",
-		"nome": "Union Lindenthal",
-		"abreviatura": "LIN",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Lindenthal",
-		"estadio": "Lindenthal-Stadion",
-		"capacidade": 47500,
-		"reputacao": 75,
-		"orcamento": 53500000,
-		"cores": [
-			"#e85d04",
-			"#ffffff"
-		]
-	},
-	{
-		"id": "ALE_08",
-		"nome": "Eintracht Schwarzbach",
-		"abreviatura": "SCH",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Schwarzbach",
-		"estadio": "Schwarzbach-Stadion",
-		"capacidade": 39900,
-		"reputacao": 71,
-		"orcamento": 30700000,
-		"cores": [
-			"#e85d04",
-			"#ffd60a"
-		]
-	},
-	{
-		"id": "ALE_09",
-		"nome": "Fortuna Königsfeld",
-		"abreviatura": "KÖN",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Königsfeld",
-		"estadio": "Waldstadion Königsfeld",
-		"capacidade": 38200,
-		"reputacao": 70,
-		"orcamento": 26700000,
-		"cores": [
-			"#8d99ae",
-			"#9d0208"
-		]
-	},
-	{
-		"id": "ALE_10",
-		"nome": "Eintracht Altenmoor",
-		"abreviatura": "ALN",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Altenmoor",
-		"estadio": "Altenmoor-Arena",
-		"capacidade": 38200,
-		"reputacao": 70,
-		"orcamento": 26700000,
-		"cores": [
-			"#111111",
-			"#ffd60a"
-		]
-	},
-	{
-		"id": "ALE_11",
-		"nome": "Union Bergwald",
-		"abreviatura": "BER",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Bergwald",
-		"estadio": "Waldstadion Bergwald",
-		"capacidade": 38200,
-		"reputacao": 70,
-		"orcamento": 26700000,
-		"cores": [
-			"#e85d04",
-			"#ffd60a"
-		]
-	},
-	{
-		"id": "ALE_12",
-		"nome": "SC Falkenau",
-		"abreviatura": "FAL",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Falkenau",
-		"estadio": "Waldstadion Falkenau",
-		"capacidade": 38200,
-		"reputacao": 70,
-		"orcamento": 26700000,
-		"cores": [
-			"#111111",
-			"#e85d04"
-		]
-	},
-	{
-		"id": "ALE_13",
-		"nome": "VfB Grünwalde",
-		"abreviatura": "GRÜ",
-		"pais": "ALE",
-		"liga": "ALE1",
-		"cidade": "Grünwalde",
-		"estadio": "Grünwalde-Arena",
-		"capacidade": 31500,
-		"reputacao": 66,
-		"orcamento": 15400000,
-		"cores": [
-			"#8d99ae",
+			"#e32221",
 			"#111111"
 		]
 	},
 	{
-		"id": "ALE_14",
-		"nome": "TSV Hafenstadt",
-		"abreviatura": "HAF",
+		"id": "ALE_03",
+		"nome": "Eintracht Frankfurt",
+		"abreviatura": "SGE",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Hafenstadt",
-		"estadio": "Hafenstadt-Stadion",
-		"capacidade": 31500,
-		"reputacao": 66,
-		"orcamento": 15400000,
+		"cidade": "Frankfurt",
+		"estadio": "Deutsche Bank Park",
+		"capacidade": 58000,
+		"reputacao": 80,
+		"orcamento": 107400000,
 		"cores": [
-			"#ffd60a",
-			"#2b9348"
+			"#111111",
+			"#e1000f"
+		]
+	},
+	{
+		"id": "ALE_04",
+		"nome": "Borussia Dortmund",
+		"abreviatura": "BVB",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Dortmund",
+		"estadio": "Signal Iduna Park",
+		"capacidade": 81365,
+		"reputacao": 84,
+		"orcamento": 187600000,
+		"cores": [
+			"#fde100",
+			"#111111"
+		]
+	},
+	{
+		"id": "ALE_05",
+		"nome": "SC Freiburg",
+		"abreviatura": "SCF",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Freiburg",
+		"estadio": "Europa-Park Stadion",
+		"capacidade": 34700,
+		"reputacao": 77,
+		"orcamento": 70700000,
+		"cores": [
+			"#111111",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_06",
+		"nome": "Mainz 05",
+		"abreviatura": "M05",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Mainz",
+		"estadio": "Mewa Arena",
+		"capacidade": 33305,
+		"reputacao": 76,
+		"orcamento": 61500000,
+		"cores": [
+			"#c3141e",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_07",
+		"nome": "RB Leipzig",
+		"abreviatura": "RBL",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Leipzig",
+		"estadio": "Red Bull Arena",
+		"capacidade": 47800,
+		"reputacao": 82,
+		"orcamento": 141900000,
+		"cores": [
+			"#ffffff",
+			"#dd0741"
+		]
+	},
+	{
+		"id": "ALE_08",
+		"nome": "Werder Bremen",
+		"abreviatura": "SVW",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Bremen",
+		"estadio": "Weserstadion",
+		"capacidade": 42100,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#1d9053",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_09",
+		"nome": "VfB Stuttgart",
+		"abreviatura": "VFB",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Estugarda",
+		"estadio": "MHPArena",
+		"capacidade": 60058,
+		"reputacao": 80,
+		"orcamento": 107400000,
+		"cores": [
+			"#ffffff",
+			"#e32219"
+		]
+	},
+	{
+		"id": "ALE_10",
+		"nome": "Borussia Mönchengladbach",
+		"abreviatura": "BMG",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Mönchengladbach",
+		"estadio": "Borussia-Park",
+		"capacidade": 54042,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#ffffff",
+			"#111111"
+		]
+	},
+	{
+		"id": "ALE_11",
+		"nome": "VfL Wolfsburg",
+		"abreviatura": "WOB",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Wolfsburg",
+		"estadio": "Volkswagen Arena",
+		"capacidade": 28917,
+		"reputacao": 75,
+		"orcamento": 53500000,
+		"cores": [
+			"#65b32e",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_12",
+		"nome": "FC Augsburg",
+		"abreviatura": "FCA",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Augsburg",
+		"estadio": "WWK Arena",
+		"capacidade": 30660,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#ffffff",
+			"#ba3733"
+		]
+	},
+	{
+		"id": "ALE_13",
+		"nome": "Union Berlin",
+		"abreviatura": "FCU",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Berlim",
+		"estadio": "An der Alten Försterei",
+		"capacidade": 22012,
+		"reputacao": 73,
+		"orcamento": 40500000,
+		"cores": [
+			"#eb1923",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_14",
+		"nome": "FC St. Pauli",
+		"abreviatura": "STP",
+		"pais": "ALE",
+		"liga": "ALE1",
+		"cidade": "Hamburgo",
+		"estadio": "Millerntor-Stadion",
+		"capacidade": 29546,
+		"reputacao": 70,
+		"orcamento": 26700000,
+		"cores": [
+			"#624839",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_15",
-		"nome": "Union Kaltenbrunn",
-		"abreviatura": "KAL",
+		"nome": "TSG Hoffenheim",
+		"abreviatura": "TSG",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Kaltenbrunn",
-		"estadio": "Waldstadion Kaltenbrunn",
-		"capacidade": 29900,
-		"reputacao": 65,
-		"orcamento": 13400000,
+		"cidade": "Sinsheim",
+		"estadio": "PreZero Arena",
+		"capacidade": 30150,
+		"reputacao": 74,
+		"orcamento": 46600000,
 		"cores": [
-			"#2a9d8f",
-			"#0077b6"
+			"#1961b5",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_16",
-		"nome": "Eintracht Lauterhof",
-		"abreviatura": "LAT",
+		"nome": "1. FC Heidenheim",
+		"abreviatura": "HDH",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Lauterhof",
-		"estadio": "Lauterhof-Stadion",
-		"capacidade": 25500,
-		"reputacao": 62,
-		"orcamento": 8900000,
+		"cidade": "Heidenheim",
+		"estadio": "Voith-Arena",
+		"capacidade": 15000,
+		"reputacao": 69,
+		"orcamento": 23300000,
 		"cores": [
-			"#d62828",
-			"#ffd60a"
+			"#e2001a",
+			"#00428c"
 		]
 	},
 	{
 		"id": "ALE_17",
-		"nome": "TSV Mühlental",
-		"abreviatura": "MÜH",
+		"nome": "1. FC Köln",
+		"abreviatura": "KOE",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Mühlental",
-		"estadio": "Mühlental-Arena",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
+		"cidade": "Colónia",
+		"estadio": "RheinEnergieStadion",
+		"capacidade": 50000,
+		"reputacao": 72,
+		"orcamento": 35300000,
 		"cores": [
-			"#2a9d8f",
-			"#0077b6"
+			"#ffffff",
+			"#ed1c24"
 		]
 	},
 	{
 		"id": "ALE_18",
-		"nome": "FC Nordhaven",
-		"abreviatura": "NOD",
+		"nome": "Hamburger SV",
+		"abreviatura": "HSV",
 		"pais": "ALE",
 		"liga": "ALE1",
-		"cidade": "Nordhaven",
-		"estadio": "Nordhaven-Stadion",
-		"capacidade": 24100,
-		"reputacao": 61,
-		"orcamento": 7800000,
+		"cidade": "Hamburgo",
+		"estadio": "Volksparkstadion",
+		"capacidade": 57000,
+		"reputacao": 72,
+		"orcamento": 35300000,
 		"cores": [
-			"#e85d04",
-			"#2b9348"
+			"#ffffff",
+			"#0a3f86"
 		]
 	},
 	{
 		"id": "ALE_19",
-		"nome": "Union Osterfeld",
-		"abreviatura": "OST",
+		"nome": "Holstein Kiel",
+		"abreviatura": "KSV",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Osterfeld",
-		"estadio": "Osterfeld-Stadion",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
+		"cidade": "Kiel",
+		"estadio": "Holstein-Stadion",
+		"capacidade": 15034,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#7b2cbf",
-			"#2b9348"
+			"#00428c",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_20",
-		"nome": "Fortuna Rosenau",
-		"abreviatura": "ROS",
+		"nome": "VfL Bochum",
+		"abreviatura": "BOC",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Rosenau",
-		"estadio": "Rosenau-Stadion",
-		"capacidade": 21500,
-		"reputacao": 59,
-		"orcamento": 5900000,
+		"cidade": "Bochum",
+		"estadio": "Vonovia Ruhrstadion",
+		"capacidade": 26000,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#1d3557",
+			"#005ba5",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_21",
-		"nome": "TSV Sonnenberg",
-		"abreviatura": "SON",
+		"nome": "Schalke 04",
+		"abreviatura": "S04",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Sonnenberg",
-		"estadio": "Waldstadion Sonnenberg",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Gelsenkirchen",
+		"estadio": "Veltins-Arena",
+		"capacidade": 62271,
+		"reputacao": 64,
+		"orcamento": 11700000,
 		"cores": [
-			"#6a4c93",
-			"#2b9348"
+			"#004d9d",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_22",
-		"nome": "Eintracht Tannenried",
-		"abreviatura": "TAN",
+		"nome": "Hertha BSC",
+		"abreviatura": "BSC",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Tannenried",
-		"estadio": "Waldstadion Tannenried",
-		"capacidade": 20200,
-		"reputacao": 58,
-		"orcamento": 5200000,
+		"cidade": "Berlim",
+		"estadio": "Olympiastadion",
+		"capacidade": 74475,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#7b2cbf",
-			"#ffd60a"
+			"#005ca9",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_23",
-		"nome": "Borussia Ulmenau",
-		"abreviatura": "ULM",
+		"nome": "Fortuna Düsseldorf",
+		"abreviatura": "F95",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Ulmenau",
-		"estadio": "Ulmenau-Arena",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Düsseldorf",
+		"estadio": "Merkur Spiel-Arena",
+		"capacidade": 54600,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#2a9d8f",
-			"#111111"
+			"#e2001a",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_24",
-		"nome": "VfB Weissenstein",
-		"abreviatura": "WEI",
+		"nome": "Hannover 96",
+		"abreviatura": "H96",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Weissenstein",
-		"estadio": "Weissenstein-Arena",
-		"capacidade": 15600,
-		"reputacao": 54,
-		"orcamento": 3100000,
+		"cidade": "Hanôver",
+		"estadio": "Heinz von Heiden Arena",
+		"capacidade": 49000,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#f4a261",
-			"#2b9348"
+			"#1c9b47",
+			"#111111"
 		]
 	},
 	{
 		"id": "ALE_25",
-		"nome": "Eintracht Zellerode",
-		"abreviatura": "ZEL",
+		"nome": "1. FC Kaiserslautern",
+		"abreviatura": "FCK",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Zellerode",
-		"estadio": "Zellerode-Arena",
-		"capacidade": 15600,
-		"reputacao": 54,
-		"orcamento": 3100000,
+		"cidade": "Kaiserslautern",
+		"estadio": "Fritz-Walter-Stadion",
+		"capacidade": 49327,
+		"reputacao": 61,
+		"orcamento": 7800000,
 		"cores": [
-			"#7b2cbf",
-			"#0077b6"
+			"#d2122e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_26",
-		"nome": "Union Adlerhorst",
-		"abreviatura": "ADL",
+		"nome": "Karlsruher SC",
+		"abreviatura": "KSC",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Adlerhorst",
-		"estadio": "Adlerhorst-Arena",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Karlsruhe",
+		"estadio": "BBBank Wildpark",
+		"capacidade": 34302,
+		"reputacao": 60,
+		"orcamento": 6800000,
 		"cores": [
-			"#8d99ae",
-			"#f4a261"
+			"#00428c",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_27",
-		"nome": "Union Birkenau",
-		"abreviatura": "BIR",
+		"nome": "1. FC Nürnberg",
+		"abreviatura": "FCN",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Birkenau",
-		"estadio": "Birkenau-Arena",
-		"capacidade": 13600,
-		"reputacao": 52,
-		"orcamento": 2400000,
+		"cidade": "Nuremberga",
+		"estadio": "Max-Morlock-Stadion",
+		"capacidade": 50000,
+		"reputacao": 60,
+		"orcamento": 6800000,
 		"cores": [
-			"#6a4c93",
+			"#9d0208",
 			"#111111"
 		]
 	},
 	{
 		"id": "ALE_28",
-		"nome": "SV Dornfeld",
-		"abreviatura": "DOR",
+		"nome": "SC Paderborn",
+		"abreviatura": "SCP",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Dornfeld",
-		"estadio": "Dornfeld-Arena",
-		"capacidade": 13600,
-		"reputacao": 52,
-		"orcamento": 2400000,
+		"cidade": "Paderborn",
+		"estadio": "Home Deluxe Arena",
+		"capacidade": 15000,
+		"reputacao": 61,
+		"orcamento": 7800000,
 		"cores": [
-			"#6a4c93",
-			"#9d0208"
-		]
-	},
-	{
-		"id": "ALE_29",
-		"nome": "SV Eichstadt",
-		"abreviatura": "EIC",
-		"pais": "ALE",
-		"liga": "ALE2",
-		"cidade": "Eichstadt",
-		"estadio": "Eichstadt-Stadion",
-		"capacidade": 13600,
-		"reputacao": 52,
-		"orcamento": 2400000,
-		"cores": [
-			"#2a9d8f",
-			"#9d0208"
-		]
-	},
-	{
-		"id": "ALE_30",
-		"nome": "FC Friedrichsau",
-		"abreviatura": "FRI",
-		"pais": "ALE",
-		"liga": "ALE2",
-		"cidade": "Friedrichsau",
-		"estadio": "Waldstadion Friedrichsau",
-		"capacidade": 12700,
-		"reputacao": 51,
-		"orcamento": 2100000,
-		"cores": [
-			"#f4a261",
+			"#005ca9",
 			"#111111"
 		]
 	},
 	{
-		"id": "ALE_31",
-		"nome": "Union Goldbach",
-		"abreviatura": "GOL",
+		"id": "ALE_29",
+		"nome": "Darmstadt 98",
+		"abreviatura": "D98",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Goldbach",
-		"estadio": "Goldbach-Arena",
-		"capacidade": 13600,
-		"reputacao": 52,
-		"orcamento": 2400000,
+		"cidade": "Darmstadt",
+		"estadio": "Merck-Stadion am Böllenfalltor",
+		"capacidade": 17810,
+		"reputacao": 60,
+		"orcamento": 6800000,
 		"cores": [
-			"#2a9d8f",
-			"#d62828"
+			"#004e9e",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_30",
+		"nome": "Greuther Fürth",
+		"abreviatura": "SGF",
+		"pais": "ALE",
+		"liga": "ALE2",
+		"cidade": "Fürth",
+		"estadio": "Sportpark Ronhof",
+		"capacidade": 16626,
+		"reputacao": 58,
+		"orcamento": 5200000,
+		"cores": [
+			"#009932",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ALE_31",
+		"nome": "Preußen Münster",
+		"abreviatura": "SCM",
+		"pais": "ALE",
+		"liga": "ALE2",
+		"cidade": "Münster",
+		"estadio": "Preußenstadion",
+		"capacidade": 12754,
+		"reputacao": 56,
+		"orcamento": 4000000,
+		"cores": [
+			"#00804a",
+			"#111111"
 		]
 	},
 	{
 		"id": "ALE_32",
-		"nome": "SV Heidenau",
-		"abreviatura": "HEI",
+		"nome": "Eintracht Braunschweig",
+		"abreviatura": "EBS",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Heidenau",
-		"estadio": "Heidenau-Stadion",
-		"capacidade": 11800,
-		"reputacao": 50,
-		"orcamento": 1900000,
+		"cidade": "Braunschweig",
+		"estadio": "Eintracht-Stadion",
+		"capacidade": 23325,
+		"reputacao": 56,
+		"orcamento": 4000000,
 		"cores": [
-			"#f4a261",
-			"#e85d04"
+			"#ffd60a",
+			"#00428c"
 		]
 	},
 	{
 		"id": "ALE_33",
-		"nome": "Borussia Isarbrück",
-		"abreviatura": "ISA",
+		"nome": "1. FC Magdeburg",
+		"abreviatura": "FCM",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Isarbrück",
-		"estadio": "Isarbrück-Stadion",
-		"capacidade": 10900,
-		"reputacao": 49,
-		"orcamento": 1700000,
+		"cidade": "Magdeburgo",
+		"estadio": "Avnet Arena",
+		"capacidade": 30098,
+		"reputacao": 59,
+		"orcamento": 5900000,
 		"cores": [
-			"#ffd60a",
-			"#2a9d8f"
+			"#00428c",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_34",
-		"nome": "Borussia Kronstadt",
-		"abreviatura": "KRO",
+		"nome": "SV Elversberg",
+		"abreviatura": "ELV",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Kronstadt",
-		"estadio": "Waldstadion Kronstadt",
-		"capacidade": 10900,
-		"reputacao": 49,
-		"orcamento": 1700000,
+		"cidade": "Spiesen-Elversberg",
+		"estadio": "Ursapharm-Arena",
+		"capacidade": 10000,
+		"reputacao": 60,
+		"orcamento": 6800000,
 		"cores": [
-			"#ffd60a",
+			"#111111",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ALE_35",
-		"nome": "Eintracht Silberthal",
-		"abreviatura": "SIL",
+		"nome": "Arminia Bielefeld",
+		"abreviatura": "DSC",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Silberthal",
-		"estadio": "Silberthal-Arena",
-		"capacidade": 10100,
-		"reputacao": 48,
-		"orcamento": 1500000,
+		"cidade": "Bielefeld",
+		"estadio": "SchücoArena",
+		"capacidade": 26515,
+		"reputacao": 58,
+		"orcamento": 5200000,
 		"cores": [
-			"#2b9348",
-			"#f4a261"
+			"#00428c",
+			"#111111"
 		]
 	},
 	{
 		"id": "ALE_36",
-		"nome": "FC Wolfsgrund",
-		"abreviatura": "WOL",
+		"nome": "Dynamo Dresden",
+		"abreviatura": "SGD",
 		"pais": "ALE",
 		"liga": "ALE2",
-		"cidade": "Wolfsgrund",
-		"estadio": "Wolfsgrund-Stadion",
-		"capacidade": 7900,
-		"reputacao": 45,
-		"orcamento": 1100000,
+		"cidade": "Dresden",
+		"estadio": "Rudolf-Harbig-Stadion",
+		"capacidade": 32085,
+		"reputacao": 57,
+		"orcamento": 4600000,
 		"cores": [
-			"#2a9d8f",
-			"#0077b6"
+			"#ffd60a",
+			"#111111"
 		]
 	}
 ]

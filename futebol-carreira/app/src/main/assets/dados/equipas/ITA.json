@@ -1,642 +1,642 @@
 [
 	{
 		"id": "ITA_01",
-		"nome": "US Montefiore",
-		"abreviatura": "MOE",
+		"nome": "SSC Napoli",
+		"abreviatura": "NAP",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Montefiore",
-		"estadio": "Stadio Comunale di Montefiore",
-		"capacidade": 71900,
-		"reputacao": 86,
-		"orcamento": 248100000,
+		"cidade": "Nápoles",
+		"estadio": "Stadio Diego Armando Maradona",
+		"capacidade": 54726,
+		"reputacao": 85,
+		"orcamento": 215800000,
 		"cores": [
-			"#1d3557",
-			"#111111"
+			"#12a0d7",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_02",
-		"nome": "Calcio Valdoro",
-		"abreviatura": "VAO",
+		"nome": "Inter",
+		"abreviatura": "INT",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Valdoro",
-		"estadio": "Stadio Comunale di Valdoro",
-		"capacidade": 62400,
-		"reputacao": 82,
-		"orcamento": 141900000,
+		"cidade": "Milão",
+		"estadio": "San Siro",
+		"capacidade": 75817,
+		"reputacao": 87,
+		"orcamento": 285300000,
 		"cores": [
-			"#9d0208",
-			"#7b2cbf"
+			"#0068a8",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_03",
-		"nome": "AC Portoreale",
-		"abreviatura": "POO",
+		"nome": "Atalanta",
+		"abreviatura": "ATA",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Portoreale",
-		"estadio": "Stadio Portoreale",
-		"capacidade": 62400,
-		"reputacao": 82,
-		"orcamento": 141900000,
+		"cidade": "Bérgamo",
+		"estadio": "Gewiss Stadium",
+		"capacidade": 24950,
+		"reputacao": 81,
+		"orcamento": 123500000,
 		"cores": [
-			"#d62828",
-			"#7b2cbf"
+			"#1e71b8",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_04",
-		"nome": "US Castelrosso",
-		"abreviatura": "CAE",
+		"nome": "Juventus",
+		"abreviatura": "JUV",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Castelrosso",
-		"estadio": "Arena Castelrosso",
-		"capacidade": 53600,
-		"reputacao": 78,
-		"orcamento": 81300000,
+		"cidade": "Turim",
+		"estadio": "Allianz Stadium",
+		"capacidade": 41507,
+		"reputacao": 83,
+		"orcamento": 163200000,
 		"cores": [
-			"#2a9d8f",
-			"#8d99ae"
+			"#ffffff",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_05",
-		"nome": "Calcio Fontanella",
-		"abreviatura": "FOT",
+		"nome": "AS Roma",
+		"abreviatura": "ROM",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Fontanella",
-		"estadio": "Stadio Fontanella",
-		"capacidade": 49500,
-		"reputacao": 76,
-		"orcamento": 61500000,
+		"cidade": "Roma",
+		"estadio": "Stadio Olimpico",
+		"capacidade": 70634,
+		"reputacao": 81,
+		"orcamento": 123500000,
 		"cores": [
-			"#d62828",
-			"#0077b6"
+			"#8e1f2f",
+			"#f0bc42"
 		]
 	},
 	{
 		"id": "ITA_06",
-		"nome": "AC Rivabella",
-		"abreviatura": "RIA",
+		"nome": "Fiorentina",
+		"abreviatura": "FIO",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Rivabella",
-		"estadio": "Arena Rivabella",
-		"capacidade": 41800,
-		"reputacao": 72,
-		"orcamento": 35300000,
+		"cidade": "Florença",
+		"estadio": "Stadio Artemio Franchi",
+		"capacidade": 43147,
+		"reputacao": 78,
+		"orcamento": 81300000,
 		"cores": [
-			"#e85d04",
-			"#1d3557"
+			"#482e92",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_07",
-		"nome": "AC Pietraviva",
-		"abreviatura": "PIE",
+		"nome": "Lazio",
+		"abreviatura": "LAZ",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Pietraviva",
-		"estadio": "Arena Pietraviva",
-		"capacidade": 41800,
-		"reputacao": 72,
-		"orcamento": 35300000,
+		"cidade": "Roma",
+		"estadio": "Stadio Olimpico",
+		"capacidade": 70634,
+		"reputacao": 79,
+		"orcamento": 93400000,
 		"cores": [
-			"#8d99ae",
-			"#f4a261"
+			"#87d8f7",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_08",
-		"nome": "FC Collalto",
-		"abreviatura": "COA",
+		"nome": "AC Milan",
+		"abreviatura": "MIL",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Collalto",
-		"estadio": "Stadio Comunale di Collalto",
-		"capacidade": 41800,
-		"reputacao": 72,
-		"orcamento": 35300000,
+		"cidade": "Milão",
+		"estadio": "San Siro",
+		"capacidade": 75817,
+		"reputacao": 83,
+		"orcamento": 163200000,
 		"cores": [
-			"#7b2cbf",
-			"#d62828"
+			"#fb090b",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_09",
-		"nome": "Unione Borgonuovo",
-		"abreviatura": "BOR",
+		"nome": "Bologna",
+		"abreviatura": "BOL",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Borgonuovo",
-		"estadio": "Arena Borgonuovo",
-		"capacidade": 39900,
-		"reputacao": 71,
-		"orcamento": 30700000,
+		"cidade": "Bolonha",
+		"estadio": "Stadio Renato Dall'Ara",
+		"capacidade": 36462,
+		"reputacao": 78,
+		"orcamento": 81300000,
 		"cores": [
-			"#9d0208",
-			"#f4a261"
+			"#1a2f48",
+			"#a21c26"
 		]
 	},
 	{
 		"id": "ITA_10",
-		"nome": "FC Marebello",
-		"abreviatura": "MAE",
+		"nome": "Como",
+		"abreviatura": "COM",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Marebello",
-		"estadio": "Arena Marebello",
-		"capacidade": 39900,
-		"reputacao": 71,
-		"orcamento": 30700000,
+		"cidade": "Como",
+		"estadio": "Stadio Giuseppe Sinigaglia",
+		"capacidade": 13602,
+		"reputacao": 75,
+		"orcamento": 53500000,
 		"cores": [
-			"#ffd60a",
+			"#00428c",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_11",
-		"nome": "US Torrebianca",
-		"abreviatura": "TOB",
+		"nome": "Torino",
+		"abreviatura": "TOR",
 		"pais": "ITA",
 		"liga": "ITA1",
-		"cidade": "Torrebianca",
-		"estadio": "Arena Torrebianca",
-		"capacidade": 36400,
-		"reputacao": 69,
-		"orcamento": 23300000,
+		"cidade": "Turim",
+		"estadio": "Stadio Olimpico Grande Torino",
+		"capacidade": 28177,
+		"reputacao": 73,
+		"orcamento": 40500000,
 		"cores": [
-			"#8d99ae",
-			"#7b2cbf"
-		]
-	},
-	{
-		"id": "ITA_12",
-		"nome": "Unione Vallombra",
-		"abreviatura": "VAM",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Vallombra",
-		"estadio": "Stadio Vallombra",
-		"capacidade": 34700,
-		"reputacao": 68,
-		"orcamento": 20300000,
-		"cores": [
-			"#f4a261",
-			"#0077b6"
-		]
-	},
-	{
-		"id": "ITA_13",
-		"nome": "Sporting Sanfelice",
-		"abreviatura": "SAF",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Sanfelice",
-		"estadio": "Stadio Comunale di Sanfelice",
-		"capacidade": 31500,
-		"reputacao": 66,
-		"orcamento": 15400000,
-		"cores": [
-			"#ffffff",
-			"#7b2cbf"
-		]
-	},
-	{
-		"id": "ITA_14",
-		"nome": "US Campoluce",
-		"abreviatura": "CAO",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Campoluce",
-		"estadio": "Stadio Campoluce",
-		"capacidade": 33100,
-		"reputacao": 67,
-		"orcamento": 17700000,
-		"cores": [
-			"#1d3557",
-			"#8d99ae"
-		]
-	},
-	{
-		"id": "ITA_15",
-		"nome": "FC Rocca d'Oro",
-		"abreviatura": "ROA",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Rocca d'Oro",
-		"estadio": "Arena Rocca d'Oro",
-		"capacidade": 28400,
-		"reputacao": 64,
-		"orcamento": 11700000,
-		"cores": [
-			"#ffd60a",
-			"#8d99ae"
-		]
-	},
-	{
-		"id": "ITA_16",
-		"nome": "Virtus Lagoscuro",
-		"abreviatura": "LAO",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Lagoscuro",
-		"estadio": "Arena Lagoscuro",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
-		"cores": [
-			"#6a4c93",
-			"#d62828"
-		]
-	},
-	{
-		"id": "ITA_17",
-		"nome": "Virtus Acquaviva",
-		"abreviatura": "ACQ",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Acquaviva",
-		"estadio": "Stadio Comunale di Acquaviva",
-		"capacidade": 25500,
-		"reputacao": 62,
-		"orcamento": 8900000,
-		"cores": [
-			"#ffffff",
-			"#6a4c93"
-		]
-	},
-	{
-		"id": "ITA_18",
-		"nome": "Atletico Monteverde",
-		"abreviatura": "MOV",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Monteverde",
-		"estadio": "Stadio Monteverde",
-		"capacidade": 26900,
-		"reputacao": 63,
-		"orcamento": 10200000,
-		"cores": [
-			"#ffffff",
-			"#6a4c93"
-		]
-	},
-	{
-		"id": "ITA_19",
-		"nome": "Calcio Pontevecchio",
-		"abreviatura": "PON",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Pontevecchio",
-		"estadio": "Arena Pontevecchio",
-		"capacidade": 22800,
-		"reputacao": 60,
-		"orcamento": 6800000,
-		"cores": [
-			"#e85d04",
-			"#8d99ae"
-		]
-	},
-	{
-		"id": "ITA_20",
-		"nome": "Virtus Belmonte",
-		"abreviatura": "BEL",
-		"pais": "ITA",
-		"liga": "ITA1",
-		"cidade": "Belmonte",
-		"estadio": "Stadio Belmonte",
-		"capacidade": 21500,
-		"reputacao": 59,
-		"orcamento": 5900000,
-		"cores": [
-			"#9d0208",
-			"#7b2cbf"
-		]
-	},
-	{
-		"id": "ITA_21",
-		"nome": "Calcio Serravalle",
-		"abreviatura": "SEA",
-		"pais": "ITA",
-		"liga": "ITA2",
-		"cidade": "Serravalle",
-		"estadio": "Stadio Comunale di Serravalle",
-		"capacidade": 22800,
-		"reputacao": 60,
-		"orcamento": 6800000,
-		"cores": [
-			"#f4a261",
-			"#1d3557"
-		]
-	},
-	{
-		"id": "ITA_22",
-		"nome": "Calcio Villalba",
-		"abreviatura": "VIB",
-		"pais": "ITA",
-		"liga": "ITA2",
-		"cidade": "Villalba",
-		"estadio": "Stadio Villalba",
-		"capacidade": 21500,
-		"reputacao": 59,
-		"orcamento": 5900000,
-		"cores": [
-			"#8d99ae",
-			"#d62828"
-		]
-	},
-	{
-		"id": "ITA_23",
-		"nome": "SS Costadoro",
-		"abreviatura": "COD",
-		"pais": "ITA",
-		"liga": "ITA2",
-		"cidade": "Costadoro",
-		"estadio": "Stadio Costadoro",
-		"capacidade": 21500,
-		"reputacao": 59,
-		"orcamento": 5900000,
-		"cores": [
-			"#d62828",
-			"#1d3557"
-		]
-	},
-	{
-		"id": "ITA_24",
-		"nome": "Unione Fiumechiaro",
-		"abreviatura": "FIU",
-		"pais": "ITA",
-		"liga": "ITA2",
-		"cidade": "Fiumechiaro",
-		"estadio": "Stadio Comunale di Fiumechiaro",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
-		"cores": [
-			"#1d3557",
+			"#8a1e03",
 			"#ffffff"
 		]
 	},
 	{
-		"id": "ITA_25",
-		"nome": "Atletico Poggiosole",
-		"abreviatura": "POG",
+		"id": "ITA_12",
+		"nome": "Udinese",
+		"abreviatura": "UDI",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Udine",
+		"estadio": "Bluenergy Stadium",
+		"capacidade": 25144,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#ffffff",
+			"#111111"
+		]
+	},
+	{
+		"id": "ITA_13",
+		"nome": "Genoa",
+		"abreviatura": "GEN",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Génova",
+		"estadio": "Stadio Luigi Ferraris",
+		"capacidade": 33205,
+		"reputacao": 72,
+		"orcamento": 35300000,
+		"cores": [
+			"#ad1919",
+			"#002e5c"
+		]
+	},
+	{
+		"id": "ITA_14",
+		"nome": "Hellas Verona",
+		"abreviatura": "VER",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Verona",
+		"estadio": "Stadio Marcantonio Bentegodi",
+		"capacidade": 31045,
+		"reputacao": 69,
+		"orcamento": 23300000,
+		"cores": [
+			"#002f6c",
+			"#ffd60a"
+		]
+	},
+	{
+		"id": "ITA_15",
+		"nome": "Cagliari",
+		"abreviatura": "CAG",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Cagliari",
+		"estadio": "Unipol Domus",
+		"capacidade": 16416,
+		"reputacao": 70,
+		"orcamento": 26700000,
+		"cores": [
+			"#a50021",
+			"#002350"
+		]
+	},
+	{
+		"id": "ITA_16",
+		"nome": "Parma",
+		"abreviatura": "PAR",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Parma",
+		"estadio": "Stadio Ennio Tardini",
+		"capacidade": 22352,
+		"reputacao": 70,
+		"orcamento": 26700000,
+		"cores": [
+			"#ffd60a",
+			"#00428c"
+		]
+	},
+	{
+		"id": "ITA_17",
+		"nome": "Lecce",
+		"abreviatura": "LEC",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Lecce",
+		"estadio": "Stadio Via del Mare",
+		"capacidade": 31533,
+		"reputacao": 69,
+		"orcamento": 23300000,
+		"cores": [
+			"#ffd60a",
+			"#d2122e"
+		]
+	},
+	{
+		"id": "ITA_18",
+		"nome": "Sassuolo",
+		"abreviatura": "SAS",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Sassuolo",
+		"estadio": "Mapei Stadium",
+		"capacidade": 21525,
+		"reputacao": 71,
+		"orcamento": 30700000,
+		"cores": [
+			"#00a651",
+			"#111111"
+		]
+	},
+	{
+		"id": "ITA_19",
+		"nome": "Pisa",
+		"abreviatura": "PIS",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Pisa",
+		"estadio": "Arena Garibaldi",
+		"capacidade": 12508,
+		"reputacao": 67,
+		"orcamento": 17700000,
+		"cores": [
+			"#111111",
+			"#00428c"
+		]
+	},
+	{
+		"id": "ITA_20",
+		"nome": "Cremonese",
+		"abreviatura": "CRE",
+		"pais": "ITA",
+		"liga": "ITA1",
+		"cidade": "Cremona",
+		"estadio": "Stadio Giovanni Zini",
+		"capacidade": 14834,
+		"reputacao": 67,
+		"orcamento": 17700000,
+		"cores": [
+			"#8d99ae",
+			"#d2122e"
+		]
+	},
+	{
+		"id": "ITA_21",
+		"nome": "Empoli",
+		"abreviatura": "EMP",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Poggiosole",
-		"estadio": "Stadio Poggiosole",
-		"capacidade": 19000,
-		"reputacao": 57,
-		"orcamento": 4600000,
+		"cidade": "Empoli",
+		"estadio": "Stadio Carlo Castellani",
+		"capacidade": 16284,
+		"reputacao": 63,
+		"orcamento": 10200000,
 		"cores": [
-			"#e85d04",
-			"#6a4c93"
+			"#00579c",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ITA_22",
+		"nome": "Venezia",
+		"abreviatura": "VEN",
+		"pais": "ITA",
+		"liga": "ITA2",
+		"cidade": "Veneza",
+		"estadio": "Stadio Pier Luigi Penzo",
+		"capacidade": 11150,
+		"reputacao": 63,
+		"orcamento": 10200000,
+		"cores": [
+			"#111111",
+			"#f4a261"
+		]
+	},
+	{
+		"id": "ITA_23",
+		"nome": "Monza",
+		"abreviatura": "MON",
+		"pais": "ITA",
+		"liga": "ITA2",
+		"cidade": "Monza",
+		"estadio": "U-Power Stadium",
+		"capacidade": 16917,
+		"reputacao": 63,
+		"orcamento": 10200000,
+		"cores": [
+			"#e4002b",
+			"#ffffff"
+		]
+	},
+	{
+		"id": "ITA_24",
+		"nome": "Spezia",
+		"abreviatura": "SPE",
+		"pais": "ITA",
+		"liga": "ITA2",
+		"cidade": "La Spezia",
+		"estadio": "Stadio Alberto Picco",
+		"capacidade": 11466,
+		"reputacao": 61,
+		"orcamento": 7800000,
+		"cores": [
+			"#ffffff",
+			"#111111"
+		]
+	},
+	{
+		"id": "ITA_25",
+		"nome": "Catanzaro",
+		"abreviatura": "CTZ",
+		"pais": "ITA",
+		"liga": "ITA2",
+		"cidade": "Catanzaro",
+		"estadio": "Stadio Nicola Ceravolo",
+		"capacidade": 14650,
+		"reputacao": 59,
+		"orcamento": 5900000,
+		"cores": [
+			"#ffd60a",
+			"#d2122e"
 		]
 	},
 	{
 		"id": "ITA_26",
-		"nome": "AC Casalfiore",
-		"abreviatura": "CAF",
+		"nome": "Juve Stabia",
+		"abreviatura": "JST",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Casalfiore",
-		"estadio": "Stadio Casalfiore",
-		"capacidade": 16700,
-		"reputacao": 55,
-		"orcamento": 3500000,
+		"cidade": "Castellammare di Stabia",
+		"estadio": "Stadio Romeo Menti",
+		"capacidade": 7642,
+		"reputacao": 58,
+		"orcamento": 5200000,
 		"cores": [
 			"#ffd60a",
-			"#0077b6"
+			"#00428c"
 		]
 	},
 	{
 		"id": "ITA_27",
-		"nome": "US Altomare",
-		"abreviatura": "ALO",
+		"nome": "Palermo",
+		"abreviatura": "PAL",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Altomare",
-		"estadio": "Stadio Altomare",
-		"capacidade": 17800,
-		"reputacao": 56,
-		"orcamento": 4000000,
+		"cidade": "Palermo",
+		"estadio": "Stadio Renzo Barbera",
+		"capacidade": 36365,
+		"reputacao": 62,
+		"orcamento": 8900000,
 		"cores": [
-			"#7b2cbf",
-			"#8d99ae"
+			"#f4a6c0",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_28",
-		"nome": "SS Spinaleto",
-		"abreviatura": "SPI",
+		"nome": "Cesena",
+		"abreviatura": "CES",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Spinaleto",
-		"estadio": "Arena Spinaleto",
-		"capacidade": 14600,
-		"reputacao": 53,
-		"orcamento": 2700000,
+		"cidade": "Cesena",
+		"estadio": "Orogel Stadium",
+		"capacidade": 23860,
+		"reputacao": 59,
+		"orcamento": 5900000,
 		"cores": [
-			"#2b9348",
-			"#0077b6"
+			"#ffffff",
+			"#111111"
 		]
 	},
 	{
 		"id": "ITA_29",
-		"nome": "Sporting Vignarossa",
-		"abreviatura": "VIG",
+		"nome": "Bari",
+		"abreviatura": "BAR",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Vignarossa",
-		"estadio": "Stadio Vignarossa",
-		"capacidade": 13600,
-		"reputacao": 52,
-		"orcamento": 2400000,
+		"cidade": "Bari",
+		"estadio": "Stadio San Nicola",
+		"capacidade": 58270,
+		"reputacao": 60,
+		"orcamento": 6800000,
 		"cores": [
-			"#e85d04",
-			"#0077b6"
+			"#ffffff",
+			"#d2122e"
 		]
 	},
 	{
 		"id": "ITA_30",
-		"nome": "Unione Terranova",
-		"abreviatura": "TER",
+		"nome": "Südtirol",
+		"abreviatura": "SUD",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Terranova",
-		"estadio": "Stadio Comunale di Terranova",
-		"capacidade": 14600,
-		"reputacao": 53,
-		"orcamento": 2700000,
+		"cidade": "Bolzano",
+		"estadio": "Stadio Druso",
+		"capacidade": 5539,
+		"reputacao": 56,
+		"orcamento": 4000000,
 		"cores": [
-			"#8d99ae",
-			"#0077b6"
+			"#ffffff",
+			"#d2122e"
 		]
 	},
 	{
 		"id": "ITA_31",
-		"nome": "Unione Cervara",
-		"abreviatura": "CEV",
+		"nome": "Modena",
+		"abreviatura": "MOD",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Cervara",
-		"estadio": "Stadio Cervara",
-		"capacidade": 14600,
-		"reputacao": 53,
-		"orcamento": 2700000,
+		"cidade": "Modena",
+		"estadio": "Stadio Alberto Braglia",
+		"capacidade": 21151,
+		"reputacao": 59,
+		"orcamento": 5900000,
 		"cores": [
-			"#111111",
-			"#2a9d8f"
+			"#ffd60a",
+			"#00428c"
 		]
 	},
 	{
 		"id": "ITA_32",
-		"nome": "AC Olmeto",
-		"abreviatura": "OLM",
+		"nome": "Carrarese",
+		"abreviatura": "CAR",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Olmeto",
-		"estadio": "Stadio Comunale di Olmeto",
-		"capacidade": 12700,
-		"reputacao": 51,
-		"orcamento": 2100000,
+		"cidade": "Carrara",
+		"estadio": "Stadio dei Marmi",
+		"capacidade": 5000,
+		"reputacao": 55,
+		"orcamento": 3500000,
 		"cores": [
-			"#d62828",
-			"#9d0208"
+			"#ffd60a",
+			"#00428c"
 		]
 	},
 	{
 		"id": "ITA_33",
-		"nome": "SS Ripalta",
-		"abreviatura": "RIP",
+		"nome": "Reggiana",
+		"abreviatura": "REG",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Ripalta",
-		"estadio": "Stadio Comunale di Ripalta",
-		"capacidade": 10100,
-		"reputacao": 48,
-		"orcamento": 1500000,
+		"cidade": "Reggio Emilia",
+		"estadio": "Mapei Stadium",
+		"capacidade": 21525,
+		"reputacao": 56,
+		"orcamento": 4000000,
 		"cores": [
-			"#f4a261",
-			"#6a4c93"
+			"#7b1c2e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_34",
-		"nome": "Sporting Solferina",
-		"abreviatura": "SOF",
+		"nome": "Mantova",
+		"abreviatura": "MAN",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Solferina",
-		"estadio": "Stadio Solferina",
-		"capacidade": 11800,
-		"reputacao": 50,
-		"orcamento": 1900000,
+		"cidade": "Mântua",
+		"estadio": "Stadio Danilo Martelli",
+		"capacidade": 14884,
+		"reputacao": 55,
+		"orcamento": 3500000,
 		"cores": [
-			"#ffd60a",
-			"#0077b6"
+			"#d2122e",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_35",
-		"nome": "SS Mirabello",
-		"abreviatura": "MIB",
+		"nome": "Frosinone",
+		"abreviatura": "FRO",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Mirabello",
-		"estadio": "Stadio Comunale di Mirabello",
-		"capacidade": 12700,
-		"reputacao": 51,
-		"orcamento": 2100000,
+		"cidade": "Frosinone",
+		"estadio": "Stadio Benito Stirpe",
+		"capacidade": 16227,
+		"reputacao": 59,
+		"orcamento": 5900000,
 		"cores": [
-			"#2a9d8f",
-			"#2b9348"
+			"#ffd60a",
+			"#00428c"
 		]
 	},
 	{
 		"id": "ITA_36",
-		"nome": "Virtus Nevoso",
-		"abreviatura": "NEV",
+		"nome": "Sampdoria",
+		"abreviatura": "SAM",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Nevoso",
-		"estadio": "Stadio Comunale di Nevoso",
-		"capacidade": 10900,
-		"reputacao": 49,
-		"orcamento": 1700000,
+		"cidade": "Génova",
+		"estadio": "Stadio Luigi Ferraris",
+		"capacidade": 33205,
+		"reputacao": 61,
+		"orcamento": 7800000,
 		"cores": [
-			"#2a9d8f",
+			"#1b5497",
 			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_37",
-		"nome": "Calcio Pratolungo",
-		"abreviatura": "PRA",
+		"nome": "Padova",
+		"abreviatura": "PAD",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Pratolungo",
-		"estadio": "Stadio Comunale di Pratolungo",
-		"capacidade": 10100,
-		"reputacao": 48,
-		"orcamento": 1500000,
+		"cidade": "Pádua",
+		"estadio": "Stadio Euganeo",
+		"capacidade": 18060,
+		"reputacao": 55,
+		"orcamento": 3500000,
 		"cores": [
-			"#1d3557",
-			"#ffd60a"
+			"#ffffff",
+			"#d2122e"
 		]
 	},
 	{
 		"id": "ITA_38",
-		"nome": "US Querceto",
-		"abreviatura": "QUR",
+		"nome": "Avellino",
+		"abreviatura": "AVE",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Querceto",
-		"estadio": "Stadio Querceto",
-		"capacidade": 9300,
-		"reputacao": 47,
-		"orcamento": 1300000,
+		"cidade": "Avellino",
+		"estadio": "Stadio Partenio",
+		"capacidade": 26308,
+		"reputacao": 55,
+		"orcamento": 3500000,
 		"cores": [
-			"#0077b6",
-			"#1d3557"
+			"#00804a",
+			"#ffffff"
 		]
 	},
 	{
 		"id": "ITA_39",
-		"nome": "US Zaffiro",
-		"abreviatura": "ZAF",
+		"nome": "Virtus Entella",
+		"abreviatura": "ENT",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Zaffiro",
-		"estadio": "Arena Zaffiro",
-		"capacidade": 9300,
-		"reputacao": 47,
-		"orcamento": 1300000,
+		"cidade": "Chiavari",
+		"estadio": "Stadio Comunale",
+		"capacidade": 5535,
+		"reputacao": 54,
+		"orcamento": 3100000,
 		"cores": [
-			"#2b9348",
-			"#1d3557"
+			"#ffffff",
+			"#8ac3ee"
 		]
 	},
 	{
 		"id": "ITA_40",
-		"nome": "Virtus Isolabella",
-		"abreviatura": "ISO",
+		"nome": "Pescara",
+		"abreviatura": "PES",
 		"pais": "ITA",
 		"liga": "ITA2",
-		"cidade": "Isolabella",
-		"estadio": "Stadio Isolabella",
-		"capacidade": 7900,
-		"reputacao": 45,
-		"orcamento": 1100000,
+		"cidade": "Pescara",
+		"estadio": "Stadio Adriatico",
+		"capacidade": 20515,
+		"reputacao": 55,
+		"orcamento": 3500000,
 		"cores": [
-			"#2b9348",
-			"#ffffff"
+			"#ffffff",
+			"#8ac3ee"
 		]
 	}
 ]

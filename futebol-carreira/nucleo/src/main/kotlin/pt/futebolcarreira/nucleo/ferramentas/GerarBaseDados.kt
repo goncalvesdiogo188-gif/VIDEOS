@@ -11,15 +11,24 @@ import kotlin.math.roundToInt
 import kotlin.random.Random
 
 /**
- * FERRAMENTA: cria a base de dados fictícia inicial (equipas e jogadores).
+ * FERRAMENTA: cria a base de dados inicial (equipas e jogadores).
  *
  * ATENÇÃO: apaga e volta a criar dados/equipas e dados/jogadores.
  * Só é preciso correr se quiseres uma base de dados nova:
  *   ./gradlew :nucleo:gerarBaseDados
  *
- * Os nomes de locais e de clubes vêm de nucleo/src/main/resources/gerador/modelo.json.
- * Todos os nomes são inventados. Para usar nomes reais, edita os JSON gerados.
+ * Por omissão usa os clubes reais de nucleo/src/main/resources/gerador/clubes_reais.json
+ * (nome, cidade, estádio, cores e reputação); os jogadores são sempre inventados.
+ * Com o argumento "ficticia" a seguir à pasta, os clubes também são inventados
+ * (a partir de gerador/modelo.json).
  */
+
+/** Um clube real, tal como está em clubes_reais.json. */
+@Serializable
+private class ClubeReal(
+    val liga: String, val nome: String, val abreviatura: String, val cidade: String,
+    val estadio: String, val capacidade: Int, val reputacao: Int, val cores: List<String>,
+)
 
 /** "topo" = reputação do melhor clube do país; "tamanho" = equipas por divisão. */
 @Serializable
@@ -50,7 +59,29 @@ fun main(args: Array<String>) {
     val gerador = GeradorJogadores(bd.nomes, rng)
     val siglasUsadas = HashSet<String>()
 
-    for (pais in modelo.paises) {
+    val ficticia = args.getOrNull(1) == "ficticia"
+    if (!ficticia) {
+        val clubes = BaseDados.JSON.decodeFromString(
+            kotlinx.serialization.builtins.ListSerializer(ClubeReal.serializer()),
+            object {}.javaClass.getResource("/gerador/clubes_reais.json")!!.readText(),
+        )
+        val contador = HashMap<String, Int>()
+        for (c in clubes) {
+            val pais = bd.competicoes.getValue(c.liga).pais
+            val numero = contador.merge(pais, 1, Int::plus)!!
+            val e = Equipa(
+                id = "%s_%02d".format(pais, numero),
+                nome = c.nome, abreviatura = c.abreviatura, pais = pais, liga = c.liga, cidade = c.cidade,
+                estadio = c.estadio, capacidade = c.capacidade, reputacao = c.reputacao,
+                orcamento = (1.15.pow(c.reputacao - 40) * 4.0).toLong() * 100_000 + 300_000,
+                cores = c.cores,
+            )
+            bd.equipas[e.id] = e
+            gerador.criarPlantel(e).forEach(bd::adicionarJogador)
+        }
+    }
+
+    for (pais in if (ficticia) modelo.paises else emptyList()) {
         require(pais.locais.size == pais.tamanho * 2) { "Número de locais errado em ${pais.id}" }
         pais.locais.forEachIndexed { i, local ->
             val divisao = i / pais.tamanho      // 0 = primeira, 1 = segunda

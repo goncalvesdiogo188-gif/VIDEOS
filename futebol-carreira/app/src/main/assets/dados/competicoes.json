@@ -1,14 +1,14 @@
 [
-	{ "id": "POR1", "nome": "Liga Lusitana", "pais": "POR", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "POR2" },
-	{ "id": "POR2", "nome": "Liga Lusitana 2", "pais": "POR", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
-	{ "id": "ESP1", "nome": "Liga Ibérica", "pais": "ESP", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ESP2" },
-	{ "id": "ESP2", "nome": "Liga Ibérica 2", "pais": "ESP", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
-	{ "id": "ING1", "nome": "Premier Britânica", "pais": "ING", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ING2" },
-	{ "id": "ING2", "nome": "Campeonato Britânico", "pais": "ING", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
-	{ "id": "ITA1", "nome": "Série Itálica A", "pais": "ITA", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ITA2" },
-	{ "id": "ITA2", "nome": "Série Itálica B", "pais": "ITA", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
-	{ "id": "ALE1", "nome": "Liga Germânica", "pais": "ALE", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "ALE2" },
-	{ "id": "ALE2", "nome": "Liga Germânica 2", "pais": "ALE", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
-	{ "id": "FRA1", "nome": "Liga Gaulesa", "pais": "FRA", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "FRA2" },
-	{ "id": "FRA2", "nome": "Liga Gaulesa 2", "pais": "FRA", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" }
+	{ "id": "POR1", "nome": "Liga Portugal", "pais": "POR", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "POR2" },
+	{ "id": "POR2", "nome": "Liga Portugal 2", "pais": "POR", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
+	{ "id": "ESP1", "nome": "LaLiga", "pais": "ESP", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ESP2" },
+	{ "id": "ESP2", "nome": "LaLiga 2", "pais": "ESP", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
+	{ "id": "ING1", "nome": "Premier League", "pais": "ING", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ING2" },
+	{ "id": "ING2", "nome": "Championship", "pais": "ING", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
+	{ "id": "ITA1", "nome": "Serie A", "pais": "ITA", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 3, "desce_para": "ITA2" },
+	{ "id": "ITA2", "nome": "Serie B", "pais": "ITA", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
+	{ "id": "ALE1", "nome": "Bundesliga", "pais": "ALE", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "ALE2" },
+	{ "id": "ALE2", "nome": "2. Bundesliga", "pais": "ALE", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" },
+	{ "id": "FRA1", "nome": "Ligue 1", "pais": "FRA", "nivel": 1, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 2, "desce_para": "FRA2" },
+	{ "id": "FRA2", "nome": "Ligue 2", "pais": "FRA", "nivel": 2, "tipo": "liga", "voltas": 2, "pontos_vitoria": 3, "pontos_empate": 1, "descidas": 0, "desce_para": "" }
 ]

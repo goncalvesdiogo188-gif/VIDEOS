@@ -26,7 +26,7 @@ class Fase1Test {
         val bd = carregar()
         assertEquals(6, bd.paises.size)
         assertEquals(12, bd.competicoes.size)
-        assertEquals(228, bd.equipas.size)
+        assertEquals(234, bd.equipas.size)
         for (liga in bd.competicoes.values) {
             val n = bd.equipasDaLiga(liga.id).size
             assertTrue(n >= 2 && n % 2 == 0, "liga ${liga.id} com número par de equipas ($n)")
