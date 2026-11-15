@@ -70,7 +70,7 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 21 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas e o mercado.
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 16 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas e o mercado.
 - **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, acabar a época, gravar e voltar a carregar) e passa. Guarda 25 imagens dos ecrãs na pasta `capturas/`.
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados dos clubes reais**: vêm da minha memória, não de uma fonte verificada. Pode haver um estádio, uma lotação ou uma cor errada.
