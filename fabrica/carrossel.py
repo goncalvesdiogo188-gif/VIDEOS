@@ -7,12 +7,12 @@ import sys
 from pathlib import Path
 
 from . import guiao as G
+from .cenarios import cenario
 from .personagens import PERSONAGENS, desenha
 from .render import svg_para_png
 from .video import esc, quebrar_linhas, FONTE
 
 W, H = 1080, 1350
-FUNDOS = ["#FFE8D2", "#E3F4EF", "#EDE7FF", "#FFF3C4", "#FFE1EA", "#DFF0FF"]
 
 
 def _texto(txt, x, y, tam, cor, largura, entre=1.22, ancora="middle"):
@@ -25,12 +25,12 @@ def _texto(txt, x, y, tam, cor, largura, entre=1.22, ancora="middle"):
     return s, len(linhas) * tam * entre
 
 
-def _base(i, total):
+def _base(i, total, zona="comando", focos=(540,)):
     s = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">'
-    s += f'<rect width="{W}" height="{H}" fill="{FUNDOS[i % len(FUNDOS)]}"/>'
+    s += cenario(zona, W, H, 1230, t=i * 0.7, focos=focos)
     # pontos de navegação
     for k in range(total):
-        cor = "#2B1B3A" if k == i else "#2B1B3A33"
+        cor = "#FFFFFF"
         s += f'<circle cx="{540 - (total-1)*14 + k*28}" cy="1300" r="8" fill="{cor[:7]}" fill-opacity="{1 if k == i else 0.25}"/>'
     return s
 
@@ -45,24 +45,24 @@ def slides(g):
     out = []
 
     # capa
-    s = _base(0, total)
+    s = _base(0, total, g["cenario"], (320, 770))
     t1, h1 = _texto(itens[0]["titulo"], 540, 230, 86, "#FFFFFF", 860)
     t2, h2 = _texto(itens[0].get("texto", ""), 540, 230 + h1 + 30, 46, "#FFE27A", 860)
-    s += f'<rect x="60" y="90" width="960" height="{h1 + h2 + 150:.0f}" rx="44" fill="#2B1B3A"/>' + t1 + t2
+    s += f'<rect x="60" y="90" width="960" height="{h1 + h2 + 150:.0f}" rx="44" fill="#120A2E" stroke="#2EE6FF" stroke-width="6"/>' + t1 + t2
     s += desenha("neurao", 320, 1230, 0.95, "convencido", "aponta", t=0.4)
     s += desenha("ze", 770, 1230, 0.95, "surpreendido", "bracos_ar", t=1.1)
-    s += f'<text x="1010" y="1300" font-family="{FONTE}" font-size="34" fill="#2B1B3A" text-anchor="end">desliza &gt;</text>'
+    s += f'<text x="1010" y="1300" font-family="{FONTE}" font-size="34" fill="#FFFFFF" text-anchor="end">desliza &gt;</text>'
     out.append(s + "</svg>")
 
     # explicação
     for i, it in enumerate(itens[1:], start=1):
-        s = _base(i, total)
+        s = _base(i, total, g["cenario"])
         quem = "neurao" if i % 2 else "ze"
         cor = PERSONAGENS[quem]["cor_legenda"]
         s += f'<text x="80" y="200" font-family="{FONTE}" font-size="130" fill="{cor}" fill-opacity="0.35">{i}</text>'
         y = 230
         if it.get("titulo"):
-            t, h = _texto(it["titulo"], 80, 300, 78, "#2B1B3A", 920, ancora="start")
+            t, h = _texto(it["titulo"], 80, 300, 78, "#FFFFFF", 920, ancora="start")
             s += t
             y = 300 + h - 40
         t, h = _texto(it["texto"], 540, y + 105, 54, "#2B1B3A", 860)
@@ -73,7 +73,7 @@ def slides(g):
         out.append(s + "</svg>")
 
     # lição final
-    s = _base(total - 1, total)
+    s = _base(total - 1, total, g["cenario"], (380, 800))
     t, h = _texto(licao, 540, 290, 64, "#FFFFFF", 860)
     s += f'<rect x="60" y="90" width="960" height="{h + 250:.0f}" rx="44" fill="{PERSONAGENS["ze"]["cor_legenda"]}"/>'
     s += f'<text x="540" y="190" font-family="{FONTE}" font-size="52" fill="#FFE27A" text-anchor="middle">A lição do Zé</text>' + t

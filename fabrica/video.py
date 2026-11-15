@@ -169,7 +169,7 @@ def caixa_titulo(titulo, t):
     alt = len(linhas) * 76 + 56
     pop = 0.85 + 0.15 * suave(t / 0.35)
     s = f'<g transform="translate(540,{200 + alt/2:.0f}) scale({pop:.3f}) translate(-540,{-(200 + alt/2):.0f})">'
-    s += f'<rect x="60" y="200" width="960" height="{alt}" rx="34" fill="#2B1B3A"/>'
+    s += f'<rect x="60" y="200" width="960" height="{alt}" rx="34" fill="#120A2E" stroke="#2EE6FF" stroke-width="6"/>'
     for i, ln in enumerate(linhas):
         txt = esc(" ".join(pals[j] for j in ln))
         s += (f'<text x="540" y="{200 + 28 + 60 + i*76}" font-family="{FONTE}" font-size="{tam}" '
@@ -221,7 +221,7 @@ def frame_svg(g, plano, duracao, t):
         cx = POS_X[f["quem"]]
     s = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">'
     s += f'<g transform="translate({cx},{CHAO}) scale({z:.4f}) translate({-cx},{-CHAO})">'
-    s += cenario(g["cenario"], W, H, CHAO)
+    s += cenario(g["cenario"], W, H, CHAO, t=t, focos=(POS_X["neurao"], POS_X["ze"]))
     for quem in ("neurao", "ze"):
         expr, pose = estado_personagem(plano, quem, t)
         fala_ativa = a_falar == quem
@@ -236,7 +236,7 @@ def frame_svg(g, plano, duracao, t):
     s += "</g>"
 
     # barra de progresso
-    s += f'<rect x="0" y="0" width="{W * min(1, t / duracao):.0f}" height="12" fill="#C73E6E"/>'
+    s += f'<rect x="0" y="0" width="{W * min(1, t / duracao):.0f}" height="12" fill="#2EE6FF"/>'
     tit, fundo_tit = caixa_titulo(g["titulo"], t)
     s += tit
     if f:
@@ -246,7 +246,7 @@ def frame_svg(g, plano, duracao, t):
     if t > fim + 0.1:
         k = suave((t - fim - 0.1) / 0.3)
         s += (f'<g transform="translate(540,1600) scale({0.6 + 0.4*k:.3f})" opacity="{k:.2f}">'
-              f'<rect x="-300" y="-60" width="600" height="110" rx="55" fill="#2B1B3A"/>'
+              f'<rect x="-300" y="-60" width="600" height="110" rx="55" fill="#120A2E" stroke="#FFE27A" stroke-width="5"/>'
               f'<text x="0" y="16" font-family="{FONTE}" font-size="54" fill="#FFE27A" '
               f'text-anchor="middle">Segue para mais!</text></g>')
     return s + "</svg>"
