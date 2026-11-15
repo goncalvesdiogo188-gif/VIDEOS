@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 2 em curso**. O mundo é agora o interior de um cérebro futurista. O comando `fabrica` está a ser construído.
+> Estado: **Fase 2 concluída**. O mundo é o interior de um cérebro futurista. `fabrica novo` e `fabrica semana` funcionam. Próximo: voz real (Fase 3).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -63,7 +63,7 @@ Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
 - Cada pacote demora alguns minutos: escrever o guião com o Claude ~1 min, vídeo ~1–2 min (depende do computador).
 - Uma semana inteira: ~15–25 min.
 
-## Como usar (modo manual, por agora)
+## Modo manual (peças soltas, para testes)
 Na pasta do projeto:
 ```
 python -m fabrica.video guioes/exemplo_compras_impulso.json
