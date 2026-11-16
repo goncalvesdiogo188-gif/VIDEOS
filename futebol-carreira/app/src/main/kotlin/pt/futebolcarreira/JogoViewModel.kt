@@ -144,7 +144,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Cria a partida ao vivo (casa, fora, utilizadorCasa, semUtilizador). Os testes podem trocá-la. */
     var criarPartida: (Equipa, Equipa, Boolean, Boolean) -> PartidaAoVivo = { casa, fora, utilizadorCasa, semUtilizador ->
-        FabricaPartida.criar(casa, fora, utilizadorCasa, kotlin.random.Random.Default, semUtilizador = semUtilizador)
+        FabricaPartida.criar(
+            casa, fora, utilizadorCasa, kotlin.random.Random.Default,
+            duracaoReal = pt.futebolcarreira.nucleo.aovivo.DuracaoJogo.segundos(pt.futebolcarreira.aovivo.OpcoesAoVivo.duracaoMinutos(preferencias)), semUtilizador = semUtilizador,
+        )
     }
 
     /** O jogo 3D aberto (null = nenhum). */
@@ -183,7 +186,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         val utilizadorCasa = casa.id == c.equipa.id
         val controlar = modoJogos != ModoJogos.VER_3D
         executar({ criarPartida(casa, fora, utilizadorCasa, !controlar) }) { partida ->
-            aoVivo = SessaoAoVivo(partida, utilizadorCasa, controlar)
+            aoVivo = SessaoAoVivo(
+                partida, utilizadorCasa, controlar, momentosChave = modoJogos == ModoJogos.JOGAR_MOMENTOS,
+                nivelMira = pt.futebolcarreira.aovivo.OpcoesAoVivo.nivelMira(preferencias),
+            )
         }
     }
 
