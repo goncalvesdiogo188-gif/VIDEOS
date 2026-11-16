@@ -80,6 +80,7 @@ fun EcraAoVivo(
     aoContinuar: (PartidaAoVivo) -> Unit,
     aoSair: () -> Unit,
     fixarOrientacao: Boolean = true,
+    mostrarMedidor: Boolean = false,
     vistaJogo: @Composable (Modifier, Boolean) -> Unit = { m, parado -> VistaGl(sessao, m, parado) },
 ) {
     if (fixarOrientacao) ModoPaisagem()
@@ -116,6 +117,7 @@ fun EcraAoVivo(
         vistaJogo(Modifier.fillMaxSize(), pausa || terminou)
 
         MarcadorETempo(estado, Modifier.align(Alignment.TopCenter))
+        if (mostrarMedidor) TextoMedidor(sessao.medidor, pausa || terminou, Modifier.align(Alignment.BottomStart))
         if (!terminou) Mensagem(estado, Modifier.align(Alignment.TopCenter).padding(top = 58.dp))
 
         if (!terminou) {
@@ -136,6 +138,23 @@ fun EcraAoVivo(
         )
         if (terminou) CartaoFinal(estado) { aoContinuar(sessao.partida) }
     }
+}
+
+/** Os números do medidor de desempenho, no canto de baixo (atualizados 2 vezes por segundo). */
+@Composable
+private fun TextoMedidor(medidor: MedidorDesempenho, parado: Boolean, modifier: Modifier) {
+    var texto by remember(medidor) { mutableStateOf("") }
+    LaunchedEffect(medidor, parado) {
+        if (parado) medidor.reiniciar()
+        while (true) {
+            texto = medidor.texto()
+            delay(500)
+        }
+    }
+    Text(
+        texto, modifier.padding(6.dp).background(Color(0x99000000), RoundedCornerShape(6.dp)).padding(horizontal = 6.dp, vertical = 2.dp),
+        color = Color(0xFFB9F6CA), fontSize = 11.sp,
+    )
 }
 
 // --------------------------------------------------------------- orientação

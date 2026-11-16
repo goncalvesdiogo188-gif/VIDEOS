@@ -27,6 +27,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -470,7 +471,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
-            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos)
+            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos, jogo.mostrarMedidor, jogo::definirMostrarMedidor)
         }
     }
 }
@@ -479,6 +480,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
 private fun Opcoes(
     ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit, aoEditar: () -> Unit,
     modoJogos: ModoJogos = ModoJogos.SIMULAR, aoModoJogos: (ModoJogos) -> Unit = {},
+    mostrarMedidor: Boolean = false, aoMostrarMedidor: (Boolean) -> Unit = {},
 ) {
     var confirmar by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -502,6 +504,10 @@ private fun Opcoes(
                 }
             }
             Text("Em «Ver» e «Jogar» em 3D, o botão «Jogar» abre o jogo no ecrã 3D.", Modifier.padding(top = 6.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("Mostrar medidor (im/s, memória)", Modifier.weight(1f))
+                Switch(checked = mostrarMedidor, onCheckedChange = aoMostrarMedidor)
+            }
         }
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)

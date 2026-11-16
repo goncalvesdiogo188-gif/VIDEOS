@@ -35,7 +35,7 @@ fun Aplicacao(jogo: JogoViewModel) {
         jogo.ficha?.let { EcraJogador(it, !jogo.ocupado, jogo::negociar, jogo::fecharJogador) }
         jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel, jogo::abrirJogador) }
         jogo.escolha?.let { JanelaEscolha(it, jogo::escolherTitular, jogo::fecharEscolha) }
-        jogo.aoVivo?.let { EcraAoVivo(it, jogo::registarJogoAoVivo, jogo::fecharAoVivo) }
+        jogo.aoVivo?.let { EcraAoVivo(it, jogo::registarJogoAoVivo, jogo::fecharAoVivo, mostrarMedidor = jogo.mostrarMedidor) }
         jogo.aviso?.let { texto ->
             AlertDialog(
                 onDismissRequest = jogo::fecharAviso,
