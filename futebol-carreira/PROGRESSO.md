@@ -163,7 +163,6 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 |---|---|
 | `apk/futebol-carreira.apk` | A aplicação pronta a instalar no telemóvel |
 | `capturas/` | Imagens de todos os ecrãs, refeitas a cada compilação |
-| `.claude/skills/` | Skills para trabalhar com subagentes (`subagentes` e `equipa-haiku`) |
 | `PLANO.md` | Plano completo, fase a fase |
 | `GUIA_INSTALACAO.md` | Como instalar e como testar cada fase |
 | `PROGRESSO.md` | Este resumo |
