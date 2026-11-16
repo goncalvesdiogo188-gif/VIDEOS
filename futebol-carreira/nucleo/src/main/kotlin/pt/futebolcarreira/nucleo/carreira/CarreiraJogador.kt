@@ -415,7 +415,7 @@ class CarreiraJogador(private val c: Carreira) {
     fun pedirMinutos(): String {
         val j = c.jogador ?: return "Já não és jogador."
         val e = estado
-        val estatuto = estatuto()
+        val estatuto = calcularEstatuto(j)
         if (estatuto == EstatutoNoClube.INDISCUTIVEL || estatuto == EstatutoNoClube.TITULAR) return "Já és titular: o treinador conta contigo."
         if (e.jogosDesdeConversa < 6) return "Falaste com o treinador há pouco tempo. Espera mais ${6 - e.jogosDesdeConversa} jogos."
         e.jogosDesdeConversa = 0
