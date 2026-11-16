@@ -624,7 +624,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             c.mercado.aberto, Mercado.euros(caixa), filtroPosicao, filtroMercado,
             candidatos.map { j ->
                 val dono = c.bd.equipas[j.equipa]
-                LinhaMercadoUi(j.id, j.posicao, j.nome, dono?.abreviatura ?: "livre", j.idade, j.geral(), if (dono == null) "livre" else Mercado.euros(c.mercado.pedido(j)))
+                LinhaMercadoUi(j.id, j.posicao, j.nome, dono?.abreviatura ?: "livre", j.idade, j.geral(), if (dono == null) "livre" else Mercado.euros(c.mercado.pedido(j)), if (dono == null) 0L else c.mercado.pedido(j).toLong())
             },
         )
     }
@@ -745,6 +745,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 )
             },
             ultimo = calendario.lastOrNull { it.desfecho.isNotEmpty() },
+            forma = calendario.filter { it.desfecho.isNotEmpty() }.takeLast(5).map { it.desfecho },
             terminada = terminada,
             resumoFim = if (resumo == null) "" else listOfNotNull(
                 "O teu clube terminou em $posicao.º lugar.",
