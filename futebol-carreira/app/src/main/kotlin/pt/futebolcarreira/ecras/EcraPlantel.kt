@@ -4,7 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,6 +41,7 @@ internal fun ConteudoPlantel(
     plantel: PlantelUi, modifier: Modifier = Modifier,
     aoMudarFormacao: (Formacao?) -> Unit = {}, aoMudarMentalidade: (Mentalidade?) -> Unit = {},
     aoEscolherLugar: (Int) -> Unit = {}, aoOnzeAutomatico: () -> Unit = {}, aoAbrirJogador: (Int) -> Unit = {},
+    aoTrocarLugares: (Int, Int) -> Unit = { _, _ -> },
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     Column(modifier) {
@@ -77,61 +81,20 @@ internal fun ConteudoPlantel(
                         TextButton(onClick = aoOnzeAutomatico) { Text("Escolha automática") }
                     }
                 }
-                if (plantel.podeMudarTatica) Text("Toca num lugar para trocar o jogador.", fontSize = 12.sp, color = secundaria)
-            }
-            items(plantel.onze) { l ->
-                val toque = if (plantel.podeMudarTatica) Modifier.clickable { aoEscolherLugar(l.indice) } else Modifier
-                Row(Modifier.fillMaxWidth().then(toque).padding(vertical = 7.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Celula(l.lugar, 44.dp, negrito = true, cor = MaterialTheme.colorScheme.primary)
-                    Text(l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    // Avisa quando o jogador está fora da sua posição.
-                    if (l.posicao.isNotEmpty() && l.posicao != l.lugar) Text("é ${l.posicao}", fontSize = 12.sp, color = MaterialTheme.colorScheme.tertiary)
-                    Celula(l.nota.toString(), 36.dp, negrito = true)
-                }
+                if (plantel.podeMudarTatica) Text("Toca num jogador para o trocar, ou arrasta-o para cima de outro.", fontSize = 12.sp, color = secundaria)
+                CampoTatico(plantel, aoEscolherLugar, aoTrocarLugares, Modifier.padding(top = 6.dp))
             }
             item {
                 Text("Suplentes: ${plantel.suplentes}", fontSize = 12.sp, color = secundaria, modifier = Modifier.padding(vertical = 6.dp))
-                Rotulo("Plantel completo · toca num jogador para ver a ficha", Modifier.padding(top = 8.dp))
-                CabecalhoPlantel()
+                Rotulo("Plantel completo · toca numa carta para ver a ficha", Modifier.padding(top = 8.dp, bottom = 6.dp))
             }
-            items(plantel.jogadores) { j ->
-                val cor = if (j.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
-                Column(Modifier.fillMaxWidth().clickable { aoAbrirJogador(j.id) }.padding(vertical = 5.dp)) {
-                    Row {
-                        Celula(j.posicao, 40.dp, cor = cor)
-                        Text(
-                            j.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, color = cor,
-                            fontWeight = if (j.meu) FontWeight.Bold else FontWeight.Normal,
-                        )
-                        Celula(j.idade.toString(), 28.dp)
-                        Celula(j.geral.toString(), negrito = true)
-                        Celula(j.jogos.toString(), 26.dp)
-                        Celula(j.golos.toString(), 26.dp)
-                        Celula(j.assistencias.toString(), 26.dp)
-                        Celula(j.nota, 38.dp)
-                    }
-                    Row(Modifier.padding(start = 40.dp)) {
-                        Text("Potencial ${j.potencial} · ${j.valor}", fontSize = 12.sp, color = secundaria)
-                        if (j.forma.isNotEmpty()) Text("  ·  ${j.forma}", fontSize = 12.sp, color = secundaria, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        if (j.estado.isNotEmpty()) Text("  ·  ${j.estado}", fontSize = 12.sp, color = MaterialTheme.colorScheme.error)
-                    }
+            items(plantel.jogadores.chunked(2)) { par ->
+                Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min).padding(bottom = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    for (j in par) CartaJogador(j, plantel.emblema, { aoAbrirJogador(j.id) }, Modifier.weight(1f).fillMaxHeight())
+                    if (par.size == 1) Spacer(Modifier.weight(1f))
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun CabecalhoPlantel() {
-    Row(Modifier.padding(top = 6.dp, bottom = 4.dp)) {
-        Celula("Pos", 40.dp, negrito = true)
-        Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-        Celula("Id.", 28.dp, negrito = true)
-        Celula("Ger", negrito = true)
-        Celula("J", 26.dp, negrito = true)
-        Celula("G", 26.dp, negrito = true)
-        Celula("A", 26.dp, negrito = true)
-        Celula("Nota", 38.dp, negrito = true)
     }
 }
 

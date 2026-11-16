@@ -50,6 +50,8 @@ class Jogador(
     @SerialName("emprestado_por") var emprestadoPor: String = "",
     /** true = está na academia do clube (não conta para o plantel nem joga). */
     var academia: Boolean = false,
+    /** Geral no fim de cada época já jogada, por idade que tinha nessa época (serve para o gráfico de evolução). */
+    @SerialName("geral_por_idade") val geralPorIdade: MutableMap<Int, Int> = mutableMapOf(),
 ) {
     /** Estatísticas da época em curso. */
     @Transient

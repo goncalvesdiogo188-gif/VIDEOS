@@ -26,6 +26,7 @@ object EvolucaoPlantel {
         for (equipa in bd.equipas.values) {
             val meu = equipa.id == clubeDoUtilizador
             for (j in equipa.plantel.toList()) {
+                j.geralPorIdade[j.idade] = j.geral()
                 j.idade++
                 val limiteReforma = if (j.posicao == "GR") 37 else 35
                 if (j.idade >= limiteReforma && (j.idade >= limiteReforma + 3 || rng.nextDouble() < 0.5)) {
@@ -35,6 +36,7 @@ object EvolucaoPlantel {
                 }
             }
             for (j in equipa.academia.toList()) {
+                j.geralPorIdade[j.idade] = j.geral()
                 j.idade++
                 if (j.idade < IDADE_MAXIMA_ACADEMIA) continue
                 if (equipa.plantel.size < MAX_PLANTEL) {
