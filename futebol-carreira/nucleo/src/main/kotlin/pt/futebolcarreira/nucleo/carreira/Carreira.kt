@@ -41,6 +41,8 @@ class InfoCarreira(
     var despedido: Boolean = false,
     /** Clubes (ids) que querem contratar o treinador. */
     val propostas: MutableList<String> = mutableListOf(),
+    /** Só na via de jogador (Fase 9): estatuto, pedidos do treinador, propostas, prémios... Gravações antigas não o têm. */
+    var estadoJogador: EstadoJogador? = null,
 )
 
 /** Uma mensagem na caixa de entrada (resultados, lesões, avisos...). */
@@ -125,8 +127,12 @@ class Carreira(
     /** Viagens e relatórios do olheiro. */
     val olheiros = Olheiros(this, estadoOlheiros)
 
+    /** A carreira do jogador (só tem efeito na via de jogador). */
+    val jogadorCarreira = CarreiraJogador(this)
+
     init {
         gestor.clubeDoUtilizador = info.equipaId
+        jogadorCarreira.prepararJogo()
     }
 
     /** O clube do utilizador. */
@@ -249,6 +255,7 @@ class Carreira(
      */
     fun avancar(): JogoDoClube? {
         if (gestor.epocaTerminada() || info.despedido) return null
+        jogadorCarreira.prepararJogo()
         var alvo = proximoJogo()
         val antes = gestor.data
         var negocios = emptyList<String>()
@@ -278,6 +285,7 @@ class Carreira(
             gestor.noticias.clear()
         }
         olheiros.verificar()
+        jogadorCarreira.aoMercado()
         avisarSelecoes()
         val jogado = alvo?.let { a -> jogosDoClube().firstOrNull { it.competicaoId == a.competicaoId && it.data == a.data } }
         if (jogado != null) {
@@ -291,7 +299,9 @@ class Carreira(
                 mensagemDaTaca(jogado)
                 avaliarJogoDeTaca(jogado)
             }
+            jogadorCarreira.aposJogo(jogado)
         }
+        jogadorCarreira.aposTreino()
         // Notícias do que se jogou (no clube e no resto do mundo).
         val jogosN = gestor.jogosParaNoticias.toList()
         val confrontosN = gestor.confrontosParaNoticias.toList()
@@ -301,6 +311,8 @@ class Carreira(
         if (gestor.epocaTerminada()) {
             mensagemFimDeEpoca()
             avaliarEpoca()
+            jogadorCarreira.fecharEpoca()
+            gestor.historico.lastOrNull()?.let { jogadorCarreira.anunciarPremios(it) }
         }
         geradorNoticias.publicar()
         return jogado
@@ -315,6 +327,7 @@ class Carreira(
     fun novaEpoca() {
         if (!gestor.epocaTerminada() || info.despedido) return
         gestor.clubeDoUtilizador = info.equipaId
+        jogadorCarreira.antesDaNovaEpoca()
         gestor.avancarParaEpocaSeguinte()
         mercado.recusados.clear()
         gestor.noticias.clear()
@@ -333,11 +346,12 @@ class Carreira(
         info.confiancaAdeptos = (info.confiancaAdeptos + 60) / 2
         definirObjetivo()
         baseDadosPorGravar = true
-        // O jogador do utilizador pode ter chegado ao fim da carreira: passa a treinador do clube.
+        if (info.modo == ModoCarreira.JOGADOR && jogador != null) jogadorCarreira.depoisDaNovaEpoca()
+        // O jogador do utilizador pode ter chegado ao fim da carreira: passa a treinador (do clube onde acabou, ou de outro).
         if (info.modo == ModoCarreira.JOGADOR && jogador == null) {
+            jogadorCarreira.reformou()
             info.modo = ModoCarreira.TREINADOR
             info.jogadorId = null
-            mensagem("Fim da carreira de jogador", "Penduraste as botas. O clube convidou-te para treinador: começa uma nova vida no banco.")
         }
         mensagem(
             "Começa a época ${gestor.nomeEpoca()}",
@@ -504,6 +518,10 @@ class Carreira(
         for (c in convocatorias) avisarConvocatoria(s, c)
         if (jogos.isEmpty()) return
         val data = jogos.maxOf { it.jogo.dataLocal() }
+        if (!eTreinador) {
+            val meus = jogadorCarreira.avisosDaSelecao(jogos)
+            if (meus.isNotEmpty()) mensagem("A tua seleção", meus.joinToString(" "), data)
+        }
         val interesse = setOfNotNull(equipa.pais, jogador?.nacionalidade)
         val linhas = jogos.filter { it.jogo.casa in interesse || it.jogo.fora in interesse }.map { j ->
             val g = j.jogo
@@ -583,9 +601,8 @@ class Carreira(
                     ficha.vermelho -> linhas += "${j.nome} foi expulso e falha ${jogos(j.suspensao)}."
                     ficha.amarelos > 0 && j.suspensao > 0 -> linhas += "${j.nome} chegou aos ${j.epoca.amarelos} amarelos e falha ${jogos(j.suspensao)}."
                 }
-                if (j.id == info.jogadorId) linhas += "A tua nota: ${"%.1f".format(ficha.nota)}" + (if (ficha.golos > 0) " (${ficha.golos} golo(s))" else "") + "."
             }
-            if (info.jogadorId != null && lado.fichas.none { it.jogador.id == info.jogadorId }) linhas += "Não saíste do banco."
+            if (info.jogadorId != null) linhas += jogadorCarreira.linhasDoJogo(jogo)
         }
         return linhas
     }
@@ -740,6 +757,7 @@ class Carreira(
         fun nova(
             bd: BaseDados, id: String, nome: String, modo: ModoCarreira, equipaId: String,
             posicao: String = "PL", semente: Long? = null,
+            nacionalidade: String = "", pe: String = "",
         ): Carreira {
             val gestor = GestorEpocas(bd, semente)
             val info = InfoCarreira(id, nome.trim().ifEmpty { "Sem Nome" }, modo, equipaId)
@@ -752,12 +770,21 @@ class Carreira(
                 val nivel = equipa.melhorOnze().map { it.nota }.average() - 8.0
                 val jovem = gestor.gerador.criar(equipa.pais, posicao, nivel, 17)
                 jovem.nome = info.nome
-                jovem.nacionalidade = equipa.pais
+                jovem.nacionalidade = nacionalidade.ifEmpty { equipa.pais }
+                if (pe in listOf("direito", "esquerdo", "ambos")) jovem.pe = pe
                 jovem.potencial = (jovem.geral() + 22).coerceIn(86, 95)
                 jovem.equipa = equipa.id
+                jovem.contratoAte = gestor.ano + 3
+                jovem.salario = jovem.salarioJusto()
                 bd.adicionarJogador(jovem)
                 info.jogadorId = jovem.id
-                carreira.mensagem("Bem-vindo: ${equipa.nome}", "Assinaste o teu primeiro contrato. Trabalha para ganhar um lugar na equipa!")
+                val estado = carreira.jogadorCarreira.estado
+                estado.estatuto = carreira.jogadorCarreira.calcularEstatuto(jovem, equipa)
+                estado.atributosVistos += jovem.atributos
+                carreira.mensagem(
+                    "Bem-vindo: ${equipa.nome}",
+                    "Assinaste o teu primeiro contrato (até ${jovem.contratoAte}). Estatuto no plantel: ${estado.estatuto!!.nome.lowercase()}. Trabalha para ganhar um lugar na equipa!",
+                )
             } else {
                 carreira.mensagem("Bem-vindo: ${equipa.nome}", "A direção apresentou-te como novo treinador. Objetivo para ${gestor.nomeEpoca()}: ${info.objetivoTexto.lowercase()}.")
             }

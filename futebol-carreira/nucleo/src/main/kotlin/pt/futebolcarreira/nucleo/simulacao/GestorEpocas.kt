@@ -5,6 +5,7 @@ import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.dados.GeradorJogadores
 import pt.futebolcarreira.nucleo.modelos.Competicao
 import pt.futebolcarreira.nucleo.modelos.ContasEpoca
+import pt.futebolcarreira.nucleo.modelos.FocoTreino
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import java.time.LocalDate
 import java.time.YearMonth
@@ -51,6 +52,11 @@ class ResumoEpoca(
     val supertacas: Map<String, ResumoTaca> = emptyMap(),
     /** Competições europeias: "UCL" (Liga dos Campeões) e "UEL" (Liga Europa) -> vencedor e finalista. */
     val europa: Map<String, ResumoTaca> = emptyMap(),
+    /** Prémios individuais de cada liga (id da liga -> prémios). Vazio em gravações antigas. */
+    val premios: Map<String, PremiosLiga> = emptyMap(),
+    /** "Bola de Ouro" da época (entre todas as ligas) e o pódio (o vencedor em primeiro). */
+    val bolaDeOuro: Premiado? = null,
+    val podio: List<Premiado> = emptyList(),
 )
 
 /**
@@ -128,6 +134,9 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
 
     /** Frases sobre o treino do clube do utilizador (evolução, lesões); quem as lê deve esvaziar a lista. */
     val noticias = mutableListOf<String>()
+
+    /** Foco de treino só de alguns jogadores (id -> foco), por exemplo o jogador do utilizador. */
+    val focosIndividuais = HashMap<Int, FocoTreino>()
 
     /** Id do clube do utilizador (para os avisos lhe dizerem respeito). */
     var clubeDoUtilizador: String = ""
@@ -282,7 +291,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         var mes = YearMonth.from(data)
         while (mes < YearMonth.from(dia)) {
             mes = mes.plusMonths(1)
-            val evolucao = Treino.mensal(bd, rng, clubeDoUtilizador)
+            val evolucao = Treino.mensal(bd, rng, clubeDoUtilizador, focosIndividuais)
             if (evolucao.isNotEmpty()) noticias += "Treino de ${CalendarioDatas.mes(mes.minusMonths(1).monthValue)}: " + evolucao.take(8).joinToString() + (if (evolucao.size > 8) " e mais ${evolucao.size - 8}." else ".")
         }
         if (dia > data) data = dia
@@ -434,7 +443,8 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
                 Financas.premio(bd.equipas.getValue(linha.id), i + 1, ordem.size, bd.competicoes.getValue(ligaId).nivel)
             }
         }
-        historico += ResumoEpoca(ano, resumos, tacas, supertacas, europeias)
+        val premios = Premios.calcular(bd, estado, resumos, europeias)
+        historico += ResumoEpoca(ano, resumos, tacas, supertacas, europeias, premios.ligas, premios.bolaDeOuro, premios.podio)
     }
 
     /**

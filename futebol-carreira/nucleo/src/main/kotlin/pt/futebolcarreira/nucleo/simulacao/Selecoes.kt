@@ -161,7 +161,7 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
     /** A convocatória em vigor de uma seleção (calcula-a se ainda não existir nesta janela). */
     fun convocados(nacao: String): List<Jogador> {
         val n = nacoes[nacao] ?: return emptyList()
-        if (!n.baseDados) return esquadroes[nacao].orEmpty()
+        if (!n.baseDados) return esquadraoComReais(nacao)
         val atual = convocatorias[nacao]?.mapNotNull { bd.jogadores[it] }
         if (atual != null && atual.size >= MINIMO_CONVOCADOS) return atual
         val nova = calcularConvocatoria(nacao)
@@ -171,6 +171,26 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
 
     /** Convocatórias da janela em curso (só seleções da base de dados): nação -> ids. */
     fun convocadosDaJanela(): Map<String, List<Int>> = convocatorias.toMap()
+
+    /**
+     * Seleções fictícias: se na base de dados houver jogadores reais com esta nacionalidade (o jogador do utilizador,
+     * criado com uma nacionalidade de fora dos seis países) e forem pelo menos tão bons como o mais fraco da posição,
+     * tomam o lugar dele. Ficam registados em "convocatorias" como nas seleções da base de dados.
+     */
+    private fun esquadraoComReais(nacao: String): List<Jogador> {
+        val base = esquadroes[nacao].orEmpty()
+        val reais = bd.jogadores.values.filter { it.nacionalidade == nacao && !it.academia && it.equipa.isNotEmpty() && it.lesao == 0 }
+        val lista = base.toMutableList()
+        val escolhidos = mutableListOf<Int>()
+        for (r in reais.sortedByDescending { it.geral() }) {
+            val pior = lista.filter { it.id < 0 && it.posicao == r.posicao }.minByOrNull { it.geral() } ?: continue
+            if (r.geral() < pior.geral()) continue
+            lista[lista.indexOf(pior)] = r
+            escolhidos += r.id
+        }
+        if (escolhidos.isEmpty()) convocatorias.remove(nacao) else convocatorias[nacao] = escolhidos
+        return lista
+    }
 
     /** Em que seleção está convocado este jogador (na janela em curso)? null = não está. */
     fun nacaoDoConvocado(idJogador: Int): String? = convocatorias.entries.firstOrNull { idJogador in it.value }?.key
@@ -190,7 +210,7 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
         val fim = proxima.plusDays(JANELA_DIAS.toLong())
         val jogam = competicoesAtivas().flatMap { it.jogos }
             .filter { !it.jogado && it.dataLocal() in proxima..fim }.flatMap { listOf(it.casa, it.fora) }.toSet()
-        for (n in jogam) if (nacoes[n]?.baseDados == true) convocados(n)
+        for (n in jogam) if (nacoes.containsKey(n)) convocados(n)
         return convocatorias.toMap()
     }
 
