@@ -1,0 +1,8362 @@
+[
+{
+"equipa": "ALE_01",
+"nome": "Manuel Neuer",
+"numero": "1",
+"titulo": "Manuel Neuer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Dayot Upamecano",
+"numero": "2",
+"titulo": "Dayot Upamecano",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Kim Min-jae",
+"numero": "3",
+"titulo": "Kim Min-jae (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Jonathan Tah",
+"numero": "4",
+"titulo": "Jonathan Tah",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Joshua Kimmich",
+"numero": "6",
+"titulo": "Joshua Kimmich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Serge Gnabry",
+"numero": "7",
+"titulo": "Serge Gnabry",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Tom Bischof",
+"numero": "8",
+"titulo": "Tom Bischof",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Harry Kane",
+"numero": "9",
+"titulo": "Harry Kane",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Jamal Musiala",
+"numero": "10",
+"titulo": "Jamal Musiala",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Nathaniel Brown",
+"numero": "11",
+"titulo": "Nathaniel Brown (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Luis Díaz",
+"numero": "14",
+"titulo": "Luis Díaz (footballer, born 1997)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Michael Olise",
+"numero": "17",
+"titulo": "Michael Olise",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Alphonso Davies",
+"numero": "19",
+"titulo": "Alphonso Davies",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Hiroki Itō",
+"numero": "21",
+"titulo": "Hiroki Itō (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Sacha Boey",
+"numero": "23",
+"titulo": "Sacha Boey",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Sven Ulreich",
+"numero": "26",
+"titulo": "Sven Ulreich",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Konrad Laimer",
+"numero": "27",
+"titulo": "Konrad Laimer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Ismael Saibari",
+"numero": "34",
+"titulo": "Ismael Saibari",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Bara Sapoko Ndiaye",
+"numero": "39",
+"titulo": "Bara Sapoko Ndiaye",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Jonas Urbig",
+"numero": "40",
+"titulo": "Jonas Urbig",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Lennart Karl",
+"numero": "42",
+"titulo": "Lennart Karl",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Josip Stanišić",
+"numero": "44",
+"titulo": "Josip Stanišić",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Aleksandar Pavlović",
+"numero": "45",
+"titulo": "Aleksandar Pavlović (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "David Santos Daiber",
+"numero": "47",
+"titulo": "David Santos Daiber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Cassiano Kiala",
+"numero": "30",
+"titulo": "Cassiano Kiala",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Jannis Bärtl",
+"numero": "35",
+"titulo": "Jannis Bärtl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "David Podar-Știube",
+"numero": "38",
+"titulo": "David Podar-Știube",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_01",
+"nome": "Filip Pavić",
+"numero": "43",
+"titulo": "Filip Pavić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Tim Binder",
+"numero": "46",
+"titulo": "Tim Binder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Bastian Assomo",
+"numero": "48",
+"titulo": "Bastian Assomo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Maycon Cardozo",
+"numero": "49",
+"titulo": "Maycon Cardozo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Leon Klanac",
+"numero": "",
+"titulo": "Leon Klanac",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Leonard Prescott",
+"numero": "",
+"titulo": "Leonard Prescott",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Tarek Buchmann",
+"numero": "",
+"titulo": "Tarek Buchmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Vincent Manuba",
+"numero": "",
+"titulo": "Vincent Manuba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Guido Della Rovere",
+"numero": "",
+"titulo": "Guido Della Rovere",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_01",
+"nome": "Erblin Osmani",
+"numero": "",
+"titulo": "Erblin Osmani",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Mark Flekken",
+"numero": "1",
+"titulo": "Mark Flekken",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Facundo Medina",
+"numero": "2",
+"titulo": "Facundo Medina",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Miguel Gutiérrez",
+"numero": "3",
+"titulo": "Miguel Gutiérrez (footballer, born 2001)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Jarell Quansah",
+"numero": "4",
+"titulo": "Jarell Quansah",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Loïc Badé",
+"numero": "5",
+"titulo": "Loïc Badé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Equi Fernández",
+"numero": "6",
+"titulo": "Equi Fernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Jonas Hofmann",
+"numero": "7",
+"titulo": "Jonas Hofmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Robert Andrich",
+"numero": "8",
+"titulo": "Robert Andrich",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Afonso Moreira",
+"numero": "9",
+"titulo": "Afonso Moreira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Malik Tillman",
+"numero": "10",
+"titulo": "Malik Tillman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Martin Terrier",
+"numero": "11",
+"titulo": "Martin Terrier",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Edmond Tapsoba",
+"numero": "12",
+"titulo": "Edmond Tapsoba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Patrik Schick",
+"numero": "14",
+"titulo": "Patrik Schick",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Tim Oermann",
+"numero": "15",
+"titulo": "Tim Oermann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Lucas Vázquez",
+"numero": "17",
+"titulo": "Lucas Vázquez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Kennet Eichhorn",
+"numero": "18",
+"titulo": "Kennet Eichhorn",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Moussa Diaby",
+"numero": "19",
+"titulo": "Moussa Diaby",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Guéla Doué",
+"numero": "20",
+"titulo": "Guéla Doué",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Victor Boniface",
+"numero": "22",
+"titulo": "Victor Boniface",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Nathan Tella",
+"numero": "23",
+"titulo": "Nathan Tella",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Aleix García",
+"numero": "24",
+"titulo": "Aleix García",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Janis Blaswich",
+"numero": "28",
+"titulo": "Janis Blaswich",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Eliesse Ben Seghir",
+"numero": "29",
+"titulo": "Eliesse Ben Seghir",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Ibrahim Maza",
+"numero": "30",
+"titulo": "Ibrahim Maza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Christian Kofane",
+"numero": "35",
+"titulo": "Christian Kofane",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Niklas Lomb",
+"numero": "36",
+"titulo": "Niklas Lomb",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_02",
+"nome": "Montrell Culbreath",
+"numero": "42",
+"titulo": "Montrell Culbreath",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Noah Atubolu",
+"numero": "1",
+"titulo": "Noah Atubolu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Elias Baum",
+"numero": "2",
+"titulo": "Elias Baum",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Lilian Brassier",
+"numero": "3",
+"titulo": "Lilian Brassier",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Robin Koch",
+"numero": "4",
+"titulo": "Robin Koch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Otávio",
+"numero": "5",
+"titulo": "Otávio (footballer, born November 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Oscar Højlund",
+"numero": "6",
+"titulo": "Oscar Højlund",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Ansgar Knauff",
+"numero": "7",
+"titulo": "Ansgar Knauff",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Farès Chaïbi",
+"numero": "8",
+"titulo": "Farès Chaïbi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Jonathan Burkardt",
+"numero": "9",
+"titulo": "Jonathan Burkardt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Younes Ebnoutalib",
+"numero": "11",
+"titulo": "Younes Ebnoutalib",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Noël Aséko",
+"numero": "15",
+"titulo": "Noël Aséko",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Ritsu Dōan",
+"numero": "20",
+"titulo": "Ritsu Dōan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Timothy Chandler",
+"numero": "22",
+"titulo": "Timothy Chandler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Niko Iličević",
+"numero": "23",
+"titulo": "Niko Iličević",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Raphael Onyedika",
+"numero": "25",
+"titulo": "Raphael Onyedika",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Keita Kosugi",
+"numero": "26",
+"titulo": "Keita Kosugi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Mario Götze",
+"numero": "27",
+"titulo": "Mario Götze",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Ayoube Amaimouni",
+"numero": "29",
+"titulo": "Ayoube Amaimouni",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Love Arrhov",
+"numero": "31",
+"titulo": "Love Arrhov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Jens Grahl",
+"numero": "33",
+"titulo": "Jens Grahl",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Nnamdi Collins",
+"numero": "34",
+"titulo": "Nnamdi Collins",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Malik Pimpong",
+"numero": "35",
+"titulo": "Malik Pimpong",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Jeremiaha Maluze",
+"numero": "37",
+"titulo": "Jeremiaha Maluze",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Amil Šiljević",
+"numero": "39",
+"titulo": "Amil Šiljević",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_03",
+"nome": "Kauã Santos",
+"numero": "40",
+"titulo": "Kauã Santos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Can Uzun",
+"numero": "42",
+"titulo": "Can Uzun",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_03",
+"nome": "Jessic Ngankam",
+"numero": "44",
+"titulo": "Jessic Ngankam",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Gregor Kobel",
+"numero": "1",
+"titulo": "Gregor Kobel",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Waldemar Anton",
+"numero": "3",
+"titulo": "Waldemar Anton",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Nico Schlotterbeck",
+"numero": "4",
+"titulo": "Nico Schlotterbeck",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Ramy Bensebaini",
+"numero": "5",
+"titulo": "Ramy Bensebaini",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Jobe Bellingham",
+"numero": "7",
+"titulo": "Jobe Bellingham",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Felix Nmecha",
+"numero": "8",
+"titulo": "Felix Nmecha",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Serhou Guirassy",
+"numero": "9",
+"titulo": "Serhou Guirassy",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Maximilian Beier",
+"numero": "14",
+"titulo": "Maximilian Beier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Carney Chukwuemeka",
+"numero": "17",
+"titulo": "Carney Chukwuemeka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Ethan Nwaneri",
+"numero": "18",
+"titulo": "Ethan Nwaneri",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Konstantinos Karetsas",
+"numero": "19",
+"titulo": "Konstantinos Karetsas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Marcel Sabitzer",
+"numero": "20",
+"titulo": "Marcel Sabitzer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Fábio Silva",
+"numero": "21",
+"titulo": "Fábio Silva (footballer, born 2002)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Joane Gadou",
+"numero": "22",
+"titulo": "Joane Gadou",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Emre Can",
+"numero": "23",
+"titulo": "Emre Can",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Daniel Svensson",
+"numero": "24",
+"titulo": "Daniel Svensson (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Joey Veerman",
+"numero": "25",
+"titulo": "Joey Veerman",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Julian Ryerson",
+"numero": "26",
+"titulo": "Julian Ryerson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Justin Lerma",
+"numero": "28",
+"titulo": "Justin Lerma",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Patrick Drewes",
+"numero": "30",
+"titulo": "Patrick Drewes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Silas Ostrzinski",
+"numero": "31",
+"titulo": "Silas Ostrzinski",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Alexander Meyer",
+"numero": "33",
+"titulo": "Alexander Meyer (footballer, born 1991)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Kauã Prates",
+"numero": "36",
+"titulo": "Kauã Prates",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Filippo Mane",
+"numero": "39",
+"titulo": "Filippo Mane",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Samuele Inácio",
+"numero": "40",
+"titulo": "Samuele Inácio",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Mathis Albert",
+"numero": "41",
+"titulo": "Mathis Albert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Enzo dos Santos",
+"numero": "44",
+"titulo": "Enzo dos Santos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Giannis Konstantelias",
+"numero": "45",
+"titulo": "Giannis Konstantelias",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Mussa Kaba",
+"numero": "48",
+"titulo": "Mussa Kaba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_04",
+"nome": "Luca Reggiani",
+"numero": "49",
+"titulo": "Luca Reggiani",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Mio Backhaus",
+"numero": "1",
+"titulo": "Mio Backhaus",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Philipp Lienhart",
+"numero": "3",
+"titulo": "Philipp Lienhart",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Anthony Jung",
+"numero": "5",
+"titulo": "Anthony Jung",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Patrick Osterhage",
+"numero": "6",
+"titulo": "Patrick Osterhage",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Derry Scherhant",
+"numero": "7",
+"titulo": "Derry Scherhant",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Maximilian Eggestein",
+"numero": "8",
+"titulo": "Maximilian Eggestein",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Lucas Höler",
+"numero": "9",
+"titulo": "Lucas Höler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Yuito Suzuki",
+"numero": "14",
+"titulo": "Yuito Suzuki",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Yannik Engelhardt",
+"numero": "16",
+"titulo": "Yannik Engelhardt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Lukas Kübler",
+"numero": "17",
+"titulo": "Lukas Kübler",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Niklas Beste",
+"numero": "19",
+"titulo": "Jan-Niklas Beste",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Rihito Yamamoto",
+"numero": "20",
+"titulo": "Rihito Yamamoto",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Florian Müller",
+"numero": "21",
+"titulo": "Florian Müller (footballer, born 1997)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Cyriaque Irié",
+"numero": "22",
+"titulo": "Cyriaque Irié",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Florent Muslija",
+"numero": "23",
+"titulo": "Florent Muslija",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Jannik Huth",
+"numero": "24",
+"titulo": "Jannik Huth",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Berkay Yılmaz",
+"numero": "27",
+"titulo": "Berkay Yılmaz (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Matthias Ginter",
+"numero": "28",
+"titulo": "Matthias Ginter",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Philipp Treu",
+"numero": "29",
+"titulo": "Philipp Treu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Christian Günter",
+"numero": "30",
+"titulo": "Christian Günter",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Igor Matanović",
+"numero": "31",
+"titulo": "Igor Matanović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Vincenzo Grifo",
+"numero": "32",
+"titulo": "Vincenzo Grifo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Jordy Makengo",
+"numero": "33",
+"titulo": "Jordy Makengo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Max Rosenfelder",
+"numero": "37",
+"titulo": "Max Rosenfelder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Rouven Tarnutzer",
+"numero": "39",
+"titulo": "Rouven Tarnutzer",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_05",
+"nome": "Keisuke Gotō",
+"numero": "42",
+"titulo": "Keisuke Gotō",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_05",
+"nome": "Bruno Ogbus",
+"numero": "43",
+"titulo": "Bruno Ogbus",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Alexander Schwolow",
+"numero": "1",
+"titulo": "Alexander Schwolow",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Phillipp Mwene",
+"numero": "2",
+"titulo": "Phillipp Mwene",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Fabio Gruber",
+"numero": "3",
+"titulo": "Fabio Gruber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Stefan Posch",
+"numero": "4",
+"titulo": "Stefan Posch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Eric Martel",
+"numero": "5",
+"titulo": "Eric Martel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Kaishū Sano",
+"numero": "6",
+"titulo": "Kaishū Sano",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Lee Jae-sung",
+"numero": "7",
+"titulo": "Lee Jae-sung",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Paul Nebel",
+"numero": "8",
+"titulo": "Paul Nebel",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Phillip Tietz",
+"numero": "9",
+"titulo": "Phillip Tietz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Nadiem Amiri",
+"numero": "10",
+"titulo": "Nadiem Amiri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Ransford-Yeboah Königsdörffer",
+"numero": "11",
+"titulo": "Ransford-Yeboah Königsdörffer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Lennard Maloney",
+"numero": "15",
+"titulo": "Lennard Maloney",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Stefan Bell",
+"numero": "16",
+"titulo": "Stefan Bell",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Benedict Hollerbach",
+"numero": "17",
+"titulo": "Benedict Hollerbach",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Anthony Caci",
+"numero": "19",
+"titulo": "Anthony Caci",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Otto Ruoppi",
+"numero": "20",
+"titulo": "Otto Ruoppi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Danny da Costa",
+"numero": "21",
+"titulo": "Danny da Costa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Sheraldo Becker",
+"numero": "23",
+"titulo": "Sheraldo Becker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Sōta Kawasaki",
+"numero": "24",
+"titulo": "Sōta Kawasaki",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Silas",
+"numero": "26",
+"titulo": "Silas Katompa Mvumpa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Robin Zentner",
+"numero": "27",
+"titulo": "Robin Zentner",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Silvan Widmer",
+"numero": "30",
+"titulo": "Silvan Widmer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Dominik Kohr",
+"numero": "31",
+"titulo": "Dominik Kohr",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Alynho Haïdara",
+"numero": "39",
+"titulo": "Alynho Haïdara",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_06",
+"nome": "Maximilian Kinzig",
+"numero": "40",
+"titulo": "Maximilian Kinzig",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_06",
+"nome": "Kacper Potulski",
+"numero": "48",
+"titulo": "Kacper Potulski",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Ørjan Nyland",
+"numero": "1",
+"titulo": "Ørjan Nyland",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Abdoul Koné",
+"numero": "2",
+"titulo": "Abdoul Koné",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Maxime Estève",
+"numero": "3",
+"titulo": "Maxime Estève",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Willi Orbán",
+"numero": "4",
+"titulo": "Willi Orbán",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Ezechiel Banzuzi",
+"numero": "6",
+"titulo": "Ezechiel Banzuzi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Antonio Nusa",
+"numero": "7",
+"titulo": "Antonio Nusa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Assan Ouédraogo",
+"numero": "8",
+"titulo": "Assan Ouédraogo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Marc Guiu",
+"numero": "9",
+"titulo": "Marc Guiu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Brajan Gruda",
+"numero": "10",
+"titulo": "Brajan Gruda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Johan Bakayoko",
+"numero": "11",
+"titulo": "Johan Bakayoko",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Nicolas Seiwald",
+"numero": "13",
+"titulo": "Nicolas Seiwald",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Christoph Baumgartner",
+"numero": "14",
+"titulo": "Christoph Baumgartner",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Lukas Klostermann",
+"numero": "16",
+"titulo": "Lukas Klostermann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Ridle Baku",
+"numero": "17",
+"titulo": "Ridle Baku",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Rocco Reitz",
+"numero": "20",
+"titulo": "Rocco Reitz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Neil El Aynaoui",
+"numero": "21",
+"titulo": "Neil El Aynaoui",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "David Raum",
+"numero": "22",
+"titulo": "David Raum",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Castello Lukeba",
+"numero": "23",
+"titulo": "Castello Lukeba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Leopold Zingerle",
+"numero": "25",
+"titulo": "Leopold Zingerle",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Maarten Vandevoordt",
+"numero": "26",
+"titulo": "Maarten Vandevoordt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Tidiam Gomis",
+"numero": "27",
+"titulo": "Tidiam Gomis",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Christopher Nkunku",
+"numero": "28",
+"titulo": "Christopher Nkunku",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Andrija Maksimović",
+"numero": "30",
+"titulo": "Andrija Maksimović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Max Finkgräfe",
+"numero": "35",
+"titulo": "Max Finkgräfe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Benno Kaltefleiter",
+"numero": "37",
+"titulo": "Benno Kaltefleiter",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_07",
+"nome": "Benjamin Henrichs",
+"numero": "39",
+"titulo": "Benjamin Henrichs",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Rômulo",
+"numero": "40",
+"titulo": "Rômulo Cardoso",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Samba Konaté",
+"numero": "45",
+"titulo": "Samba Konaté",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_07",
+"nome": "Viggo Gebel",
+"numero": "47",
+"titulo": "Viggo Gebel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Karl Hein",
+"numero": "1",
+"titulo": "Karl Hein (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Olivier Deman",
+"numero": "2",
+"titulo": "Olivier Deman",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Oskar Wójcik",
+"numero": "3",
+"titulo": "Oskar Wójcik",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Niklas Stark",
+"numero": "4",
+"titulo": "Niklas Stark",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Amos Pieper",
+"numero": "5",
+"titulo": "Amos Pieper",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Jens Stage",
+"numero": "6",
+"titulo": "Jens Stage",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Mitchell Weiser",
+"numero": "8",
+"titulo": "Mitchell Weiser",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Keke Topp",
+"numero": "9",
+"titulo": "Keke Topp",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Niclas Füllkrug",
+"numero": "10",
+"titulo": "Niclas Füllkrug",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Justin Njinmah",
+"numero": "11",
+"titulo": "Justin Njinmah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Arthur",
+"numero": "13",
+"titulo": "Arthur (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Senne Lynen",
+"numero": "14",
+"titulo": "Senne Lynen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Ludovit Reis",
+"numero": "15",
+"titulo": "Ludovit Reis",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Moussa N'Diaye",
+"numero": "16",
+"titulo": "Moussa N'Diaye (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Marco Grüll",
+"numero": "17",
+"titulo": "Marco Grüll",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Eren Dinkçi",
+"numero": "18",
+"titulo": "Eren Dinkçi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Kenny Quetant",
+"numero": "19",
+"titulo": "Kenny Quetant",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Chuki",
+"numero": "20",
+"titulo": "Chuki (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Dariusz Stalmach",
+"numero": "23",
+"titulo": "Dariusz Stalmach",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Markus Kolke",
+"numero": "25",
+"titulo": "Markus Kolke",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Cedric Itten",
+"numero": "26",
+"titulo": "Cedric Itten",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Felix Agu",
+"numero": "27",
+"titulo": "Felix Agu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Skelly Alvero",
+"numero": "28",
+"titulo": "Skelly Alvero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Salim Musah",
+"numero": "29",
+"titulo": "Salim Musah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Alexander Schlager",
+"numero": "30",
+"titulo": "Alexander Schlager",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Marco Friedl",
+"numero": "32",
+"titulo": "Marco Friedl",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Mick Schmetgens",
+"numero": "33",
+"titulo": "Mick Schmetgens",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Darwin Soylu",
+"numero": "34",
+"titulo": "Darwin Soylu",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_08",
+"nome": "Luca Höcker",
+"numero": "35",
+"titulo": "Luca Höcker",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_08",
+"nome": "Mats Heitmann",
+"numero": "36",
+"titulo": "Mats Heitmann",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_08",
+"nome": "Stefan Smarkalev",
+"numero": "37",
+"titulo": "Stefan Smarkalev",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Paul Erevbenagie",
+"numero": "38",
+"titulo": "Paul Erevbenagie",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_08",
+"nome": "Youri Regeer",
+"numero": "44",
+"titulo": "Youri Regeer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Fabian Bredlow",
+"numero": "1",
+"titulo": "Fabian Bredlow",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Ameen Al-Dakhil",
+"numero": "2",
+"titulo": "Ameen Al-Dakhil",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Ramon Hendriks",
+"numero": "3",
+"titulo": "Ramon Hendriks",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Josha Vagnoman",
+"numero": "4",
+"titulo": "Josha Vagnoman",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Angelo Stiller",
+"numero": "6",
+"titulo": "Angelo Stiller",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Maximilian Mittelstädt",
+"numero": "7",
+"titulo": "Maximilian Mittelstädt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Tiago Tomás",
+"numero": "8",
+"titulo": "Tiago Tomás",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Ermedin Demirović",
+"numero": "9",
+"titulo": "Ermedin Demirović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Chris Führich",
+"numero": "10",
+"titulo": "Chris Führich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Bilal El Khannouss",
+"numero": "11",
+"titulo": "Bilal El Khannouss",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Luca Jaquez",
+"numero": "14",
+"titulo": "Luca Jaquez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Atakan Karazor",
+"numero": "16",
+"titulo": "Atakan Karazor",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Dženan Pejčinović",
+"numero": "17",
+"titulo": "Dženan Pejčinović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Jamie Leweling",
+"numero": "18",
+"titulo": "Jamie Leweling",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Leonidas Stergiou",
+"numero": "20",
+"titulo": "Leonidas Stergiou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Grischa Prömel",
+"numero": "21",
+"titulo": "Grischa Prömel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Lorenz Assignon",
+"numero": "22",
+"titulo": "Lorenz Assignon",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Dan-Axel Zagadou",
+"numero": "23",
+"titulo": "Dan-Axel Zagadou",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Jeff Chabot",
+"numero": "24",
+"titulo": "Jeff Chabot",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Deniz Undav",
+"numero": "26",
+"titulo": "Deniz Undav",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Nikolas Nartey",
+"numero": "28",
+"titulo": "Nikolas Nartey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Finn Jeltsch",
+"numero": "29",
+"titulo": "Finn Jeltsch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Justin Diehl",
+"numero": "31",
+"titulo": "Justin Diehl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Marius Funk",
+"numero": "33",
+"titulo": "Marius Funk",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Ertuğrul Yiğit",
+"numero": "39",
+"titulo": "Ertuğrul Yiğit",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_09",
+"nome": "Dennis Seimen",
+"numero": "41",
+"titulo": "Dennis Seimen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Jarzinho Malanga",
+"numero": "43",
+"titulo": "Jarzinho Malanga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Leo Sauer",
+"numero": "44",
+"titulo": "Leo Sauer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Stefan Drljača",
+"numero": "46",
+"titulo": "Stefan Drljača",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_09",
+"nome": "Yanik Spalt",
+"numero": "47",
+"titulo": "Yanik Spalt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Moritz Nicolas",
+"numero": "1",
+"titulo": "Moritz Nicolas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Fabio Chiarodia",
+"numero": "2",
+"titulo": "Fabio Chiarodia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Isac Lidberg",
+"numero": "3",
+"titulo": "Isac Lidberg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Kevin Diks",
+"numero": "4",
+"titulo": "Kevin Diks",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Jan Leszczyński",
+"numero": "5",
+"titulo": "Jan Leszczyński (footballer, born 2007)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Kō Itakura",
+"numero": "6",
+"titulo": "Kō Itakura",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Kevin Stöger",
+"numero": "7",
+"titulo": "Kevin Stöger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Enzo Leopold",
+"numero": "8",
+"titulo": "Enzo Leopold",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Franck Honorat",
+"numero": "9",
+"titulo": "Franck Honorat",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Florian Neuhaus",
+"numero": "10",
+"titulo": "Florian Neuhaus",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Tim Kleindienst",
+"numero": "11",
+"titulo": "Tim Kleindienst",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Daiki Hashioka",
+"numero": "14",
+"titulo": "Daiki Hashioka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Philipp Sander",
+"numero": "16",
+"titulo": "Philipp Sander",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Jens Castrop",
+"numero": "17",
+"titulo": "Jens Castrop",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Shūto Machino",
+"numero": "18",
+"titulo": "Shūto Machino",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Nicolas Kühn",
+"numero": "19",
+"titulo": "Nicolas Kühn",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "David Herold",
+"numero": "20",
+"titulo": "David Herold (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Tobias Sippel",
+"numero": "21",
+"titulo": "Tobias Sippel",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Yukhym Konoplya",
+"numero": "22",
+"titulo": "Yukhym Konoplya",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Jan Olschowsky",
+"numero": "23",
+"titulo": "Jan Olschowsky",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Robin Hack",
+"numero": "25",
+"titulo": "Robin Hack",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Lukas Ullrich",
+"numero": "26",
+"titulo": "Lukas Ullrich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Fritz Fleck",
+"numero": "27",
+"titulo": "Fritz Henri Fleck",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Joe Scally",
+"numero": "29",
+"titulo": "Joe Scally",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Daniel Batz",
+"numero": "33",
+"titulo": "Daniel Batz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Mathieu Nguefack",
+"numero": "34",
+"titulo": "Mathieu Nguefack",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Josiah Uwakhonye",
+"numero": "35",
+"titulo": "Josiah Kaled Uwakhonye",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_10",
+"nome": "Wael Mohya",
+"numero": "36",
+"titulo": "Wael Mohya",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Hugo Bolin",
+"numero": "38",
+"titulo": "Hugo Bolin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Iaia Manco Danfa",
+"numero": "39",
+"titulo": "Iaia Manco Danfa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Zento Uno",
+"numero": "47",
+"titulo": "Zento Uno",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_10",
+"nome": "Lion Schweers",
+"numero": "48",
+"titulo": "Lion Schweers",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Timon Wellenreuther",
+"numero": "1",
+"titulo": "Timon Wellenreuther",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Kilian Fischer",
+"numero": "2",
+"titulo": "Kilian Fischer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Vini Souza",
+"numero": "5",
+"titulo": "Vinícius Souza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Hauke Wahl",
+"numero": "6",
+"titulo": "Hauke Wahl",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Kento Shiogai",
+"numero": "7",
+"titulo": "Kento Shiogai",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Bence Dárdai",
+"numero": "8",
+"titulo": "Bence Dárdai",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Fraser Hornby",
+"numero": "10",
+"titulo": "Fraser Hornby",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Fabian Reese",
+"numero": "11",
+"titulo": "Fabian Reese",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Pavao Pervan",
+"numero": "12",
+"titulo": "Pavao Pervan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Rogério",
+"numero": "13",
+"titulo": "Rogério (footballer, born 1998)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Pharell Hensel",
+"numero": "14",
+"titulo": "Pharell Hensel",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_11",
+"nome": "Alexander Bernhardsson",
+"numero": "17",
+"titulo": "Alexander Bernhardsson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Jonas Adjetey",
+"numero": "18",
+"titulo": "Jonas Adjetey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Robert Glatzel",
+"numero": "19",
+"titulo": "Robert Glatzel",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Muhammed Damar",
+"numero": "20",
+"titulo": "Muhammed Damar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Joakim Mæhle",
+"numero": "21",
+"titulo": "Joakim Mæhle",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Mathys Angély",
+"numero": "22",
+"titulo": "Mathys Angély",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Alessio Besio",
+"numero": "23",
+"titulo": "Alessio Besio",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Aaron Zehnter",
+"numero": "25",
+"titulo": "Aaron Zehnter",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Saël Kumbedi",
+"numero": "26",
+"titulo": "Saël Kumbedi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Maximilian Arnold",
+"numero": "27",
+"titulo": "Maximilian Arnold",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Jakub Zieliński",
+"numero": "30",
+"titulo": "Jakub Zieliński",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Yannick Gerhardt",
+"numero": "31",
+"titulo": "Yannick Gerhardt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Mattias Svanberg",
+"numero": "32",
+"titulo": "Mattias Svanberg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Cleiton",
+"numero": "33",
+"titulo": "Cleiton (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Aster Vranckx",
+"numero": "36",
+"titulo": "Aster Vranckx",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Elvis Rexhbeçaj",
+"numero": "37",
+"titulo": "Elvis Rexhbeçaj",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_11",
+"nome": "Bruno Katz",
+"numero": "42",
+"titulo": "Bruno Katz",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_11",
+"nome": "Trevor Benedict",
+"numero": "43",
+"titulo": "Trevor Benedict",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_12",
+"nome": "Finn Dahmen",
+"numero": "1",
+"titulo": "Finn Dahmen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Calvin Brackelmann",
+"numero": "2",
+"titulo": "Calvin Brackelmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Han-Noah Massengo",
+"numero": "4",
+"titulo": "Han-Noah Massengo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Chrislain Matsima",
+"numero": "5",
+"titulo": "Chrislain Matsima",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Jeffrey Gouweleeuw",
+"numero": "6",
+"titulo": "Jeffrey Gouweleeuw",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Seol Young-woo",
+"numero": "7",
+"titulo": "Seol Young-woo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Sima Suso",
+"numero": "8",
+"titulo": "Sima Suso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Rodrigo Ribeiro",
+"numero": "9",
+"titulo": "Rodrigo Ribeiro (footballer, born 2005)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Mert Kömür",
+"numero": "10",
+"titulo": "Mert Kömür",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Michael Gregoritsch",
+"numero": "11",
+"titulo": "Michael Gregoritsch",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Yannik Keitel",
+"numero": "14",
+"titulo": "Yannik Keitel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Steve Mounié",
+"numero": "15",
+"titulo": "Steve Mounié",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Hennes Behrens",
+"numero": "16",
+"titulo": "Hennes Behrens",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Tim Breithaupt",
+"numero": "18",
+"titulo": "Tim Breithaupt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Robin Fellhauer",
+"numero": "19",
+"titulo": "Robin Fellhauer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Alexis Claude-Maurice",
+"numero": "20",
+"titulo": "Alexis Claude-Maurice",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Arijon Ibrahimović",
+"numero": "21",
+"titulo": "Arijon Ibrahimović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Nediljko Labrović",
+"numero": "22",
+"titulo": "Nediljko Labrović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Faik Sakar",
+"numero": "23",
+"titulo": "Faik Sakar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Marius Wolf",
+"numero": "27",
+"titulo": "Marius Wolf",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Anton Kade",
+"numero": "30",
+"titulo": "Anton Kade",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Fabian Rieder",
+"numero": "32",
+"titulo": "Fabian Rieder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Juma Bah",
+"numero": "35",
+"titulo": "Juma Bah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Tim Schnitzer",
+"numero": "37",
+"titulo": "Tim Schnitzer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Uchenna Ogundu",
+"numero": "39",
+"titulo": "Uchenna Ogundu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Noahkai Banks",
+"numero": "40",
+"titulo": "Noahkai Banks",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Mahmut Küçükşahin",
+"numero": "42",
+"titulo": "Mahmut Küçükşahin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_12",
+"nome": "Tom Wisbereit",
+"numero": "48",
+"titulo": "Tom Wisbereit",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_13",
+"nome": "Frederik Rønnow",
+"numero": "1",
+"titulo": "Frederik Rønnow",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Felix Uduokhai",
+"numero": "2",
+"titulo": "Felix Uduokhai",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Andrik Markgraf",
+"numero": "3",
+"titulo": "Andrik Markgraf",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_13",
+"nome": "Zeno Van Den Bosch",
+"numero": "4",
+"titulo": "Zeno Van Den Bosch",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Marvin Friedrich",
+"numero": "5",
+"titulo": "Marvin Friedrich",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Aljoscha Kemlein",
+"numero": "6",
+"titulo": "Aljoscha Kemlein",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Oliver Burke",
+"numero": "7",
+"titulo": "Oliver Burke",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Rani Khedira",
+"numero": "8",
+"titulo": "Rani Khedira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Livan Burcu",
+"numero": "9",
+"titulo": "Livan Burcu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Jeong Woo-yeong",
+"numero": "11",
+"titulo": "Jeong Woo-yeong",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "András Schäfer",
+"numero": "13",
+"titulo": "András Schäfer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Leopold Querfeld",
+"numero": "14",
+"titulo": "Leopold Querfeld",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Tom Rothe",
+"numero": "15",
+"titulo": "Tom Rothe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Derrick Köhn",
+"numero": "17",
+"titulo": "Derrick Köhn",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Josip Juranović",
+"numero": "18",
+"titulo": "Josip Juranović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Janik Haberer",
+"numero": "19",
+"titulo": "Janik Haberer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Michel Aebischer",
+"numero": "20",
+"titulo": "Michel Aebischer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Tim Skarke",
+"numero": "21",
+"titulo": "Tim Skarke",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Andrej Ilić",
+"numero": "23",
+"titulo": "Andrej Ilić",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Robert Skov",
+"numero": "24",
+"titulo": "Robert Skov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Carl Klaus",
+"numero": "25",
+"titulo": "Carl Klaus",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Marin Ljubičić",
+"numero": "27",
+"titulo": "Marin Ljubičić (footballer, born 2002)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Christopher Trimmel",
+"numero": "28",
+"titulo": "Christopher Trimmel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Emmanuel Latte Lath",
+"numero": "29",
+"titulo": "Emmanuel Latte Lath",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Kastriot Imeri",
+"numero": "30",
+"titulo": "Kastriot Imeri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Matheo Raab",
+"numero": "31",
+"titulo": "Matheo Raab",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Mekhi Gray",
+"numero": "32",
+"titulo": "Mekhi Gray",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Stanley Nsoki",
+"numero": "34",
+"titulo": "Stanley Nsoki",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_13",
+"nome": "Julien Friedrich",
+"numero": "38",
+"titulo": "Julien Friedrich",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_13",
+"nome": "Linus Güther",
+"numero": "49",
+"titulo": "Linus Güther",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Ben Voll",
+"numero": "1",
+"titulo": "Ben Voll",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Rony Jansson",
+"numero": "2",
+"titulo": "Rony Jansson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "David Nemeth",
+"numero": "4",
+"titulo": "David Nemeth",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Gísli Þórðarson",
+"numero": "5",
+"titulo": "Gísli Þórðarson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Marcus Mathisen",
+"numero": "6",
+"titulo": "Marcus Mathisen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Youssoupha Niang",
+"numero": "7",
+"titulo": "Youssoupha Niang",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Eric Smith",
+"numero": "8",
+"titulo": "Eric Smith (Swedish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Abdoulie Ceesay",
+"numero": "9",
+"titulo": "Abdoulie Ceesay",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Branimir Hrgota",
+"numero": "10",
+"titulo": "Branimir Hrgota",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Arkadiusz Pyrka",
+"numero": "11",
+"titulo": "Arkadiusz Pyrka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Erik Ahlstrand",
+"numero": "14",
+"titulo": "Erik Ahlstrand",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Tomoya Ando",
+"numero": "15",
+"titulo": "Tomoya Ando",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Joel Chima Fujita",
+"numero": "16",
+"titulo": "Joel Chima Fujita",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Scott Banks",
+"numero": "17",
+"titulo": "Scott Banks",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Taichi Hara",
+"numero": "18",
+"titulo": "Taichi Hara",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Martijn Kaars",
+"numero": "19",
+"titulo": "Martijn Kaars",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Mathias Rasmussen",
+"numero": "20",
+"titulo": "Mathias Rasmussen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Lars Ritzka",
+"numero": "21",
+"titulo": "Lars Ritzka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Sam Klein",
+"numero": "22",
+"titulo": "Sam Klein (soccer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Louis Oppie",
+"numero": "23",
+"titulo": "Louis Oppie",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Connor Metcalfe",
+"numero": "24",
+"titulo": "Connor Metcalfe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Adam Dźwigała",
+"numero": "25",
+"titulo": "Adam Dźwigała",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Ricky-Jade Jones",
+"numero": "26",
+"titulo": "Ricky-Jade Jones",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Mathias Pereira Lage",
+"numero": "28",
+"titulo": "Mathias Pereira Lage",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Simon Spari",
+"numero": "30",
+"titulo": "Simon Spari",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Dimitar Mitov",
+"numero": "33",
+"titulo": "Dimitar Mitov",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_14",
+"nome": "Marwin Schmitz",
+"numero": "42",
+"titulo": "Marwin Schmitz",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_14",
+"nome": "Nick Schmidt",
+"numero": "44",
+"titulo": "Nick Schmidt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Oliver Baumann",
+"numero": "1",
+"titulo": "Oliver Baumann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Robin Hranáč",
+"numero": "2",
+"titulo": "Robin Hranáč",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Sean Dulic",
+"numero": "4",
+"titulo": "Sean Dulic",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Ozan Kabak",
+"numero": "5",
+"titulo": "Ozan Kabak",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Leon Avdullahu",
+"numero": "7",
+"titulo": "Leon Avdullahu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Patrick Wimmer",
+"numero": "8",
+"titulo": "Patrick Wimmer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Max Moerstedt",
+"numero": "9",
+"titulo": "Max Moerstedt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Adam Hložek",
+"numero": "10",
+"titulo": "Adam Hložek",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Fisnik Asllani",
+"numero": "11",
+"titulo": "Fisnik Asllani",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Bernardo",
+"numero": "13",
+"titulo": "Bernardo (footballer, born 1995)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Adam Daghim",
+"numero": "14",
+"titulo": "Adam Daghim",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Valentin Gendrey",
+"numero": "15",
+"titulo": "Valentin Gendrey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Luis Engelns",
+"numero": "16",
+"titulo": "Luis Engelns",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Nathan De Cat",
+"numero": "17",
+"titulo": "Nathan De Cat",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Wouter Burger",
+"numero": "18",
+"titulo": "Wouter Burger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Tim Lemperle",
+"numero": "19",
+"titulo": "Tim Lemperle",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Bambasé Conté",
+"numero": "20",
+"titulo": "Bambasé Conté",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Albian Hajdari",
+"numero": "21",
+"titulo": "Albian Hajdari",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Alexander Prass",
+"numero": "22",
+"titulo": "Alexander Prass",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Andrej Kramarić",
+"numero": "27",
+"titulo": "Andrej Kramarić",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Kōki Machida",
+"numero": "28",
+"titulo": "Kōki Machida",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Natnael Abraha",
+"numero": "29",
+"titulo": "Natnael Abraha",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_15",
+"nome": "Cajetan Lenz",
+"numero": "32",
+"titulo": "Cajetan Lenz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Vladimír Coufal",
+"numero": "34",
+"titulo": "Vladimír Coufal",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Lúkas Petersson",
+"numero": "36",
+"titulo": "Lúkas Petersson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_15",
+"nome": "Luca Philipp",
+"numero": "37",
+"titulo": "Luca Philipp",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_15",
+"nome": "Mats Rots",
+"numero": "39",
+"titulo": "Mats Rots",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Frank Feller",
+"numero": "1",
+"titulo": "Frank Feller (footballer)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_16",
+"nome": "Marnon Busch",
+"numero": "2",
+"titulo": "Marnon Busch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Jan Schöppner",
+"numero": "3",
+"titulo": "Jan Schöppner",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Tim Siersleben",
+"numero": "4",
+"titulo": "Tim Siersleben",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Patrick Mainka",
+"numero": "6",
+"titulo": "Patrick Mainka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Paul Hennrich",
+"numero": "8",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_16",
+"nome": "Christian Conteh",
+"numero": "10",
+"titulo": "Christian Conteh",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Budu Zivzivadze",
+"numero": "11",
+"titulo": "Budu Zivzivadze",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Maximilian Breunig",
+"numero": "14",
+"titulo": "Maximilian Breunig",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Julian Niehues",
+"numero": "16",
+"titulo": "Julian Niehues",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Mathias Honsak",
+"numero": "17",
+"titulo": "Mathias Honsak",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Alessandro Vogt",
+"numero": "18",
+"titulo": "Alessandro Vogt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Jonas Föhrenbach",
+"numero": "19",
+"titulo": "Jonas Föhrenbach",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Luca Kerber",
+"numero": "20",
+"titulo": "Luca Kerber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Oualid Mhamdi",
+"numero": "22",
+"titulo": "Oualid Mhamdi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Leart Paçarada",
+"numero": "23",
+"titulo": "Leart Paqarada",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Marcel Costly",
+"numero": "24",
+"titulo": "Marcel Costly",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Michael Heule",
+"numero": "27",
+"titulo": "Michael Heule",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Adam Kölle",
+"numero": "28",
+"titulo": "Adam Kölle",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Mikkel Kaufmann",
+"numero": "29",
+"titulo": "Mikkel Kaufmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Sirlord Conteh",
+"numero": "31",
+"titulo": "Sirlord Conteh",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Thomas Dähne",
+"numero": "33",
+"titulo": "Thomas Dähne",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_16",
+"nome": "Paul Tschernuth",
+"numero": "34",
+"titulo": "Paul Tschernuth",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_16",
+"nome": "Yannik Wagner",
+"numero": "38",
+"titulo": "Yannik Wagner",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_16",
+"nome": "Felix Mark",
+"numero": "40",
+"titulo": "Felix Mark",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_16",
+"nome": "Marko Zrilić",
+"numero": "41",
+"titulo": "Marko Zrilić",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_17",
+"nome": "Marvin Schwäbe",
+"numero": "1",
+"titulo": "Marvin Schwäbe",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Joël Schmied",
+"numero": "2",
+"titulo": "Joël Schmied",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Borna Sosa",
+"numero": "3",
+"titulo": "Borna Sosa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Timo Hübers",
+"numero": "4",
+"titulo": "Timo Hübers",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Tom Krauß",
+"numero": "5",
+"titulo": "Tom Krauß",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Ellyes Skhiri",
+"numero": "6",
+"titulo": "Ellyes Skhiri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Luca Waldschmidt",
+"numero": "7",
+"titulo": "Luca Waldschmidt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Ísak Jóhannesson",
+"numero": "8",
+"titulo": "Ísak Jóhannesson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Ragnar Ache",
+"numero": "9",
+"titulo": "Ragnar Ache",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Said El Mala",
+"numero": "10",
+"titulo": "Said El Mala",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Reigan Heskey",
+"numero": "11",
+"titulo": "Reigan Heskey",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Gideon Mensah",
+"numero": "14",
+"titulo": "Gideon Mensah (footballer, born 1998)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Imad Rondić",
+"numero": "15",
+"titulo": "Imad Rondić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Alessio Castro-Montes",
+"numero": "17",
+"titulo": "Alessio Castro-Montes",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Malek El Mala",
+"numero": "19",
+"titulo": "Malek El Mala",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Ron-Robert Zieler",
+"numero": "20",
+"titulo": "Ron-Robert Zieler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Martin James",
+"numero": "21",
+"titulo": "Martin James (French footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Jahmai Simpson-Pusey",
+"numero": "22",
+"titulo": "Jahmai Simpson-Pusey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Paul Okon-Engstler",
+"numero": "23",
+"titulo": "Paul Okon-Engstler",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Luka Lochoshvili",
+"numero": "24",
+"titulo": "Luka Lochoshvili",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Thijs Dallinga",
+"numero": "27",
+"titulo": "Thijs Dallinga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Sebastian Sebulonsen",
+"numero": "28",
+"titulo": "Sebastian Sebulonsen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Jan Thielmann",
+"numero": "29",
+"titulo": "Jan Thielmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Marius Bülter",
+"numero": "30",
+"titulo": "Marius Bülter",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Gil Neves",
+"numero": "31",
+"titulo": "Gil Neves",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Rav van den Berg",
+"numero": "33",
+"titulo": "Rav van den Berg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Fayssal Harchaoui",
+"numero": "34",
+"titulo": "Fayssal Harchaoui",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_17",
+"nome": "Linton Maina",
+"numero": "37",
+"titulo": "Linton Maina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "Matthias Köbbing",
+"numero": "44",
+"titulo": "Matthias Köbbing",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_17",
+"nome": "Mikey Moore",
+"numero": "47",
+"titulo": "Mikey Moore",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_17",
+"nome": "David Fürst",
+"numero": "49",
+"titulo": "David Fürst",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_18",
+"nome": "Daniel Heuer Fernandes",
+"numero": "1",
+"titulo": "Daniel Heuer Fernandes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "David Møller Wolfe",
+"numero": "3",
+"titulo": "David Møller Wolfe",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Bilal Nadir",
+"numero": "4",
+"titulo": "Bilal Nadir",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Martin Adeline",
+"numero": "5",
+"titulo": "Martin Adeline",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Albert Sambi Lokonga",
+"numero": "6",
+"titulo": "Albert Sambi Lokonga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Zakaria El Ouahdi",
+"numero": "7",
+"titulo": "Zakaria El Ouahdi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Terem Moffi",
+"numero": "9",
+"titulo": "Terem Moffi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Immanuel Pherai",
+"numero": "10",
+"titulo": "Immanuel Pherai",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Albert Grønbæk",
+"numero": "11",
+"titulo": "Albert Grønbæk",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Sander Tangvik",
+"numero": "12",
+"titulo": "Sander Tangvik",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Yussuf Poulsen",
+"numero": "15",
+"titulo": "Yussuf Poulsen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Warmed Omari",
+"numero": "17",
+"titulo": "Warmed Omari",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Bakery Jatta",
+"numero": "18",
+"titulo": "Bakery Jatta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Otto Stange",
+"numero": "19",
+"titulo": "Otto Stange",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Fábio Vieira",
+"numero": "20",
+"titulo": "Fábio Vieira (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Nicolai Remberg",
+"numero": "21",
+"titulo": "Nicolai Remberg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Kofi Amoako",
+"numero": "22",
+"titulo": "Kofi Amoako (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Jordan Torunarigha",
+"numero": "23",
+"titulo": "Jordan Torunarigha",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Nicolás Capaldo",
+"numero": "24",
+"titulo": "Nicolás Capaldo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Patson Daka",
+"numero": "27",
+"titulo": "Patson Daka",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Miro Muheim",
+"numero": "28",
+"titulo": "Miro Muheim",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Sebastiaan Bornauw",
+"numero": "33",
+"titulo": "Sebastiaan Bornauw",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Louis Lemke",
+"numero": "37",
+"titulo": "Louis Lemke",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Alexander Røssing-Lelesiit",
+"numero": "38",
+"titulo": "Alexander Røssing-Lelesiit",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_18",
+"nome": "Joel Agyekum",
+"numero": "39",
+"titulo": "Joel Agyekum",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_18",
+"nome": "Elias Lahti",
+"numero": "40",
+"titulo": "Elias Lahti",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_18",
+"nome": "Fernando Dickes",
+"numero": "41",
+"titulo": "Fernando Dickes",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_18",
+"nome": "Shafiq Nandja",
+"numero": "43",
+"titulo": "Shafiq Nandja",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_18",
+"nome": "Mario Vušković",
+"numero": "",
+"titulo": "Mario Vušković",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Timon Weiner",
+"numero": "1",
+"titulo": "Timon Weiner",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Frederik Roslyng",
+"numero": "2",
+"titulo": "Frederik Roslyng",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Niko Takahashi",
+"numero": "3",
+"titulo": "Niko Takahashi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Sebastian Schonlau",
+"numero": "4",
+"titulo": "Sebastian Schonlau",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Noah Madsen",
+"numero": "5",
+"titulo": "Noah Madsen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Steven Skrzybski",
+"numero": "7",
+"titulo": "Steven Skrzybski",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Guillermo Balzi",
+"numero": "8",
+"titulo": "Guillermo Balzi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Giorgi Kvilitaia",
+"numero": "9",
+"titulo": "Giorgi Kvilitaia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Jonas Therkelsen",
+"numero": "10",
+"titulo": "Jonas Therkelsen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Gyan de Regt",
+"numero": "11",
+"titulo": "Gyan de Regt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Ivan Nekić",
+"numero": "13",
+"titulo": "Ivan Nekić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Kasper Davidsen",
+"numero": "15",
+"titulo": "Kasper Davidsen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Andu Kelati",
+"numero": "16",
+"titulo": "Andu Kelati",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Faride Alidou",
+"numero": "17",
+"titulo": "Faride Alidou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Phil Harres",
+"numero": "19",
+"titulo": "Phil Harres",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Adrián Kaprálik",
+"numero": "20",
+"titulo": "Adrián Kaprálik",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Moritz Reimers",
+"numero": "22",
+"titulo": "Moritz Reimers",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "Lasse Rosenboom",
+"numero": "23",
+"titulo": "Lasse Rosenboom",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Taisei Abe",
+"numero": "24",
+"titulo": "Taisei Abe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "David Zec",
+"numero": "26",
+"titulo": "David Zec",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Ikem Ugoh",
+"numero": "27",
+"titulo": "Ikem Ugoh",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "Jonas Meffert",
+"numero": "28",
+"titulo": "Jonas Meffert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Tayar Tasdelen",
+"numero": "30",
+"titulo": "Tayar Tasdelen",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "Marcel Engelhardt",
+"numero": "31",
+"titulo": "Marcel Engelhardt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Hiroki Sekine",
+"numero": "32",
+"titulo": "Hiroki Sekine",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Leon Parduzi",
+"numero": "40",
+"titulo": "Leon Parduzi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Lio Rothenhagen",
+"numero": "41",
+"titulo": "Lio Rothenhagen",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "Caspar Medlin",
+"numero": "46",
+"titulo": "Caspar Medlin",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "John Tolkin",
+"numero": "47",
+"titulo": "John Tolkin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_19",
+"nome": "Hamza Muqaj",
+"numero": "48",
+"titulo": "Hamza Muqaj",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_19",
+"nome": "Ben Schmit",
+"numero": "49",
+"titulo": "Ben Schmit",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Timo Horn",
+"numero": "1",
+"titulo": "Timo Horn",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Sean Klaiber",
+"numero": "2",
+"titulo": "Sean Klaiber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Philipp Strompf",
+"numero": "3",
+"titulo": "Philipp Strompf",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Yiğit Karademir",
+"numero": "4",
+"titulo": "Yiğit Karademir",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Karol Mets",
+"numero": "5",
+"titulo": "Karol Mets",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Enis Çokaj",
+"numero": "6",
+"titulo": "Enis Çokaj",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Christian Rasmussen",
+"numero": "7",
+"titulo": "Christian Rasmussen (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Jean-Manuel Mbom",
+"numero": "8",
+"titulo": "Jean-Manuel Mbom",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Berkan Taz",
+"numero": "10",
+"titulo": "Berkan Taz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Oliver Olsen",
+"numero": "13",
+"titulo": "Oliver Olsen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Jarne Steuckers",
+"numero": "14",
+"titulo": "Jarne Steuckers",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Michael Steinwender",
+"numero": "15",
+"titulo": "Michael Steinwender",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Tino Casali",
+"numero": "16",
+"titulo": "Tino Casali",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Gerrit Holtmann",
+"numero": "17",
+"titulo": "Gerrit Holtmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Daniel Hanslik",
+"numero": "19",
+"titulo": "Daniel Hanslik",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Kōji Miyoshi",
+"numero": "23",
+"titulo": "Kōji Miyoshi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Mats Pannewig",
+"numero": "24",
+"titulo": "Mats Pannewig",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Babis Drakas",
+"numero": "27",
+"titulo": "Babis Drakas",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Charlie Patino",
+"numero": "28",
+"titulo": "Charlie Patino",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Mansour Ouro-Tagba",
+"numero": "29",
+"titulo": "Mansour Ouro-Tagba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Leon Sawas",
+"numero": "31",
+"titulo": "Leon Sawas",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Maximilian Wittek",
+"numero": "32",
+"titulo": "Maximilian Wittek",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Philipp Hofmann",
+"numero": "33",
+"titulo": "Philipp Hofmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_20",
+"nome": "Tom Meyer",
+"numero": "34",
+"titulo": "Tom Meyer (footballer)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Luis Pick",
+"numero": "36",
+"titulo": "Luis Pick",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Alessandro Crimaldi",
+"numero": "37",
+"titulo": "Alessandro Crimaldi",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Hugo Rölleke",
+"numero": "38",
+"titulo": "Hugo Rölleke",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_20",
+"nome": "Lasse Isbruch",
+"numero": "39",
+"titulo": "Lasse Isbruch",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_21",
+"nome": "Loris Karius",
+"numero": "1",
+"titulo": "Loris Karius",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Hasan Kuruçay",
+"numero": "4",
+"titulo": "Hasan Kuruçay",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Timo Becker",
+"numero": "5",
+"titulo": "Timo Becker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Ron Schallenberg",
+"numero": "6",
+"titulo": "Ron Schallenberg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Hwang Hee-chan",
+"numero": "7",
+"titulo": "Hwang Hee-chan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Robin Gosens",
+"numero": "8",
+"titulo": "Robin Gosens",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Moussa Sylla",
+"numero": "9",
+"titulo": "Moussa Sylla (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Edin Džeko",
+"numero": "10",
+"titulo": "Edin Džeko",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Bryan Lasme",
+"numero": "11",
+"titulo": "Bryan Lasme",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Satoshi Tanaka",
+"numero": "13",
+"titulo": "Satoshi Tanaka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Janik Bachmann",
+"numero": "14",
+"titulo": "Janik Bachmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Emil Højlund",
+"numero": "15",
+"titulo": "Emil Højlund",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Adrian Gantenbein",
+"numero": "17",
+"titulo": "Adrian Gantenbein",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Kenan Karaman",
+"numero": "19",
+"titulo": "Kenan Karaman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Junior Adamu",
+"numero": "20",
+"titulo": "Junior Adamu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Dejan Ljubičić",
+"numero": "21",
+"titulo": "Dejan Ljubičić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Kevin Müller",
+"numero": "22",
+"titulo": "Kevin Müller (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Soufiane El-Faouzi",
+"numero": "23",
+"titulo": "Soufiane El-Faouzi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Adil Aouchiche",
+"numero": "24",
+"titulo": "Adil Aouchiche",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Nikola Katić",
+"numero": "25",
+"titulo": "Nikola Katić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Finn Porath",
+"numero": "27",
+"titulo": "Finn Porath",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Junior Dina Ebimbe",
+"numero": "29",
+"titulo": "Junior Dina Ebimbe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Vitalie Becker",
+"numero": "33",
+"titulo": "Vitalie Becker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Johannes Siebeking",
+"numero": "36",
+"titulo": "Johannes Siebeking",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_21",
+"nome": "Luca Vozar",
+"numero": "38",
+"titulo": "Luca Vozar",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_21",
+"nome": "Maximilian Wöber",
+"numero": "39",
+"titulo": "Maximilian Wöber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_21",
+"nome": "Mertcan Ayhan",
+"numero": "43",
+"titulo": "Mertcan Ayhan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Julian Eitschberger",
+"numero": "2",
+"titulo": "Julian Eitschberger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Josip Brekalo",
+"numero": "7",
+"titulo": "Josip Brekalo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Kevin Sessa",
+"numero": "8",
+"titulo": "Kevin Sessa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Gustaf Nilsson",
+"numero": "9",
+"titulo": "Gustaf Nilsson (footballer, born 1997)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Konstantin Heide",
+"numero": "13",
+"titulo": "Konstantin Heide",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Sebastian Grønning",
+"numero": "17",
+"titulo": "Sebastian Grønning",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Luca Schuler",
+"numero": "18",
+"titulo": "Luca Schuler (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Oluwaseun Adewumi",
+"numero": "19",
+"titulo": "Oluwaseun Adewumi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Farid Alfa-Ruprecht",
+"numero": "20",
+"titulo": "Farid Alfa-Ruprecht",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Boris Mamuzah Lum",
+"numero": "21",
+"titulo": "Boris Mamuzah Lum",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Mads Pedersen",
+"numero": "22",
+"titulo": "Mads Valentin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Jón Dagur Þorsteinsson",
+"numero": "24",
+"titulo": "Jón Dagur Þorsteinsson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Niklas Hildebrandt",
+"numero": "26",
+"titulo": "Niklas Hildebrandt",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Niklas Kolbe",
+"numero": "27",
+"titulo": "Niklas Kolbe",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Jelani Ndi",
+"numero": "28",
+"titulo": "Jelani Ndi",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Jerome Diallo",
+"numero": "29",
+"titulo": "Jerome Diallo",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Paul Seguin",
+"numero": "30",
+"titulo": "Paul Seguin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Márton Dárdai",
+"numero": "31",
+"titulo": "Márton Dárdai",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Soufian Gouram",
+"numero": "33",
+"titulo": "Soufian Gouram",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Mayson Grothe",
+"numero": "34",
+"titulo": "Mayson Grothe",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Marius Gersbeck",
+"numero": "35",
+"titulo": "Marius Gersbeck",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Kian Todorović",
+"numero": "36",
+"titulo": "Kian Todorović",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Pascal Klemens",
+"numero": "41",
+"titulo": "Pascal Klemens",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Deyovaisio Zeefuik",
+"numero": "42",
+"titulo": "Deyovaisio Zeefuik",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Tim Goller",
+"numero": "43",
+"titulo": "Tim Goller",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_22",
+"nome": "Linus Gechter",
+"numero": "44",
+"titulo": "Linus Gechter",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_22",
+"nome": "Selim Telib",
+"numero": "47",
+"titulo": "Selim Telib",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Lasse Rieß",
+"numero": "1",
+"titulo": "Lasse Rieß",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Steven van der Sloot",
+"numero": "2",
+"titulo": "Steven van der Sloot",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Dominique Heintz",
+"numero": "3",
+"titulo": "Dominique Heintz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Lukas Bornschein",
+"numero": "4",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Yassine Bouchama",
+"numero": "5",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Andreas Müller",
+"numero": "6",
+"titulo": "Andreas Müller (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Erik Wekesser",
+"numero": "7",
+"titulo": "Erik Wekesser",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Jorrit Hendrix",
+"numero": "8",
+"titulo": "Jorrit Hendrix",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Eric Hottmann",
+"numero": "9",
+"titulo": "Eric Hottmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Philipp Förster",
+"numero": "10",
+"titulo": "Philipp Förster",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Lukas Eixler",
+"numero": "11",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Jomaine Consbruch",
+"numero": "14",
+"titulo": "Jomaine Consbruch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Tim Oberdorf",
+"numero": "15",
+"titulo": "Tim Oberdorf",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Marcel Benger",
+"numero": "16",
+"titulo": "Marcel Benger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Miguel Fernandes Gonçalves",
+"numero": "18",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Felix Meiser",
+"numero": "20",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Louis Lord",
+"numero": "22",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Filimon Gerezgiher",
+"numero": "23",
+"titulo": "Filimon Gerezgiher",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Fabian Schleusener",
+"numero": "24",
+"titulo": "Fabian Schleusener",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Matthias Zimmermann",
+"numero": "25",
+"titulo": "Matthias Zimmermann (footballer, born 1992)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Jordi Paulina",
+"numero": "27",
+"titulo": "Jordi Paulina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Sascha Risch",
+"numero": "28",
+"titulo": "Sascha Risch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Kilian Sauck",
+"numero": "29",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Anas Slimani",
+"numero": "34",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Elias Arden",
+"numero": "38",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Kaden Amaniampong",
+"numero": "39",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Hamza Anhari",
+"numero": "40",
+"titulo": "Hamza Anhari",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_23",
+"nome": "Milán Czakó",
+"numero": "41",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Noah Egouli",
+"numero": "43",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_23",
+"nome": "Elias Egouli",
+"numero": "44",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Pascal Loretz",
+"numero": "1",
+"titulo": "Pascal Loretz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Boris Tomiak",
+"numero": "3",
+"titulo": "Boris Tomiak",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Jean Hugonet",
+"numero": "4",
+"titulo": "Jean Hugonet",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Virgil Ghiță",
+"numero": "5",
+"titulo": "Virgil Ghiță",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Mustapha Bundu",
+"numero": "7",
+"titulo": "Mustapha Bundu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Waniss Taïbi",
+"numero": "8",
+"titulo": "Waniss Taïbi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Benjamin Källman",
+"numero": "9",
+"titulo": "Benjamin Källman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Marcel Hartel",
+"numero": "10",
+"titulo": "Marcel Hartel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Benedikt Pichler",
+"numero": "11",
+"titulo": "Benedikt Pichler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Franz Roggow",
+"numero": "13",
+"titulo": "Franz Roggow",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Husseyn Chakroun",
+"numero": "14",
+"titulo": "Husseyn Chakroun",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Karl Steinmann",
+"numero": "16",
+"titulo": "Karl Steinmann",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Bastian Allgeier",
+"numero": "17",
+"titulo": "Bastian Allgeier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Ime Okon",
+"numero": "20",
+"titulo": "Ime Okon",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Mwisho Mhango",
+"numero": "21",
+"titulo": "Mwisho Mhango",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Noah Engelbreth",
+"numero": "22",
+"titulo": "Noah Engelbreth",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Stefán Teitur Þórðarson",
+"numero": "23",
+"titulo": "Stefán Teitur Þórðarson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Yunus Ünal",
+"numero": "24",
+"titulo": "Yunus Ünal",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Lars Gindorf",
+"numero": "25",
+"titulo": "Lars Gindorf",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Tom Hobrecht",
+"numero": "26",
+"titulo": "Tom Hobrecht",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Hayate Matsuda",
+"numero": "27",
+"titulo": "Hayate Matsuda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Taycan Etçibaşı",
+"numero": "28",
+"titulo": "Taycan Etçibaşı",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Kolja Oudenne",
+"numero": "29",
+"titulo": "Kolja Oudenne",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Leo Weinkauf",
+"numero": "30",
+"titulo": "Leo Weinkauf",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Maurice Neubauer",
+"numero": "33",
+"titulo": "Maurice Neubauer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Joschua Siewert",
+"numero": "35",
+"titulo": "Joschua Siewert",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Alexander Vogel",
+"numero": "37",
+"titulo": "Alexander Vogel (footballer)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Taycan Kurt",
+"numero": "39",
+"titulo": "Taycan Kurt",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Jonas Schwanke",
+"numero": "40",
+"titulo": "Jonas Schwanke",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_24",
+"nome": "Emir Sahiti",
+"numero": "44",
+"titulo": "Emir Sahiti",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_24",
+"nome": "Merlin Sinanović",
+"numero": "49",
+"titulo": "Merlin Sinanović",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Julian Krahl",
+"numero": "1",
+"titulo": "Julian Krahl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Simon Asta",
+"numero": "2",
+"titulo": "Simon Asta",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Alex Murphy",
+"numero": "3",
+"titulo": "Alex Murphy (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Maxwell Gyamfi",
+"numero": "4",
+"titulo": "Maxwell Gyamfi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Kelven Frees",
+"numero": "5",
+"titulo": "Kelven Frees",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Fabian Kunze",
+"numero": "6",
+"titulo": "Fabian Kunze",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Marlon Ritter",
+"numero": "7",
+"titulo": "Marlon Ritter",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Semih Şahin",
+"numero": "8",
+"titulo": "Semih Şahin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Ivan Prtajin",
+"numero": "9",
+"titulo": "Ivan Prtajin",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Ibrahim Kanaté",
+"numero": "11",
+"titulo": "Ibrahim Kanaté",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Jacob Rasmussen",
+"numero": "14",
+"titulo": "Jacob Rasmussen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Naatan Skyttä",
+"numero": "15",
+"titulo": "Naatan Skyttä",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Erencan Yardımcı",
+"numero": "17",
+"titulo": "Erencan Yardımcı",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Mërgim Berisha",
+"numero": "20",
+"titulo": "Mërgim Berisha",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Mário Sauer",
+"numero": "21",
+"titulo": "Mário Sauer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Mika Haas",
+"numero": "22",
+"titulo": "Mika Haas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Paul Joly",
+"numero": "26",
+"titulo": "Paul Joly",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Jan Elvedi",
+"numero": "33",
+"titulo": "Jan Elvedi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Yannick Onohiol",
+"numero": "34",
+"titulo": "Yannick Onohiol",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Leon Robinson",
+"numero": "37",
+"titulo": "Leon Robinson (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Thierry Tazemeta",
+"numero": "39",
+"titulo": "Thierry Tazemeta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Enis Kamga",
+"numero": "40",
+"titulo": "Enis Kamga",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "David Schramm",
+"numero": "41",
+"titulo": "David Schramm",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Erik Müller",
+"numero": "42",
+"titulo": "Erik Müller",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Owen Gibs",
+"numero": "43",
+"titulo": "Owen Gibs",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Dion Hofmeister",
+"numero": "44",
+"titulo": "Dion Hofmeister",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Miloš Luković",
+"numero": "45",
+"titulo": "Miloš Luković",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_25",
+"nome": "Kian Scheer",
+"numero": "46",
+"titulo": "Kian Scheer",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_25",
+"nome": "Ben Jungfleisch",
+"numero": "47",
+"titulo": "Ben Jungfleisch",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "Hans Christian Bernat",
+"numero": "1",
+"titulo": "Hans Christian Bernat",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Sebastian Jung",
+"numero": "2",
+"titulo": "Sebastian Jung",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Deniz Ofli",
+"numero": "3",
+"titulo": "Deniz Ofli",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Héliton",
+"numero": "4",
+"titulo": "Héliton",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Kwon Hyeok-kyu",
+"numero": "5",
+"titulo": "Kwon Hyeok-kyu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Santeri Väänänen",
+"numero": "6",
+"titulo": "Santeri Väänänen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Kevin Wiethaup",
+"numero": "7",
+"titulo": "Kevin Wiethaup",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "Moritz Broschinski",
+"numero": "9",
+"titulo": "Moritz Broschinski",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Marvin Wanitzek",
+"numero": "10",
+"titulo": "Marvin Wanitzek",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Noel Eichinger",
+"numero": "11",
+"titulo": "Noel Eichinger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Shiō Fukuda",
+"numero": "13",
+"titulo": "Shiō Fukuda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Paul Scholl",
+"numero": "15",
+"titulo": "Paul Scholl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Eymen Laghrissi",
+"numero": "17",
+"titulo": "Eymen Laghrissi",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "Ferdinand Gebert",
+"numero": "18",
+"titulo": "Ferdinand Gebert",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "Louey Ben Farhat",
+"numero": "19",
+"titulo": "Louey Ben Farhat",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Christoph Kobald",
+"numero": "22",
+"titulo": "Christoph Kobald",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Tim Civeja",
+"numero": "23",
+"titulo": "Tim Civeja",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Sandro Trémoulet",
+"numero": "24",
+"titulo": "Sandro Trémoulet",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Lilian Egloff",
+"numero": "25",
+"titulo": "Lilian Egloff",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Danyal Zor",
+"numero": "26",
+"titulo": "Danyal Zor",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "John Davis Meyer",
+"numero": "27",
+"titulo": "John Davis Meyer",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_26",
+"nome": "Marcel Franke",
+"numero": "28",
+"titulo": "Marcel Franke",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Robin Himmelmann",
+"numero": "30",
+"titulo": "Robin Himmelmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Viktor Bergh",
+"numero": "33",
+"titulo": "Viktor Bergh",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Rafael Pinto Pedrosa",
+"numero": "36",
+"titulo": "Rafael Pinto Pedrosa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_26",
+"nome": "Jason Ponente-Ramirez",
+"numero": "37",
+"titulo": "Jason Ponente-Ramirez",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Jan Reichert",
+"numero": "1",
+"titulo": "Jan Reichert",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Alexis Kalogeropoulos",
+"numero": "4",
+"titulo": "Alexis Kalogeropoulos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Styopa Mkrtchyan",
+"numero": "5",
+"titulo": "Styopa Mkrtchyan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Adam Markhiev",
+"numero": "6",
+"titulo": "Adam Markhiyev",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Rayan Ghrieb",
+"numero": "7",
+"titulo": "Rayan Ghrieb",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Javi Fernández",
+"numero": "8",
+"titulo": "Javi Fernández (footballer, born 2006)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Sigurd Haugen",
+"numero": "9",
+"titulo": "Sigurd Hauso Haugen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Julian Justvan",
+"numero": "10",
+"titulo": "Julian Justvan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "William Bøving",
+"numero": "11",
+"titulo": "William Bøving",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Robin Lisewski",
+"numero": "13",
+"titulo": "Robin Lisewski",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Andrea Ceresoli",
+"numero": "14",
+"titulo": "Andrea Ceresoli",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Mikayil Faye",
+"numero": "15",
+"titulo": "Mikayil Faye",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Marko Soldić",
+"numero": "16",
+"titulo": "Marko Soldić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Rafael Lubach",
+"numero": "18",
+"titulo": "Rafael Lubach",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Piet Scobel",
+"numero": "19",
+"titulo": "Piet Scobel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Fynn Otto",
+"numero": "20",
+"titulo": "Fynn Otto",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Giannis Masouras",
+"numero": "21",
+"titulo": "Giannis Masouras",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Finn Ole Becker",
+"numero": "22",
+"titulo": "Finn Ole Becker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Mohamed Alì Zoma",
+"numero": "23",
+"titulo": "Mohamed Alì Zoma",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Christian Mathenia",
+"numero": "26",
+"titulo": "Christian Mathenia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Can Moustfa",
+"numero": "28",
+"titulo": "Can Yahya Moustfa",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Tim Janisch",
+"numero": "32",
+"titulo": "Tim Janisch",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Marc Kornwachs Barjuan",
+"numero": "35",
+"titulo": "Marc Kornwachs Barjuan",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Kristian Mandić",
+"numero": "36",
+"titulo": "Kristian Mandić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Adriano Grimaldi",
+"numero": "39",
+"titulo": "Adriano Grimaldi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Eric Porstner",
+"numero": "41",
+"titulo": "Eric Porstner",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Tobias Heß",
+"numero": "43",
+"titulo": "Tobias Heß",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Khalid Abu El Haija",
+"numero": "44",
+"titulo": "Khalid Abu El Haija",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_27",
+"nome": "Nicolas Ortegel",
+"numero": "46",
+"titulo": "Nicolas Ortegel",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_27",
+"nome": "Winners Osawe",
+"numero": "",
+"titulo": "Winners Osawe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Markus Schubert",
+"numero": "1",
+"titulo": "Markus Schubert",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Ruben Müller",
+"numero": "2",
+"titulo": "Ruben Müller",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Jonah Sticker",
+"numero": "3",
+"titulo": "Jonah Sticker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Nyamekye Awortwie-Grant",
+"numero": "4",
+"titulo": "Nyamekye Awortwie-Grant",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Santiago Castañeda",
+"numero": "5",
+"titulo": "Santiago Castañeda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Tom Baack",
+"numero": "6",
+"titulo": "Tom Baack",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Oliver Batista Meier",
+"numero": "7",
+"titulo": "Oliver Batista Meier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Luka Đurić",
+"numero": "8",
+"titulo": "Luka Đurić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Rayan Philippe",
+"numero": "9",
+"titulo": "Rayan Philippe",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Sven Michel",
+"numero": "11",
+"titulo": "Sven Michel (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Nahuel Noll",
+"numero": "15",
+"titulo": "Nahuel Noll",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Laurin Curda",
+"numero": "17",
+"titulo": "Laurin Curda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Marvin Pieringer",
+"numero": "18",
+"titulo": "Marvin Pieringer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Albert Millgramm",
+"numero": "19",
+"titulo": "Albert Millgramm",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Felix Götze",
+"numero": "20",
+"titulo": "Felix Götze",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Jano ter Horst",
+"numero": "21",
+"titulo": "Jano ter Horst",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Mattes Hansen",
+"numero": "22",
+"titulo": "Mattes Hansen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Raphael Obermair",
+"numero": "23",
+"titulo": "Raphael Obermair",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Niklas Mohr",
+"numero": "24",
+"titulo": "Niklas Mohr",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Tjark Scheller",
+"numero": "25",
+"titulo": "Tjark Scheller",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Sebastian Klaas",
+"numero": "26",
+"titulo": "Sebastian Klaas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Steffen Tigges",
+"numero": "27",
+"titulo": "Steffen Tigges",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Laurin Ulrich",
+"numero": "28",
+"titulo": "Laurin Ulrich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Clemens Lippmann",
+"numero": "29",
+"titulo": "Clemens Lippmann",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_28",
+"nome": "Stefano Marino",
+"numero": "30",
+"titulo": "Stefano Marino",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Florian Pruhs",
+"numero": "31",
+"titulo": "Florian Pruhs",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_28",
+"nome": "Lasse Eickel",
+"numero": "32",
+"titulo": "Lasse Eickel",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_28",
+"nome": "Marcel Hoffmeier",
+"numero": "33",
+"titulo": "Marcel Hoffmeier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Deniz Zeitler",
+"numero": "38",
+"titulo": "Deniz Zeitler",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Gabriel Vidović",
+"numero": "40",
+"titulo": "Gabriel Vidović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_28",
+"nome": "Timur Gayret",
+"numero": "44",
+"titulo": "Timur Gayret",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_28",
+"nome": "Tristan Zobel",
+"numero": "46",
+"titulo": "Tristan Zobel",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_29",
+"nome": "Marcel Schuhen",
+"numero": "1",
+"titulo": "Marcel Schuhen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Florian Kleinhansl",
+"numero": "3",
+"titulo": "Florian Kleinhansl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Grayson Dettoni",
+"numero": "4",
+"titulo": "Grayson Dettoni",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Marco Richter",
+"numero": "5",
+"titulo": "Marco Richter",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Patric Pfeiffer",
+"numero": "6",
+"titulo": "Patric Pfeiffer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Noah Weißhaupt",
+"numero": "7",
+"titulo": "Noah Weißhaupt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Luca Marseiler",
+"numero": "8",
+"titulo": "Luca Marseiler",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Lee Ho-jae",
+"numero": "9",
+"titulo": "Lee Ho-jae (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Nicolas Verkooijen",
+"numero": "10",
+"titulo": "Nicolas Verkooijen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Ibrahim El Kadiri",
+"numero": "11",
+"titulo": "Ibrahim El Kadiri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Meldin Drešković",
+"numero": "14",
+"titulo": "Meldin Drešković",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Fabian Nürnberger",
+"numero": "15",
+"titulo": "Fabian Nürnberger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Hiroki Akiyama",
+"numero": "16",
+"titulo": "Hiroki Akiyama",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Kai Klefisch",
+"numero": "17",
+"titulo": "Kai Klefisch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Raoul Petretta",
+"numero": "18",
+"titulo": "Raoul Petretta",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Fynn Lakenmacher",
+"numero": "19",
+"titulo": "Fynn Lakenmacher",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Aleksandar Vukotić",
+"numero": "20",
+"titulo": "Aleksandar Vukotić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Merveille Papela",
+"numero": "21",
+"titulo": "Merveille Papela",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Lars Kehl",
+"numero": "22",
+"titulo": "Lars Kehl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Carlo Sickinger",
+"numero": "23",
+"titulo": "Carlo Sickinger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Benedikt Börner",
+"numero": "24",
+"titulo": "Benedikt Börner",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_29",
+"nome": "William Mikelbrencis",
+"numero": "25",
+"titulo": "William Mikelbrencis",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Matthias Bader",
+"numero": "26",
+"titulo": "Matthias Bader",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Christopher Lannert",
+"numero": "28",
+"titulo": "Christopher Lannert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Alexander Brunst",
+"numero": "30",
+"titulo": "Alexander Brunst",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Milan Smit",
+"numero": "36",
+"titulo": "Milan Smit",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Lance Duijvestijn",
+"numero": "41",
+"titulo": "Lance Duijvestijn",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Yosuke Furukawa",
+"numero": "44",
+"titulo": "Yosuke Furukawa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Max Pfister",
+"numero": "45",
+"titulo": "Max Pfister",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_29",
+"nome": "Milian Herbst",
+"numero": "47",
+"titulo": "Milian Herbst",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_29",
+"nome": "Manolo Merx",
+"numero": "48",
+"titulo": "Manolo Merx",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_29",
+"nome": "Yannik Lührs",
+"numero": "49",
+"titulo": "Yannik Lührs",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Florian Hellstern",
+"numero": "1",
+"titulo": "Florian Hellstern",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Lukas Reich",
+"numero": "2",
+"titulo": "Lukas Reich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Elias Benkara",
+"numero": "4",
+"titulo": "Elias Benkara",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Maxim Dal",
+"numero": "5",
+"titulo": "Maxim Dal",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Sacha Bansé",
+"numero": "6",
+"titulo": "Sacha Bansé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Dennis Srbeny",
+"numero": "7",
+"titulo": "Dennis Srbeny",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Shinta Appelkamp",
+"numero": "8",
+"titulo": "Shinta Appelkamp",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Jordan Pefok",
+"numero": "9",
+"titulo": "Jordan Pefok",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Ole Pohlmann",
+"numero": "10",
+"titulo": "Ole Pohlmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Aaron Keller",
+"numero": "11",
+"titulo": "Aaron Keller (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Paul Will",
+"numero": "13",
+"titulo": "Paul Will",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Omar Megeed",
+"numero": "18",
+"titulo": "Omar Megeed",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Benjamin Zank",
+"numero": "19",
+"titulo": "Benjamin Zank",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Loris Giandomenico",
+"numero": "20",
+"titulo": "Loris Giandomenico",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Mika Wallentowitz",
+"numero": "21",
+"titulo": "Mika Wallentowitz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Jannis Heuer",
+"numero": "22",
+"titulo": "Jannis Heuer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Jannik Dehm",
+"numero": "23",
+"titulo": "Jannik Dehm",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Luca Itter",
+"numero": "27",
+"titulo": "Luca Itter",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Doni Arifi",
+"numero": "28",
+"titulo": "Doni Arifi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Krisztián Keresztes",
+"numero": "29",
+"titulo": "Krisztián Keresztes",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Felix Klaus",
+"numero": "30",
+"titulo": "Felix Klaus",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Hendry Blank",
+"numero": "34",
+"titulo": "Hendry Blank",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Philipp Müller",
+"numero": "36",
+"titulo": "Philipp Müller (footballer, born 2004)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Faton Ademi",
+"numero": "37",
+"titulo": "Faton Ademi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_30",
+"nome": "Christian Ortag",
+"numero": "39",
+"titulo": "Christian Ortag",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Omar Sillah",
+"numero": "42",
+"titulo": "Omar Sillah",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Silas Prüfrock",
+"numero": "43",
+"titulo": "Silas Prüfrock",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_30",
+"nome": "Mehmet Avlayici",
+"numero": "44",
+"titulo": "Mehmet Avlayici",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Morten Behrens",
+"numero": "1",
+"titulo": "Morten Behrens",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Louis Kolbe",
+"numero": "2",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Tim Dietrich",
+"numero": "3",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Antonio Tikvić",
+"numero": "4",
+"titulo": "Antonio Tikvić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Lucas Zeller",
+"numero": "5",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Wesley Adeh",
+"numero": "6",
+"titulo": "Wesley Adeh",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Joshua Mees",
+"numero": "8",
+"titulo": "Joshua Mees",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Marvin Schulz",
+"numero": "10",
+"titulo": "Marvin Schulz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Oscar Vilhelmsson",
+"numero": "11",
+"titulo": "Oscar Vilhelmsson",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Charalambos Makridis",
+"numero": "14",
+"titulo": "Charalambos Makridis",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Simon Scherder",
+"numero": "15",
+"titulo": "Simon Scherder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Torge Paetow",
+"numero": "16",
+"titulo": "Torge Paetow",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Mika Stuhlmacher",
+"numero": "17",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Mikail Demirhan",
+"numero": "19",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Ryan Johansson",
+"numero": "20",
+"titulo": "Ryan Johansson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Rico Preißinger",
+"numero": "21",
+"titulo": "Rico Preißinger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Malik Batmaz",
+"numero": "23",
+"titulo": "Malik Batmaz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Niko Koulis",
+"numero": "24",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Luca Bolay",
+"numero": "25",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Philipp Maier",
+"numero": "26",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Jakob Korte",
+"numero": "27",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Montell Ndikom",
+"numero": "28",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Leon Tašov",
+"numero": "29",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Felix Higl",
+"numero": "33",
+"titulo": "Felix Higl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Niklas Varelmann",
+"numero": "36",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Matthis Harsman",
+"numero": "38",
+"titulo": "Matthis Harsman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Paul Ervens",
+"numero": "40",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_31",
+"nome": "Romario Rösch",
+"numero": "43",
+"titulo": "Romario Rösch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_31",
+"nome": "Samuel Althaus",
+"numero": "44",
+"titulo": null,
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_32",
+"nome": "Ron-Thorben Hoffmann",
+"numero": "1",
+"titulo": "Ron-Thorben Hoffmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Noah Katterbach",
+"numero": "3",
+"titulo": "Noah Katterbach",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Andi Hoti",
+"numero": "4",
+"titulo": "Andi Hoti",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Frederik Jäkel",
+"numero": "5",
+"titulo": "Frederik Jäkel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Florian Flick",
+"numero": "6",
+"titulo": "Florian Flick",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Yann Sturm",
+"numero": "7",
+"titulo": "Yann Sturm",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_32",
+"nome": "Mehmet Aydın",
+"numero": "8",
+"titulo": "Mehmet-Can Aydın",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Maximilian Entrup",
+"numero": "9",
+"titulo": "Maximilian Entrup",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Samuele Di Benedetto",
+"numero": "10",
+"titulo": "Samuele Di Benedetto",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Jovan Mijatović",
+"numero": "11",
+"titulo": "Jovan Mijatović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Max Marie",
+"numero": "15",
+"titulo": "Max Marie",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_32",
+"nome": "Aaron Opoku",
+"numero": "17",
+"titulo": "Aaron Opoku",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Arlet Junior Zé",
+"numero": "19",
+"titulo": "Arlet Junior Zé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Lino Tempelmann",
+"numero": "20",
+"titulo": "Lino Tempelmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Kevin Ehlers",
+"numero": "21",
+"titulo": "Kevin Ehlers",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Fabio Di Michele Sanchez",
+"numero": "22",
+"titulo": "Fabio Di Michele Sanchez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Isidoros Koutsidis",
+"numero": "23",
+"titulo": "Isidoros Koutsidis",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Sidi Sané",
+"numero": "24",
+"titulo": "Sidi Sané",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Sanoussy Ba",
+"numero": "25",
+"titulo": "Sanoussy Ba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Tristan Wagner",
+"numero": "26",
+"titulo": "Tristan Wagner",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_32",
+"nome": "Jan Urbich",
+"numero": "27",
+"titulo": "Jan Urbich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Lukas Frenkert",
+"numero": "29",
+"titulo": "Lukas Frenkert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Robin Heußer",
+"numero": "30",
+"titulo": "Robin Heußer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Benjamin Uphoff",
+"numero": "32",
+"titulo": "Benjamin Uphoff",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Nick Bodon",
+"numero": "33",
+"titulo": "Nick Bodon",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_32",
+"nome": "Sidney Raebiger",
+"numero": "37",
+"titulo": "Sidney Raebiger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_32",
+"nome": "Damjan Kovacevic",
+"numero": "43",
+"titulo": "Damjan Kovacevic",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Dominik Reimann",
+"numero": "1",
+"titulo": "Dominik Reimann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Anselmo García MacNulty",
+"numero": "3",
+"titulo": "Anselmo García MacNulty",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Eldin Džogović",
+"numero": "4",
+"titulo": "Eldin Džogović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Tobias Müller",
+"numero": "5",
+"titulo": "Tobias Müller (footballer, born 1994)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Paul Jaeckel",
+"numero": "6",
+"titulo": "Paul Jaeckel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Herbert Bockhorn",
+"numero": "7",
+"titulo": "Herbert Bockhorn",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Emmanuel Iyoha",
+"numero": "8",
+"titulo": "Emmanuel Iyoha",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Roko Šimić",
+"numero": "9",
+"titulo": "Roko Šimić",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Moritz-Broni Kwarteng",
+"numero": "10",
+"titulo": "Moritz Kwarteng",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Felipe Chávez",
+"numero": "11",
+"titulo": "Felipe Chávez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Tony Reitz",
+"numero": "14",
+"titulo": "Tony Reitz",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Daniel Heber",
+"numero": "15",
+"titulo": "Daniel Heber",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Alexander Nollenberger",
+"numero": "17",
+"titulo": "Alexander Nollenberger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Lee Chung-hyun",
+"numero": "18",
+"titulo": "Lee Chung-hyun (footballer)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Lubambo Musonda",
+"numero": "19",
+"titulo": "Lubambo Musonda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Kevin Manthey",
+"numero": "20",
+"titulo": "Kevin Manthey",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Falko Michel",
+"numero": "21",
+"titulo": "Falko Michel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Mateusz Żukowski",
+"numero": "22",
+"titulo": "Mateusz Żukowski",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Barış Atik",
+"numero": "23",
+"titulo": "Barış Atik",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Torben Müsel",
+"numero": "26",
+"titulo": "Torben Müsel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Yoon Do-young",
+"numero": "27",
+"titulo": "Yoon Do-young",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Pierre Nadjombe",
+"numero": "28",
+"titulo": "Pierre Nadjombe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Richmond Tachie",
+"numero": "29",
+"titulo": "Richmond Tachie",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Noah Kruth",
+"numero": "30",
+"titulo": "Noah Kruth",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Leon Mergner",
+"numero": "33",
+"titulo": "Leon Mergner",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Tarek Chahed",
+"numero": "34",
+"titulo": "Tarek Chahed",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Magnus Baars",
+"numero": "35",
+"titulo": "Magnus Baars",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_33",
+"nome": "Luka Hyryläinen",
+"numero": "38",
+"titulo": "Luka Hyryläinen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_33",
+"nome": "Robert Kampa",
+"numero": "40",
+"titulo": "Robert Kampa",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_34",
+"nome": "Frank Lehmann",
+"numero": "1",
+"titulo": "Frank Lehmann",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Nicholas Mickelson",
+"numero": "2",
+"titulo": "Nicholas Mickelson",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Florian Le Joncour",
+"numero": "3",
+"titulo": "Florian Le Joncour",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Luis Seifert",
+"numero": "4",
+"titulo": "Luis Seifert",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_34",
+"nome": "Amara Condé",
+"numero": "6",
+"titulo": "Amara Condé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Maurice Krattenmacher",
+"numero": "7",
+"titulo": "Maurice Krattenmacher",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Łukasz Poręba",
+"numero": "8",
+"titulo": "Łukasz Poręba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Noel Futkeu",
+"numero": "9",
+"titulo": "Noel Futkeu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Noah Darvich",
+"numero": "10",
+"titulo": "Noah Darvich",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Elias Etringer",
+"numero": "12",
+"titulo": "Elias Etringer",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_34",
+"nome": "Raif Adam",
+"numero": "15",
+"titulo": "Raif Adam",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Luca Pfeiffer",
+"numero": "16",
+"titulo": "Luca Pfeiffer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Frederik Schmahl",
+"numero": "17",
+"titulo": "Frederik Schmahl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Lukas Pinckert",
+"numero": "19",
+"titulo": "Lukas Pinckert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Nicolas Kristof",
+"numero": "20",
+"titulo": "Nicolas Kristof",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Lasse Günther",
+"numero": "21",
+"titulo": "Lasse Günther",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Luca Schnellbacher",
+"numero": "24",
+"titulo": "Luca Schnellbacher",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Lukas Petkov",
+"numero": "25",
+"titulo": "Lukas Petkov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Luca Sirch",
+"numero": "26",
+"titulo": "Luca Sirch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Tim Boss",
+"numero": "28",
+"titulo": "Tim Boss",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Tom Zimmerschied",
+"numero": "29",
+"titulo": "Tom Zimmerschied",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Jan Gyamerah",
+"numero": "30",
+"titulo": "Jan Gyamerah",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Maximilian Rohr",
+"numero": "31",
+"titulo": "Maximilian Rohr",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Cole Campbell",
+"numero": "39",
+"titulo": "Cole Campbell",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Francis Onyeka",
+"numero": "40",
+"titulo": "Francis Onyeka",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "David Mokwa",
+"numero": "42",
+"titulo": "David Mokwa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_34",
+"nome": "Felix Keidel",
+"numero": "43",
+"titulo": "Felix Keidel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Jonas Kersken",
+"numero": "1",
+"titulo": "Jonas Kersken",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Felix Hagmann",
+"numero": "2",
+"titulo": "Felix Hagmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Joel Felix",
+"numero": "3",
+"titulo": "Joel Felix (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Maximilian Bauer",
+"numero": "5",
+"titulo": "Maximilian Bauer (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Marvin Mehlem",
+"numero": "6",
+"titulo": "Marvin Mehlem",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Henri Koudossou",
+"numero": "7",
+"titulo": "Henri Koudossou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Sam Schreck",
+"numero": "8",
+"titulo": "Sam Schreck",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "David Min",
+"numero": "9",
+"titulo": "David Min (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Jannik Rochelt",
+"numero": "10",
+"titulo": "Jannik Rochelt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Joel Grodowski",
+"numero": "11",
+"titulo": "Joel Grodowski",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Lukas Kunze",
+"numero": "13",
+"titulo": "Lukas Kunze",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Thaddäus-Monju Momuluh",
+"numero": "14",
+"titulo": "Thaddäus-Monju Momuluh",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Arne Sicker",
+"numero": "17",
+"titulo": "Arne Sicker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Leo Oppermann",
+"numero": "18",
+"titulo": "Leo Oppermann",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_35",
+"nome": "Maximilian Großer",
+"numero": "19",
+"titulo": "Maximilian Großer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Stefano Russo",
+"numero": "21",
+"titulo": "Stefano Russo (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Leon Schneider",
+"numero": "23",
+"titulo": "Leon Schneider",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Benjamin Boakye",
+"numero": "27",
+"titulo": "Benjamin Boakye",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Roberts Uldriķis",
+"numero": "28",
+"titulo": "Roberts Uldriķis",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Tim Handwerker",
+"numero": "29",
+"titulo": "Tim Handwerker",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Isaiah Young",
+"numero": "30",
+"titulo": "Isaiah Young",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Leon Jensen",
+"numero": "31",
+"titulo": "Leon Jensen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Marius Wörl",
+"numero": "38",
+"titulo": "Marius Wörl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_35",
+"nome": "Till Wegener",
+"numero": "42",
+"titulo": "Till Wegener",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_35",
+"nome": "Daniel Richter",
+"numero": "43",
+"titulo": "Daniel Richter (footballer)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_35",
+"nome": "Eyyüb Yasar",
+"numero": "44",
+"titulo": "Eyyüb Yasar",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_35",
+"nome": "Philip Hildesheim",
+"numero": "47",
+"titulo": "Philip Hildesheim",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_35",
+"nome": "Mino Jäger",
+"numero": "50",
+"titulo": "Mino Jäger",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_36",
+"nome": "Tim Schreiber",
+"numero": "1",
+"titulo": "Tim Schreiber",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Kenneth Schmidt",
+"numero": "4",
+"titulo": "Kenneth Schmidt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Nicolai Rapp",
+"numero": "6",
+"titulo": "Nicolai Rapp",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Kennedy Okpala",
+"numero": "7",
+"titulo": "Kennedy Okpala",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Luca Herrmann",
+"numero": "8",
+"titulo": "Luca Herrmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Vincent Vermeij",
+"numero": "9",
+"titulo": "Vincent Vermeij",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Jakob Lemmer",
+"numero": "10",
+"titulo": "Jakob Lemmer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Kaan İnanoğlu",
+"numero": "11",
+"titulo": "Kaan İnanoğlu",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_36",
+"nome": "Brooklyn Ezeh",
+"numero": "14",
+"titulo": "Brooklyn Ezeh",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Nils Fröling",
+"numero": "16",
+"titulo": "Nils Fröling",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Ahmet Muhamedbegović",
+"numero": "17",
+"titulo": "Ahmet Muhamedbegović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Robert Wagner",
+"numero": "18",
+"titulo": "Robert Wagner (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Alexander Rossipal",
+"numero": "19",
+"titulo": "Alexander Rossipal",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Ben Bobzien",
+"numero": "20",
+"titulo": "Ben Bobzien",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Tobias Raschl",
+"numero": "21",
+"titulo": "Tobias Raschl",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Lennart Grill",
+"numero": "22",
+"titulo": "Lennart Grill",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Lars Bünning",
+"numero": "23",
+"titulo": "Lars Bünning",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Patrice Čović",
+"numero": "24",
+"titulo": "Patrice Čović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Niklas Hauptmann",
+"numero": "27",
+"titulo": "Niklas Hauptmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Lukas Boeder",
+"numero": "29",
+"titulo": "Lukas Boeder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Jonas Sterner",
+"numero": "32",
+"titulo": "Jonas Sterner",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Christoph Daferner",
+"numero": "33",
+"titulo": "Christoph Daferner",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Till Neininger",
+"numero": "34",
+"titulo": "Till Neininger",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_36",
+"nome": "Daniel Mesenhöler",
+"numero": "37",
+"titulo": "Daniel Mesenhöler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Thomas Keller",
+"numero": "39",
+"titulo": "Thomas Keller (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ALE_36",
+"nome": "Elias Bethke",
+"numero": "40",
+"titulo": "Elias Bethke",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_36",
+"nome": "Friedrich Müller",
+"numero": "42",
+"titulo": "Friedrich Müller (footballer, born 2006)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ALE_36",
+"nome": "Simon Straudi",
+"numero": "44",
+"titulo": "Simon Straudi",
+"detalhe": false,
+"nasc": true
+}
+]

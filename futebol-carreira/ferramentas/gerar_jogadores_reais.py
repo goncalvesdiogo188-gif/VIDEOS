@@ -17,7 +17,7 @@ Os atributos são gerados à volta do "geral", com os pesos da posição (iguais
 de forma determinista (o mesmo nome dá sempre os mesmos atributos).
 Uso: python3 ferramentas/gerar_jogadores_reais.py POR [ESP ...]   (sem argumentos: todos os CSV)
 """
-import csv, json, math, os, random, sys, zlib
+import csv, json, math, os, random, re, sys, zlib
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DADOS = os.path.join(RAIZ, "app", "src", "main", "assets", "dados")
@@ -49,8 +49,8 @@ def salario_justo(g):
     return max(12, arred(1.17 ** (g - 50) * 60.0)) * 1000
 
 
-def gerar(pais):
-    caminho = os.path.join(RAIZ, "ferramentas", "reais", pais + ".csv")
+def gerar(pais, csv_path=None):
+    caminho = csv_path or os.path.join(RAIZ, "ferramentas", "reais", pais + ".csv")
     equipas = {e["id"] for e in json.load(open(os.path.join(DADOS, "equipas", pais + ".json"), encoding="utf-8"))}
     nacoes = {n["id"] for n in json.load(open(os.path.join(DADOS, "selecoes.json"), encoding="utf-8"))["nacoes"]}
     erros, linhas = [], []
@@ -114,6 +114,11 @@ def gerar(pais):
 
 
 if __name__ == "__main__":
-    paises = sys.argv[1:] or sorted(p[:-4] for p in os.listdir(os.path.join(RAIZ, "ferramentas", "reais")) if p.endswith(".csv"))
-    ok = all([gerar(p) for p in paises])
+    args = sys.argv[1:]
+    csv_path = None
+    if "--csv" in args:  # --csv caminho PAIS  (um só país; usa esse CSV em vez de reais/<PAIS>.csv)
+        i = args.index("--csv"); csv_path = os.path.abspath(args[i + 1]); del args[i:i + 2]
+        if len(args) != 1: sys.exit("com --csv indique exatamente um país")
+    paises = args or sorted(p[:-4] for p in os.listdir(os.path.join(RAIZ, "ferramentas", "reais")) if re.fullmatch(r"[A-Z]+\.csv", p))
+    ok = all([gerar(p, csv_path) for p in paises])
     sys.exit(0 if ok else 1)

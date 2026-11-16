@@ -1,0 +1,8698 @@
+[
+{
+"equipa": "ESP_01",
+"nome": "Thibaut Courtois",
+"numero": "1",
+"titulo": "Thibaut Courtois",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Raúl Asencio",
+"numero": "2",
+"titulo": "Raúl Asencio (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Éder Militão",
+"numero": "3",
+"titulo": "Éder Militão",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Dean Huijsen",
+"numero": "4",
+"titulo": "Dean Huijsen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Jude Bellingham",
+"numero": "5",
+"titulo": "Jude Bellingham",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Eduardo Camavinga",
+"numero": "6",
+"titulo": "Eduardo Camavinga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Vinícius Júnior",
+"numero": "7",
+"titulo": "Vinícius Júnior",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Federico Valverde",
+"numero": "8",
+"titulo": "Federico Valverde",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Endrick",
+"numero": "9",
+"titulo": "Endrick",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Kylian Mbappé",
+"numero": "10",
+"titulo": "Kylian Mbappé",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Rodrygo",
+"numero": "11",
+"titulo": "Rodrygo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Trent Alexander-Arnold",
+"numero": "12",
+"titulo": "Trent Alexander-Arnold",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Andriy Lunin",
+"numero": "13",
+"titulo": "Andriy Lunin",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Aurélien Tchouaméni",
+"numero": "14",
+"titulo": "Aurélien Tchouaméni",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Arda Güler",
+"numero": "15",
+"titulo": "Arda Güler",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Ibrahima Konaté",
+"numero": "16",
+"titulo": "Ibrahima Konaté",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Marc Cucurella",
+"numero": "17",
+"titulo": "Marc Cucurella",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Álvaro Carreras",
+"numero": "18",
+"titulo": "Álvaro Carreras",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Carlos Espí",
+"numero": "19",
+"titulo": "Carlos Espí",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Bernardo Silva",
+"numero": "20",
+"titulo": "Bernardo Silva",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Brahim Díaz",
+"numero": "21",
+"titulo": "Brahim Díaz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Antonio Rüdiger",
+"numero": "22",
+"titulo": "Antonio Rüdiger",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Ferland Mendy",
+"numero": "23",
+"titulo": "Ferland Mendy",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Denzel Dumfries",
+"numero": "24",
+"titulo": "Denzel Dumfries",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Yan Diomande",
+"numero": "25",
+"titulo": "Yan Diomande",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_01",
+"nome": "Thiago Pitarch",
+"numero": "27",
+"titulo": "Thiago Pitarch",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Joan Garcia",
+"numero": "1",
+"titulo": "Joan Garcia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "João Cancelo",
+"numero": "2",
+"titulo": "João Cancelo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Alejandro Balde",
+"numero": "3",
+"titulo": "Alejandro Balde",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Brian Fariñas",
+"numero": "4",
+"titulo": "Brian Fariñas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Pau Cubarsí",
+"numero": "5",
+"titulo": "Pau Cubarsí",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Gavi",
+"numero": "6",
+"titulo": "Gavi (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Fermín López",
+"numero": "7",
+"titulo": "Fermín López",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Pedri",
+"numero": "8",
+"titulo": "Pedri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Gabriel Jesus",
+"numero": "9",
+"titulo": "Gabriel Jesus",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Lamine Yamal",
+"numero": "10",
+"titulo": "Lamine Yamal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Raphinha",
+"numero": "11",
+"titulo": "Raphinha",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Xavi Espart",
+"numero": "12",
+"titulo": "Xavi Espart",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Wojciech Szczęsny",
+"numero": "13",
+"titulo": "Wojciech Szczęsny",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Karim Adeyemi",
+"numero": "14",
+"titulo": "Karim Adeyemi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Andreas Christensen",
+"numero": "15",
+"titulo": "Andreas Christensen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Rodri",
+"numero": "16",
+"titulo": "Rodri",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Anthony Gordon",
+"numero": "17",
+"titulo": "Anthony Gordon (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Gerard Martín",
+"numero": "18",
+"titulo": "Gerard Martín (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Roony Bardghji",
+"numero": "19",
+"titulo": "Roony Bardghji",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Dani Olmo",
+"numero": "20",
+"titulo": "Dani Olmo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Frenkie de Jong",
+"numero": "21",
+"titulo": "Frenkie de Jong",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Marc Bernal",
+"numero": "22",
+"titulo": "Marc Bernal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Jules Koundé",
+"numero": "23",
+"titulo": "Jules Koundé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Eric Garcia",
+"numero": "24",
+"titulo": "Eric Garcia (footballer, born 2001)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Dominik Livaković",
+"numero": "25",
+"titulo": "Dominik Livaković",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Jesse Bisiwu",
+"numero": "27",
+"titulo": "Jesse Bisiwu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_02",
+"nome": "Hamza Abdelkarim",
+"numero": "29",
+"titulo": "Hamza Abdelkarim",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Juan Musso",
+"numero": "1",
+"titulo": "Juan Musso",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Obed Vargas",
+"numero": "3",
+"titulo": "Obed Vargas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Rodrigo Mendoza",
+"numero": "4",
+"titulo": "Rodrigo Mendoza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Johnny Cardoso",
+"numero": "5",
+"titulo": "Johnny Cardoso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Koke",
+"numero": "6",
+"titulo": "Koke (footballer, born 1992)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Lee Kang-in",
+"numero": "7",
+"titulo": "Lee Kang-in",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Pablo Barrios",
+"numero": "8",
+"titulo": "Pablo Barrios (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Alexander Sørloth",
+"numero": "9",
+"titulo": "Alexander Sørloth",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Álex Baena",
+"numero": "10",
+"titulo": "Álex Baena",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Ademola Lookman",
+"numero": "11",
+"titulo": "Ademola Lookman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Jan Oblak",
+"numero": "13",
+"titulo": "Jan Oblak",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Marcos Llorente",
+"numero": "14",
+"titulo": "Marcos Llorente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Jonathan David",
+"numero": "15",
+"titulo": "Jonathan David",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Arnau Ortiz",
+"numero": "16",
+"titulo": "Arnau Ortiz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Dávid Hancko",
+"numero": "17",
+"titulo": "Dávid Hancko",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Marc Pubill",
+"numero": "18",
+"titulo": "Marc Pubill",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Julián Alvarez",
+"numero": "19",
+"titulo": "Julián Alvarez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Giuliano Simeone",
+"numero": "20",
+"titulo": "Giuliano Simeone",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Cristian Romero",
+"numero": "21",
+"titulo": "Cristian Romero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Alejandro Grimaldo",
+"numero": "22",
+"titulo": "Alejandro Grimaldo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Morten Hjulmand",
+"numero": "23",
+"titulo": "Morten Hjulmand",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Robin Le Normand",
+"numero": "24",
+"titulo": "Robin Le Normand",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Salvi Esquivel",
+"numero": "25",
+"titulo": "Salvi Esquivel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_03",
+"nome": "Dani Martínez",
+"numero": "30",
+"titulo": "Dani Martínez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Unai Simón",
+"numero": "1",
+"titulo": "Unai Simón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Dani Vivian",
+"numero": "3",
+"titulo": "Daniel Vivian",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Aitor Paredes",
+"numero": "4",
+"titulo": "Aitor Paredes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Yeray Álvarez",
+"numero": "5",
+"titulo": "Yeray Álvarez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Beñat Prados",
+"numero": "6",
+"titulo": "Beñat Prados",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Álex Berenguer",
+"numero": "7",
+"titulo": "Álex Berenguer",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Oihan Sancet",
+"numero": "8",
+"titulo": "Oihan Sancet",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Iñaki Williams",
+"numero": "9",
+"titulo": "Iñaki Williams",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Nico Williams",
+"numero": "10",
+"titulo": "Nico Williams",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Gorka Guruzeta",
+"numero": "11",
+"titulo": "Gorka Guruzeta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Jesús Areso",
+"numero": "12",
+"titulo": "Jesús Areso",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Álex Padilla",
+"numero": "13",
+"titulo": "Alex Padilla (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Aymeric Laporte",
+"numero": "14",
+"titulo": "Aymeric Laporte",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Hugo Rincón",
+"numero": "15",
+"titulo": "Hugo Rincón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Iñigo Ruiz de Galarreta",
+"numero": "16",
+"titulo": "Iñigo Ruiz de Galarreta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Yuri Berchiche",
+"numero": "17",
+"titulo": "Yuri Berchiche",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Mikel Jauregizar",
+"numero": "18",
+"titulo": "Mikel Jauregizar",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Alejandro Rego",
+"numero": "20",
+"titulo": "Alejandro Rego",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Maroan Sannadi",
+"numero": "21",
+"titulo": "Maroan Sannadi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Nico Serrano",
+"numero": "22",
+"titulo": "Nico Serrano",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Robert Navarro",
+"numero": "23",
+"titulo": "Robert Navarro (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Beñat Gerenabarrena",
+"numero": "24",
+"titulo": "Beñat Gerenabarrena",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Álvaro Djaló",
+"numero": "25",
+"titulo": "Álvaro Djaló",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Peio Canales",
+"numero": "28",
+"titulo": "Peio Canales",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Johaneko Louis-Jean",
+"numero": "31",
+"titulo": "Johaneko Louis-Jean",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Christian Imga",
+"numero": "33",
+"titulo": "Christian Imga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Txus Vizcay",
+"numero": "34",
+"titulo": "Txus Vizcay",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_04",
+"nome": "Aritz Conde",
+"numero": "35",
+"titulo": "Aritz Conde Albiol",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_04",
+"nome": "Unai Egiluz",
+"numero": "",
+"titulo": "Unai Egiluz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Luiz Júnior",
+"numero": "1",
+"titulo": "Luiz Júnior (footballer, born 2001)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Logan Costa",
+"numero": "2",
+"titulo": "Logan Costa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Alex Freeman",
+"numero": "3",
+"titulo": "Alex Freeman",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Alassane Diatta",
+"numero": "5",
+"titulo": "Alassane Diatta",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Pau Navarro",
+"numero": "6",
+"titulo": "Pau Navarro (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Gerard Moreno",
+"numero": "7",
+"titulo": "Gerard Moreno",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Juan Foyth",
+"numero": "8",
+"titulo": "Juan Foyth",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Georges Mikautadze",
+"numero": "9",
+"titulo": "Georges Mikautadze",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Alberto Moleiro",
+"numero": "10",
+"titulo": "Alberto Moleiro",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Ilias Akhomach",
+"numero": "11",
+"titulo": "Ilias Akhomach",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Renato Veiga",
+"numero": "12",
+"titulo": "Renato Veiga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Rubén Gómez",
+"numero": "13",
+"titulo": "Rubén Gómez (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Santi Comesaña",
+"numero": "14",
+"titulo": "Santi Comesaña",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Santiago Mouriño",
+"numero": "15",
+"titulo": "Santiago Mouriño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Carlos Maciá",
+"numero": "16",
+"titulo": "Carlos Maciá",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Tajon Buchanan",
+"numero": "17",
+"titulo": "Tajon Buchanan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Pape Gueye",
+"numero": "18",
+"titulo": "Pape Gueye",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Nicolas Pépé",
+"numero": "19",
+"titulo": "Nicolas Pépé",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Carlos Romero",
+"numero": "20",
+"titulo": "Carlos Romero (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Tani Oluwaseyi",
+"numero": "21",
+"titulo": "Tani Oluwaseyi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Ayoze Pérez",
+"numero": "22",
+"titulo": "Ayoze Pérez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Sergi Cardona",
+"numero": "23",
+"titulo": "Sergi Cardona",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Nathan Saliba",
+"numero": "24",
+"titulo": "Nathan Saliba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_05",
+"nome": "Péter Gulácsi",
+"numero": "25",
+"titulo": "Péter Gulácsi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Álvaro Valles",
+"numero": "1",
+"titulo": "Álvaro Valles",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Héctor Bellerín",
+"numero": "2",
+"titulo": "Héctor Bellerín",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Diego Llorente",
+"numero": "3",
+"titulo": "Diego Llorente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Natan",
+"numero": "4",
+"titulo": "Natan (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Marc Bartra",
+"numero": "5",
+"titulo": "Marc Bartra",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Facundo Bernal",
+"numero": "6",
+"titulo": "Facundo Bernal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Antony",
+"numero": "7",
+"titulo": "Antony (footballer, born 2000)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Pablo Fornals",
+"numero": "8",
+"titulo": "Pablo Fornals",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Cucho Hernández",
+"numero": "9",
+"titulo": "Cucho Hernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Abde Ezzalzouli",
+"numero": "10",
+"titulo": "Abde Ezzalzouli",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Fran García",
+"numero": "11",
+"titulo": "Fran García (footballer, born 1999)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Ángel Ortiz",
+"numero": "12",
+"titulo": "Ángel Ortiz (footballer, born 2004)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Diego Conde",
+"numero": "13",
+"titulo": "Diego Conde",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Iker Losada",
+"numero": "14",
+"titulo": "Iker Losada",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Álvaro Fidalgo",
+"numero": "15",
+"titulo": "Álvaro Fidalgo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Valentín Gómez",
+"numero": "16",
+"titulo": "Valentín Gómez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Rodrigo Riquelme",
+"numero": "17",
+"titulo": "Rodrigo Riquelme (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Nelson Deossa",
+"numero": "18",
+"titulo": "Nelson Deossa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Troy Parrott",
+"numero": "19",
+"titulo": "Troy Parrott",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Giovanni Lo Celso",
+"numero": "20",
+"titulo": "Giovanni Lo Celso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Marc Roca",
+"numero": "21",
+"titulo": "Marc Roca",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Isco",
+"numero": "22",
+"titulo": "Isco",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Junior Firpo",
+"numero": "23",
+"titulo": "Junior Firpo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Aitor Ruibal",
+"numero": "24",
+"titulo": "Aitor Ruibal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_06",
+"nome": "Dani Ceballos",
+"numero": "25",
+"titulo": "Dani Ceballos",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Altay Bayındır",
+"numero": "1",
+"titulo": "Altay Bayındır",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Carl Starfelt",
+"numero": "2",
+"titulo": "Carl Starfelt",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Marcos Alonso",
+"numero": "3",
+"titulo": "Marcos Alonso (footballer, born 1990)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Abdoulaye Faye",
+"numero": "4",
+"titulo": "Abdoulaye Faye (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Sergio Carreira",
+"numero": "5",
+"titulo": "Sergio Carreira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Ilaix Moriba",
+"numero": "6",
+"titulo": "Ilaix Moriba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Borja Iglesias",
+"numero": "7",
+"titulo": "Borja Iglesias",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Miguel Román",
+"numero": "8",
+"titulo": "Miguel Román (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Ferran Jutglà",
+"numero": "9",
+"titulo": "Ferran Jutglà",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Iago Aspas",
+"numero": "10",
+"titulo": "Iago Aspas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Pablo Durán",
+"numero": "11",
+"titulo": "Pablo Durán",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Ionuț Radu",
+"numero": "13",
+"titulo": "Ionuț Radu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Aleix Febas",
+"numero": "14",
+"titulo": "Aleix Febas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Álvaro Núñez",
+"numero": "15",
+"titulo": "Álvaro Núñez (footballer, born 2000)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Hugo González",
+"numero": "16",
+"titulo": "Hugo González (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Javi Rueda",
+"numero": "17",
+"titulo": "Javi Rueda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Yoel Lago",
+"numero": "18",
+"titulo": "Yoel Lago",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Williot Swedberg",
+"numero": "19",
+"titulo": "Williot Swedberg",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Javi Rodríguez",
+"numero": "20",
+"titulo": "Javi Rodríguez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Sebastián Cáceres",
+"numero": "21",
+"titulo": "Sebastián Cáceres",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Javi Galán",
+"numero": "22",
+"titulo": "Javi Galán",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Hugo Álvarez",
+"numero": "23",
+"titulo": "Hugo Álvarez (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Couhaib Driouech",
+"numero": "24",
+"titulo": "Couhaib Driouech",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Iván Villar",
+"numero": "25",
+"titulo": "Iván Villar",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_07",
+"nome": "Jones El-Abdellaoui",
+"numero": "39",
+"titulo": "Jones El-Abdellaoui",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Dani Cárdenas",
+"numero": "1",
+"titulo": "Daniel Cárdenas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Andrei Rațiu",
+"numero": "2",
+"titulo": "Andrei Rațiu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Marash Kumbulla",
+"numero": "3",
+"titulo": "Marash Kumbulla",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Pedro Díaz",
+"numero": "4",
+"titulo": "Pedro Díaz (footballer, born 1998)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Luiz Felipe",
+"numero": "5",
+"titulo": "Luiz Felipe (footballer, born March 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Pathé Ciss",
+"numero": "6",
+"titulo": "Pathé Ciss",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Isi Palazón",
+"numero": "7",
+"titulo": "Isi Palazón",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Unai López",
+"numero": "8",
+"titulo": "Unai López",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Alemão",
+"numero": "9",
+"titulo": "Alemão (footballer, born 1998)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Sergio Camello",
+"numero": "10",
+"titulo": "Sergio Camello",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Randy Nteka",
+"numero": "11",
+"titulo": "Randy Nteka",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_08",
+"nome": "Augusto Batalla",
+"numero": "13",
+"titulo": "Augusto Batalla",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Giorgi Tsitaishvili",
+"numero": "14",
+"titulo": "Giorgi Tsitaishvili",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Mujaid Sadick",
+"numero": "15",
+"titulo": "Mujaid Sadick",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Adrià Pedrosa",
+"numero": "17",
+"titulo": "Adrià Pedrosa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Álvaro García",
+"numero": "18",
+"titulo": "Álvaro García (footballer, born 1992)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Jorge de Frutos",
+"numero": "19",
+"titulo": "Jorge de Frutos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Iván Balliu",
+"numero": "20",
+"titulo": "Iván Balliu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Fran Pérez",
+"numero": "21",
+"titulo": "Fran Pérez (footballer, born 2002)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Pelayo Fernández",
+"numero": "22",
+"titulo": "Pelayo Fernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Óscar Valentín",
+"numero": "23",
+"titulo": "Óscar Valentín",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Florian Lejeune",
+"numero": "24",
+"titulo": "Florian Lejeune",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Emil Audero",
+"numero": "25",
+"titulo": "Emil Audero",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Jozhua Vertrouwd",
+"numero": "33",
+"titulo": "Jozhua Vertrouwd",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Gnangoro Bouare",
+"numero": "36",
+"titulo": "Gnangoro Bouare",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Rayane Belaid",
+"numero": "37",
+"titulo": "Rayane Belaid",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_08",
+"nome": "Raúl de Tomás",
+"numero": "",
+"titulo": "Raúl de Tomás",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Sergio Herrera",
+"numero": "1",
+"titulo": "Sergio Herrera (footballer, born 1993)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Jorge Herrando",
+"numero": "5",
+"titulo": "Jorge Herrando",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Lucas Torró",
+"numero": "6",
+"titulo": "Lucas Torró",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Jon Moncayola",
+"numero": "7",
+"titulo": "Jon Moncayola",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Iker Muñoz",
+"numero": "8",
+"titulo": "Iker Muñoz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Raúl García",
+"numero": "9",
+"titulo": "Raúl García (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Aimar Oroz",
+"numero": "10",
+"titulo": "Aimar Oroz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Kike Barja",
+"numero": "11",
+"titulo": "Kike Barja",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Aitor Fernández",
+"numero": "13",
+"titulo": "Aitor Fernández (footballer, born 1991)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Rubén García",
+"numero": "14",
+"titulo": "Rubén García (footballer, born 1993)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Diego Rico",
+"numero": "15",
+"titulo": "Diego Rico",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Moi Gómez",
+"numero": "16",
+"titulo": "Moi Gómez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Ante Budimir",
+"numero": "17",
+"titulo": "Ante Budimir",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Raúl Moro",
+"numero": "18",
+"titulo": "Raúl Moro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Valentin Rosier",
+"numero": "19",
+"titulo": "Valentin Rosier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Romain Del Castillo",
+"numero": "20",
+"titulo": "Romain Del Castillo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Jonathan Dubasin",
+"numero": "21",
+"titulo": "Jonathan Dubasin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Enzo Boyomo",
+"numero": "22",
+"titulo": "Flavien Enzo Boyomo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Abel Bretones",
+"numero": "23",
+"titulo": "Abel Bretones",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Alejandro Catena",
+"numero": "24",
+"titulo": "Alejandro Catena",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Mauro Echegoyen",
+"numero": "26",
+"titulo": "Mauro Echegoyen Berrozpe",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Iñigo Arguibide",
+"numero": "27",
+"titulo": "Iñigo Arguibide",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Asier Osambela",
+"numero": "29",
+"titulo": "Asier Osambela",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_09",
+"nome": "Rockson Yeboah",
+"numero": "48",
+"titulo": "Rockson Yeboah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Arnau Tenas",
+"numero": "1",
+"titulo": "Arnau Tenas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Guille Fernández",
+"numero": "2",
+"titulo": "Guille Fernández (footballer, born 2008)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Toni Lato",
+"numero": "3",
+"titulo": "Toni Lato",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "David López",
+"numero": "4",
+"titulo": "David López (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Alberto Moreno",
+"numero": "5",
+"titulo": "Alberto Moreno",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Antonio Sánchez",
+"numero": "6",
+"titulo": "Antonio Sánchez (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Álex Sala",
+"numero": "7",
+"titulo": "Álex Sala",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Manu Morlanes",
+"numero": "8",
+"titulo": "Manu Morlanes",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Abdón Prats",
+"numero": "9",
+"titulo": "Abdón Prats",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Sergi Darder",
+"numero": "10",
+"titulo": "Sergi Darder",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Zito Luvumbo",
+"numero": "11",
+"titulo": "Zito Luvumbo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Lucas Bergström",
+"numero": "13",
+"titulo": "Lucas Bergström",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Daniel Luna",
+"numero": "14",
+"titulo": "Daniel Luna",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "John Chetauya",
+"numero": "15",
+"titulo": "John Chetauya",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Adam Buksa",
+"numero": "16",
+"titulo": "Adam Buksa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Arnau Puigmal",
+"numero": "17",
+"titulo": "Arnau Puigmal",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Adrián Fuentes",
+"numero": "18",
+"titulo": "Adrián Fuentes",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Josep Cerdà",
+"numero": "19",
+"titulo": "Josep Cerdà",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Pablo Torre",
+"numero": "20",
+"titulo": "Pablo Torre (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Antonio Raíllo",
+"numero": "21",
+"titulo": "Antonio Raíllo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Aboubaka Soumahoro",
+"numero": "22",
+"titulo": "Aboubaka Soumahoro",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Antoniu Roca",
+"numero": "23",
+"titulo": "Antoniu Roca",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Martin Valjent",
+"numero": "24",
+"titulo": "Martin Valjent",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Iván Cuéllar",
+"numero": "25",
+"titulo": "Iván Cuéllar",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Jan Salas",
+"numero": "28",
+"titulo": "Jan Salas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Justin Kalumba",
+"numero": "30",
+"titulo": "Justin Kalumba",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_10",
+"nome": "Adrián Liso",
+"numero": "33",
+"titulo": "Adrián Liso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Álex Remiro",
+"numero": "1",
+"titulo": "Álex Remiro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Jon Aramburu",
+"numero": "2",
+"titulo": "Jon Aramburu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Aihen Muñoz",
+"numero": "3",
+"titulo": "Aihen Muñoz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Jon Gorrotxategi",
+"numero": "4",
+"titulo": "Jon Gorrotxategi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Igor Zubeldia",
+"numero": "5",
+"titulo": "Igor Zubeldia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Jon Martín",
+"numero": "6",
+"titulo": "Jon Martín",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Ander Barrenetxea",
+"numero": "7",
+"titulo": "Ander Barrenetxea (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Beñat Turrientes",
+"numero": "8",
+"titulo": "Beñat Turrientes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Orri Óskarsson",
+"numero": "9",
+"titulo": "Orri Óskarsson",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Mikel Oyarzabal",
+"numero": "10",
+"titulo": "Mikel Oyarzabal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Gonçalo Guedes",
+"numero": "11",
+"titulo": "Gonçalo Guedes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Job Ochieng",
+"numero": "12",
+"titulo": "Job Ochieng",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Unai Marrero",
+"numero": "13",
+"titulo": "Unai Marrero",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Takefusa Kubo",
+"numero": "14",
+"titulo": "Takefusa Kubo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Pablo Marín",
+"numero": "15",
+"titulo": "Pablo Marín (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Jon Pacheco",
+"numero": "16",
+"titulo": "Jon Pacheco",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Sergio Gómez",
+"numero": "17",
+"titulo": "Sergio Gómez (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Carlos Soler",
+"numero": "18",
+"titulo": "Carlos Soler",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Mamadou Sarr",
+"numero": "19",
+"titulo": "Mamadou Sarr",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Álvaro Odriozola",
+"numero": "20",
+"titulo": "Álvaro Odriozola",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Yangel Herrera",
+"numero": "21",
+"titulo": "Yangel Herrera",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Héctor Fort",
+"numero": "22",
+"titulo": "Héctor Fort",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Arsen Zakharyan",
+"numero": "23",
+"titulo": "Arsen Zakharyan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_11",
+"nome": "Luka Sučić",
+"numero": "24",
+"titulo": "Luka Sučić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Stole Dimitrievski",
+"numero": "1",
+"titulo": "Stole Dimitrievski",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Guido Rodríguez",
+"numero": "2",
+"titulo": "Guido Rodríguez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "José Copete",
+"numero": "3",
+"titulo": "José Manuel Copete",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Mouctar Diakhaby",
+"numero": "4",
+"titulo": "Mouctar Diakhaby",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "César Tárrega",
+"numero": "5",
+"titulo": "César Tárrega",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Umar Sadiq",
+"numero": "6",
+"titulo": "Umar Sadiq",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Arnaut Danjuma",
+"numero": "7",
+"titulo": "Arnaut Danjuma",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Javi Guerra",
+"numero": "8",
+"titulo": "Javi Guerra (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Hugo Duro",
+"numero": "9",
+"titulo": "Hugo Duro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Harvey Elliott",
+"numero": "10",
+"titulo": "Harvey Elliott",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Luis Rioja",
+"numero": "11",
+"titulo": "Luis Rioja",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Justin de Haas",
+"numero": "12",
+"titulo": "Justin de Haas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Cristian Rivero",
+"numero": "13",
+"titulo": "Cristian Rivero (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "José Gayà",
+"numero": "14",
+"titulo": "José Gayà",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Aliou Dieng",
+"numero": "15",
+"titulo": "Aliou Dieng",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Diego López",
+"numero": "16",
+"titulo": "Diego López (footballer, born May 2002)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Pepelu",
+"numero": "18",
+"titulo": "Pepelu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Dani Raba",
+"numero": "19",
+"titulo": "Dani Raba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Dimitri Foulquier",
+"numero": "20",
+"titulo": "Dimitri Foulquier",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Jesús Vázquez",
+"numero": "21",
+"titulo": "Jesús Vázquez (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Arnau Martínez",
+"numero": "22",
+"titulo": "Arnau Martínez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Filip Ugrinić",
+"numero": "23",
+"titulo": "Filip Ugrinić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Pablo Maffeo",
+"numero": "24",
+"titulo": "Pablo Maffeo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Kayne van Oevelen",
+"numero": "25",
+"titulo": "Kayne van Oevelen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Ryūnosuke Satō",
+"numero": "39",
+"titulo": "Ryūnosuke Satō",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_12",
+"nome": "Sergi Canós",
+"numero": "",
+"titulo": "Sergi Canós",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Jiří Letáček",
+"numero": "1",
+"titulo": "Jiří Letáček",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Dakonam Djené",
+"numero": "2",
+"titulo": "Dakonam Djené",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Davinchi",
+"numero": "3",
+"titulo": "Davinchi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Saba Sazonov",
+"numero": "4",
+"titulo": "Saba Sazonov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Abdel Abqar",
+"numero": "5",
+"titulo": "Abdel Abqar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Mario Martín",
+"numero": "6",
+"titulo": "Mario Martín",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Juanmi",
+"numero": "7",
+"titulo": "Juanmi (footballer, born 1993)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Nemanja Gudelj",
+"numero": "8",
+"titulo": "Nemanja Gudelj",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Borja Mayoral",
+"numero": "9",
+"titulo": "Borja Mayoral",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Martín Satriano",
+"numero": "10",
+"titulo": "Martín Satriano",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Ramon Terrats",
+"numero": "11",
+"titulo": "Ramon Terrats",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "David Soria",
+"numero": "13",
+"titulo": "David Soria",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Dani Carvajal",
+"numero": "14",
+"titulo": "Dani Carvajal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Sebastián Boselli",
+"numero": "15",
+"titulo": "Sebastián Boselli",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Francho Serrano",
+"numero": "16",
+"titulo": "Francho Serrano",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Kiko Femenía",
+"numero": "17",
+"titulo": "Kiko Femenía",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Christantus Uche",
+"numero": "18",
+"titulo": "Christantus Uche",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Enes Ünal",
+"numero": "19",
+"titulo": "Enes Ünal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Iván Azón",
+"numero": "20",
+"titulo": "Iván Azón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Andrés García",
+"numero": "21",
+"titulo": "Andrés García (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Johan Mojica",
+"numero": "22",
+"titulo": "Johan Mojica",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Orel Mangala",
+"numero": "23",
+"titulo": "Orel Mangala",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Zaid Romero",
+"numero": "24",
+"titulo": "Zaid Romero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_13",
+"nome": "Jean Ives Valou",
+"numero": "26",
+"titulo": "Jean Ives Valou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Ángel Fortuño",
+"numero": "1",
+"titulo": "Ángel Fortuño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Andoni Gorosabel",
+"numero": "2",
+"titulo": "Andoni Gorosabel",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Quilindschy Hartman",
+"numero": "3",
+"titulo": "Quilindschy Hartman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Urko González de Zárate",
+"numero": "4",
+"titulo": "Urko González de Zárate",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Clemens Riedel",
+"numero": "5",
+"titulo": "Clemens Riedel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Leandro Cabrera",
+"numero": "6",
+"titulo": "Leandro Cabrera",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Javi Puado",
+"numero": "7",
+"titulo": "Javi Puado",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Edu Expósito",
+"numero": "8",
+"titulo": "Edu Expósito",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Roberto Fernández",
+"numero": "9",
+"titulo": "Roberto Fernández (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Pol Lozano",
+"numero": "10",
+"titulo": "Pol Lozano",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Pere Milla",
+"numero": "11",
+"titulo": "Pere Milla",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Marko Dmitrović",
+"numero": "13",
+"titulo": "Marko Dmitrović",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Unai Nuñez",
+"numero": "14",
+"titulo": "Unai Nuñez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Bryan Zaragoza",
+"numero": "15",
+"titulo": "Bryan Zaragoza",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Vanja Drkušić",
+"numero": "16",
+"titulo": "Vanja Drkušić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Jofre Carreras",
+"numero": "17",
+"titulo": "Jofre Carreras",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Marcos Fernández",
+"numero": "18",
+"titulo": "Marcos Fernández (footballer, born May 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Kike García",
+"numero": "19",
+"titulo": "Kike García (Spanish footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Gabriel Moscardo",
+"numero": "20",
+"titulo": "Gabriel Moscardo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Roger Hinojo",
+"numero": "21",
+"titulo": "Roger Hinojo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Álex Calatrava",
+"numero": "22",
+"titulo": "Álex Calatrava (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Omar El Hilali",
+"numero": "23",
+"titulo": "Omar El Hilali",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Tyrhys Dolan",
+"numero": "24",
+"titulo": "Tyrhys Dolan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Rafel Bauzà",
+"numero": "26",
+"titulo": "Rafel Bauzà",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_14",
+"nome": "Javi Hernández",
+"numero": "28",
+"titulo": "Javi Hernández (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Antonio Sivera",
+"numero": "1",
+"titulo": "Antonio Sivera",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Nicolás Valentini",
+"numero": "2",
+"titulo": "Nicolás Valentini",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Youssef Enríquez",
+"numero": "3",
+"titulo": "Yusi (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Denis Suárez",
+"numero": "4",
+"titulo": "Denis Suárez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Facundo Garcés",
+"numero": "5",
+"titulo": "Facundo Garcés",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Ander Guevara",
+"numero": "6",
+"titulo": "Ander Guevara",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Ángel Pérez",
+"numero": "7",
+"titulo": "Ángel Pérez (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Antonio Blanco",
+"numero": "8",
+"titulo": "Antonio Blanco (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Mariano Díaz",
+"numero": "9",
+"titulo": "Mariano Díaz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Carles Aleñá",
+"numero": "10",
+"titulo": "Carles Aleñá",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Toni Martínez",
+"numero": "11",
+"titulo": "Toni Martínez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Hugo Novoa",
+"numero": "12",
+"titulo": "Hugo Novoa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Adrián Rodríguez",
+"numero": "13",
+"titulo": "Adrián Rodríguez (footballer, born 2000)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Nahuel Tenaglia",
+"numero": "14",
+"titulo": "Nahuel Tenaglia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Lucas Boyé",
+"numero": "15",
+"titulo": "Lucas Boyé",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Ville Koski",
+"numero": "16",
+"titulo": "Ville Koski",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Jonny Otto",
+"numero": "17",
+"titulo": "Jonny Otto",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Mikel Rodríguez",
+"numero": "18",
+"titulo": "Mikel Rodríguez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Pablo Ibáñez",
+"numero": "19",
+"titulo": "Pablo Ibáñez (footballer, born 1998)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Aitor Mañas",
+"numero": "20",
+"titulo": "Aitor Mañas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Abde Rebbach",
+"numero": "21",
+"titulo": "Abde Rebbach",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Miguel Rodríguez",
+"numero": "22",
+"titulo": "Miguel Rodríguez (footballer, born April 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Carlos Protesoni",
+"numero": "23",
+"titulo": "Carlos Protesoni",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Selu Diallo",
+"numero": "24",
+"titulo": "Selu Diallo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Xanet Olaiz",
+"numero": "27",
+"titulo": "Xanet Olaiz Ibarzabal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_15",
+"nome": "Izei Hernández",
+"numero": "29",
+"titulo": "Izei Hernández Cañas",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_15",
+"nome": "Grégoire Świderski",
+"numero": "31",
+"titulo": "Grégoire Świderski",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Sergi Puig",
+"numero": "1",
+"titulo": "Sergi Puig",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Abdul Mumin",
+"numero": "2",
+"titulo": "Abdul Mumin",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Mateu Morey",
+"numero": "3",
+"titulo": "Mateu Morey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Javier Boñar",
+"numero": "4",
+"titulo": "Javier Boñar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "David López",
+"numero": "5",
+"titulo": "David López (footballer, born 1989)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Donny van de Beek",
+"numero": "6",
+"titulo": "Donny van de Beek",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Cristhian Stuani",
+"numero": "7",
+"titulo": "Cristhian Stuani",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Fran Beltrán",
+"numero": "8",
+"titulo": "Fran Beltrán",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Abel Ruiz",
+"numero": "9",
+"titulo": "Abel Ruiz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Portu",
+"numero": "10",
+"titulo": "Portu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Àlex Moreno",
+"numero": "11",
+"titulo": "Àlex Moreno",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Paulo Gazzaniga",
+"numero": "13",
+"titulo": "Paulo Gazzaniga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Iván Morante",
+"numero": "14",
+"titulo": "Iván Morante",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Oleksandr Pyshchur",
+"numero": "15",
+"titulo": "Oleksandr Pyshchur (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Alejandro Francés",
+"numero": "16",
+"titulo": "Alejandro Francés",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Bryan Gil",
+"numero": "17",
+"titulo": "Bryan Gil",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Vladyslav Vanat",
+"numero": "19",
+"titulo": "Vladyslav Vanat",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Jastin García",
+"numero": "21",
+"titulo": "Jastin García",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Yáser Asprilla",
+"numero": "22",
+"titulo": "Yáser Asprilla",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Carles Pérez",
+"numero": "23",
+"titulo": "Carles Pérez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Izan González",
+"numero": "24",
+"titulo": "Izan González",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Vladyslav Krapyvtsov",
+"numero": "25",
+"titulo": "Vladyslav Krapyvtsov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Unai Hernández",
+"numero": "30",
+"titulo": "Unai Hernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Mauro Furtado",
+"numero": "33",
+"titulo": "Mauro Furtado",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_16",
+"nome": "Holmes Junior",
+"numero": "38",
+"titulo": "Holmes Junior",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Odysseas Vlachodimos",
+"numero": "1",
+"titulo": "Odysseas Vlachodimos",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Juan Iglesias",
+"numero": "2",
+"titulo": "Juan Iglesias",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Julio Díaz",
+"numero": "3",
+"titulo": "Julio Díaz (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Kike Salas",
+"numero": "4",
+"titulo": "Kike Salas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Andrés Castrín",
+"numero": "5",
+"titulo": "Andrés Castrín",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Lucien Agoumé",
+"numero": "6",
+"titulo": "Lucien Agoumé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Alfon González",
+"numero": "7",
+"titulo": "Alfon González",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Giorgi Kochorashvili",
+"numero": "8",
+"titulo": "Giorgi Kochorashvili",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Robbie Ure",
+"numero": "9",
+"titulo": "Robbie Ure",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Peque Fernández",
+"numero": "10",
+"titulo": "Peque Fernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Rubén Vargas",
+"numero": "11",
+"titulo": "Rubén Vargas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Arouna Sangante",
+"numero": "12",
+"titulo": "Arouna Sangante",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Fran González",
+"numero": "13",
+"titulo": "Fran González (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Manu Bueno",
+"numero": "14",
+"titulo": "Manu Bueno",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Fábio Cardoso",
+"numero": "15",
+"titulo": "Fábio Cardoso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Isaac Romero",
+"numero": "16",
+"titulo": "Isaac Romero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Gabriel Suazo",
+"numero": "17",
+"titulo": "Gabriel Suazo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Jon Guridi",
+"numero": "18",
+"titulo": "Jon Guridi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Lucas Stassin",
+"numero": "19",
+"titulo": "Lucas Stassin",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Félix Correia",
+"numero": "20",
+"titulo": "Félix Correia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Chidera Ejuke",
+"numero": "21",
+"titulo": "Chidera Ejuke",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "José Ángel Carmona",
+"numero": "22",
+"titulo": "José Ángel Carmona",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Marcão",
+"numero": "23",
+"titulo": "Marcão (footballer, born 1996)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Youssouf Fofana",
+"numero": "24",
+"titulo": "Youssouf Fofana (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Miguel Sierra",
+"numero": "30",
+"titulo": "Miguel Sierra (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_17",
+"nome": "Rafa Romero",
+"numero": "33",
+"titulo": "Rafael Romero Morilla",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_18",
+"nome": "Pablo Campos",
+"numero": "1",
+"titulo": "Pablo Campos (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Aïssa Mandi",
+"numero": "2",
+"titulo": "Aïssa Mandi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Ifeanyi Ndukwe",
+"numero": "3",
+"titulo": "Ifeanyi Ndukwe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Adrián Dela",
+"numero": "4",
+"titulo": "Adrián de la Fuente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Hugo Sotelo",
+"numero": "5",
+"titulo": "Hugo Sotelo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Dani Requena",
+"numero": "6",
+"titulo": "Dani Requena",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Roger Brugué",
+"numero": "7",
+"titulo": "Roger Brugué",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Jon Ander Olasagasti",
+"numero": "8",
+"titulo": "Jon Ander Olasagasti",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Iván Romero",
+"numero": "9",
+"titulo": "Iván Romero (footballer, born 2001)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Petar Ratkov",
+"numero": "10",
+"titulo": "Petar Ratkov",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Yanis Musuayi",
+"numero": "11",
+"titulo": "Yanis Musuayi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Mathew Ryan",
+"numero": "13",
+"titulo": "Mathew Ryan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Jorge Cabello",
+"numero": "14",
+"titulo": "Jorge Cabello",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Axel Tape",
+"numero": "16",
+"titulo": "Axel Tape",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Víctor García",
+"numero": "17",
+"titulo": "Víctor García (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Enzo Bardeli",
+"numero": "18",
+"titulo": "Enzo Bardeli",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Oriol Rey",
+"numero": "20",
+"titulo": "Oriol Rey",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Karl Etta Eyong",
+"numero": "21",
+"titulo": "Karl Etta Eyong",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Jeremy Toljan",
+"numero": "22",
+"titulo": "Jeremy Toljan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Manu Sánchez",
+"numero": "23",
+"titulo": "Manu Sánchez (footballer, born 2000)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Thiago Fernández",
+"numero": "24",
+"titulo": "Thiago Fernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Paco Cortés",
+"numero": "27",
+"titulo": "Paco Cortés",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Nacho Pérez",
+"numero": "29",
+"titulo": "Nacho Pérez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Álex Primo",
+"numero": "32",
+"titulo": "Alejandro Primo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_18",
+"nome": "Marc Santos",
+"numero": "33",
+"titulo": "Marc Santos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Matías Dituro",
+"numero": "1",
+"titulo": "Matías Dituro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Buba Sangaré",
+"numero": "2",
+"titulo": "Buba Sangaré",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Roy Revivo",
+"numero": "3",
+"titulo": "Roy Revivo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Bambo Diaby",
+"numero": "4",
+"titulo": "Bambo Diaby",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Federico Redondo",
+"numero": "5",
+"titulo": "Federico Redondo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Pedro Bigas",
+"numero": "6",
+"titulo": "Pedro Bigas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Yago Santiago",
+"numero": "7",
+"titulo": "Yago Santiago",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Marc Aguado",
+"numero": "8",
+"titulo": "Marc Aguado",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Ezequiel Ponce",
+"numero": "9",
+"titulo": "Ezequiel Ponce",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Facundo Buonanotte",
+"numero": "10",
+"titulo": "Facundo Buonanotte",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Germán Valera",
+"numero": "11",
+"titulo": "Germán Valera",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Gonzalo Villar",
+"numero": "12",
+"titulo": "Gonzalo Villar (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Alejandro Iturbe",
+"numero": "13",
+"titulo": "Alejandro Iturbe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Fer Niño",
+"numero": "14",
+"titulo": "Fer Niño",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Kevin Lomónaco",
+"numero": "15",
+"titulo": "Kevin Lomónaco",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Martim Neto",
+"numero": "16",
+"titulo": "Martim Neto",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Josan",
+"numero": "17",
+"titulo": "Josan (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Thomas Lemar",
+"numero": "18",
+"titulo": "Thomas Lemar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Grady Diangana",
+"numero": "19",
+"titulo": "Grady Diangana",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Tete Morente",
+"numero": "20",
+"titulo": "Tete Morente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Lucas Cepeda",
+"numero": "21",
+"titulo": "Lucas Cepeda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Rubén Sánchez",
+"numero": "22",
+"titulo": "Rubén Sánchez (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Víctor Chust",
+"numero": "23",
+"titulo": "Víctor Chust",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Abiel Osorio",
+"numero": "24",
+"titulo": "Abiel Osorio",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Matía Barzić",
+"numero": "26",
+"titulo": "Matía Barzic",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Ali Houary",
+"numero": "29",
+"titulo": "Ali Houary",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Adam Boayar",
+"numero": "32",
+"titulo": "Adam Boayar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_19",
+"nome": "Javi Morcillo",
+"numero": "47",
+"titulo": "Javi Morcillo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Miguel Narváez",
+"numero": "1",
+"titulo": "Miguel Narváez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Aisar Ahmed",
+"numero": "2",
+"titulo": "Aisar Ahmed",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Juan Cruz",
+"numero": "3",
+"titulo": "Juan Cruz (footballer, born 1992)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "David Costas",
+"numero": "4",
+"titulo": "David Costas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Youness Lachhab",
+"numero": "5",
+"titulo": "Youness Lachhab",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Dani Villahermosa",
+"numero": "6",
+"titulo": "Dani Villahermosa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Ilyas Chaira",
+"numero": "7",
+"titulo": "Ilyas Chaira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Mikel Goti",
+"numero": "8",
+"titulo": "Mikel Goti",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Chris Ramos",
+"numero": "9",
+"titulo": "Chris Ramos",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Alberto Reina",
+"numero": "10",
+"titulo": "Alberto Reina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Jacobo González",
+"numero": "11",
+"titulo": "Jacobo González",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Dani Calvo",
+"numero": "12",
+"titulo": "Dani Calvo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Aarón Escandell",
+"numero": "13",
+"titulo": "Aarón Escandell",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Carlos Fernández",
+"numero": "14",
+"titulo": "Carlos Fernández (footballer, born 1996)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Samu Rodríguez",
+"numero": "15",
+"titulo": "Samu Rodríguez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Aritz Aldasoro",
+"numero": "16",
+"titulo": "Aritz Aldasoro",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Estanis Pedrola",
+"numero": "17",
+"titulo": "Estanis Pedrola",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Víctor Mingo",
+"numero": "18",
+"titulo": "Víctor Mingo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Brandon Domingues",
+"numero": "19",
+"titulo": "Brandon Domingues",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Pablo Sáenz",
+"numero": "20",
+"titulo": "Pablo Sáenz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "David Jiménez",
+"numero": "21",
+"titulo": "David Jiménez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Nacho Vidal",
+"numero": "22",
+"titulo": "Nacho Vidal (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Carlos Domínguez",
+"numero": "23",
+"titulo": "Carlos Domínguez (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Alexandru Ișfan",
+"numero": "24",
+"titulo": "Alexandru Ișfan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "José Luis Morales",
+"numero": "25",
+"titulo": "José Luis Morales (footballer, born 1987)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Dieguito",
+"numero": "28",
+"titulo": "Diego Menéndez Secades",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_20",
+"nome": "Marco Esteban",
+"numero": "30",
+"titulo": "Marco Esteban",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Raúl Fernández",
+"numero": "1",
+"titulo": "Raúl Fernández (footballer, born 1988)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Marvel",
+"numero": "2",
+"titulo": "Marvel (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Javi Montero",
+"numero": "3",
+"titulo": "Javi Montero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Rubén Pulido",
+"numero": "4",
+"titulo": "Rubén Pulido (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Ignasi Miquel",
+"numero": "5",
+"titulo": "Ignasi Miquel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Lalo Aguilar",
+"numero": "6",
+"titulo": "Lalo Aguilar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Rubén Peña",
+"numero": "7",
+"titulo": "Rubén Peña",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Yassine Kechta",
+"numero": "8",
+"titulo": "Yassine Kechta",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Álex Millán",
+"numero": "9",
+"titulo": "Álex Millán",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Zico Buurmeester",
+"numero": "10",
+"titulo": "Zico Buurmeester",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Naim García",
+"numero": "11",
+"titulo": "Naim García",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Luca Zidane",
+"numero": "13",
+"titulo": "Luca Zidane",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Dani Rodríguez",
+"numero": "14",
+"titulo": "Dani Rodríguez (footballer, born 1988)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Enric Franquesa",
+"numero": "15",
+"titulo": "Enric Franquesa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Unax del Cura",
+"numero": "16",
+"titulo": "Unax del Cura",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Ismaël Gharbi",
+"numero": "17",
+"titulo": "Ismaël Gharbi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Andrés Campos",
+"numero": "18",
+"titulo": "Andrés Campos (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Patrick Soko",
+"numero": "19",
+"titulo": "Patrick Soko",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Miguel Atienza",
+"numero": "20",
+"titulo": "Miguel Atienza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Álvaro Morata",
+"numero": "21",
+"titulo": "Álvaro Morata",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Álex Sancris",
+"numero": "22",
+"titulo": "Álex Sancris",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Álvaro Tejero",
+"numero": "23",
+"titulo": "Álvaro Tejero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_21",
+"nome": "Amadou Diawara",
+"numero": "24",
+"titulo": "Amadou Diawara",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Marvin Park",
+"numero": "2",
+"titulo": "Marvin Park",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Nicholas Opoku",
+"numero": "3",
+"titulo": "Nicholas Opoku",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Álex Suárez",
+"numero": "4",
+"titulo": "Álex Suárez (footballer, born 1993)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Enrique Clemente",
+"numero": "5",
+"titulo": "Enrique Clemente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Iñaki González",
+"numero": "6",
+"titulo": "Iñaki González",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Jefté Betancor",
+"numero": "7",
+"titulo": "Jefté Betancor",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Sergio Ruiz",
+"numero": "8",
+"titulo": "Sergio Ruiz (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Jeremía Recoba",
+"numero": "9",
+"titulo": "Jeremía Recoba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Jesé",
+"numero": "10",
+"titulo": "Jesé",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Taisei Miyashiro",
+"numero": "11",
+"titulo": "Taisei Miyashiro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Enzo Loiodice",
+"numero": "12",
+"titulo": "Enzo Loiodice",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "José Antonio Caro",
+"numero": "13",
+"titulo": "José Antonio Caro (footballer, born 1994)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Manu Fuster",
+"numero": "14",
+"titulo": "Manu Fuster",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Juanma Herzog",
+"numero": "15",
+"titulo": "Juanma Herzog",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Mateo Aćimović",
+"numero": "16",
+"titulo": "Mateo Aćimović",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Viti Rozada",
+"numero": "17",
+"titulo": "Viti (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Edward Cedeño",
+"numero": "18",
+"titulo": "Edward Cedeño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Sandro Ramírez",
+"numero": "19",
+"titulo": "Sandro Ramírez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Kirian Rodríguez",
+"numero": "20",
+"titulo": "Kirian Rodríguez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Giovanni Bonfanti",
+"numero": "21",
+"titulo": "Giovanni Bonfanti",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Ale García",
+"numero": "22",
+"titulo": "Alejandro García Mejías",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Andrés Rodríguez",
+"numero": "23",
+"titulo": "Andrés Rodríguez Martínez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Iván Jaime",
+"numero": "24",
+"titulo": "Iván Jaime",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Valentín Pezzolesi",
+"numero": "25",
+"titulo": "Valentín Pezzolesi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Aboubacar Bassinga",
+"numero": "26",
+"titulo": "Aboubacar Bassinga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Elías Romero",
+"numero": "29",
+"titulo": "Elías Romero (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Iván Medina",
+"numero": "30",
+"titulo": "Iván Medina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Adam Arvelo",
+"numero": "31",
+"titulo": "Adam Arvelo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Rafa Cruz",
+"numero": "32",
+"titulo": "Rafa Cruz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_22",
+"nome": "Adri Suárez",
+"numero": "35",
+"titulo": "Adrián Suárez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Álvaro Aceves",
+"numero": "1",
+"titulo": "Álvaro Aceves",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Trilli",
+"numero": "2",
+"titulo": "Trilli",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Homam Ahmed",
+"numero": "3",
+"titulo": "Homam Ahmed",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "David Torres",
+"numero": "4",
+"titulo": "David Torres (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Ramón Martínez",
+"numero": "5",
+"titulo": "Ramón Martínez (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Mathis Lachuer",
+"numero": "6",
+"titulo": "Mathis Lachuer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Luis Chacón",
+"numero": "7",
+"titulo": "Luis Chacón",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Thiago Ojeda",
+"numero": "8",
+"titulo": "Thiago Ojeda",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Juanmi Latasa",
+"numero": "9",
+"titulo": "Juanmi Latasa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Ryōtarō Itō",
+"numero": "10",
+"titulo": "Ryōtarō Itō",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Yeray Cabanzón",
+"numero": "11",
+"titulo": "Yeray Cabanzón",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Miguel Rubio",
+"numero": "12",
+"titulo": "Miguel Rubio (footballer, born 1998)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Dani Martín",
+"numero": "13",
+"titulo": "Dani Martín (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Iván Alejo",
+"numero": "14",
+"titulo": "Iván Alejo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Pablo Tomeo",
+"numero": "15",
+"titulo": "Pablo Tomeo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Álex Balboa",
+"numero": "16",
+"titulo": "Álex Balboa",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Víctor Barberá",
+"numero": "17",
+"titulo": "Víctor Barberá",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Carlos Clerc",
+"numero": "18",
+"titulo": "Carlos Clerc",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Adrián Arnu",
+"numero": "19",
+"titulo": "Adrián Arnu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Robin van Duiven",
+"numero": "20",
+"titulo": "Robin van Duiven",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Julien Ponceau",
+"numero": "21",
+"titulo": "Julien Ponceau",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Kaj de Rooij",
+"numero": "22",
+"titulo": "Kaj de Rooij",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Tay Abed",
+"numero": "23",
+"titulo": "Tay Abed",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Stanko Jurić",
+"numero": "24",
+"titulo": "Stanko Jurić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Lucas Lavagnino",
+"numero": "26",
+"titulo": "Lucas Lavagnino",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Iván Garriel",
+"numero": "27",
+"titulo": "Iván Garriel",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Dani Pérez",
+"numero": "28",
+"titulo": "Dani Pérez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_23",
+"nome": "Víctor Fernández",
+"numero": "30",
+"titulo": "Víctor Fernández (footballer, born 2007)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_23",
+"nome": "Guille Bueno",
+"numero": "",
+"titulo": "Guille Bueno",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Andrés Fernández",
+"numero": "1",
+"titulo": "Andrés Fernández (footballer, born December 1986)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Jorge Pulido",
+"numero": "2",
+"titulo": "Jorge Pulido",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Álex Muñoz",
+"numero": "3",
+"titulo": "Álex Muñoz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Rodrigo Ely",
+"numero": "5",
+"titulo": "Rodrigo Ely",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Jon Morcillo",
+"numero": "7",
+"titulo": "Jon Morcillo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Gui Guedes",
+"numero": "8",
+"titulo": "Gui Guedes",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Thalys",
+"numero": "9",
+"titulo": "Thalys (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Nico Melamed",
+"numero": "10",
+"titulo": "Nico Melamed",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Sergio Arribas",
+"numero": "11",
+"titulo": "Sergio Arribas (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Léo Baptistão",
+"numero": "12",
+"titulo": "Léo Baptistão",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Fernando Martínez",
+"numero": "13",
+"titulo": "Fernando Martínez (Spanish footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Javi Muñoz",
+"numero": "14",
+"titulo": "Javier Muñoz (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Leonardo Lelo",
+"numero": "15",
+"titulo": "Leonardo Lelo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Marcos Luna",
+"numero": "16",
+"titulo": "Marcos Luna",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Brian Cipenga",
+"numero": "17",
+"titulo": "Brian Cipenga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Federico Bonini",
+"numero": "18",
+"titulo": "Federico Bonini",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Mikel Vesga",
+"numero": "19",
+"titulo": "Mikel Vesga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Álex Sola",
+"numero": "20",
+"titulo": "Álex Sola",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Chumi",
+"numero": "21",
+"titulo": "Chumi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Daijiro Chirino",
+"numero": "22",
+"titulo": "Daijiro Chirino",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Adrián Embarba",
+"numero": "23",
+"titulo": "Adri Embarba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Miguel de la Fuente",
+"numero": "24",
+"titulo": "Miguel de la Fuente",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Stefan Džodić",
+"numero": "29",
+"titulo": "Stefan Džodić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Áron Yaakobishvili",
+"numero": "31",
+"titulo": "Áron Yaakobishvili",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Quim Junyent",
+"numero": "33",
+"titulo": "Quim Junyent",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_24",
+"nome": "Ibrahima Koné",
+"numero": "",
+"titulo": "Ibrahima Koné (footballer, born 1999)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Simon Eriksson",
+"numero": "1",
+"titulo": "Simon Eriksson (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Álvaro Mantilla",
+"numero": "2",
+"titulo": "Álvaro Mantilla",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Aarón Martín",
+"numero": "3",
+"titulo": "Aarón Martín (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Manu Hernando",
+"numero": "4",
+"titulo": "Manu Hernando",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Pablo Ramón",
+"numero": "5",
+"titulo": "Pablo Ramón",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Íñigo Sainz-Maza",
+"numero": "6",
+"titulo": "Íñigo Sainz-Maza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Giorgi Guliashvili",
+"numero": "7",
+"titulo": "Giorgi Guliashvili",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "André Almeida",
+"numero": "8",
+"titulo": "André Almeida (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Juan Carlos Arana",
+"numero": "9",
+"titulo": "Juan Carlos Arana",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Iñigo Vicente",
+"numero": "10",
+"titulo": "Iñigo Vicente",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Andrés Martín",
+"numero": "11",
+"titulo": "Andrés Martín (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Asier Villalibre",
+"numero": "12",
+"titulo": "Asier Villalibre",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Julen Agirrezabala",
+"numero": "13",
+"titulo": "Julen Agirrezabala",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Maguette Gueye",
+"numero": "14",
+"titulo": "Maguette Gueye",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Pablo García",
+"numero": "15",
+"titulo": "Pablo García (footballer, born 2006)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Facundo González",
+"numero": "16",
+"titulo": "Facundo González",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Jorge Salinas",
+"numero": "17",
+"titulo": "Jorge Salinas (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Matteo Prati",
+"numero": "18",
+"titulo": "Matteo Prati",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Iker Luque",
+"numero": "19",
+"titulo": "Iker Luque",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Sergio Canales",
+"numero": "20",
+"titulo": "Sergio Canales",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Yassir Zabiri",
+"numero": "21",
+"titulo": "Yassir Zabiri",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Pedro Felipe",
+"numero": "22",
+"titulo": "Pedro Felipe (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Iván Martín",
+"numero": "23",
+"titulo": "Iván Martín (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_25",
+"nome": "Jeanuël Belocian",
+"numero": "24",
+"titulo": "Jeanuël Belocian",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Jesús Ruiz",
+"numero": "1",
+"titulo": "Jesús Ruiz (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Hodei Arrillaga",
+"numero": "3",
+"titulo": "Hodei Arrillaga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Carlos Navarro",
+"numero": "4",
+"titulo": "Carlos Navarro (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Peru Rodríguez",
+"numero": "5",
+"titulo": "Peru Rodríguez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Adrián Verde",
+"numero": "6",
+"titulo": "Adrián Rodríguez Sojo",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "David de la Iglesia",
+"numero": "7",
+"titulo": "David de la Iglesia Rey",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Raúl Martínez",
+"numero": "8",
+"titulo": "Raúl Martínez Moreno",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Iker Unzueta",
+"numero": "9",
+"titulo": "Iker Unzueta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Nico Espinosa",
+"numero": "10",
+"titulo": "Nicolás Espinosa Giménez",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Aitor Uzkudun",
+"numero": "11",
+"titulo": "Aitor Uzkudun",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Jorge González",
+"numero": "12",
+"titulo": "Jorge González Méndez",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Edgar Badia",
+"numero": "13",
+"titulo": "Edgar Badia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Miguel Auría",
+"numero": "14",
+"titulo": "Miguel Auría Olazábal",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Iker Pedernales",
+"numero": "15",
+"titulo": "Iker Pedernales Pereira",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Markel Lozano",
+"numero": "16",
+"titulo": "Markel Lozano",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Pablo Pérez",
+"numero": "17",
+"titulo": "Pablo Pérez (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Rodri Val",
+"numero": "18",
+"titulo": "Rodri Val",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Riki de Morais",
+"numero": "19",
+"titulo": "Said Ricardo de Moraes de Morais",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_26",
+"nome": "Aron Rodrigo",
+"numero": "20",
+"titulo": "Aron Rodrigo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Aritz Arambarri",
+"numero": "21",
+"titulo": "Aritz Arambarri",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Martín Aguirregabiria",
+"numero": "22",
+"titulo": "Martín Aguirregabiria",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Josué Dorrio",
+"numero": "23",
+"titulo": "Josué Dorrio",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Joaquín Fernández",
+"numero": "24",
+"titulo": "Joaquín Fernández (footballer, born 1996)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Julen Martínez",
+"numero": "26",
+"titulo": "Julen Martínez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_26",
+"nome": "Adrián Zango",
+"numero": "31",
+"titulo": "Adrián Zango Aguirrezabal",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Alberto Flores",
+"numero": "1",
+"titulo": "Alberto Flores",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Pau Casadesús",
+"numero": "2",
+"titulo": "Pau Casadesús",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Diego Hormigo",
+"numero": "3",
+"titulo": "Diego Hormigo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Rubén Alcaraz",
+"numero": "4",
+"titulo": "Rubén Alcaraz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Manu Lama",
+"numero": "5",
+"titulo": "Manu Lama",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Gerard Gumbau",
+"numero": "6",
+"titulo": "Gerard Gumbau",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Sergio Rodelas",
+"numero": "7",
+"titulo": "Sergio Rodelas",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Pedro Alemañ",
+"numero": "8",
+"titulo": "Pedro Alemañ",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Alejandro Marqués",
+"numero": "9",
+"titulo": "Alejandro Marqués",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Jorge Pascual",
+"numero": "10",
+"titulo": "Jorge Pascual",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "José Arnáiz",
+"numero": "11",
+"titulo": "José Arnáiz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Raúl Lizoain",
+"numero": "13",
+"titulo": "Raúl Lizoain",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Diego Pampín",
+"numero": "16",
+"titulo": "Diego Pampín",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Kader Bamba",
+"numero": "17",
+"titulo": "Kader Bamba",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Sergio López",
+"numero": "18",
+"titulo": "Sergio López (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Chinaza Okonyia",
+"numero": "19",
+"titulo": "Chinaza Okonyia",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Baïla Diallo",
+"numero": "22",
+"titulo": "Baïla Diallo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Benedikt Gimber",
+"numero": "23",
+"titulo": "Benedikt Gimber",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Mario Gambín",
+"numero": "27",
+"titulo": "Mario Gambín",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Juanjo Flores",
+"numero": "30",
+"titulo": "Juanjo Flores",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Dylan Rodríguez",
+"numero": "32",
+"titulo": "Dylan Rodríguez Vellisca",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_27",
+"nome": "Angelo García",
+"numero": "33",
+"titulo": "Angelo García Hidalgo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Bourama Dembelé",
+"numero": "35",
+"titulo": "Bourama Dembelé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_27",
+"nome": "Owen Emeka",
+"numero": "36",
+"titulo": "Owen Emeka",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_28",
+"nome": "Gianfranco Gazzaniga",
+"numero": "1",
+"titulo": "Gianfranco Gazzaniga",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Mohammed Djetei",
+"numero": "2",
+"titulo": "Mohammed Djetei",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Iván Rodríguez",
+"numero": "3",
+"titulo": "Iván Rodríguez (footballer, born 2006)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Yann Kembo",
+"numero": "4",
+"titulo": "Yann Kembo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Quique Fornos",
+"numero": "5",
+"titulo": "Quique Fornos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Jimmy Suárez",
+"numero": "6",
+"titulo": "Jimmy Suárez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Rafa Tresaco",
+"numero": "7",
+"titulo": "Rafa Tresaco",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Douglas Aurélio",
+"numero": "8",
+"titulo": "Douglas Aurélio",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Sergi Enrich",
+"numero": "9",
+"titulo": "Sergi Enrich",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Pascu",
+"numero": "10",
+"titulo": "Pascu (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Luismi Redondo",
+"numero": "11",
+"titulo": "Luismi Redondo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Álvaro Killane",
+"numero": "13",
+"titulo": "Álvaro Killane Giardini",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_28",
+"nome": "Mario García",
+"numero": "14",
+"titulo": "Mario García Parada",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_28",
+"nome": "Guillem Molina",
+"numero": "15",
+"titulo": "Guillem Molina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Salva Ruiz",
+"numero": "16",
+"titulo": "Salva Ruiz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Diego Collado",
+"numero": "17",
+"titulo": "Diego Collado (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Agustín Juárez",
+"numero": "18",
+"titulo": "Agustín Juárez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Cristian Herrera",
+"numero": "19",
+"titulo": "Cristian Herrera",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Marc Aznar",
+"numero": "20",
+"titulo": "Marc Aznar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Diego Gómez",
+"numero": "21",
+"titulo": "Diego Gómez (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Ander Gorostidi",
+"numero": "22",
+"titulo": "Ander Gorostidi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Óscar Sielva",
+"numero": "23",
+"titulo": "Óscar Sielva",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Víctor García",
+"numero": "24",
+"titulo": "Víctor García (footballer, born June 1994)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_28",
+"nome": "Diego Aznar",
+"numero": "",
+"titulo": "Diego Aznar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "David Gil",
+"numero": "1",
+"titulo": "David Gil (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Beñat de Jesús",
+"numero": "2",
+"titulo": "Beñat de Jesús",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Sergio Arribas",
+"numero": "3",
+"titulo": "Sergio Arribas (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Javi Castro",
+"numero": "4",
+"titulo": "Javier Castro (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Marc-Olivier Doué",
+"numero": "5",
+"titulo": "Marc-Olivier Doué",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Manu Fernández",
+"numero": "6",
+"titulo": "Manu Fernández (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Iuri Tabatadze",
+"numero": "7",
+"titulo": "Iuri Tabatadze",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Efe Aghama",
+"numero": "8",
+"titulo": "Efe Aghama",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Álvaro García Pascual",
+"numero": "9",
+"titulo": "Álvaro García Pascual",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Javi Ontiveros",
+"numero": "10",
+"titulo": "Javier Ontiveros",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "José Antonio de la Rosa",
+"numero": "11",
+"titulo": "José Antonio de la Rosa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Giorgi Gocholeishvili",
+"numero": "12",
+"titulo": "Giorgi Gocholeishvili",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Jokin Ezkieta",
+"numero": "13",
+"titulo": "Jokin Ezkieta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Bojan Kovačević",
+"numero": "14",
+"titulo": "Bojan Kovačević",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Kenan Toibibou",
+"numero": "15",
+"titulo": "Kenan Toibibou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Antonio Cordero",
+"numero": "16",
+"titulo": "Antonio Cordero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Aïmen Moueffek",
+"numero": "17",
+"titulo": "Aïmen Moueffek",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Jandro Orellana",
+"numero": "18",
+"titulo": "Jandro Orellana",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Urko Izeta",
+"numero": "19",
+"titulo": "Urko Izeta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Borja Vázquez",
+"numero": "20",
+"titulo": "Borja Vázquez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Vladys Kopotun",
+"numero": "21",
+"titulo": "Vladyslav Kopotun",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Cristian Gutiérrez",
+"numero": "22",
+"titulo": "Cristian Gutiérrez (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Damián Rodríguez",
+"numero": "23",
+"titulo": "Damián Rodríguez (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Ibon Sánchez",
+"numero": "24",
+"titulo": "Ibon Sánchez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Gonzalo Petit",
+"numero": "25",
+"titulo": "Gonzalo Petit",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Rubén Domínguez",
+"numero": "26",
+"titulo": "Rubén Domínguez Cayuela",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_29",
+"nome": "Juan Díaz",
+"numero": "27",
+"titulo": "Juan Díaz Peregrina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "Dilan Zárate",
+"numero": "28",
+"titulo": "Dilan Zárate",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_29",
+"nome": "José Andújar",
+"numero": "",
+"titulo": "José Andújar Berenguer",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_30",
+"nome": "Rubén Yáñez",
+"numero": "1",
+"titulo": "Rubén Yáñez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Guille Rosas",
+"numero": "2",
+"titulo": "Guille Rosas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Pablo García",
+"numero": "3",
+"titulo": "Pablo García (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Emanuel Gularte",
+"numero": "4",
+"titulo": "Emanuel Gularte",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Diego Sánchez",
+"numero": "5",
+"titulo": "Diego Sánchez (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Nacho Martín",
+"numero": "6",
+"titulo": "Nacho Martín (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Gaspar Campos",
+"numero": "7",
+"titulo": "Gaspar Campos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Manu Rodríguez",
+"numero": "8",
+"titulo": "Manuel Rodríguez Paz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Andrés Ferrari",
+"numero": "9",
+"titulo": "Andrés Ferrari",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "César Gelabert",
+"numero": "10",
+"titulo": "César Gelabert",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Konrad de la Fuente",
+"numero": "11",
+"titulo": "Konrad de la Fuente",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Egoitz Arana",
+"numero": "13",
+"titulo": "Egoitz Arana",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Álex Corredera",
+"numero": "14",
+"titulo": "Álex Corredera",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Pablo Vázquez",
+"numero": "15",
+"titulo": "Pablo Vázquez (footballer, born 1994)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Alejo Sarco",
+"numero": "16",
+"titulo": "Alejo Sarco",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Antonio Casas",
+"numero": "17",
+"titulo": "Antonio Casas (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Juan Otero",
+"numero": "19",
+"titulo": "Juan Ferney Otero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Nikita Iosifov",
+"numero": "20",
+"titulo": "Nikita Iosifov",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Mamadou Loum",
+"numero": "21",
+"titulo": "Mamadou Loum",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Hugo Guillamón",
+"numero": "22",
+"titulo": "Hugo Guillamón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Jorge Sáenz",
+"numero": "23",
+"titulo": "Jorge Sáenz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Aimar Duñabeitia",
+"numero": "24",
+"titulo": "Aimar Duñabeitia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Iker Martínez",
+"numero": "26",
+"titulo": "Iker Martínez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_30",
+"nome": "Andrés Cuenca",
+"numero": "44",
+"titulo": "Andrés Cuenca",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Bruno Iribarne",
+"numero": "1",
+"titulo": "Bruno Iribarne",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Álex Lizancos",
+"numero": "2",
+"titulo": "Álex Lizancos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Ignasi Vilarrasa",
+"numero": "3",
+"titulo": "Ignasi Vilarrasa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Pablo Galdames",
+"numero": "4",
+"titulo": "Pablo Galdames (footballer, born 1996)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Marcelo Expósito",
+"numero": "5",
+"titulo": "Marcelo Expósito",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Sergio González",
+"numero": "6",
+"titulo": "Sergio González (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Jon Karrikaburu",
+"numero": "7",
+"titulo": "Jon Karrikaburu",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Grego Sierra",
+"numero": "8",
+"titulo": "Grego (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Álex Forés",
+"numero": "9",
+"titulo": "Álex Forés",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Kévin Appin",
+"numero": "10",
+"titulo": "Kévin Appin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Víctor Mollejo",
+"numero": "11",
+"titulo": "Víctor Mollejo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Unai Vencedor",
+"numero": "12",
+"titulo": "Unai Vencedor",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Ander Cantero",
+"numero": "13",
+"titulo": "Ander Cantero",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "David González",
+"numero": "14",
+"titulo": "David González (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Oier Luengo",
+"numero": "15",
+"titulo": "Oier Luengo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Curro Sánchez",
+"numero": "16",
+"titulo": "Curro Sánchez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Mario Cantero",
+"numero": "17",
+"titulo": "Mario Cantero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Saúl del Cerro",
+"numero": "18",
+"titulo": "Saúl del Cerro",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Javi Llabrés",
+"numero": "19",
+"titulo": "Javier Llabrés",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "José Gragera",
+"numero": "20",
+"titulo": "José Gragera",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Fermín García",
+"numero": "21",
+"titulo": "Fermín García",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Brais Martínez",
+"numero": "22",
+"titulo": "Brais Martínez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Alberto Dadie",
+"numero": "23",
+"titulo": "Alberto Dadie",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Santiago Lencina",
+"numero": "24",
+"titulo": "Santiago Lencina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_31",
+"nome": "Iván Martínez",
+"numero": "36",
+"titulo": "Iván Martínez (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Iker Álvarez",
+"numero": "1",
+"titulo": "Iker Álvarez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Dani Tasende",
+"numero": "3",
+"titulo": "Dani Tasende",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Álex Martín",
+"numero": "4",
+"titulo": "Álex Martín (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Juan Gutiérrez",
+"numero": "5",
+"titulo": "Juan Gutiérrez (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Damián Cáceres",
+"numero": "6",
+"titulo": "Damián Cáceres",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Théo Zidane",
+"numero": "7",
+"titulo": "Théo Zidane",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Isma Ruiz",
+"numero": "8",
+"titulo": "Isma Ruiz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Diego Percan",
+"numero": "9",
+"titulo": "Diego Percan",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Kevin Medina",
+"numero": "10",
+"titulo": "Kevin Medina (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Diego Bri",
+"numero": "11",
+"titulo": "Diego Bri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Franck Fomeyem",
+"numero": "12",
+"titulo": "Franck Fomeyem",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Guilherme Fernandes",
+"numero": "13",
+"titulo": "Guilherme Fernandes",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Adnane Ghailan",
+"numero": "14",
+"titulo": "Adnane Ghailan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Víctor Sánchez",
+"numero": "15",
+"titulo": "Víctor Sánchez Morales",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Rubén Alves",
+"numero": "16",
+"titulo": "Rubén Alves",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Adilson",
+"numero": "17",
+"titulo": "Adilson (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Enol Rodríguez",
+"numero": "18",
+"titulo": "Enol Rodríguez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Ibai Sanz",
+"numero": "19",
+"titulo": "Ibai Sanz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Nélson Monte",
+"numero": "20",
+"titulo": "Nélson Monte",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Carlos Albarrán",
+"numero": "21",
+"titulo": "Carlos Albarrán",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Yussi Diarra",
+"numero": "22",
+"titulo": "Youssouf Diarra",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Cristian Carracedo",
+"numero": "23",
+"titulo": "Cristian Carracedo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Salim El Jebari",
+"numero": "24",
+"titulo": "Salim El Jebari",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Egoitz Muñoz",
+"numero": "27",
+"titulo": "Egoitz Muñoz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Eder García",
+"numero": "28",
+"titulo": "Eder García",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Jacobo Martí",
+"numero": "29",
+"titulo": "Jacobo Martí",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_32",
+"nome": "Dani Budesca",
+"numero": "30",
+"titulo": "Dani Budesca",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Carlos Marín",
+"numero": "1",
+"titulo": "Carlos Marín (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Lorenzo Aguado",
+"numero": "2",
+"titulo": "Lorenzo Aguado",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Agus Medina",
+"numero": "4",
+"titulo": "Agus Medina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Javi Moreno",
+"numero": "5",
+"titulo": "Javi Moreno (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Antonio Pacheco",
+"numero": "6",
+"titulo": "Antonio Pacheco (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Antonio Puertas",
+"numero": "7",
+"titulo": "Antonio Puertas",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Javi Villar",
+"numero": "8",
+"titulo": "Javi Villar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Mario Soberón",
+"numero": "9",
+"titulo": "Mario Soberón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Rober González",
+"numero": "10",
+"titulo": "Rober (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Víctor Valverde",
+"numero": "11",
+"titulo": "Víctor Valverde",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Higinio Marín",
+"numero": "12",
+"titulo": "Higinio Marín",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Diego Mariño",
+"numero": "13",
+"titulo": "Diego Mariño",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Víctor San Bartolomé",
+"numero": "14",
+"titulo": "Víctor San Bartolomé",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Fran Gámez",
+"numero": "15",
+"titulo": "Fran Gámez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Munir El Haddadi",
+"numero": "16",
+"titulo": "Munir El Haddadi",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "José Corpas",
+"numero": "17",
+"titulo": "José Corpas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Sergio Ortuño",
+"numero": "18",
+"titulo": "Sergio Ortuño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Álex Rubio",
+"numero": "19",
+"titulo": "Álex Rubio Roldán",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Samuel Obeng",
+"numero": "20",
+"titulo": "Samuel Obeng (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Carlos Neva",
+"numero": "21",
+"titulo": "Carlos Neva",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Lluís López",
+"numero": "22",
+"titulo": "Lluís López",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Pepe Sánchez",
+"numero": "23",
+"titulo": "Pepe Sánchez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Jesús Vallejo",
+"numero": "24",
+"titulo": "Jesús Vallejo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Dani Bernabéu",
+"numero": "27",
+"titulo": "Dani Bernabéu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_33",
+"nome": "Agustín Albarracín",
+"numero": "32",
+"titulo": "Agustín Albarracín",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Luis López",
+"numero": "1",
+"titulo": "Luis López (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Sergio Cubero",
+"numero": "2",
+"titulo": "Sergio Cubero",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Imanol García de Albéniz",
+"numero": "3",
+"titulo": "Imanol García de Albéniz",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Unai Elgezabal",
+"numero": "4",
+"titulo": "Unai Elgezabal",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Peru Nolaskoain",
+"numero": "5",
+"titulo": "Peru Nolaskoain",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Sergio Álvarez",
+"numero": "6",
+"titulo": "Sergio Álvarez (footballer, born 1992)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Adu Ares",
+"numero": "7",
+"titulo": "Malcom Adu Ares",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Ander Madariaga",
+"numero": "8",
+"titulo": "Ander Madariaga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Jon Bautista",
+"numero": "9",
+"titulo": "Jon Bautista",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Jon Guruzeta",
+"numero": "10",
+"titulo": "Jon Guruzeta",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Jon Magunazelaia",
+"numero": "11",
+"titulo": "Jon Magunazelaia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Jonmi Magunagoitia",
+"numero": "13",
+"titulo": "Jonmi Magunagoitia",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Lander Olaetxea",
+"numero": "14",
+"titulo": "Lander Olaetxea",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Jair Amador",
+"numero": "15",
+"titulo": "Jair Amador",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Pejiño",
+"numero": "17",
+"titulo": "Pejiño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Markel Arana",
+"numero": "18",
+"titulo": "Markel Arana",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Eric Pérez",
+"numero": "19",
+"titulo": "Eric Pérez Albarrán",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Javi Martón",
+"numero": "20",
+"titulo": "Javier Martón",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Iván Gil",
+"numero": "21",
+"titulo": "Iván Gil",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Álvaro Rodríguez",
+"numero": "22",
+"titulo": "Álvaro Rodríguez (footballer, born 1994)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Anaitz Arbilla",
+"numero": "23",
+"titulo": "Anaitz Arbilla",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Juan Bernat",
+"numero": "24",
+"titulo": "Juan Bernat",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Elijah Gift",
+"numero": "27",
+"titulo": "Elijah Gift",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Lucas Núñez",
+"numero": "28",
+"titulo": "Lucas Núñez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_34",
+"nome": "Aleix Garrido",
+"numero": "30",
+"titulo": "Aleix Garrido",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Germán Parreño",
+"numero": "1",
+"titulo": "Germán Parreño",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Adrià Altimira",
+"numero": "2",
+"titulo": "Adrià Altimira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Arnau Comas",
+"numero": "3",
+"titulo": "Arnau Comas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Lucas Noubi",
+"numero": "4",
+"titulo": "Lucas Noubi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Dani Barcia",
+"numero": "5",
+"titulo": "Dani Barcia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Marc Casadó",
+"numero": "6",
+"titulo": "Marc Casadó",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Pierre-Emerick Aubameyang",
+"numero": "7",
+"titulo": "Pierre-Emerick Aubameyang",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Diego Villares",
+"numero": "8",
+"titulo": "Diego Villares",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Zakaria Eddahchouri",
+"numero": "9",
+"titulo": "Zakaria Eddahchouri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Yeremay Hernández",
+"numero": "10",
+"titulo": "Yeremay Hernández",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "David Mella",
+"numero": "11",
+"titulo": "David Mella",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Giacomo Quagliata",
+"numero": "12",
+"titulo": "Giacomo Quagliata",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Leo Román",
+"numero": "13",
+"titulo": "Leo Román",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Riki Rodríguez",
+"numero": "14",
+"titulo": "Riki (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Miguel Loureiro",
+"numero": "15",
+"titulo": "Miguel Loureiro",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Lorenzo Amatucci",
+"numero": "16",
+"titulo": "Lorenzo Amatucci",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Angeliño",
+"numero": "17",
+"titulo": "Angeliño",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Jonathan Asp Jensen",
+"numero": "18",
+"titulo": "Jonathan Asp Jensen",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Luismi Cruz",
+"numero": "19",
+"titulo": "Luismi Cruz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "José María Giménez",
+"numero": "20",
+"titulo": "José María Giménez",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Mario Soriano",
+"numero": "21",
+"titulo": "Mario Soriano",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Bright Ede",
+"numero": "22",
+"titulo": "Bright Ede",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Ximo Navarro",
+"numero": "23",
+"titulo": "Ximo Navarro (footballer, born 1990)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Adama Traoré",
+"numero": "24",
+"titulo": "Adama Traoré (footballer, born 1996)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Álvaro Fernández",
+"numero": "25",
+"titulo": "Álvaro Fernández (footballer, born 1998)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_35",
+"nome": "Bil Nsongo",
+"numero": "32",
+"titulo": "Bil Nsongo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Amir Saipi",
+"numero": "1",
+"titulo": "Amir Saipi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Juanjo Nieto",
+"numero": "2",
+"titulo": "Juanjo Nieto",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Fabrizio Brignani",
+"numero": "3",
+"titulo": "Fabrizio Brignani",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Agustín Sienra",
+"numero": "4",
+"titulo": "Agustín Sienra",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Alberto Jiménez",
+"numero": "5",
+"titulo": "Alberto Jiménez (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Matías Orozco",
+"numero": "6",
+"titulo": "Matías Orozco",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Raúl Sánchez",
+"numero": "7",
+"titulo": "Raúl Sánchez (footballer, born 1997)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Diego Barri",
+"numero": "8",
+"titulo": "Diego Barri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Ousmane Camara",
+"numero": "9",
+"titulo": "Ousmane Camara (footballer, born 2001)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Israel Suero",
+"numero": "10",
+"titulo": "Israel Suero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Federico Ceccherini",
+"numero": "11",
+"titulo": "Federico Ceccherini",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Lucas Alcázar",
+"numero": "12",
+"titulo": "Lucas Alcázar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Romain Matthys",
+"numero": "13",
+"titulo": "Romain Matthys",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Iñigo Córdoba",
+"numero": "14",
+"titulo": "Iñigo Córdoba",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Ilias Kostis",
+"numero": "15",
+"titulo": "Ilias Kostis",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Adam Jakobsen",
+"numero": "16",
+"titulo": "Adam Jakobsen",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Fran Castillo",
+"numero": "17",
+"titulo": "Fran Castillo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Pablo Santiago",
+"numero": "18",
+"titulo": "Pablo Santiago (footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Hamza Bellari",
+"numero": "19",
+"titulo": "Hamza Bellari",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Tincho Conde",
+"numero": "20",
+"titulo": "Tincho Conde",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Álvaro Martín",
+"numero": "21",
+"titulo": "Álvaro Martín (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Jérémy Mellot",
+"numero": "22",
+"titulo": "Jérémy Mellot",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Álvaro García",
+"numero": "23",
+"titulo": "Álvaro García (footballer, born 1999)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "David Nzanza",
+"numero": "24",
+"titulo": "David Nzanza",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Jari Vlak",
+"numero": "25",
+"titulo": "Jari Vlak",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Rodrigo Rêgo",
+"numero": "26",
+"titulo": "Rodrigo Rêgo (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Antonio Gala",
+"numero": "27",
+"titulo": "Antonio Gala (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Michał Willmann",
+"numero": "30",
+"titulo": "Michał Willmann",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_36",
+"nome": "Sergi Torner",
+"numero": "35",
+"titulo": "Sergi Torner Rosell",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_37",
+"nome": "Alfonso Herrero",
+"numero": "1",
+"titulo": "Alfonso Herrero",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Jens Cajuste",
+"numero": "2",
+"titulo": "Jens Cajuste",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Carlos Puga",
+"numero": "3",
+"titulo": "Carlos Puga",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Einar Galilea",
+"numero": "4",
+"titulo": "Einar Galilea",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Álex Pastor",
+"numero": "5",
+"titulo": "Álex Pastor",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Ramón",
+"numero": "6",
+"titulo": "Ramón Enríquez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Haitam",
+"numero": "7",
+"titulo": "Haitam Abaida",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Carlos Dotor",
+"numero": "8",
+"titulo": "Carlos Dotor",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Chupete",
+"numero": "9",
+"titulo": "Chupete",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "David Larrubia",
+"numero": "10",
+"titulo": "David Larrubia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Joaquín Muñoz",
+"numero": "11",
+"titulo": "Joaquín Muñoz (footballer, born 1999)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "José Salinas",
+"numero": "12",
+"titulo": "José Salinas (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Carlos López",
+"numero": "13",
+"titulo": "Carlos López (footballer, born 2004)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_37",
+"nome": "Rafa",
+"numero": "14",
+"titulo": "Rafa (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Ángel Recio",
+"numero": "15",
+"titulo": "Ángel Recio",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Diego Murillo",
+"numero": "16",
+"titulo": "Diego Murillo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Eneko Jauregi",
+"numero": "17",
+"titulo": "Eneko Jauregi",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Pablo Martínez",
+"numero": "18",
+"titulo": "Pablo Martínez (Spanish footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Juan Cruz",
+"numero": "19",
+"titulo": "Juan Cruz (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Fernando Calero",
+"numero": "20",
+"titulo": "Fernando Calero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Adrián Niño",
+"numero": "21",
+"titulo": "Adrián Niño",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Dani Lorenzo",
+"numero": "22",
+"titulo": "Dani Lorenzo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Izan Merino",
+"numero": "23",
+"titulo": "Izan Merino",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Julen Lobete",
+"numero": "24",
+"titulo": "Julen Lobete",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Juan Berrocal",
+"numero": "25",
+"titulo": "Juan Berrocal",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Rafita",
+"numero": "31",
+"titulo": "Rafita (footballer, born 2004)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Aarón Ochoa",
+"numero": "35",
+"titulo": "Aarón Ochoa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_37",
+"nome": "Adam Aznou",
+"numero": "39",
+"titulo": "Adam Aznou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Sem Westerveld",
+"numero": "1",
+"titulo": "Sem Westerveld",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Jokin Gabilondo",
+"numero": "2",
+"titulo": "Jokin Gabilondo",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Raúl Pereira",
+"numero": "3",
+"titulo": "Raúl Pereira",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Hugo Barrachina",
+"numero": "4",
+"titulo": "Hugo Barrachina",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Tachi",
+"numero": "5",
+"titulo": "Tachi (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Peter Ademo",
+"numero": "6",
+"titulo": "Peter Ademo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Marcos Cuenca",
+"numero": "7",
+"titulo": "Marcos Cuenca",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Ander Herrera",
+"numero": "8",
+"titulo": "Ander Herrera",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Pau Sans",
+"numero": "9",
+"titulo": "Pau Sans",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Hugo Pinilla",
+"numero": "10",
+"titulo": "Hugo Pinilla",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_38",
+"nome": "Jaume Jardí",
+"numero": "11",
+"titulo": "Jaume Jardí",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Anartz Peña",
+"numero": "13",
+"titulo": "Anartz Peña Zulaika",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_38",
+"nome": "Rubén Iranzo",
+"numero": "14",
+"titulo": "Rubén Iranzo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Yussif Saidu",
+"numero": "15",
+"titulo": "Yussif Saidu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Lucas Terrer",
+"numero": "16",
+"titulo": "Lucas Terrer",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Iker Vadillo",
+"numero": "17",
+"titulo": "Iker Vadillo Nogués",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_38",
+"nome": "Sergio Escudero",
+"numero": "18",
+"titulo": "Sergio Escudero (footballer, born 1989)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Rubén Díez",
+"numero": "19",
+"titulo": "Rubén Díez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Joaquín Delgado",
+"numero": "20",
+"titulo": "Joaquín Delgado",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Diego González",
+"numero": "21",
+"titulo": "Diego González (footballer, born 1999)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Edu Espiau",
+"numero": "22",
+"titulo": "Edu Espiau",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Óscar Ureña",
+"numero": "23",
+"titulo": "Óscar Ureña",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_38",
+"nome": "Marco Sangalli",
+"numero": "25",
+"titulo": "Marco Sangalli",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Miquel Parera",
+"numero": "1",
+"titulo": "Miquel Parera",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Guzmán Ortega",
+"numero": "2",
+"titulo": "Guzmán Ortega",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Jaime Vázquez",
+"numero": "3",
+"titulo": "Jaime Vázquez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Rodri",
+"numero": "4",
+"titulo": "Rodri (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Róber Pier",
+"numero": "5",
+"titulo": "Róber Pier",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Sergi Maestre",
+"numero": "6",
+"titulo": "Sergi Maestre",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Pedro Benito",
+"numero": "7",
+"titulo": "Pedro Benito",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Assane Ndiaye",
+"numero": "8",
+"titulo": "Assane Ndiaye",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Jorge Delgado",
+"numero": "9",
+"titulo": "Jorge Delgado (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Álex Cardero",
+"numero": "10",
+"titulo": "Álex Cardero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Hugo García",
+"numero": "11",
+"titulo": "Hugo García (Spanish footballer)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Miguel San Román",
+"numero": "13",
+"titulo": "Miguel San Román",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Bicho",
+"numero": "14",
+"titulo": "Bicho (footballer, born 1996)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Antxón Jaso",
+"numero": "15",
+"titulo": "Antxón Jaso",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Oier López",
+"numero": "16",
+"titulo": "Oier López Gómez",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_39",
+"nome": "Carlos Pomares",
+"numero": "17",
+"titulo": "Carlos Pomares",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "João Fersura",
+"numero": "18",
+"titulo": "João Fersura",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Antón Escobar",
+"numero": "19",
+"titulo": "Antón Escobar",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Iago López",
+"numero": "20",
+"titulo": "Iago López (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Jon García",
+"numero": "21",
+"titulo": "Jon García Fuentes",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_39",
+"nome": "Dani Queipo",
+"numero": "22",
+"titulo": "Dani Queipo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Ángel Algobia",
+"numero": "23",
+"titulo": "Ángel Algobia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_39",
+"nome": "Bogdan Țîru",
+"numero": "24",
+"titulo": "Bogdan Țîru",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Nico Ratti",
+"numero": "1",
+"titulo": "Nico Ratti",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Juan Sebastián",
+"numero": "2",
+"titulo": "Juan Sebastián",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Lautaro Spatz",
+"numero": "3",
+"titulo": "Lautaro Spatz",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Gael Alonso",
+"numero": "4",
+"titulo": "Gael Alonso",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Marc Bombardó",
+"numero": "5",
+"titulo": "Marc Bombardó",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Hugo Solozábal",
+"numero": "6",
+"titulo": "Hugo Solozábal",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Álex Calvo",
+"numero": "7",
+"titulo": "Álex Calvo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Efe Akman",
+"numero": "8",
+"titulo": "Efe Akman",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Julian Rijkhoff",
+"numero": "9",
+"titulo": "Julian Rijkhoff",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Marc Domènech",
+"numero": "10",
+"titulo": "Marc Domènech (footballer, born 2002)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Lautaro de León",
+"numero": "11",
+"titulo": "Lautaro de León",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Enes Sali",
+"numero": "12",
+"titulo": "Enes Sali",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Pau López",
+"numero": "13",
+"titulo": "Pau López",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Sergio Molina",
+"numero": "14",
+"titulo": "Sergio Molina (footballer, born 1996)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Jordi Cano",
+"numero": "15",
+"titulo": "Jordi Cano",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Randy Schneider",
+"numero": "16",
+"titulo": "Randy Schneider",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Thomas Carrique",
+"numero": "17",
+"titulo": "Thomas Carrique (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Andoni López",
+"numero": "18",
+"titulo": "Andoni López",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Nacho Quintana",
+"numero": "19",
+"titulo": "Nacho Quintana",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Martí Vilà",
+"numero": "20",
+"titulo": "Martí Vilà",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Moró Sidibe",
+"numero": "21",
+"titulo": "Moró Sidibe",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Diego Díaz",
+"numero": "22",
+"titulo": "Diego Díaz (footballer, born 2005)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Diego Alende",
+"numero": "23",
+"titulo": "Diego Alende",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Théo Le Normand",
+"numero": "24",
+"titulo": "Théo Le Normand",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Jesús Owono",
+"numero": "25",
+"titulo": "Jesús Owono",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Stefan Golubović",
+"numero": "27",
+"titulo": "Stefan Golubović (footballer, born 2006)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_40",
+"nome": "Tiago Olmedo",
+"numero": "28",
+"titulo": "Tiago Olmedo",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_40",
+"nome": "Hugo López",
+"numero": "29",
+"titulo": "Hugo López (footballer, born 2007)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Pedro López",
+"numero": "1",
+"titulo": "Pedro López (footballer, born 1995)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Toni Abad",
+"numero": "2",
+"titulo": "Toni Abad",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "José Matos",
+"numero": "3",
+"titulo": "José Joaquín Matos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Albert Caparrós",
+"numero": "4",
+"titulo": "Albert Caparrós",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Adrián Lapeña",
+"numero": "5",
+"titulo": "Adrián Lapeña",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Carlos Hernández",
+"numero": "6",
+"titulo": "Carlos Hernández (footballer, born 1990)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Álex Camacho",
+"numero": "7",
+"titulo": "Alejandro Camacho Ramírez",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_41",
+"nome": "Kuki Zalazar",
+"numero": "8",
+"titulo": "Kuki Zalazar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Jordi Escobar",
+"numero": "9",
+"titulo": "Jordi Escobar",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Marino Illescas",
+"numero": "10",
+"titulo": "Marino Illescas",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Cedric Teguia",
+"numero": "11",
+"titulo": "Cedric Teguia",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Guillermo Vallejo",
+"numero": "13",
+"titulo": "Guillermo Vallejo",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Yann Bodiger",
+"numero": "14",
+"titulo": "Yann Bodiger",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Joaquín González",
+"numero": "15",
+"titulo": "Joaquín González (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Redru",
+"numero": "16",
+"titulo": "Redru",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Mawuli Mensah",
+"numero": "17",
+"titulo": "Mawuli Mensah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Álex Petxarroman",
+"numero": "18",
+"titulo": "Álex Petxarroman",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Edgar Sevikyan",
+"numero": "19",
+"titulo": "Edgar Sevikyan",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Ale Meléndez",
+"numero": "20",
+"titulo": "Ale Meléndez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Kenneth Mamah",
+"numero": "21",
+"titulo": "Kenneth Mamah",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Kialy Abdoul Kone",
+"numero": "22",
+"titulo": "Kialy Abdoul Kone",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Anuar Tuhami",
+"numero": "23",
+"titulo": "Anuar Tuhami",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Arick Betancourt",
+"numero": "26",
+"titulo": "Arick Betancourt",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Umaru Konare",
+"numero": "27",
+"titulo": "Umaru Konare",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Omar Sadik",
+"numero": "29",
+"titulo": "Omar Sadik",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Josema",
+"numero": "30",
+"titulo": "Josema (footballer, born 2003)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_41",
+"nome": "Gabriel Okoro",
+"numero": "32",
+"titulo": "Gabriel Okoro",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_42",
+"nome": "Dani Martín",
+"numero": "1",
+"titulo": "Dani Martín (footballer, born 1998)",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "David Rodríguez",
+"numero": "2",
+"titulo": "David Rodríguez (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Roko Jureškin",
+"numero": "3",
+"titulo": "Roko Jureškin",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "José León",
+"numero": "4",
+"titulo": "José León (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Jorge Moreno",
+"numero": "5",
+"titulo": "Jorge Moreno (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Juanjo Sánchez",
+"numero": "6",
+"titulo": "Juan José Sánchez Romero",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Martin Pečar",
+"numero": "7",
+"titulo": "Martin Pečar",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Víctor Moreno",
+"numero": "8",
+"titulo": "Víctor Moreno (footballer)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Nacho Gil",
+"numero": "10",
+"titulo": "Nacho Gil",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Noel López",
+"numero": "11",
+"titulo": "Noel López",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Anthony Landázuri",
+"numero": "12",
+"titulo": "Anthony Landázuri",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Gerard Valentín",
+"numero": "14",
+"titulo": "Gerard Valentín",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Fabricio",
+"numero": "15",
+"titulo": "Fabricio Assis de Souza Barbosa",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Jesús Álvarez",
+"numero": "16",
+"titulo": "Jesús Álvarez (footballer, born 1999)",
+"detalhe": false,
+"nasc": false
+},
+{
+"equipa": "ESP_42",
+"nome": "Christian Gomis",
+"numero": "17",
+"titulo": "Christian Gomis (footballer, born 2000)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Enric Gallego",
+"numero": "18",
+"titulo": "Enric Gallego",
+"detalhe": true,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "César Álvarez",
+"numero": "19",
+"titulo": "César Álvarez",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Mauro Pittón",
+"numero": "20",
+"titulo": "Mauro Pittón",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Marc Mateu",
+"numero": "21",
+"titulo": "Marc Mateu",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Grant-Leon Ranos",
+"numero": "22",
+"titulo": "Grant-Leon Ranos",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Anes Krdžalić",
+"numero": "23",
+"titulo": "Anes Krdžalić",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Iván Chapela",
+"numero": "24",
+"titulo": "Iván Chapela",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Baba Diocou",
+"numero": "26",
+"titulo": "Baba Diocou",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Neal Viereck",
+"numero": "27",
+"titulo": "Neal Viereck",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Dani Fernández",
+"numero": "29",
+"titulo": "Dani Fernández (footballer, born 2008)",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Gabri De Vuyst",
+"numero": "40",
+"titulo": "Gabri De Vuyst",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Alassan Manjam",
+"numero": "",
+"titulo": "Alassan Manjam",
+"detalhe": false,
+"nasc": true
+},
+{
+"equipa": "ESP_42",
+"nome": "Salifo Caropitche",
+"numero": "",
+"titulo": "Salifo Caropitche",
+"detalhe": false,
+"nasc": true
+}
+]
