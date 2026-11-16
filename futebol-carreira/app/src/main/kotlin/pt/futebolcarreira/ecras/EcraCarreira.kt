@@ -271,6 +271,7 @@ private fun Opcoes(
             }
             pt.futebolcarreira.aovivo.BotaoPrototipoGodot()   // protótipo Godot (fase C0)
         }
+        pt.futebolcarreira.aovivo.BlocoOpcoesAoVivo()   // duração do jogo, ajuda de mira e botões (fase E)
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)
         }

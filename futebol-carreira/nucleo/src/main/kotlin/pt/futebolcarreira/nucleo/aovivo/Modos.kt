@@ -73,3 +73,11 @@ object RitmoRapido {
     /** Orçamento de tempo por imagem, em nanossegundos, para não prender o fio do desenho. */
     const val ORCAMENTO_NS = 9_000_000L
 }
+
+/**
+ * Contrato opcional do motor: com "iaControlaUtilizador" ligado, a equipa do utilizador joga pela IA (usado quando o jogo
+ * avança depressa nos momentos sem interesse). A implementação por omissão não existe: o motor que a quiser implementa-a.
+ */
+interface IaPeloUtilizador {
+    var iaControlaUtilizador: Boolean
+}

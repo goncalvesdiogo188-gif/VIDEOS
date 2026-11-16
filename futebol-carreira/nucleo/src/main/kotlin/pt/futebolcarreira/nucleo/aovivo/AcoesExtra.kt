@@ -77,11 +77,11 @@ object AdaptadorAcoes {
                 TipoRemate.NORMAL -> {}
                 TipoRemate.COLOCADO -> {
                     // O motor escolhe o lado pelo sinal de movY: aponta para o canto pedido.
-                    e.anguloRemate?.let { mx = cos(it); my = sin(it) }
+                    e.anguloRemate?.let { mx = cos(it); my = if (sin(it) >= 0f) 1f else -1f }
                     forca = forca.coerceIn(FORCA_COLOCADO_MIN, FORCA_COLOCADO_MAX)
                 }
                 TipoRemate.POR_CIMA -> {
-                    e.anguloRemate?.let { mx = cos(it); my = sin(it) }
+                    e.anguloRemate?.let { mx = cos(it); my = if (sin(it) >= 0f) 1f else -1f }
                     forca = 1f
                 }
             }

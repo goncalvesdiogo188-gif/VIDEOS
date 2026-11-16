@@ -7,6 +7,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -81,6 +82,7 @@ fun EcraAoVivo(
     aoSair: () -> Unit,
     fixarOrientacao: Boolean = true,
     mostrarMedidor: Boolean = false,
+    disposicao: DisposicaoBotoes = OpcoesAoVivo.disposicao(OpcoesAoVivo.prefs(LocalContext.current)),
     vistaJogo: @Composable (Modifier, Boolean) -> Unit = { m, parado -> VistaGl(sessao, m, parado) },
 ) {
     if (fixarOrientacao) ModoPaisagem()
@@ -88,10 +90,17 @@ fun EcraAoVivo(
     var estado by remember(sessao) { mutableStateOf(sessao.partida.estado) }
     var pausa by remember(sessao) { mutableStateOf(false) }
     var aSimular by remember(sessao) { mutableStateOf(false) }
+    var painelTatico by remember(sessao) { mutableStateOf(false) }
+    var palestra by remember(sessao) { mutableStateOf(false) }
+    var depressa by remember(sessao) { mutableStateOf(false) }
+    var cansados by remember(sessao) { mutableStateOf(false) }
     // O HUD vai buscar o estado ao motor 10 vezes por segundo (o desenho 3D lê-o a cada imagem).
     LaunchedEffect(sessao) {
         while (true) {
             estado = sessao.partida.estado
+            palestra = sessao.aguardaPalestra
+            depressa = sessao.avancandoDepressa
+            cansados = sessao.avisoCansaco
             delay(100)
         }
     }
@@ -111,7 +120,7 @@ fun EcraAoVivo(
         if (aSimular) withContext(Dispatchers.Default) { sessao.simularResto() }
     }
     val terminou = sessao.partida.terminou || estado.fase == FaseJogo.FIM
-    BackHandler(enabled = !terminou) { pausa = !pausa }
+    BackHandler(enabled = !terminou) { if (painelTatico) painelTatico = false else pausa = !pausa }
 
     Box(Modifier.fillMaxSize().background(Color.Black)) {
         vistaJogo(Modifier.fillMaxSize(), pausa || terminou)
@@ -125,17 +134,35 @@ fun EcraAoVivo(
             Surface(
                 onClick = { pausa = true }, shape = CircleShape, color = Color(0xAA000000),
                 modifier = Modifier.align(Alignment.TopStart).padding(12.dp).size(48.dp),
-            ) { Box(contentAlignment = Alignment.Center) { Text("II", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp) } }
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Text("II", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    if (cansados) Box(Modifier.align(Alignment.TopEnd).padding(6.dp).size(10.dp).clip(CircleShape).background(LARANJA))
+                }
+            }
+            if (depressa) Text(
+                "A avançar até ao próximo lance…", Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp)
+                    .background(Color(0xAA000000), RoundedCornerShape(10.dp)).padding(horizontal = 12.dp, vertical = 4.dp),
+                color = Color.White, fontSize = 13.sp,
+            )
 
-            if (sessao.controlar) Controlos(sessao)
+            if (sessao.controlar && !depressa) Controlos(sessao, disposicao)
         }
 
-        if (pausa && !terminou) MenuPausa(
+        if (pausa && !terminou && !painelTatico) MenuPausa(
             aSimular = aSimular, controlar = sessao.controlar,
+            tatica = sessao.controlar && sessao.tatica.suportado,
             aoContinuar = { pausa = false },
             aoSimular = { aSimular = true },
+            aoTatica = { painelTatico = true },
             aoSair = aoSair,
         )
+        if (palestra && !terminou && !painelTatico) PalestraIntervalo(
+            estado, sessao.utilizadorCasa,
+            aoEscolher = { sessao.resolverPalestra(it) },
+            aoTatica = { painelTatico = true },
+        )
+        if (painelTatico && !terminou) PainelTatico(sessao) { painelTatico = false }
         if (terminou) CartaoFinal(estado) { aoContinuar(sessao.partida) }
     }
 }
@@ -228,33 +255,59 @@ private fun Mensagem(e: EstadoPartida, modifier: Modifier) {
 // ------------------------------------------------------------------ controlos
 
 @Composable
-private fun Controlos(sessao: SessaoAoVivo) {
+private fun Controlos(sessao: SessaoAoVivo, disposicao: DisposicaoBotoes) {
     val c = sessao.controlo
     val haptico = LocalHapticFeedback.current
-    Box(Modifier.fillMaxSize()) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
         ZonaJoystick(c, Modifier.align(Alignment.BottomStart).fillMaxWidth(0.45f).fillMaxHeight(0.7f))
-        // Botões à direita: REMATE e PASSE em baixo, SPRINT e TROCAR por cima.
-        BotaoAcao("REMATE", VERMELHO, 94.dp, { c.rematePremido() }, { c.remateSolto(); haptico.performHapticFeedback(HapticFeedbackType.LongPress) },
-            Modifier.align(Alignment.BottomEnd).padding(end = 20.dp, bottom = 22.dp), forca = { c.forcaRemateAgora() })
-        BotaoAcao("PASSE", VERDE, 82.dp, { c.passePremido() }, { c.passeSolto() },
-            Modifier.align(Alignment.BottomEnd).padding(end = 128.dp, bottom = 22.dp), forca = { c.forcaPasseAgora() })
-        BotaoAcao("SPRINT", AZUL, 70.dp, { c.sprint(true) }, { c.sprint(false) },
-            Modifier.align(Alignment.BottomEnd).padding(end = 34.dp, bottom = 130.dp))
-        BotaoAcao("TROCAR", LARANJA, 62.dp, { c.trocar() }, {},
-            Modifier.align(Alignment.BottomEnd).padding(end = 130.dp, bottom = 118.dp))
+        for (b in disposicao.ativos()) {
+            val d = b.diametroDp.dp
+            val pos = Modifier.offset(maxWidth * b.x - d / 2, maxHeight * b.y - d / 2)
+            val id = b.id
+            val forca: (() -> Float)? = when (id) {
+                BotaoId.REMATE, BotaoId.COLOCADO, BotaoId.POR_CIMA -> { { c.forcaRemateAgora() } }
+                BotaoId.PASSE, BotaoId.PROFUNDIDADE, BotaoId.CRUZAMENTO -> { { c.forcaPasseAgora() } }
+                else -> null
+            }
+            BotaoAcao(
+                id.rotulo, corDoBotao(id), d, { c.premir(id) },
+                { c.soltar(id); if (id == BotaoId.REMATE || id == BotaoId.COLOCADO || id == BotaoId.POR_CIMA) haptico.performHapticFeedback(HapticFeedbackType.LongPress) },
+                pos, forca = forca,
+                aoArrastar = if (id == BotaoId.PASSE) { dx, dy -> c.seta(dx, dy) } else null,
+            )
+        }
     }
 }
 
-/** Botão redondo que avisa quando é premido e quando é largado; mostra uma barra de força enquanto está premido. */
+internal fun corDoBotao(id: BotaoId): Color = when (id) {
+    BotaoId.REMATE -> VERMELHO
+    BotaoId.PASSE -> VERDE
+    BotaoId.SPRINT -> AZUL
+    BotaoId.TROCAR -> LARANJA
+    BotaoId.PROFUNDIDADE -> Color(0xFF00897B)
+    BotaoId.CRUZAMENTO -> Color(0xFF8E24AA)
+    BotaoId.COLOCADO -> Color(0xFFD81B60)
+    BotaoId.POR_CIMA -> Color(0xFFB71C1C)
+    BotaoId.FINTA -> Color(0xFF5E35B1)
+    BotaoId.PROTEGER -> Color(0xFF546E7A)
+}
+
+/**
+ * Botão redondo que avisa quando é premido e quando é largado; mostra uma barra de força enquanto está premido.
+ * Com "aoArrastar", o arrasto do dedo dá uma seta de direção (passe dirigido).
+ */
 @Composable
-private fun BotaoAcao(
+internal fun BotaoAcao(
     texto: String, cor: Color, tamanho: Dp, aoPremir: () -> Unit, aoSoltar: () -> Unit, modifier: Modifier = Modifier,
-    forca: (() -> Float)? = null,
+    forca: (() -> Float)? = null, aoArrastar: ((Float, Float) -> Unit)? = null,
 ) {
     val premir by rememberUpdatedState(aoPremir)
     val soltar by rememberUpdatedState(aoSoltar)
+    val arrastar by rememberUpdatedState(aoArrastar)
     var premido by remember { mutableStateOf(false) }
     var nivel by remember { mutableFloatStateOf(0f) }
+    var seta by remember { mutableStateOf(Offset.Zero) }
+    val raioSeta = with(LocalDensity.current) { 56.dp.toPx() }
     LaunchedEffect(premido) {
         while (premido && forca != null) {
             nivel = forca()
@@ -267,17 +320,31 @@ private fun BotaoAcao(
             Modifier.size(tamanho).clip(CircleShape).background(if (premido) cor else cor.copy(alpha = 0.72f))
                 .pointerInput(Unit) {
                     awaitEachGesture {
-                        awaitFirstDown(requireUnconsumed = false)
+                        val inicio = awaitFirstDown(requireUnconsumed = false)
                         premido = true
                         premir()
-                        waitForUpOrCancellation()
+                        while (true) {
+                            val evento = awaitPointerEvent(PointerEventPass.Main)
+                            val m = evento.changes.firstOrNull { it.id == inicio.id } ?: break
+                            if (!m.pressed) break
+                            val f = arrastar
+                            if (f != null) {
+                                var d = m.position - inicio.position
+                                val n = d.getDistance()
+                                if (n > raioSeta) d = d * (raioSeta / n)
+                                seta = d
+                                f(d.x / raioSeta, -d.y / raioSeta)
+                                if (n > 6f) m.consume()
+                            }
+                        }
                         premido = false
+                        seta = Offset.Zero
                         soltar()
                     }
                 },
             contentAlignment = Alignment.Center,
         ) {
-            Text(texto, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (tamanho > 75.dp) 14.sp else 12.sp, textAlign = TextAlign.Center)
+            Text(texto, color = Color.White, fontWeight = FontWeight.Bold, fontSize = if (tamanho > 75.dp) 14.sp else if (tamanho > 56.dp) 11.sp else 10.sp, maxLines = 1, softWrap = false, textAlign = TextAlign.Center)
         }
         if (premido && forca != null) {
             // Barra de força por cima do botão.
@@ -285,6 +352,28 @@ private fun BotaoAcao(
                 Box(Modifier.fillMaxHeight().fillMaxWidth(nivel.coerceIn(0f, 1f)).background(DOURADO))
             }
         }
+        if (premido && seta.getDistance() > raioSeta * ControloTactil.LIMIAR_SETA) SetaDirecao(seta, raioSeta)
+    }
+}
+
+/** A seta do passe dirigido, a partir do centro do botão. */
+@Composable
+private fun SetaDirecao(vetor: Offset, raio: Float) {
+    Canvas(Modifier.size(0.dp)) {
+        val fim = vetor * 1.5f
+        val n = fim.getDistance().coerceAtLeast(1f)
+        val u = fim / n
+        val lado = Offset(-u.y, u.x)
+        val cabeca = 11.dp.toPx()
+        drawLine(DOURADO, Offset.Zero, fim, strokeWidth = 5.dp.toPx(), cap = androidx.compose.ui.graphics.StrokeCap.Round)
+        val ponta = fim + u * cabeca
+        val p = androidx.compose.ui.graphics.Path().apply {
+            moveTo(ponta.x, ponta.y)
+            lineTo(fim.x + lado.x * cabeca * 0.7f, fim.y + lado.y * cabeca * 0.7f)
+            lineTo(fim.x - lado.x * cabeca * 0.7f, fim.y - lado.y * cabeca * 0.7f)
+            close()
+        }
+        drawPath(p, DOURADO)
     }
 }
 
@@ -329,13 +418,16 @@ private fun ZonaJoystick(controlo: ControloTactil, modifier: Modifier) {
 // --------------------------------------------------------------------- janelas
 
 @Composable
-private fun MenuPausa(aSimular: Boolean, controlar: Boolean, aoContinuar: () -> Unit, aoSimular: () -> Unit, aoSair: () -> Unit) {
+private fun MenuPausa(
+    aSimular: Boolean, controlar: Boolean, tatica: Boolean, aoContinuar: () -> Unit, aoSimular: () -> Unit, aoTatica: () -> Unit, aoSair: () -> Unit,
+) {
     Box(Modifier.fillMaxSize().background(Color(0x99000000)).pointerInput(Unit) { awaitEachGesture { awaitFirstDown().consume() } }, contentAlignment = Alignment.Center) {
         Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
             Column(Modifier.padding(22.dp).width(300.dp), verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(if (aSimular) "A simular o resto do jogo…" else "Jogo em pausa", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 if (!aSimular) {
                     Button(onClick = aoContinuar, Modifier.fillMaxWidth().height(50.dp)) { Text("Continuar", fontSize = 17.sp) }
+                    if (tatica) OutlinedButton(onClick = aoTatica, Modifier.fillMaxWidth().height(50.dp)) { Text("Jogadores e tática", fontSize = 16.sp) }
                     OutlinedButton(onClick = aoSimular, Modifier.fillMaxWidth().height(50.dp)) { Text("Simular o resto", fontSize = 16.sp) }
                     OutlinedButton(onClick = aoSair, Modifier.fillMaxWidth().height(50.dp)) { Text("Abandonar o jogo", fontSize = 16.sp) }
                 }
