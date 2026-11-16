@@ -5,7 +5,8 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
+        <group android:scaleX="1.4" android:scaleY="1.4" android:pivotX="54" android:pivotY="54">
+<path
         android:fillColor="@color/icone_bola"
         android:pathData="M32,54a22,22 0 1,0 44,0a22,22 0 1,0 -44,0z" />
     <path
@@ -26,4 +27,5 @@
     <path
         android:fillColor="@color/icone_costuras"
         android:pathData="M46.78,50.34L36.32,46.94L35.54,49.32L46.01,52.72Z" />
+    </group>
 </vector>
