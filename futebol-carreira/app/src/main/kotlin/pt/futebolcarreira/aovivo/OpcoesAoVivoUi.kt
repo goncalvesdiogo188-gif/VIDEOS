@@ -56,9 +56,22 @@ fun BlocoOpcoesAoVivo() {
     var duracao by remember { mutableStateOf(OpcoesAoVivo.duracaoMinutos(prefs)) }
     var mira by remember { mutableStateOf(OpcoesAoVivo.miraEscolhida(prefs)) }
     var editar by remember { mutableStateOf(false) }
+    var ps1 by remember { mutableStateOf(OpcoesAoVivo.estiloPs1(prefs)) }
     var dificuldade by remember { mutableStateOf(pt.futebolcarreira.nucleo.aovivo.Dificuldade.deTexto(prefs.getString("dificuldade_3d", null))) }
     Bloco {
-        Rotulo("Jogo ao vivo: dificuldade")
+        Rotulo("Jogo ao vivo: gráficos")
+        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FilterChip(
+                selected = ps1, onClick = { ps1 = true; OpcoesAoVivo.definirEstiloPs1(prefs, true) },
+                label = { Text("PlayStation 1", fontSize = 15.sp) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+            )
+            FilterChip(
+                selected = !ps1, onClick = { ps1 = false; OpcoesAoVivo.definirEstiloPs1(prefs, false) },
+                label = { Text("Normal", fontSize = 15.sp) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+            )
+        }
+        Text("Imagem pixelizada, arestas a tremer e cores limitadas. Vale para o próximo jogo.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Rotulo("Jogo ao vivo: dificuldade", Modifier.padding(top = 10.dp))
         Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in pt.futebolcarreira.nucleo.aovivo.Dificuldade.entries) FilterChip(
                 selected = dificuldade == d, onClick = { dificuldade = d; prefs.edit().putString("dificuldade_3d", d.name).apply() },

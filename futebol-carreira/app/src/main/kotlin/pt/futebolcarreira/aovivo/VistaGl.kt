@@ -24,7 +24,7 @@ fun VistaGl(sessao: SessaoAoVivo, modifier: Modifier = Modifier, parado: Boolean
         GLSurfaceView(contexto).apply {
             setEGLContextClientVersion(2)
             setEGLConfigChooser(8, 8, 8, 8, 16, 0)
-            setRenderer(RendererPartida(sessao))
+            setRenderer(RendererPartida(sessao, OpcoesAoVivo.estiloPs1(OpcoesAoVivo.prefs(contexto))))
             renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
             preserveEGLContextOnPause = true
         }

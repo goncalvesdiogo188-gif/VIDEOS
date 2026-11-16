@@ -13,7 +13,7 @@ object Malhas {
 
     class Conjunto(val dados: FloatArray, val caixa: Malha, val esfera: Malha, val disco: Malha, val anel: Malha, val anelGrosso: Malha)
 
-    fun criar(): Conjunto {
+    fun criar(poucosPoligonos: Boolean = false): Conjunto {
         val v = ArrayList<Float>(4000)
         fun fechar(inicioFloats: Int) = Malha(inicioFloats / FLOATS_POR_VERTICE, (v.size - inicioFloats) / FLOATS_POR_VERTICE)
         fun vert(x: Float, y: Float, z: Float, nx: Float, ny: Float, nz: Float) {
@@ -38,8 +38,8 @@ object Malhas {
 
         // Esfera de raio 1.
         i0 = v.size
-        val lat = 8
-        val lon = 12
+        val lat = if (poucosPoligonos) 4 else 8
+        val lon = if (poucosPoligonos) 6 else 12
         fun p(a: Int, b: Int, k: Int): FloatArray {
             val fi = PI * a / lat - PI / 2
             val th = 2 * PI * b / lon

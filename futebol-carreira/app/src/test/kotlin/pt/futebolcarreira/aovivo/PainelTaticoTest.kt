@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -117,13 +119,17 @@ class PainelTaticoTest {
     fun blocoDeOpcoesMostraDuracoesEMira() {
         val prefs = OpcoesAoVivo.prefs(ApplicationProvider.getApplicationContext())
         prefs.edit().clear().commit()
-        regra.setContent { Tema { BlocoOpcoesAoVivo() } }
+        regra.setContent {
+            Tema {
+                androidx.compose.foundation.layout.Column(Modifier.verticalScroll(androidx.compose.foundation.rememberScrollState())) { BlocoOpcoesAoVivo() }
+            }
+        }
         regra.waitForIdle()
         regra.onNodeWithText("12 min").performClick()
         assertEquals(12, OpcoesAoVivo.duracaoMinutos(prefs))
         regra.onNodeWithText("Forte").performClick()
         assertEquals(NivelMira.FORTE, OpcoesAoVivo.miraEscolhida(prefs))
-        regra.onNodeWithText("Personalizar botões").performClick()
+        regra.onNodeWithText("Personalizar botões").performScrollTo().performClick()
         regra.waitForIdle()
         regra.onNodeWithText("Botões do jogo 3D").assertExists()
     }

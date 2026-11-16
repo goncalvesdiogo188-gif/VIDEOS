@@ -18,7 +18,7 @@ import kotlin.math.sin
  * ([SessaoAoVivo.avancar]) e desenha o estado. Tudo o que é fixo (campo, balizas, bancadas) é calculado uma vez;
  * durante o jogo não se criam objetos novos, só se reaproveitam as matrizes.
  */
-class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer {
+class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: Boolean = true) : GLSurfaceView.Renderer {
     private val camera = CameraTransmissao()
     private var proporcao = 2f
     private var ultimoNs = 0L
@@ -30,7 +30,26 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
     private var uModelo = 0
     private var uCor = 0
     private var uLuz = 0
+    private var uRes = 0
+    private var uPs1 = 0
+    private var uPs1F = 0
+    private var uNevoa = 0
     private var vbo = 0
+
+    // Estilo PlayStation 1: o jogo desenha-se numa imagem pequena (altura ALTURA_PS1) e depois amplia-se sem suavizar.
+    private var fbo = 0
+    private var fboTextura = 0
+    private var fboProfundidade = 0
+    private var fboLargura = 0
+    private var fboAltura = 0
+    private var fboOk = false
+    private var ecraLargura = 1
+    private var ecraAltura = 1
+    private var programaEcra = 0
+    private var uTexEcra = 0
+    private val quadro: java.nio.FloatBuffer = ByteBuffer.allocateDirect(16 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer().apply {
+        put(floatArrayOf(-1f, -1f, 0f, 0f, 1f, -1f, 1f, 0f, -1f, 1f, 0f, 1f, 1f, 1f, 1f, 1f)); position(0)
+    }
     private lateinit var malhas: Malhas.Conjunto
 
     // Matrizes reaproveitadas
@@ -58,14 +77,21 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
     private var coresDe: EstadoPartida? = null
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        GLES20.glClearColor(0.10f, 0.14f, 0.18f, 1f)
+        GLES20.glClearColor(0.34f, 0.42f, 0.55f, 1f)
         programa = criarPrograma(VERTICE, FRAGMENTO)
         uMvp = GLES20.glGetUniformLocation(programa, "uMvp")
         uModelo = GLES20.glGetUniformLocation(programa, "uModelo")
         uCor = GLES20.glGetUniformLocation(programa, "uCor")
         uLuz = GLES20.glGetUniformLocation(programa, "uLuz")
+        uRes = GLES20.glGetUniformLocation(programa, "uRes")
+        uPs1 = GLES20.glGetUniformLocation(programa, "uPs1")
+        uPs1F = GLES20.glGetUniformLocation(programa, "uPs1F")
+        uNevoa = GLES20.glGetUniformLocation(programa, "uNevoa")
+        programaEcra = criarPrograma(VERTICE_ECRA, FRAGMENTO_ECRA)
+        uTexEcra = GLES20.glGetUniformLocation(programaEcra, "uTex")
+        fbo = 0; fboTextura = 0; fboProfundidade = 0; fboOk = false   // o contexto pode ter sido recriado
 
-        malhas = Malhas.criar()
+        malhas = Malhas.criar(poucosPoligonos = estiloPs1)
         val buf = ByteBuffer.allocateDirect(malhas.dados.size * 4).order(ByteOrder.nativeOrder()).asFloatBuffer()
         buf.put(malhas.dados).position(0)
         val ids = IntArray(1)
@@ -82,7 +108,9 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
 
     override fun onSurfaceChanged(gl: GL10?, largura: Int, altura: Int) {
         GLES20.glViewport(0, 0, largura, altura)
+        ecraLargura = largura; ecraAltura = altura
         proporcao = largura.toFloat() / altura.coerceAtLeast(1)
+        if (estiloPs1) criarImagemPequena(largura, altura)
         Matrix.perspectiveM(projecao, 0, camera.campoDeVisaoV, proporcao, 8f, 260f)
     }
 
@@ -100,8 +128,17 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
         Matrix.setLookAtM(vista, 0, camera.olhoX, camera.olhoY, camera.olhoZ, camera.alvoX, camera.alvoY, 0f, 0f, 0f, 1f)
         Matrix.multiplyMM(vp, 0, projecao, 0, vista, 0)
 
+        val ps1 = estiloPs1 && fboOk
+        if (ps1) {
+            GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fbo)
+            GLES20.glViewport(0, 0, fboLargura, fboAltura)
+        }
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         GLES20.glUseProgram(programa)
+        GLES20.glUniform1f(uPs1, if (ps1) 1f else 0f)
+        GLES20.glUniform1f(uPs1F, if (ps1) 1f else 0f)
+        GLES20.glUniform2f(uRes, if (ps1) fboLargura.toFloat() else ecraLargura.toFloat(), if (ps1) fboAltura.toFloat() else ecraAltura.toFloat())
+        GLES20.glUniform3f(uNevoa, NEVOA_R, NEVOA_G, NEVOA_B)
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
         GLES20.glEnableVertexAttribArray(0)
         GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 24, 0)
@@ -126,6 +163,60 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
         GLES20.glDepthMask(false)
         desenharFixos(balizas, 1f, transparentes = true)
         GLES20.glDepthMask(true)
+
+        if (ps1) ampliarImagemPequena()
+    }
+
+    // ----------------------------------------------------- estilo PS1
+
+    /** Cria a imagem pequena em que o jogo se desenha (nítida ao ampliar, como nos ecrãs de há 25 anos). */
+    private fun criarImagemPequena(largura: Int, altura: Int) {
+        if (fbo != 0) {
+            GLES20.glDeleteFramebuffers(1, intArrayOf(fbo), 0)
+            GLES20.glDeleteTextures(1, intArrayOf(fboTextura), 0)
+            GLES20.glDeleteRenderbuffers(1, intArrayOf(fboProfundidade), 0)
+        }
+        fboAltura = ALTURA_PS1.coerceAtMost(altura.coerceAtLeast(1))
+        fboLargura = (fboAltura * largura.toFloat() / altura.coerceAtLeast(1)).toInt().coerceAtLeast(1)
+        val id = IntArray(1)
+        GLES20.glGenTextures(1, id, 0); fboTextura = id[0]
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, fboTextura)
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, fboLargura, fboAltura, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
+        GLES20.glGenRenderbuffers(1, id, 0); fboProfundidade = id[0]
+        GLES20.glBindRenderbuffer(GLES20.GL_RENDERBUFFER, fboProfundidade)
+        GLES20.glRenderbufferStorage(GLES20.GL_RENDERBUFFER, GLES20.GL_DEPTH_COMPONENT16, fboLargura, fboAltura)
+        GLES20.glGenFramebuffers(1, id, 0); fbo = id[0]
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fbo)
+        GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, fboTextura, 0)
+        GLES20.glFramebufferRenderbuffer(GLES20.GL_FRAMEBUFFER, GLES20.GL_DEPTH_ATTACHMENT, GLES20.GL_RENDERBUFFER, fboProfundidade)
+        // Se o telemóvel não aceitar, o jogo desenha-se normalmente (sem imagem pequena).
+        fboOk = GLES20.glCheckFramebufferStatus(GLES20.GL_FRAMEBUFFER) == GLES20.GL_FRAMEBUFFER_COMPLETE
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
+    }
+
+    /** Põe a imagem pequena no ecrã inteiro, sem suavizar. */
+    private fun ampliarImagemPequena() {
+        GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, 0)
+        GLES20.glViewport(0, 0, ecraLargura, ecraAltura)
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST)
+        GLES20.glDisable(GLES20.GL_BLEND)
+        GLES20.glUseProgram(programaEcra)
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0)
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, fboTextura)
+        GLES20.glUniform1i(uTexEcra, 0)
+        quadro.position(0)
+        GLES20.glEnableVertexAttribArray(0)
+        GLES20.glVertexAttribPointer(0, 2, GLES20.GL_FLOAT, false, 16, quadro)
+        quadro.position(2)
+        GLES20.glEnableVertexAttribArray(1)
+        GLES20.glVertexAttribPointer(1, 2, GLES20.GL_FLOAT, false, 16, quadro)
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
+        quadro.position(0)
     }
 
     // ------------------------------------------------------------- fixos
@@ -354,14 +445,29 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
         const val ANCA = 0.85f
         const val RAIO_BOLA = 0.38f   // maior que a bola verdadeira (0,11 m) para se ver bem
 
+        const val ALTURA_PS1 = 240       // linhas da imagem pequena (a PlayStation usava 240)
+        const val NEVOA_R = 0.34f
+        const val NEVOA_G = 0.42f
+        const val NEVOA_B = 0.55f
+
         const val VERTICE = """
             uniform mat4 uMvp;
             uniform mat4 uModelo;
+            uniform vec2 uRes;
+            uniform float uPs1;
             attribute vec3 aPos;
             attribute vec3 aNor;
             varying vec3 vNor;
+            varying float vFundo;
             void main() {
-                gl_Position = uMvp * vec4(aPos, 1.0);
+                vec4 p = uMvp * vec4(aPos, 1.0);
+                if (uPs1 > 0.5 && p.w > 0.5) {
+                    // Os vértices «saltam» para a grelha de píxeis, como na PlayStation (o tremer das arestas).
+                    vec2 g = uRes * 0.5;
+                    p.xy = floor(p.xy / p.w * g + 0.5) / g * p.w;
+                }
+                gl_Position = p;
+                vFundo = p.w;
                 vNor = (uModelo * vec4(aNor, 0.0)).xyz;
             }
         """
@@ -369,13 +475,42 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
             precision mediump float;
             uniform vec4 uCor;
             uniform float uLuz;
+            uniform float uPs1F;
+            uniform vec3 uNevoa;
             varying vec3 vNor;
+            varying float vFundo;
+            // Matriz 4x4 de Bayer (tremido ordenado), calculada sem tabelas.
+            float bayer(vec2 p) {
+                vec2 q = mod(p, 4.0);
+                float x0 = mod(q.x, 2.0); float x1 = floor(q.x / 2.0);
+                float y0 = mod(q.y, 2.0); float y1 = floor(q.y / 2.0);
+                return (abs(x0 - y0) * 8.0 + y0 * 4.0 + abs(x1 - y1) * 2.0 + y1) / 16.0;
+            }
             void main() {
                 vec3 luz = normalize(vec3(0.35, -0.45, 0.85));
                 float d = max(dot(normalize(vNor), luz), 0.0);
+                if (uPs1F > 0.5) d = floor(d * 3.0 + 0.5) / 3.0;   // sombreado em poucos degraus
                 float k = mix(1.0, 0.55 + 0.5 * d, uLuz);
-                gl_FragColor = vec4(uCor.rgb * k, uCor.a);
+                vec3 c = uCor.rgb * k;
+                if (uPs1F > 0.5) {
+                    c = mix(c, uNevoa, clamp((vFundo - 55.0) / 120.0, 0.0, 1.0) * 0.65);   // névoa à distância
+                    float t = bayer(floor(gl_FragCoord.xy)) - 0.5;
+                    c = floor(c * 31.0 + t + 0.5) / 31.0;   // 5 bits por cor, com tremido
+                }
+                gl_FragColor = vec4(c, uCor.a);
             }
+        """
+        const val VERTICE_ECRA = """
+            attribute vec2 aPos;
+            attribute vec2 aNor;
+            varying vec2 vUv;
+            void main() { gl_Position = vec4(aPos, 0.0, 1.0); vUv = aNor; }
+        """
+        const val FRAGMENTO_ECRA = """
+            precision mediump float;
+            uniform sampler2D uTex;
+            varying vec2 vUv;
+            void main() { gl_FragColor = vec4(texture2D(uTex, vUv).rgb, 1.0); }
         """
     }
 }

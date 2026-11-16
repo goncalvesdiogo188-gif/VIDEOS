@@ -28,6 +28,13 @@ object OpcoesAoVivo {
     /** O nível a usar: o escolhido, ou o da dificuldade (texto como "NORMAL"; null = Normal). */
     fun nivelMira(p: SharedPreferences, dificuldade: String? = null): NivelMira = miraEscolhida(p) ?: NivelMira.daDificuldade(dificuldade)
 
+    const val CHAVE_PS1 = "graficos_ps1"
+
+    /** Gráficos ao estilo PlayStation 1 (ligados por defeito). */
+    fun estiloPs1(p: SharedPreferences): Boolean = p.getBoolean(CHAVE_PS1, true)
+
+    fun definirEstiloPs1(p: SharedPreferences, ligado: Boolean) = p.edit().putBoolean(CHAVE_PS1, ligado).apply()
+
     fun disposicao(p: SharedPreferences): DisposicaoBotoes = DisposicaoBotoes.ler(p.getString(CHAVE_BOTOES, null))
 
     fun guardarDisposicao(p: SharedPreferences, d: DisposicaoBotoes) = p.edit().putString(CHAVE_BOTOES, d.serializar()).apply()
