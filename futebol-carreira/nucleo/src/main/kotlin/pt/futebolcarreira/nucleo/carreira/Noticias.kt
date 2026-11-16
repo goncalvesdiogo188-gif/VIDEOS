@@ -119,9 +119,9 @@ class GeradorNoticias(private val c: Carreira) {
                 "$d: ${vencedor.nome} derrota ${vencido!!.nome}",
                 "$d é de ${vencedor.nome}",
             )
-            val texto = "$placar ($liga)." + marcadores(r) + variante(
+            val texto = "$placar ($liga)." + marcadores(r) + if (jn.derby >= 2) variante(
                 " Foi um jogo jogado com a faca nos dentes.", " Ambiente de grande clássico nas bancadas.", " O estádio encheu para ver o derby.",
-            )
+            ) else variante(" Rivalidade em campo.", " Um jogo muito disputado.")
             adicionar(55 + 8 * jn.derby, "derby", titulo, texto, doClube)
         }
         // Goleadas.
@@ -129,7 +129,7 @@ class GeradorNoticias(private val c: Carreira) {
             val titulo = variante(
                 "${vencedor.nome} goleia ${vencido!!.nome} por $gv-$gp",
                 "Goleada de ${vencedor.nome}: $gv-$gp",
-                "${vencedor.nome} em festa: $gv-$gp ao ${vencido.nome}",
+                "${vencedor.nome} em festa: $gv-$gp frente a ${vencido.nome}",
                 "${vencido.nome} afundado: derrota por $gv-$gp",
             )
             adicionar(if (doClube) 62 else if (rel) 48 else 34, "goleada", titulo, "$placar ($liga)." + marcadores(r), doClube)
@@ -139,8 +139,8 @@ class GeradorNoticias(private val c: Carreira) {
             val titulo = variante(
                 "Surpresa: ${vencedor.nome} vence ${vencido.nome}",
                 "${vencedor.nome} deixa ${vencido.nome} de rastos",
-                "Tropeção de ${vencido.nome} diante do ${vencedor.nome}",
-                "Dia de glória para o ${vencedor.nome}",
+                "Tropeção de ${vencido.nome} frente a ${vencedor.nome}",
+                "Dia de glória: ${vencedor.nome} derruba ${vencido.nome}",
             )
             adicionar(if (doClube) 60 else if (rel) 47 else 36, "surpresa", titulo, "$placar ($liga). O favorito ficou pelo caminho.", doClube)
         }
@@ -155,8 +155,8 @@ class GeradorNoticias(private val c: Carreira) {
                 val j = f.jogador
                 if (f.golos >= 3) {
                     val titulo = variante(
-                        "${j.nome} marca ${f.golos} e é o herói do ${equipa.nome}",
-                        "Hat-trick de ${j.nome}",
+                        "${j.nome} marca ${f.golos} golos e é o herói (${equipa.nome})",
+                        "Hat-trick de ${j.nome} (${equipa.nome})",
                         "${j.nome} em estado de graça: ${f.golos} golos",
                     )
                     adicionar(if (nosso) 66 else if (relEquipa) 52 else 38, "hat-trick", titulo, "$placar ($liga)." + marcadores(r), nosso)
@@ -170,18 +170,18 @@ class GeradorNoticias(private val c: Carreira) {
                             "${j.nome} não pára de marcar: $n jogos seguidos a festejar",
                             "Série de ${j.nome} chega aos $n jogos",
                         )
-                        adicionar(if (nosso) 58 else if (relEquipa) 44 else 32, "golos", titulo, "O avançado do ${equipa.nome} voltou a marcar ($placar).", nosso)
+                        adicionar(if (nosso) 58 else if (relEquipa) 44 else 32, "golos", titulo, "${j.nome} (${equipa.nome}) voltou a marcar: $placar.", nosso)
                     }
                 } else if (f.titular || f.entrou > 0) {
                     seguidos[j.id] = 0
                 }
                 if (f.lesao >= 3 && j in estrelas) {
                     val titulo = variante(
-                        "Má notícia no ${equipa.nome}: ${j.nome} lesionado",
-                        "${j.nome} cai com lesão e falha ${f.lesao} jogos",
-                        "Baixa de peso: ${j.nome} fora por ${f.lesao} jornadas",
+                        "Má notícia: ${j.nome} lesionado (${equipa.nome})",
+                        "${j.nome} cai com lesão e falha ${f.lesao} jogos (${equipa.nome})",
+                        "Baixa de peso: ${j.nome} fora por ${f.lesao} jornadas (${equipa.nome})",
                     )
-                    adicionar(if (nosso) 50 else if (relEquipa) 42 else 30, "lesao", titulo, "O ${equipa.nome} perde uma das suas figuras. O jogador lesionou-se frente ao ${nome(if (lado === r.relatorio?.casa) r.fora else r.casa)}.", nosso)
+                    adicionar(if (nosso) 50 else if (relEquipa) 42 else 30, "lesao", titulo, "${equipa.nome} perde uma das suas figuras: ${j.nome} lesionou-se no jogo com ${nome(if (lado === r.relatorio?.casa) r.fora else r.casa)}.", nosso)
                 }
             }
         }
@@ -234,10 +234,10 @@ class GeradorNoticias(private val c: Carreira) {
                     val nosso = l.id == c.info.equipaId
                     val titulo = variante(
                         "${nome(l.id)} desce de divisão",
-                        "Descida confirmada para o ${nome(l.id)}",
+                        "Descida confirmada: ${nome(l.id)}",
                         "${nome(l.id)} já não escapa à descida",
                     )
-                    adicionar(if (nosso) 88 else if (minhaLiga) 52 else if (paisLiga) 46 else 26, "descida", titulo, "Com ${l.pts} pontos e ${restantes} jornadas por jogar, o ${nome(l.id)} está matematicamente despromovido da ${liga.nome}.", nosso)
+                    adicionar(if (nosso) 88 else if (minhaLiga) 52 else if (paisLiga) 46 else 26, "descida", titulo, "Com ${l.pts} pontos e ${restantes} jornadas por jogar, ${nome(l.id)} está matematicamente despromovido da ${liga.nome}.", nosso)
                 }
             }
         }
@@ -306,15 +306,15 @@ class GeradorNoticias(private val c: Carreira) {
         val titulo = when {
             golosN > golosO -> variante(
                 "Noite europeia: ${nacional.nome} vence ${outro.nome} por $golosN-$golosO",
-                "${tipo.nome}: ${nacional.nome} brilha frente ao ${outro.nome}",
+                "${tipo.nome}: ${nacional.nome} brilha frente a ${outro.nome}",
                 "${nacional.nome} sorri na Europa",
             )
             golosN < golosO -> variante(
-                "${tipo.nome}: ${nacional.nome} cai diante do ${outro.nome}",
-                "Noite negra na Europa para o ${nacional.nome}",
-                "${nacional.nome} derrotado por $golosO-$golosN pelo ${outro.nome}",
+                "${tipo.nome}: ${nacional.nome} cai frente a ${outro.nome}",
+                "Noite negra na Europa: ${nacional.nome} perde por $golosO-$golosN",
+                "${nacional.nome} sai derrotado de campo: $golosN-$golosO com ${outro.nome}",
             )
-            else -> variante("${tipo.nome}: ${nacional.nome} empata com o ${outro.nome}", "Empate europeu para o ${nacional.nome}")
+            else -> variante("${tipo.nome}: ${nacional.nome} empata com ${outro.nome}", "Empate europeu: ${nacional.nome} e ${outro.nome} dividem pontos")
         }
         adicionar(if (doClube) 54 else 46, "europa", titulo, "${tipo.nome} (${jn.fase}): ${resultadoComExtras(r)}." + marcadores(r), doClube)
     }
@@ -322,7 +322,7 @@ class GeradorNoticias(private val c: Carreira) {
     // ------------------------------------------------ mercado e adeptos
 
     private fun mercado(negocios: List<String>) {
-        val regex = Regex("""(\d+),(\d) M€""")
+        val regex = Regex("""(\d+)[,.](\d) M€""")
         for (n in negocios.take(3)) {
             val milhoes = regex.find(n)?.let { it.groupValues[1].toInt() + it.groupValues[2].toInt() / 10.0 } ?: 0.0
             val titulo = if (milhoes >= 8.0) variante("Mercado: negócio milionário", "Reforço de peso no mercado", "Mercado a ferver: transferência de ${"%.1f".format(milhoes).replace('.', ',')} M€")
