@@ -260,6 +260,104 @@ class CapturasTest {
         tocar("Fechar")
     }
 
+    /** Fase 9: carreira de jogador (criação, perfil, propostas e prémios) depois de uma época simulada. */
+    @Test
+    fun carreiraDeJogador() {
+        esperar { !jogo.ocupado }
+        tocar("Nova carreira")
+        esperar { jogo.paises.isNotEmpty() && !jogo.ocupado }
+        assertTrue(jogo.nacoes.any { it.id == "BRA" } && jogo.nacoes.any { it.id == "POR" })
+        tocar("Jogador")
+        regra.onNode(hasSetTextAction()).performTextInput("Rui Craque")
+        capturar("40a-jogador-criacao")
+        // O clube mais fraco da primeira divisão: há mais clubes interessados em quem joga bem.
+        val clube = jogo.paises[0].ligas[0].clubes.last()
+        jogo.comecarCarreira(pt.futebolcarreira.nucleo.carreira.ModoCarreira.JOGADOR, "Rui Craque", clube.id, "MC", "NED", "esquerdo")
+        esperar { jogo.ecra == Ecra.CARREIRA && !jogo.ocupado }
+        assertEquals(pt.futebolcarreira.nucleo.carreira.ModoCarreira.JOGADOR, jogo.ui?.modo)
+        val inicial = jogo.ui!!.jogadorCarreira!!
+        assertTrue(inicial.linha1.contains("Países Baixos") && inicial.linha1.contains("esquerdo") && inicial.linha1.startsWith("MC"))
+        // Para os ecrãs terem dados a sério, o jogador é uma estrela (joga sempre e aparece nos prémios).
+        jogo.carreiraAberta!!.jogador!!.let { eu ->
+            for (atributo in pt.futebolcarreira.nucleo.modelos.Jogador.ATRIBUTOS) eu.atributos[atributo] = 80
+            eu.potencial = 99
+            jogo.carreiraAberta!!.equipa.invalidarForca()
+        }
+        // A primeira época inteira (os pedidos do treinador, os minutos e os prémios da liga ficam em dados).
+        jogo.simularEpoca()
+        esperar { !jogo.ocupado }
+        assertTrue(jogo.ui?.terminada == true)
+        jogo.novaEpoca()
+        esperar { !jogo.ocupado }
+        assertEquals("2027/28", jogo.ui?.epoca)
+        if (jogo.ui!!.jogadorCarreira!!.ofertas.isEmpty()) {
+            jogo.pedirSaida(false)
+            jogo.fecharAviso()
+        }
+        val j = jogo.ui!!.jogadorCarreira!!
+        assertTrue("devia ter a primeira época registada", j.temporadas.isNotEmpty())
+        assertTrue(j.bolaDeOuro.isNotEmpty() && j.premiosDaLiga.isNotEmpty())
+
+        tocar("Início")
+        capturar("40c-jogador-inicio")
+        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("O TEU JOGADOR"))
+        capturar("40e-jogador-inicio-baixo")
+        tocar("Carreira")
+        capturar("40-jogador-perfil")
+        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Pedir mais minutos ao treinador"))
+        capturar("40b-jogador-perfil-minutos")
+        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Equilibrado"))
+        capturar("40d-jogador-perfil-treino")
+        tocar("Percurso")
+        capturar("43-jogador-percurso")
+        tocar("Propostas")
+        capturar("41-jogador-propostas")
+        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Pedir transferência"))
+        capturar("41b-jogador-propostas-baixo")
+        tocar("Prémios")
+        capturar("42-jogador-premios")
+
+        // Pedir minutos e mudar o foco do treino funcionam e ficam guardados.
+        tocar("Perfil")
+        jogo.escolherFocoJogador(pt.futebolcarreira.nucleo.modelos.FocoTreino.FISICO)
+        regra.waitForIdle()
+        assertEquals(pt.futebolcarreira.nucleo.modelos.FocoTreino.FISICO, jogo.ui!!.jogadorCarreira!!.foco)
+        jogo.pedirMinutos()
+        assertTrue(jogo.aviso != null)
+        jogo.fecharAviso()
+        // Aceitar uma proposta muda o clube.
+        val oferta = jogo.ui!!.jogadorCarreira!!.ofertas.firstOrNull()
+        if (oferta != null) {
+            jogo.aceitarOferta(oferta.id)
+            regra.waitForIdle()
+            assertTrue(jogo.aviso != null)
+            jogo.fecharAviso()
+            assertEquals(oferta.clube, jogo.ui!!.clube)
+        }
+        // Gravar, sair e voltar a carregar: o estado do jogador mantém-se.
+        val clubeAtual = jogo.ui!!.clube
+        jogo.sairParaMenu()
+        esperar { jogo.ecra == Ecra.MENU && !jogo.ocupado }
+        jogo.continuar()
+        esperar { jogo.ecra == Ecra.CARREIRA && !jogo.ocupado }
+        assertEquals(clubeAtual, jogo.ui!!.clube)
+        assertEquals(pt.futebolcarreira.nucleo.modelos.FocoTreino.FISICO, jogo.ui!!.jogadorCarreira!!.foco)
+        assertEquals(j.temporadas.size, jogo.ui!!.jogadorCarreira!!.temporadas.size)
+        // No histórico da liga aparecem os prémios individuais.
+        tocar("Liga")
+        tocar("Histórico")
+        capturar("44-liga-historico-premios")
+
+        // Apaga a carreira criada, para não interferir com os outros testes (partilham a pasta das gravações).
+        jogo.sairParaMenu()
+        esperar { jogo.ecra == Ecra.MENU && !jogo.ocupado }
+        for (g in jogo.gravacoes.toList()) {
+            jogo.apagarCarreira(g.id)
+            esperar { !jogo.ocupado }
+        }
+        assertTrue(jogo.gravacoes.isEmpty())
+    }
+
     /** Ecrãs da fase 7 (taças, Europa, seleções) com dados de demonstração. */
     @Test
     fun ecrasDaFase7() {

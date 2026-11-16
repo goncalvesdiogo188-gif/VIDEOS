@@ -113,7 +113,7 @@ private fun Perfil(j: JogadorCarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
                 Rotulo("Contrato e valor")
                 for ((titulo, valor) in j.contrato) {
                     Row(Modifier.padding(top = 4.dp)) {
-                        Text(titulo, Modifier.width(130.dp), fontSize = 13.sp, color = secundaria)
+                        Text(titulo, Modifier.width(150.dp), fontSize = 13.sp, color = secundaria)
                         Text(valor, Modifier.weight(1f), fontSize = 14.sp)
                     }
                 }

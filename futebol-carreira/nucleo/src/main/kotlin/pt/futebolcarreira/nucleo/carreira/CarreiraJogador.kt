@@ -495,8 +495,10 @@ class CarreiraJogador(private val c: Carreira) {
         for (clube in candidatos.take(maximo)) {
             val emprestimo = pediu == "emprestimo" || (pediu.isEmpty() && j.idade <= 21 && estatutoAtual >= EstatutoNoClube.SUPLENTE && clube.reputacao <= meu.reputacao && rng.nextDouble() < 0.3)
             if (pediu == "transferencia" && emprestimo) continue
-            val preco = if (emprestimo) 0L else (j.valorMercado() * (0.9 + rng.nextDouble() * 0.4)).toLong() / 10_000 * 10_000
-            if (preco > clube.orcamento) continue
+            // O preço não passa do que o clube pode pagar (com uma estrela, os clubes pagam o que podem).
+            val tabela = (j.valorMercado() * (0.9 + rng.nextDouble() * 0.4)).toLong() / 10_000 * 10_000
+            val preco = if (emprestimo) 0L else minOf(tabela, clube.orcamento * 8 / 10 / 10_000 * 10_000)
+            if (!emprestimo && preco <= 0L) continue
             val fator = (1.0 + 0.03 * (clube.reputacao - meu.reputacao) + rng.nextDouble() * 0.15).coerceIn(0.9, 1.8)
             val salario = if (emprestimo) j.salario else ((salarioBase * fator).toInt() / 1000 * 1000).coerceAtLeast(12_000)
             val anos = if (emprestimo) 1 else if (j.idade <= 28) rng.nextInt(3, 6) else rng.nextInt(2, 4)
@@ -639,7 +641,7 @@ class CarreiraJogador(private val c: Carreira) {
         e.epocaFechada = resumo.ano
         val nomeEpoca = c.gestor.nomeEpoca(resumo.ano)
         val t = epocaAtual()
-        if (t != null && (t.jogos > 0 || e.minutosEpoca > 0)) e.temporadas += t
+        if (t != null) e.temporadas += t
         // Troféus do clube (só conta quem jogou alguma vez nesta época).
         val jogou = t != null && t.jogos > 0
         val clube = c.equipa

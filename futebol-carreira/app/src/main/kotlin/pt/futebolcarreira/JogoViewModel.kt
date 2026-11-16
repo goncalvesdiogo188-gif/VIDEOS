@@ -43,6 +43,9 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     /** A carreira aberta (null = estamos nos menus). */
     private var carreira: Carreira? = null
 
+    /** Só para os testes de ecrã: a carreira aberta. */
+    internal val carreiraAberta: Carreira? get() = carreira
+
     /** Liga à vista no separador «Liga» ("" = a do clube). */
     private var ligaId = ""
 
@@ -878,11 +881,12 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 "Cláusula de rescisão" to Mercado.euros(j.clausula()),
             ),
             estaEpoca = epoca?.let {
-                "${it.jogos} jogos, ${it.golos} golos, ${it.assistencias} assistências" + (if (it.jogos > 0) ", nota média %.1f".format(it.nota) else "") + " · ${it.minutos} minutos"
+                "${plural(it.jogos, "jogo", "jogos")}, ${plural(it.golos, "golo", "golos")}, ${plural(it.assistencias, "assistência", "assistências")}" +
+                    (if (it.jogos > 0) ", nota média %.1f".format(it.nota) else "") + " · ${it.minutos} minutos"
             } ?: "",
             minutosEpoca = e.minutosEpoca,
-            totais = "${totais.jogos} jogos, ${totais.golos} golos, ${totais.assistencias} assistências, ${totais.minutos} minutos",
-            selecao = (if (caps == 0) "Ainda sem jogos pela seleção de $nacao." else "$caps ${if (caps == 1) "jogo" else "jogos"} e $golosSelecao golos pela seleção de $nacao.") +
+            totais = "${plural(totais.jogos, "jogo", "jogos")}, ${plural(totais.golos, "golo", "golos")}, ${plural(totais.assistencias, "assistência", "assistências")}, ${totais.minutos} minutos",
+            selecao = (if (caps == 0) "Ainda sem jogos pela seleção de $nacao." else "${plural(caps, "jogo", "jogos")} e ${plural(golosSelecao, "golo", "golos")} pela seleção de $nacao.") +
                 (convocado?.let { " Convocado para a seleção de $it." } ?: ""),
             foco = e.foco,
             pedido = e.pedido?.let { PedidoTreinadorUi(it.texto, cj.progressoDoPedido(it)) },
@@ -898,7 +902,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             },
             mercadoAberto = c.mercado.aberto, emprestado = j.emprestadoPor.isNotEmpty(),
             pedidoSaida = when (e.pedidoSaida) { "transferencia" -> "transferência"; "emprestimo" -> "empréstimo"; else -> "" },
-            temporadas = (e.temporadas + listOfNotNull(epoca?.takeIf { it.jogos > 0 || it.minutos > 0 })).reversed().map {
+            temporadas = (e.temporadas + listOfNotNull(epoca)).reversed().map {
                 TemporadaUi(it.epoca, it.clube, it.jogos, it.golos, it.assistencias, if (it.jogos == 0) "-" else "%.1f".format(it.nota), it.minutos)
             },
             trofeus = e.trofeus.reversed().map { ConquistaUi(it.epoca, it.titulo, it.detalhe) },
@@ -985,6 +989,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun jogos(n: Int) = if (n == 1) "1 jogo" else "$n jogos"
+
+    private fun plural(n: Int, singular: String, plural: String) = "$n ${if (n == 1) singular else plural}"
 
     /** Prepara um jogo para o ecrã de jogo. Devolve null se o relato não existir. */
     private fun criarJogo(c: Carreira, resultado: Resultado, emDireto: Boolean): JogoUi? {
