@@ -48,6 +48,16 @@ data class EstadoPartida(
 /** Um jogo jogado ao vivo. A implementação real está em 11A; 11B pode ter uma falsa para testar. */
 interface PartidaAoVivo {
     val estado: EstadoPartida
+
+    /**
+     * Como [estado], mas com as posições interpoladas entre o último passo e o seguinte: o movimento fica liso mesmo
+     * quando o ritmo das imagens não bate certo com o passo da simulação. Serve só para desenhar.
+     */
+    fun estadoInterpolado(): EstadoPartida = estado
+    /** true na segunda parte (e no prolongamento a seguir). Não cria objetos, ao contrário de [estado]. */
+    val naSegundaParte: Boolean get() = estado.segundaParte
+    /** A fase do jogo. Não cria objetos, ao contrário de [estado]. */
+    val faseDoJogo: FaseJogo get() = estado.fase
     /** Avança o jogo "dt" segundos de tempo real (o tempo de jogo corre mais depressa: 90 minutos em ~ duracaoReal). */
     fun passo(dt: Float, comando: Comando)
     val terminou: Boolean

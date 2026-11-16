@@ -23,8 +23,10 @@ fun VistaGl(sessao: SessaoAoVivo, modifier: Modifier = Modifier, parado: Boolean
     val vista = remember(sessao) {
         GLSurfaceView(contexto).apply {
             setEGLContextClientVersion(2)
-            setEGLConfigChooser(8, 8, 8, 8, 16, 0)
-            setRenderer(RendererPartida(sessao, OpcoesAoVivo.estilo(OpcoesAoVivo.prefs(contexto))))
+            val estilo = OpcoesAoVivo.estilo(OpcoesAoVivo.prefs(contexto))
+            // Nos estilos de resolução total pede-se suavização de arestas (MSAA); se o telemóvel não a der, fica sem ela.
+            if (estilo == EstiloGraficos.DLS || estilo == EstiloGraficos.NORMAL) setEGLConfigChooser(EscolherMsaa()) else setEGLConfigChooser(8, 8, 8, 8, 16, 0)
+            setRenderer(RendererPartida(sessao, estilo))
             renderMode = GLSurfaceView.RENDERMODE_CONTINUOUSLY
             preserveEGLContextOnPause = true
         }
@@ -69,4 +71,27 @@ internal inline fun <reified T> Context.procurar(): T? {
         c = (c as? ContextWrapper)?.baseContext
     }
     return null
+}
+
+/** Escolhe a configuração EGL com 4 amostras de MSAA; se não existir, uma normal (8 bits por canal, 16 de profundidade). */
+internal class EscolherMsaa : GLSurfaceView.EGLConfigChooser {
+    override fun chooseConfig(egl: javax.microedition.khronos.egl.EGL10, display: javax.microedition.khronos.egl.EGLDisplay): javax.microedition.khronos.egl.EGLConfig {
+        for (amostras in intArrayOf(4, 0)) {
+            val a = ArrayList<Int>()
+            a += listOf(
+                javax.microedition.khronos.egl.EGL10.EGL_RED_SIZE, 8, javax.microedition.khronos.egl.EGL10.EGL_GREEN_SIZE, 8,
+                javax.microedition.khronos.egl.EGL10.EGL_BLUE_SIZE, 8, javax.microedition.khronos.egl.EGL10.EGL_ALPHA_SIZE, 8,
+                javax.microedition.khronos.egl.EGL10.EGL_DEPTH_SIZE, 16, javax.microedition.khronos.egl.EGL10.EGL_RENDERABLE_TYPE, 4,
+            )
+            if (amostras > 0) a += listOf(javax.microedition.khronos.egl.EGL10.EGL_SAMPLE_BUFFERS, 1, javax.microedition.khronos.egl.EGL10.EGL_SAMPLES, amostras)
+            a += javax.microedition.khronos.egl.EGL10.EGL_NONE
+            val atributos = a.toIntArray()
+            val n = IntArray(1)
+            if (!egl.eglChooseConfig(display, atributos, null, 0, n) || n[0] <= 0) continue
+            val configs = arrayOfNulls<javax.microedition.khronos.egl.EGLConfig>(n[0])
+            if (!egl.eglChooseConfig(display, atributos, configs, n[0], n)) continue
+            configs.firstOrNull { it != null }?.let { return it }
+        }
+        throw IllegalArgumentException("Nenhuma configuração EGL serve")
+    }
 }

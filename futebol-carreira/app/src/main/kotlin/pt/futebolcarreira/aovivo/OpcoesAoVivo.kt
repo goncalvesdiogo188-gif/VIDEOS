@@ -42,11 +42,11 @@ object OpcoesAoVivo {
     fun repor(p: SharedPreferences) = p.edit().remove(CHAVE_BOTOES).apply()
 }
 
-/** Aspeto do jogo 3D: PS2 (imagem de 480 linhas, suave, com texturas), PS1 (240 linhas, pixelizado) ou Normal (resolução total). */
+/** Aspeto do jogo 3D: «Móvel vivo» (cores fortes, figuras «chibi», resolução total com suavização de arestas), PS2 (imagem de 480 linhas, suave, com texturas), PS1 (240 linhas, pixelizado) ou Normal (resolução total). */
 enum class EstiloGraficos(val nome: String) {
-    PS2("PlayStation 2"), PS1("PlayStation 1"), NORMAL("Normal");
+    DLS("Móvel vivo"), PS2("PlayStation 2"), PS1("PlayStation 1"), NORMAL("Normal");
 
     companion object {
-        fun deNome(t: String?): EstiloGraficos = entries.firstOrNull { it.name == t } ?: PS2
+        fun deNome(t: String?): EstiloGraficos = entries.firstOrNull { it.name == t } ?: DLS
     }
 }

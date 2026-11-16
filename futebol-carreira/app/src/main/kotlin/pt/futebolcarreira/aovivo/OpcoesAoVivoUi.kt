@@ -69,7 +69,7 @@ fun BlocoOpcoesAoVivo() {
                 label = { Text(e.nome.replace("PlayStation", "PS"), fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.heightIn(min = 48.dp),
             )
         }
-        Text("PS2: imagem suave com relva, público e luzes. PS1: pixelizado. Vale para o próximo jogo.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Móvel vivo: cores fortes e figuras grandes, tudo liso. PS2 e PS1: aspeto de consola antiga. Vale para o próximo jogo.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Rotulo("Jogo ao vivo: dificuldade", Modifier.padding(top = 10.dp))
         FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in pt.futebolcarreira.nucleo.aovivo.Dificuldade.entries) FilterChip(

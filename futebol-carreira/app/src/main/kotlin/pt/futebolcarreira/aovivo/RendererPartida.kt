@@ -18,7 +18,10 @@ import kotlin.math.sin
  * ([SessaoAoVivo.avancar]) e desenha o estado. Tudo o que é fixo (campo, balizas, bancadas) é calculado uma vez;
  * durante o jogo não se criam objetos novos, só se reaproveitam as matrizes.
  */
-class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: EstiloGraficos = EstiloGraficos.PS2) : GLSurfaceView.Renderer {
+class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: EstiloGraficos = EstiloGraficos.DLS) : GLSurfaceView.Renderer {
+    /** PS1 e PS2 desenham numa imagem pequena e ampliam-na; os outros estilos desenham direto no ecrã (com MSAA). */
+    private val usaImagemPequena = estilo == EstiloGraficos.PS1 || estilo == EstiloGraficos.PS2
+    private val chibi = estilo == EstiloGraficos.DLS
     private val camera = CameraTransmissao()
     private var proporcao = 2f
     private var ultimoNs = 0L
@@ -80,7 +83,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
     private var coresDe: EstadoPartida? = null
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        if (estilo == EstiloGraficos.PS2) GLES20.glClearColor(CEU2_R, CEU2_G, CEU2_B, 1f) else GLES20.glClearColor(0.34f, 0.42f, 0.55f, 1f)
+        if (estilo == EstiloGraficos.PS2) GLES20.glClearColor(CEU2_R, CEU2_G, CEU2_B, 1f) else if (estilo == EstiloGraficos.DLS) GLES20.glClearColor(CEU3_R, CEU3_G, CEU3_B, 1f) else GLES20.glClearColor(0.34f, 0.42f, 0.55f, 1f)
         programa = criarPrograma(VERTICE, FRAGMENTO)
         uMvp = GLES20.glGetUniformLocation(programa, "uMvp")
         uModelo = GLES20.glGetUniformLocation(programa, "uModelo")
@@ -116,7 +119,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         GLES20.glViewport(0, 0, largura, altura)
         ecraLargura = largura; ecraAltura = altura
         proporcao = largura.toFloat() / altura.coerceAtLeast(1)
-        if (estilo != EstiloGraficos.NORMAL) criarImagemPequena(largura, altura)
+        if (usaImagemPequena) criarImagemPequena(largura, altura)
         Matrix.perspectiveM(projecao, 0, camera.campoDeVisaoV, proporcao, 8f, 260f)
     }
 
@@ -127,14 +130,14 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         ultimoNs = agora
         tempo += dt
         sessao.avancar(dt)
-        val e = sessao.partida.estado
+        val e = sessao.partida.estadoInterpolado()
         camera.atualizar(e.bola.x, e.bola.y, dt, sessao.sentido())
         preencherCores(e)
 
         Matrix.setLookAtM(vista, 0, camera.olhoX, camera.olhoY, camera.olhoZ, camera.alvoX, camera.alvoY, 0f, 0f, 0f, 1f)
         Matrix.multiplyMM(vp, 0, projecao, 0, vista, 0)
 
-        val ps1 = estilo != EstiloGraficos.NORMAL && fboOk
+        val ps1 = usaImagemPequena && fboOk
         if (ps1) {
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fbo)
             GLES20.glViewport(0, 0, fboLargura, fboAltura)
@@ -142,13 +145,14 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         GLES20.glUseProgram(programa)
         GLES20.glUniform1f(uPs1, if (ps1 && estilo == EstiloGraficos.PS1) 1f else 0f)   // vértices a saltar só no PS1
-        GLES20.glUniform1f(uEst, if (!ps1) 0f else if (estilo == EstiloGraficos.PS1) 1f else 2f)
+        GLES20.glUniform1f(uEst, when (estilo) { EstiloGraficos.PS1 -> if (ps1) 1f else 0f; EstiloGraficos.PS2 -> if (ps1) 2f else 0f; EstiloGraficos.DLS -> 3f; else -> 0f })
         GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texRuido)
         GLES20.glUniform1i(uRuido, 1)
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glUniform2f(uRes, if (ps1) fboLargura.toFloat() else ecraLargura.toFloat(), if (ps1) fboAltura.toFloat() else ecraAltura.toFloat())
         if (estilo == EstiloGraficos.PS2) GLES20.glUniform3f(uNevoa, CEU2_R, CEU2_G, CEU2_B)
+        else if (estilo == EstiloGraficos.DLS) GLES20.glUniform3f(uNevoa, CEU3_R, CEU3_G, CEU3_B)
         else GLES20.glUniform3f(uNevoa, NEVOA_R, NEVOA_G, NEVOA_B)
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
         GLES20.glEnableVertexAttribArray(0)
@@ -168,6 +172,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         desenharFixos(bancadas, 1f)
         desenharFixos(balizas, 1f, transparentes = false)
         for (i in 0 until e.jogadores.size) desenharJogador(e, i, dt)
+        desenharMarcador(e)
         desenharBola(e)
 
         // 3) Redes das balizas, transparentes e sem escrever profundidade.
@@ -394,15 +399,15 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         caixa(0f, 0f, 0.9f, 0.27f, 0.46f, 0.3f, sr, sg, sb)
         caixa(0f, 0f, 1.27f, 0.28f, 0.5f, 0.62f, cr, cg, cb)
         System.arraycopy(base, 0, modelo, 0, 16)
-        Matrix.translateM(modelo, 0, 0f, 0f, 1.74f)
-        Matrix.scaleM(modelo, 0, 0.14f, 0.14f, 0.15f)
+        Matrix.translateM(modelo, 0, 0f, 0f, if (chibi) 1.82f else 1.74f)
+        if (chibi) Matrix.scaleM(modelo, 0, 0.215f, 0.215f, 0.225f) else Matrix.scaleM(modelo, 0, 0.14f, 0.14f, 0.15f)
         desenhar(malhas.esfera, pr, pg, pb, 1f, 1f)
         // Cabelo (cor conforme o jogador), gola da camisola e pescoço.
         val cabelo = (j.id / 3) % 4
         val hr = if (cabelo == 0) 0.08f else if (cabelo == 1) 0.30f else if (cabelo == 2) 0.78f else 0.55f
         val hg = if (cabelo == 0) 0.07f else if (cabelo == 1) 0.18f else if (cabelo == 2) 0.62f else 0.27f
         val hb = if (cabelo == 0) 0.07f else if (cabelo == 1) 0.10f else if (cabelo == 2) 0.28f else 0.12f
-        caixa(-0.01f, 0f, 1.86f, 0.30f, 0.30f, 0.10f, hr, hg, hb)
+        if (chibi) caixa(-0.02f, 0f, 2.0f, 0.42f, 0.42f, 0.14f, hr, hg, hb) else caixa(-0.01f, 0f, 1.86f, 0.30f, 0.30f, 0.10f, hr, hg, hb)
         caixa(0f, 0f, 1.62f, 0.10f, 0.10f, 0.08f, pr, pg, pb)
         caixa(0f, 0f, 1.57f, 0.30f, 0.52f, 0.05f, cr * 0.8f, cg * 0.8f, cb * 0.8f)
     }
@@ -444,6 +449,23 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
         Matrix.scaleM(parte, 0, 0.13f, 0.13f, 0.4f)
         System.arraycopy(parte, 0, modelo, 0, 16)
         desenhar(malhas.caixa, r, g, b, 1f, 1f)
+    }
+
+    // ---------------------------------------------------- marcador do jogador controlado
+
+    /** Um diamante amarelo a flutuar por cima da cabeça do jogador que o utilizador comanda (como nos jogos de telemóvel). */
+    private fun desenharMarcador(e: EstadoPartida) {
+        for (j in e.jogadores) {
+            if (!j.controlado) continue
+            val flutua = 0.12f * sin(tempo * 5f)
+            Matrix.setIdentityM(modelo, 0)
+            Matrix.translateM(modelo, 0, j.x, j.y, (if (chibi) 2.75f else 2.55f) + flutua)
+            Mat4.rodar(modelo, tempo * 120f, 0f, 0f, 1f)
+            Mat4.rodar(modelo, 45f, 1f, 0f, 0f)
+            Mat4.rodar(modelo, 35f, 0f, 1f, 0f)
+            Matrix.scaleM(modelo, 0, 0.34f, 0.34f, 0.34f)
+            desenhar(malhas.caixa, 1f, 0.84f, 0.1f, 1f, 0f)
+        }
     }
 
     // --------------------------------------------------------------- bola
@@ -499,6 +521,9 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
 
         const val ALTURA_PS1 = 240       // linhas da imagem pequena (a PlayStation usava 240)
         const val ALTURA_PS2 = 480       // PS2: 480 linhas, ampliadas com suavização
+        const val CEU3_R = 0.42f
+        const val CEU3_G = 0.70f
+        const val CEU3_B = 0.95f
         const val CEU2_R = 0.47f
         const val CEU2_G = 0.60f
         const val CEU2_B = 0.80f
@@ -556,16 +581,35 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: Esti
                 vec3 n = normalize(vNor);
                 float d = max(dot(n, luz), 0.0);
                 bool ps1 = uEst > 0.5 && uEst < 1.5;
-                bool ps2 = uEst > 1.5;
+                bool dls = uEst > 2.5;
+                bool ps2 = uEst > 1.5 && !dls;
                 if (ps1) d = floor(d * 3.0 + 0.5) / 3.0;   // sombreado em poucos degraus
                 float k;
-                if (ps2) {
+                if (dls) {
+                    float h = 0.5 + 0.5 * dot(n, luz);       // luz clara e envolvente: sombras suaves, sem pretos
+                    k = mix(1.0, 0.66 + 0.24 * d + 0.16 * h + 0.08 * n.z, uLuz);
+                } else if (ps2) {
                     float h = 0.5 + 0.5 * dot(n, luz);       // luz envolvente (meia-lambert)
                     k = mix(1.0, 0.56 + 0.30 * d + 0.20 * h + 0.10 * n.z, uLuz);
                 } else {
                     k = mix(1.0, 0.55 + 0.5 * d, uLuz);
                 }
                 vec3 c = uCor.rgb * k;
+                if (dls) {
+                    if (uMat > 0.5 && uMat < 1.5) {
+                        vec4 r2 = texture2D(uRuido, vMundo.xy * 0.0156);
+                        c *= 0.96 + 0.06 * (r2.g - 0.5);   // relva lisa, só com leves manchas
+                    } else if (uMat > 1.5 && uMat < 2.5) {
+                        vec2 p = vec2(vMundo.x * 1.1 + vMundo.z * 1.5, vMundo.y * 1.1 + vMundo.z * 1.0);
+                        vec4 r = texture2D(uRuido, (floor(p) + 0.5) / 64.0);
+                        vec3 camisa = mix(mix(vec3(0.80, 0.22, 0.22), vec3(0.92, 0.92, 0.95), r.g), vec3(0.22, 0.40, 0.85), step(0.55, r.b));
+                        c = mix(c * (0.62 + 0.30 * r.r), camisa * (0.62 + 0.22 * r.a), step(0.50, r.a));
+                    } else if (uMat > 2.5) {
+                        c = uCor.rgb * 1.15;
+                    }
+                    float lum = dot(c, vec3(0.299, 0.587, 0.114));
+                    c = mix(vec3(lum), c, 1.28);   // cores mais vivas
+                }
                 if (ps2) {
                     if (uMat > 0.5 && uMat < 1.5) {
                         // Relva: grão fino e manchas largas, a partir do ruído.

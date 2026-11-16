@@ -86,7 +86,7 @@ class SessaoAoVivo(
 
     /** +1 se a equipa do utilizador ataca para +x (e a câmara mostra o +x à direita); -1 se ataca para -x. */
     fun sentido(): Int {
-        val segunda = partida.estado.segundaParte
+        val segunda = partida.naSegundaParte
         return if (utilizadorCasa xor segunda) 1 else -1
     }
 
@@ -134,7 +134,7 @@ class SessaoAoVivo(
     private fun precisaPalestra(): Boolean {
         if (aguardaPalestra) return true
         if (!controlar || palestraFeita || !tatica.suportado) return false
-        if (partida.estado.fase == FaseJogo.INTERVALO) {
+        if (partida.faseDoJogo == FaseJogo.INTERVALO) {
             aguardaPalestra = true
             controlo.limpar()
             return true

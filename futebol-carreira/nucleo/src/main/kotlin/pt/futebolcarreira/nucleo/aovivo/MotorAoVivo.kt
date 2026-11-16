@@ -261,6 +261,7 @@ class MotorAoVivo(
         var correu = false
         while (acum >= K.SUB) {
             acum -= K.SUB
+            guardarAnterior()
             substep()
             correu = true
         }
@@ -691,19 +692,43 @@ class MotorAoVivo(
 
     // ---------------------------------------------------------------- estado para desenhar
 
-    override val estado: EstadoPartida
-        get() {
-            val lista = ArrayList<JogadorEmCampo>(22)
-            for (i in 0 until N) {
-                if (!ativo[i]) continue
-                val j = jog[i]!!
-                lista += JogadorEmCampo(j.id, i < 11, numero[i], lugar[i], j.nome, px[i], py[i], dir[i], anim[i], i == controlado)
-            }
-            val gs = relogio
-            return EstadoPartida(
-                minutoAtual(), gs - floor(gs / 60f) * 60f, golos[0], golos[1], fase, segundaParte, lista,
-                Bola(bx, by, bz), coresCasa, coresFora, casa.abreviatura, fora.abreviatura, msg,
-                reg.periodo, construirBolaParada(), estadoDoDesempate(), reg.vantagemEq >= 0, dificuldade, reg.lances.size,
+    override val estado: EstadoPartida get() = construirEstado(1f)
+
+    override fun estadoInterpolado(): EstadoPartida = construirEstado((acum / K.SUB).coerceIn(0f, 1f))
+
+    override val naSegundaParte: Boolean get() = segundaParte
+    override val faseDoJogo: FaseJogo get() = fase
+
+    // Posições do passo anterior, para interpolar o desenho entre dois passos da simulação.
+    private val ppx = FloatArray(N)
+    private val ppy = FloatArray(N)
+    private var pbx = 0f
+    private var pby = 0f
+    private var pbz = 0f
+
+    private fun guardarAnterior() {
+        for (i in 0 until N) { ppx[i] = px[i]; ppy[i] = py[i] }
+        pbx = bx; pby = by; pbz = bz
+    }
+
+    /** Entre o passo anterior (alpha 0) e o atual (alpha 1); saltos grandes (reposicionamentos) não se interpolam. */
+    private fun suave(antes: Float, agora: Float, alpha: Float): Float =
+        if (alpha >= 1f || abs(agora - antes) > 3f) agora else antes + (agora - antes) * alpha
+
+    private fun construirEstado(alpha: Float): EstadoPartida {
+        val lista = ArrayList<JogadorEmCampo>(22)
+        for (i in 0 until N) {
+            if (!ativo[i]) continue
+            val j = jog[i]!!
+            lista += JogadorEmCampo(
+                j.id, i < 11, numero[i], lugar[i], j.nome, suave(ppx[i], px[i], alpha), suave(ppy[i], py[i], alpha), dir[i], anim[i], i == controlado,
             )
         }
+        val gs = relogio
+        return EstadoPartida(
+            minutoAtual(), gs - floor(gs / 60f) * 60f, golos[0], golos[1], fase, segundaParte, lista,
+            Bola(suave(pbx, bx, alpha), suave(pby, by, alpha), suave(pbz, bz, alpha)), coresCasa, coresFora, casa.abreviatura, fora.abreviatura, msg,
+            reg.periodo, construirBolaParada(), estadoDoDesempate(), reg.vantagemEq >= 0, dificuldade, reg.lances.size,
+        )
+    }
 }
