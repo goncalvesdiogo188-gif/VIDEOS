@@ -51,7 +51,10 @@ internal class Parte(val eq: Int, val jogador: Jogador, val ficha: FichaJogador)
 class MotorAoVivo(
     internal val casa: Equipa, internal val fora: Equipa, val utilizadorCasa: Boolean,
     internal val rng: Random, val duracaoReal: Float = 480f, val semUtilizador: Boolean = false,
+    val dificuldade: Dificuldade = Dificuldade.NORMAL,
+    internal val exigencia: ExigenciaVencedor? = null,
 ) : PartidaAoVivo {
+    internal val reg = EstadoRegras()
     internal val N = 22
     internal val jog = arrayOfNulls<Jogador>(N)
     internal val lugar = Array(N) { "" }
@@ -153,6 +156,12 @@ class MotorAoVivo(
 
     override val terminou: Boolean get() = fase == FaseJogo.FIM
 
+    override val lances: List<Lance> get() = reg.lances
+
+    override fun executarParada(comando: ComandoParada): Boolean = executarParadaUtilizador(comando)
+
+    override fun escolherMergulho(lado: Int) { reg.mergulhoUser = lado.coerceIn(-1, 1) }
+
     private fun deslocamento(e: Equipa): Float = when (e.mentalidade) {
         pt.futebolcarreira.nucleo.modelos.Mentalidade.OFENSIVA -> 4f
         pt.futebolcarreira.nucleo.modelos.Mentalidade.DEFENSIVA -> -4f
@@ -167,10 +176,7 @@ class MotorAoVivo(
     internal fun minutoAtual(): Int = floor(relogio / 60f).toInt()
 
     /** Minuto para os relatos (1 a 45 na primeira parte; depois 46 em diante). */
-    internal fun minutoEvento(): Int {
-        val m = minutoAtual() + 1
-        return if (!segundaParte) min(m, 45) else max(m, 46)
-    }
+    internal fun minutoEvento(): Int = minutoDoPeriodo(minutoAtual() + 1)
 
     // ---------------------------------------------------------------- preparação
 
@@ -258,8 +264,9 @@ class MotorAoVivo(
         if (fase == FaseJogo.FIM) return
         tFase += dt
         if (msgT > 0f) { msgT -= dt; if (msgT <= 0f) msg = null }
+        if (reg.desempate != null) { passoDesempate(dt); return }
         if (fase == FaseJogo.INTERVALO) {
-            if (tFase >= 3f) iniciarSegundaParte()
+            if (tFase >= 3f) iniciarPeriodoSeguinte()
             return
         }
         temporizadores(dt)
@@ -280,6 +287,7 @@ class MotorAoVivo(
         if (fase == FaseJogo.A_JOGAR) {
             contactos()
             desarmes()
+            tickRegras(dt)
             val e = if (dono >= 0) eq(dono) else ultimoEq
             if (e >= 0) posseT[e] += dt
         }
@@ -287,7 +295,7 @@ class MotorAoVivo(
         verificarFimDeParte(dt)
     }
 
-    private fun temporizadores(dt: Float) {
+    internal fun temporizadores(dt: Float) {
         for (i in 0 until N) {
             if (cd[i] > 0f) cd[i] -= dt
             if (atordoado[i] > 0f) atordoado[i] -= dt
@@ -303,10 +311,10 @@ class MotorAoVivo(
     /** Velocidade de corrida normal (sem sprint) de um jogador, em m/s. */
     internal fun velMax(i: Int): Float {
         val base = 4.3f + 2.9f * aRitmo[i] / 100f
-        return base * (0.82f + 0.18f * stam[i] / 100f)
+        return base * (0.82f + 0.18f * stam[i] / 100f) * dif(eq(i)).velocidade
     }
 
-    private fun mover(i: Int, dt: Float) {
+    internal fun mover(i: Int, dt: Float) {
         var dx = 0f; var dy = 0f; var spr = false
         val vmax = velMax(i)
         val controlo = i == controlado && fase != FaseJogo.GOLO
@@ -377,9 +385,9 @@ class MotorAoVivo(
 
     // ---------------------------------------------------------------- bola
 
-    private fun moverBola(dt: Float) {
+    internal fun moverBola(dt: Float) {
         val parada = fase != FaseJogo.A_JOGAR
-        if (parada) return
+        if (parada && reg.desempate?.estado != EstadoChute.EM_VOO) return
         if (dono >= 0) {
             val a = dir[dono]
             bx = px[dono] + cos(a) * 0.6f; by = py[dono] + sin(a) * 0.6f; bz = 0f
@@ -404,6 +412,7 @@ class MotorAoVivo(
     }
 
     private fun limites() {
+        if (reg.desempate != null && desempateLimites()) return
         if ((abs(bx) > K.MX || abs(by) > K.MY) && passador >= 0) dbg[1]++
         if (abs(bx) > K.MX) {
             val sgn = sign(bx)
@@ -511,7 +520,7 @@ class MotorAoVivo(
     }
 
     /** Põe a bola num ponto, escolhe quem cobra e passa para uma fase de lance parado. */
-    internal fun iniciarReinicio(nova: FaseJogo, e: Int, x: Float, y: Float) {
+    internal fun iniciarReinicio(nova: FaseJogo, e: Int, x: Float, y: Float, forcarCobrador: Int = -1) {
         fase = nova
         tFase = 0f
         eqReinicio = e
@@ -533,6 +542,7 @@ class MotorAoVivo(
                 c = (base until base + 11).filter { ativo[it] && papel[it] != 0 }.minByOrNull { hypot(px[it] - x, py[it] - y) - (if (nova == FaseJogo.CANTO) aPasse[it] * 0.15f else 0f) } ?: -1
             else -> {}
         }
+        if (forcarCobrador >= 0 && ativo[forcarCobrador] && eq(forcarCobrador) == e) c = forcarCobrador
         if (c < 0) c = (base until base + 11).firstOrNull { ativo[it] } ?: base
         cobrador = c
         // Posição de quem cobra e direção
@@ -558,16 +568,10 @@ class MotorAoVivo(
         // Quem o utilizador comanda
         if (e == eqUser) controlado = c
         else controlado = maisPerto(eqUser, x, y, false)
+        aoIniciarReinicio(nova, e, x, y)
     }
 
-    private fun iniciarSegundaParte() {
-        segundaParte = true
-        excedente = 0f
-        for (i in 0 until N) stam[i] = min(100f, stam[i] + 15f)
-        iniciarReinicio(FaseJogo.PONTAPE_SAIDA, 1, 0f, 0f)
-    }
-
-    private fun fimDeParteChegou(): Boolean = relogio >= (if (!segundaParte) 2700f else 5400f)
+    private fun fimDeParteChegou(): Boolean = relogio >= limiteDoPeriodo()
 
     private fun verificarFimDeParte(dt: Float) {
         if (!fimDeParteChegou()) return
@@ -578,16 +582,7 @@ class MotorAoVivo(
     private fun acabarParte() {
         excedente = 0f
         dono = -1
-        if (!segundaParte) {
-            relogio = 2700f
-            fase = FaseJogo.INTERVALO
-            tFase = 0f
-            mensagem("Intervalo: ${golos[0]}-${golos[1]}", 3f)
-        } else {
-            ultimoMinuto = max(90, minutoAtual() + (if (relogio % 60f > 0f) 1 else 0))
-            fase = FaseJogo.FIM
-            mensagem("Fim do jogo: ${golos[0]}-${golos[1]}", 5f)
-        }
+        acabarPeriodo()
     }
 
     // ---------------------------------------------------------------- utilitários partilhados
@@ -625,6 +620,7 @@ class MotorAoVivo(
             return EstadoPartida(
                 minutoAtual(), gs - floor(gs / 60f) * 60f, golos[0], golos[1], fase, segundaParte, lista,
                 Bola(bx, by, bz), coresCasa, coresFora, casa.abreviatura, fora.abreviatura, msg,
+                reg.periodo, construirBolaParada(), estadoDoDesempate(), reg.vantagemEq >= 0, dificuldade, reg.lances.size,
             )
         }
 }

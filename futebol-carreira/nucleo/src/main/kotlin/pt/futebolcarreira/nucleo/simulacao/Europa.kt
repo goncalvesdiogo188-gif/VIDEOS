@@ -276,9 +276,15 @@ class EstadoEuropa private constructor(
         jogo.jogado = true
         if (guardar) jogo.relatorio = rel
         if (tie != null && decisivo && tie.golos(tie.a) == tie.golos(tie.b)) {
-            val (pc, pf) = Penaltis.disputar(casa, fora, rng)
-            jogo.penaltisCasa = pc
-            jogo.penaltisFora = pf
+            if (rel.penaltisCasa >= 0 && rel.penaltisFora >= 0 && rel.penaltisCasa != rel.penaltisFora) {
+                // Jogo ao vivo que já teve os penáltis de desempate
+                jogo.penaltisCasa = rel.penaltisCasa
+                jogo.penaltisFora = rel.penaltisFora
+            } else {
+                val (pc, pf) = Penaltis.disputar(casa, fora, rng)
+                jogo.penaltisCasa = pc
+                jogo.penaltisFora = pf
+            }
         }
         // Bilheteira: o anfitrião fica com tudo; na final cada finalista fica com metade.
         if (jogo.neutro) {

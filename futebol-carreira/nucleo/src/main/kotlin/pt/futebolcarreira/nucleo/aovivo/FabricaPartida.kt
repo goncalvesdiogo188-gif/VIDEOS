@@ -14,8 +14,12 @@ import kotlin.random.Random
 object FabricaPartida {
     /** "utilizadorCasa" = o utilizador comanda a equipa da casa (senão a de fora). duracaoReal em segundos (por defeito 8 min).
      * "semUtilizador" = as duas equipas jogam pela IA (para testes e para simular jogos sem comandos). */
-    fun criar(casa: Equipa, fora: Equipa, utilizadorCasa: Boolean, rng: Random, duracaoReal: Float = 480f, semUtilizador: Boolean = false): PartidaAoVivo =
-        MotorAoVivo(casa, fora, utilizadorCasa, rng, duracaoReal, semUtilizador)
+    fun criar(
+        casa: Equipa, fora: Equipa, utilizadorCasa: Boolean, rng: Random, duracaoReal: Float = 480f, semUtilizador: Boolean = false,
+        dificuldade: Dificuldade = Dificuldade.NORMAL,
+        /** Se não for null, a competição exige vencedor: empate no fim dos 90' leva a prolongamento e penáltis ao vivo. */
+        exigencia: ExigenciaVencedor? = null,
+    ): PartidaAoVivo = MotorAoVivo(casa, fora, utilizadorCasa, rng, duracaoReal, semUtilizador, dificuldade, exigencia)
 
     /** Converte o jogo terminado num relatório igual ao do motor de simulação (golos, marcadores, cartões, notas, lesões). */
     fun relatorio(partida: PartidaAoVivo): RelatorioJogo {
@@ -64,7 +68,11 @@ internal fun MotorAoVivo.construirRelatorio(): RelatorioJogo {
         eq.id, eq.formacao, eq.mentalidade ?: Mentalidade.EQUILIBRADA,
         partes.filter { it.eq == e }.map { it.ficha }, est[e], indisponiveis[e],
     )
-    return RelatorioJogo(lado(0, casa), lado(1, fora), golos[0], golos[1], ultimoMinuto, eventos.toList())
+    val d = reg.desempate
+    return RelatorioJogo(
+        lado(0, casa), lado(1, fora), golos[0], golos[1], ultimoMinuto, eventos.toList(), reg.prolongamento,
+        penaltisCasa = d?.marcados?.get(0) ?: -1, penaltisFora = d?.marcados?.get(1) ?: -1,
+    )
 }
 
 /** Nota de 1 a 10 a partir do que cada um fez (golos, assistências, passes, desarmes, defesas...), como no motor de simulação. */
