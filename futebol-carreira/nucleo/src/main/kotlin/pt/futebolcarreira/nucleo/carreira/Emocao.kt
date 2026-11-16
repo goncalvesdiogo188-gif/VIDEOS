@@ -148,11 +148,11 @@ class Emocao(internal val c: Carreira) {
     /** Um gerador de números aleatórios ligado ao dia e à chave: igual sempre que se repete a mesma situação. */
     internal fun rng(chave: String): Random = Random(java.util.Objects.hash(g.ano, g.data.toEpochDay(), chave, c.info.equipaId).toLong())
 
-    internal fun jogador(id: Int?): Jogador? = id?.let { bd.jogadores[it] }
+    fun jogador(id: Int?): Jogador? = id?.let { bd.jogadores[it] }
 
-    internal fun plantel(): List<Jogador> = c.equipa.plantel.toList()
+    fun plantel(): List<Jogador> = c.equipa.plantel.toList()
 
-    internal fun moralMedia(): Double = plantel().map { it.moral }.average().takeIf { !it.isNaN() } ?: 50.0
+    fun moralMedia(): Double = plantel().map { it.moral }.average().takeIf { !it.isNaN() } ?: 50.0
 
     internal fun dataTexto(d: LocalDate = g.data) = pt.futebolcarreira.nucleo.simulacao.CalendarioDatas.textoCurto(d)
 

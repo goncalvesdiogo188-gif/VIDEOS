@@ -46,6 +46,7 @@ internal fun Inicio(
     ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
     aoAbrirJogo: (Int) -> Unit, aoAbrirChave: (String) -> Unit, aoVerLiga: () -> Unit,
     aoAceitar: (String) -> Unit, aoRecusar: () -> Unit, aoVerNoticias: () -> Unit = {}, aoJogarAoVivo: () -> Unit = {},
+    aoDecidir: (Int, Int) -> Unit = { _, _ -> },
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     LazyColumn(
@@ -72,6 +73,9 @@ internal fun Inicio(
                 }
             }
         }
+
+        // ---- Decisões pendentes (imprensa, palestras, conversas, balneário) ----
+        if (!ui.despedido && ui.emocao.decisoes.isNotEmpty()) item { CaixaDecisoes(ui.emocao.decisoes, ativo, aoDecidir) }
 
         // ---- O que há para fazer a seguir ----
         if (!ui.despedido) item { CartaoProximoJogo(ui, ativo, aoJogar, aoNovaEpoca, aoJogarAoVivo) }

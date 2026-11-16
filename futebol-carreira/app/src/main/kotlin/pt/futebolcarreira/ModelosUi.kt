@@ -316,6 +316,8 @@ data class CarreiraUi(
     val noticias: List<NoticiaUi> = emptyList(),
     /** Só na via de jogador (Fase 9). */
     val jogadorCarreira: JogadorCarreiraUi? = null,
+    /** Fase 13: decisões pendentes, balneário e história do clube. */
+    val emocao: EmocaoUi = EmocaoUi(),
 )
 
 // ------------------------------------------- fase 7: taças, Europa, seleções
