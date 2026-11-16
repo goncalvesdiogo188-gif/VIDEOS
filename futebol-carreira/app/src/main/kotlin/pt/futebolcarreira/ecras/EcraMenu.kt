@@ -67,6 +67,18 @@ fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () 
         }
         Spacer(Modifier.height(36.dp))
         Text("Versão de desenvolvimento 0.12 · Fase 12", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        // Atalho discreto para enviar um relatório de problema.
+        var relatar by remember { mutableStateOf(false) }
+        TextButton(onClick = { relatar = true }, Modifier.heightIn(min = 48.dp)) {
+            Text("Relatar problema", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        if (relatar) {
+            val ultimaGravada = gravacoes.firstOrNull()
+            DialogoRelatarProblema(
+                "Ecrã: Menu principal\nCarreiras gravadas: ${gravacoes.size}" +
+                    (if (ultimaGravada != null) "\nÚltima: ${ultimaGravada.clube} · época ${ultimaGravada.epoca} · ${ultimaGravada.data}" else ""),
+            ) { relatar = false }
+        }
     }
 }
 

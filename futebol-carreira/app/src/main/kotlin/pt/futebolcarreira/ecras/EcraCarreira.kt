@@ -2,6 +2,8 @@ package pt.futebolcarreira.ecras
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -483,7 +485,8 @@ private fun Opcoes(
     mostrarMedidor: Boolean = false, aoMostrarMedidor: (Boolean) -> Unit = {},
 ) {
     var confirmar by remember { mutableStateOf(false) }
-    Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    var relatar by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Bloco {
             Rotulo("A tua carreira")
             Text(ui.utilizador, fontSize = 18.sp, fontWeight = FontWeight.Bold)
@@ -518,6 +521,12 @@ private fun Opcoes(
         OutlinedButton(onClick = aoSair, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Gravar e sair para o menu", fontSize = 16.sp)
         }
+        OutlinedButton(onClick = { relatar = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+            Text("Relatar problema", fontSize = 16.sp)
+        }
+    }
+    if (relatar) {
+        DialogoRelatarProblema("Clube: ${ui.clube}\nData de jogo: ${ui.data} (época ${ui.epoca})\nEcrã: Mais → Opções") { relatar = false }
     }
     if (confirmar) {
         AlertDialog(
