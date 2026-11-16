@@ -471,6 +471,19 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         atualizar()
     }
 
+    /** Troca dois jogadores do onze entre si (arrastar um para cima do outro no campo da tática). */
+    fun trocarLugares(a: Int, b: Int) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.TREINADOR || a == b) return
+        val onze = c.equipa.onzeParaJogo()
+        val ja = onze.getOrNull(a)?.jogador ?: return
+        val jb = onze.getOrNull(b)?.jogador ?: return
+        if (!ja.disponivel || !jb.disponivel) return
+        c.equipa.definirTitular(a, jb)
+        porGravar = true
+        atualizar()
+    }
+
     /** Volta a deixar o adjunto escolher o onze. */
     fun onzeAutomatico() {
         val c = carreira ?: return
@@ -603,6 +616,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 estado(j).takeIf { it.isNotEmpty() }?.let { "Estado" to it },
             ),
             botoes, nota,
+            evolucao = (j.geralPorIdade.filterKeys { it < j.idade }.toList() + (j.idade to j.geral())).sortedBy { it.first },
         )
     }
 

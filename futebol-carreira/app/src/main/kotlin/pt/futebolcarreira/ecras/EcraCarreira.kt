@@ -102,7 +102,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 )
                 1 -> ConteudoPlantel(
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
-                    jogo::abrirEscolha, jogo::onzeAutomatico, jogo::abrirJogador,
+                    jogo::abrirEscolha, jogo::onzeAutomatico, jogo::abrirJogador, jogo::trocarLugares,
                 )
                 2 -> if (ui.jogadorCarreira != null) SeparadorJogador(ui.jogadorCarreira, !jogo.ocupado, jogo) else SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
                 3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel, jogo.fase7, jogo::escolherCompeticao, jogo::abrirJogoPorChave)

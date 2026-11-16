@@ -39,16 +39,9 @@ internal val COR_VITORIA = Color(0xFF2E7D32)
 internal val COR_EMPATE = Color(0xFF757575)
 internal val COR_DERROTA = Color(0xFFC62828)
 
-/** Emblema redondo de um clube: as cores do clube e a sigla. */
+/** Emblema (escudo) de um clube: cores e padrão do clube, desenhado em EmblemaClube.kt. */
 @Composable
-internal fun Emblema(e: EmblemaUi, tamanho: Dp = 40.dp) {
-    Box(
-        Modifier.size(tamanho).background(Color(e.fundo), CircleShape).border(2.dp, Color(e.letras), CircleShape),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(e.sigla.take(3), color = Color(e.letras), fontWeight = FontWeight.Bold, fontSize = (tamanho.value * 0.3f).sp, maxLines = 1)
-    }
-}
+internal fun Emblema(e: EmblemaUi, tamanho: Dp = 40.dp) = EmblemaEscudo(e, tamanho)
 
 /** Cartão: um bloco com fundo próprio e contorno fino. Se "aoTocar" existir, o cartão é um botão. */
 @Composable

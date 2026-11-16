@@ -224,6 +224,8 @@ class FichaJogadorUi(
     val botoes: List<BotaoMercadoUi>,
     /** Explica por que não há botões (mercado fechado, etc.); "" se não for preciso. */
     val nota: String,
+    /** Evolução do geral: (idade, geral) no fim de cada época, mais o valor atual. Vazio ou só um ponto = ainda sem histórico. */
+    val evolucao: List<Pair<Int, Int>> = emptyList(),
 )
 
 enum class FiltroMercado(val nome: String) { TODOS("Todos"), POSSO_PAGAR("Posso pagar"), LIVRES("Sem clube") }

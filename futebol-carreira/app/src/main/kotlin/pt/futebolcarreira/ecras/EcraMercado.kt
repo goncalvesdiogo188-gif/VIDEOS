@@ -142,6 +142,7 @@ internal fun EcraJogador(f: FichaJogadorUi, ativo: Boolean, aoNegociar: (AcaoMer
             if (!ativo) LinearProgressIndicator(Modifier.fillMaxWidth().padding(top = 6.dp))
 
             Column(Modifier.weight(1f).verticalScroll(rememberScrollState())) {
+                GraficosFicha(f)
                 Rotulo("Atributos", Modifier.padding(top = 14.dp, bottom = 4.dp))
                 for ((nome, valor) in f.atributos) {
                     Row(Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
