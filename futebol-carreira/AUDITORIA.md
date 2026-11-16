@@ -26,50 +26,25 @@ Percurso automático (`AuditoriaEcrasTest`) por todos os ecrãs principais, num 
 <!-- AUTO:INICIO -->
 _Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Auditoria*'`). Não editar à mão: é reescrito de cada vez que o teste corre._
 
-### Telemóvel grande (411x914 dp, letra 130 %) (464 alvos de toque e 1495 textos verificados)
+### Telemóvel grande (411x914 dp, letra 130 %) (475 alvos de toque e 1382 textos verificados)
 
-- **inicio**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **nova-carreira-jogador**
+  - alvo de toque pequeno: 145x44 dp: «Liga Portugal»
+  - alvo de toque pequeno: 160x44 dp: «Liga Portugal 2»
 - **plantel**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mosquera»
+  - texto cortado: «Jakupović»
 - **mercado**
-  - texto cortado: «Ger»
-  - texto cortado: «417.9 M€»
-  - texto cortado: «453.3 M€»
-  - texto cortado: «354.2 M€»
-  - texto cortado: «194.8 M€»
-  - texto cortado: «MOC»
-  - texto cortado: «336.2 M€»
-  - texto cortado: «300.1 M€»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - alvo de toque pequeno: 43x48 dp: «30 ou mais»
 - **liga-tabela**
   - texto cortado: «Jogadores»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - alvo de toque pequeno: 411x35 dp: «13 CD Nacional 0 0 0 0 0 0»
 - **liga-jogos**
   - texto cortado: «Jogadores»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **liga-jogadores**
   - texto cortado: «Jogadores»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **liga-historico**
   - texto cortado: «Jogadores»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-clube**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-financas**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-calendario**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-selecoes**
-  - alvo de toque pequeno: 98x27 dp: «Ver jogos»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-convocados**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **mais-opcoes**
-  - alvo de toque pequeno: 387x32 dp: «Simular o resto da época»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **ficha-jogador**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **jogo-em-direto**
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
 - **jogo-relato**
@@ -80,100 +55,71 @@ _Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Au
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
 - **editor-jogador**
   - texto cortado: «Guarda-redes»
-  - alvo de toque pequeno: 387x45 dp: «Clube: Real Madrid»
-- **jogador-inicio**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **jogador-inicio-baixo**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **jogador-perfil**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **jogador-percurso**
   - texto cortado: «Nota»
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **jogador-propostas**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-- **jogador-premios**
-  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 
-### Telemóvel pequeno (360x640 dp, letra 130 %) (394 alvos de toque e 1108 textos verificados)
+### Telemóvel pequeno (360x640 dp, letra 130 %) (390 alvos de toque e 963 textos verificados)
 
+- **menu**
+  - alvo de toque pequeno: 146x31 dp: «Relatar problema»
 - **inicio**
+  - alvo de toque pequeno: 162x36 dp: «CLASSIFICAÇÃO 5.º lugar 0 pontos · Liga »
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **plantel**
   - alvo de toque pequeno: 28x48 dp: «Ofensiva»
+  - texto cortado: «Jakupović»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mercado**
-  - texto cortado: «Ger»
-  - texto cortado: «417.9 M€»
-  - texto cortado: «453.3 M€»
-  - texto cortado: «354.2 M€»
-  - texto cortado: «194.8 M€»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **liga-tabela**
   - texto cortado: «Jogadores»
   - texto cortado: «Histórico»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **liga-jogos**
   - texto cortado: «Jogadores»
   - texto cortado: «Histórico»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **liga-jogadores**
   - texto cortado: «Jogadores»
   - texto cortado: «Histórico»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **liga-historico**
   - texto cortado: «Jogadores»
   - texto cortado: «Histórico»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-clube**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-financas**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-calendario**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-selecoes**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-convocados**
   - alvo de toque pequeno: 38x48 dp: «Espanha»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **mais-opcoes**
+  - texto cortado: «Sistema»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **ficha-jogador**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
-  - texto cortado: «Mercado»
 - **jogo-em-direto**
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
-  - texto cortado: «Mercado»
 - **jogo-relato**
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
-  - texto cortado: «Mercado»
 - **jogo-estatisticas**
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
-  - texto cortado: «Mercado»
 - **jogo-notas**
   - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
-  - texto cortado: «Mercado»
-- **editor-clubes**
-  - alvo de toque pequeno: 336x32 dp: «B04 Bayer Leverkusen Bundesliga · 27 jog»
+- **menu-com-gravacao**
+  - alvo de toque pequeno: 146x31 dp: «Relatar problema»
 - **editor-jogadores**
   - texto cortado: «Clube: Todos os clubes»
   - alvo de toque pequeno: 33x48 dp: «MDC»
 - **editor-clube**
   - texto cortado: «Abreviatura»
 - **jogador-inicio**
+  - alvo de toque pequeno: 162x36 dp: «CLASSIFICAÇÃO 18.º lugar 0 pontos · Liga»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **jogador-inicio-baixo**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
@@ -184,7 +130,6 @@ _Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Au
   - texto cortado: «FC Alverca»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **jogador-propostas**
-  - alvo de toque pequeno: 308x32 dp: «Pedir empréstimo»
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
 - **jogador-premios**
   - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
