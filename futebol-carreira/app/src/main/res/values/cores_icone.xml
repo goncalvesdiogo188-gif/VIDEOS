@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cores do ícone. A cor de fundo icone_fundo está em colors.xml. -->
+<resources>
+    <color name="icone_bola">#FFFFFF</color>
+    <color name="icone_costuras">#212121</color>
+</resources>

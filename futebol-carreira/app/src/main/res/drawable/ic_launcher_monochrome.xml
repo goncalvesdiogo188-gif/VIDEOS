@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Versão monocromática: silhueta única; o sistema aplica a cor (temas com ícones monocromáticos). Pentágono e costuras são recortes (evenOdd). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#000000"
+        android:fillType="evenOdd"
+        android:pathData="M32,54a22,22 0 1,0 44,0a22,22 0 1,0 -44,0z M54.00,46.00L61.61,51.53L58.70,60.47L49.30,60.47L46.39,51.53Z M55.25,46.00L55.25,35.00L52.75,35.00L52.75,46.00Z M61.99,52.72L72.46,49.32L71.68,46.94L61.22,50.34Z M57.69,61.21L64.16,70.11L66.18,68.64L59.71,59.74Z M48.29,59.74L41.82,68.64L43.84,70.11L50.31,61.21Z M46.78,50.34L36.32,46.94L35.54,49.32L46.01,52.72Z" />
+</vector>
