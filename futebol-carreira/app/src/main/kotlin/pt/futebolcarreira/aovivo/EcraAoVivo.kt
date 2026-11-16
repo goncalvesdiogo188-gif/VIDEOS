@@ -226,9 +226,11 @@ private fun Camisola(argb: Long) {
     Box(Modifier.size(14.dp).clip(CircleShape).background(Color(argb.toInt())))
 }
 
-internal fun textoTempo(e: EstadoPartida): String = when (e.fase) {
-    FaseJogo.INTERVALO -> "Intervalo"
-    FaseJogo.FIM -> "Fim"
+internal fun textoTempo(e: EstadoPartida): String = when {
+    e.desempate != null -> "Penáltis ${e.desempate!!.golosCasa}-${e.desempate!!.golosFora}"
+    e.fase == FaseJogo.INTERVALO -> if (e.periodo >= 2) "Intervalo do prolong." else "Intervalo"
+    e.fase == FaseJogo.FIM -> "Fim"
+    e.periodo >= 2 -> "Prol. ${e.minuto}'"
     else -> "${e.minuto}'"
 }
 

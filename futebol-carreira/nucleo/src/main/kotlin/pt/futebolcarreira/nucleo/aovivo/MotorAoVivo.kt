@@ -53,7 +53,7 @@ class MotorAoVivo(
     internal val rng: Random, val duracaoReal: Float = 480f, val semUtilizador: Boolean = false,
     val dificuldade: Dificuldade = Dificuldade.NORMAL,
     internal val exigencia: ExigenciaVencedor? = null,
-) : PartidaAoVivo {
+) : PartidaAoVivo, IaPeloUtilizador {
     internal val reg = EstadoRegras()
     internal val N = 22
     internal val jog = arrayOfNulls<Jogador>(N)
@@ -120,7 +120,16 @@ class MotorAoVivo(
     internal var marcador = -1
     internal var ultimoRemateEq = -1
     internal val taxa = 5400f / duracaoReal
-    internal val eqUser = if (semUtilizador) -1 else if (utilizadorCasa) 0 else 1
+    private val eqUserBase = if (semUtilizador) -1 else if (utilizadorCasa) 0 else 1
+
+    /** Com isto ligado (modo «só momentos-chave»), a equipa do utilizador joga pela IA e os comandos ficam sem efeito. */
+    override var iaControlaUtilizador: Boolean = false
+        set(v) {
+            field = v
+            if (v) controlado = -1
+        }
+
+    internal val eqUser: Int get() = if (iaControlaUtilizador) -1 else eqUserBase
     internal val posseT = FloatArray(2)
     internal val remates = IntArray(2); internal val noAlvo = IntArray(2); internal val cantos = IntArray(2)
     internal val faltas = IntArray(2); internal val cartAm = IntArray(2); internal val cartVm = IntArray(2)

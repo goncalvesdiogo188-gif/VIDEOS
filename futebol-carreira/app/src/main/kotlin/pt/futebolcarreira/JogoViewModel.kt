@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import pt.futebolcarreira.aovivo.ModoJogos
 import pt.futebolcarreira.aovivo.SessaoAoVivo
 import pt.futebolcarreira.nucleo.aovivo.FabricaPartida
+import pt.futebolcarreira.nucleo.aovivo.exigenciaDoProximoJogo
 import pt.futebolcarreira.nucleo.aovivo.PartidaAoVivo
 import pt.futebolcarreira.nucleo.carreira.Carreira
 import pt.futebolcarreira.nucleo.carreira.CarreiraJogador
@@ -147,8 +148,16 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         FabricaPartida.criar(
             casa, fora, utilizadorCasa, kotlin.random.Random.Default,
             duracaoReal = pt.futebolcarreira.nucleo.aovivo.DuracaoJogo.segundos(pt.futebolcarreira.aovivo.OpcoesAoVivo.duracaoMinutos(preferencias)), semUtilizador = semUtilizador,
+            dificuldade = dificuldadeAoVivo, exigencia = exigenciaProximoJogo,
         )
     }
+
+    /** Dificuldade da IA no 3D (Fácil, Normal, Difícil, Lendário), guardada nas opções. */
+    val dificuldadeAoVivo: pt.futebolcarreira.nucleo.aovivo.Dificuldade
+        get() = pt.futebolcarreira.nucleo.aovivo.Dificuldade.deTexto(preferencias.getString("dificuldade_3d", null))
+
+    /** Se o próximo jogo exige vencedor (taças, Europa), o 3D joga prolongamento e penáltis. */
+    private var exigenciaProximoJogo: pt.futebolcarreira.nucleo.aovivo.ExigenciaVencedor? = null
 
     /** O jogo 3D aberto (null = nenhum). */
     var aoVivo by mutableStateOf<SessaoAoVivo?>(null)
@@ -183,12 +192,13 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             return
         }
         val (casa, fora) = par
+        exigenciaProximoJogo = c.exigenciaDoProximoJogo()
         val utilizadorCasa = casa.id == c.equipa.id
         val controlar = modoJogos != ModoJogos.VER_3D
         executar({ criarPartida(casa, fora, utilizadorCasa, !controlar) }) { partida ->
             aoVivo = SessaoAoVivo(
                 partida, utilizadorCasa, controlar, momentosChave = modoJogos == ModoJogos.JOGAR_MOMENTOS,
-                nivelMira = pt.futebolcarreira.aovivo.OpcoesAoVivo.nivelMira(preferencias),
+                nivelMira = pt.futebolcarreira.aovivo.OpcoesAoVivo.nivelMira(preferencias, dificuldadeAoVivo.name),
             )
         }
     }
