@@ -6,7 +6,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 (O projeto começou em Godot 4; a pedido do utilizador passou para Android nativo e a Fase 1 foi reescrita.)
 
 **Regras do projeto**
-- Clubes e ligas com nomes reais (época 2025/26), a pedido do utilizador, porque o jogo é só para uso pessoal e não vai ser publicado. Os jogadores são, por agora, inventados. Toda a base de dados está em JSON editável (pasta `dados/`).
+- Clubes e ligas com nomes reais (época 2025/26), a pedido do utilizador, porque o jogo é só para uso pessoal e não vai ser publicado. Os jogadores são agora reais (ver «Jogadores reais» mais abaixo). Toda a base de dados está em JSON editável (pasta `dados/`).
 - Código separado em: dados e simulação (módulo `nucleo`, Kotlin puro), interface (módulo `app`) e, mais tarde, partida 3D.
 - Uma fase pequena de cada vez. Só se avança depois de o utilizador testar e confirmar.
 - Comentários em português; este ficheiro é atualizado no fim de cada fase.
@@ -28,8 +28,8 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | 6 | Treino, scouting e academia | ✅ à espera de confirmação |
 | 7 | Taças, Europa e seleções | ✅ à espera de confirmação |
 | 8 | Notícias, rivalidades e ambiente | ✅ à espera de confirmação |
-| 9 | Modo carreira de jogador | ⬜ |
-| 10 | Editor e importação de JSON | ⬜ |
+| 9 | Modo carreira de jogador | ✅ à espera de confirmação |
+| 10 | Editor e importação de JSON | ✅ à espera de confirmação |
 | 11 | Partida 3D | ⬜ |
 | 12 | Otimização e exportação Android | ⬜ |
 
@@ -120,15 +120,34 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Testes automáticos da Fase 8 (`Fase8Test.kt`) e duas capturas novas (`27-noticias`, `28-noticias-todas`).
 - [ ] Ficou de fora ou simples: o ambiente só mexe na assistência dos jogos de liga do teu clube; não há notícias sobre despedimentos de outros treinadores (o jogo não os simula); as sequências de golos e a liderança recomeçam a contar ao carregar uma gravação; os derbies entre clubes de países diferentes (na Europa) não existem.
 
-## Fase 9 — Modo carreira de jogador
-- [ ] Criar jogador, evolução, pedidos do treinador, titularidade.
-- [ ] Transferências do ponto de vista do jogador, seleção, prémios individuais.
-- [ ] Passagem de jogador a treinador no fim da carreira.
+## Fase 9 — Modo carreira de jogador ✅ (à espera de confirmação)
+- [x] Criação do jogador com nacionalidade, posição, pé e clube.
+- [x] Estatuto no clube e onze escolhido pelo treinador por qualidade e forma; mensagens com minutos, estatuto e resumo mensal do treino.
+- [x] Pedidos do treinador (golos, assistências, baliza inviolada, nota média, físico) e botão «Pedir mais minutos».
+- [x] Foco de treino individual.
+- [x] Propostas nas janelas de mercado (transferência ou empréstimo), pedir transferência ou empréstimo, renovações de contrato.
+- [x] Seleção (também de nacionalidades fora dos 6 países), jogos e golos pela seleção.
+- [x] Prémios individuais de todas as ligas (melhor jogador, melhor marcador, melhor jovem, onze da época) e Bola de Ouro.
+- [x] Separador «Carreira» (perfil, percurso, propostas, prémios).
+- [x] Fim de carreira aos 35–38 anos e convite para treinador.
+- [x] Testes (`Fase9Test.kt`) e capturas 40, 41 e 42.
+- [ ] Simples: a renovação é opcional (se recusares, renova nas condições mínimas); o clube nunca recusa vender o jogador; o preço das propostas está limitado ao orçamento de quem compra; as seleções fora da Europa só jogam qualificações e Mundial.
 
-## Fase 10 — Editor e importação de JSON
-- [ ] Editor de equipas e jogadores dentro do jogo.
-- [ ] Importar/exportar plantéis em JSON a partir do armazenamento do telemóvel.
-- [ ] Validação dos ficheiros importados.
+## Fase 10 — Editor e importação de JSON ✅ (à espera de confirmação)
+- [x] Editor no menu principal («Editor») para a base das carreiras NOVAS, guardada na memória privada da aplicação; botão «Repor dados originais».
+- [x] Editor dentro da carreira (Mais → Opções → «Editar esta carreira»).
+- [x] Clubes: nome, abreviatura, cidade, estádio, capacidade, cores (paleta e código hex), reputação, orçamento e troca de liga (com clube do mesmo país).
+- [x] Jogadores: nome, nacionalidade, idade, posição, pé, atributos (com «geral» a atualizar ao vivo), potencial, clube, contrato e salário; criar e apagar (mínimo 18 jogadores e 2 guarda-redes por clube).
+- [x] Procurar e filtrar.
+- [x] Exportar a base, um país ou um clube, e importar ficheiros .json (seletor do Android, sem permissões), com relatório de erros e avisos.
+- [x] Validador (`Validador.kt`) e testes (`Fase10Test.kt`).
+- [ ] Simples: o seletor de ficheiros não é testado automaticamente; não se criam nem apagam clubes; a lista mostra 150 resultados; na carreira não se troca de liga e só se importam clubes.
+
+## Jogadores reais (feito entre as Fases 8 e 10)
+- [x] Os plantéis são reais, tirados da Wikipédia: nomes, clubes e nacionalidades. As idades e as posições vêm do Wikidata.
+- [x] As notas (atributos) vêm em parte de listas de memória (jogadores conhecidos); o resto é estimado pelo nível do clube.
+- [x] Nacionalidades reais nas seleções: nomes de países para todas as nacionalidades, seleções feitas com jogadores reais de qualquer nacionalidade (16 ou mais, com 2 guarda-redes) completadas com fictícios, e jogadores do teu clube de qualquer nacionalidade podem ser convocados.
+- Os dados podem estar uma época desatualizados e as notas são estimativas. Para atualizar: `python3 ferramentas/plantel_wikipedia.py todos` e depois `python3 ferramentas/juntar_reais.py`. Não se editam à mão os ficheiros `jogadores/*.json`; usa o Editor (Fase 10).
 
 ## Fase 11 — Partida 3D
 - [ ] Escolher a biblioteca 3D (OpenGL ES através de Filament/SceneView, ou motor próprio simples) com um protótipo.

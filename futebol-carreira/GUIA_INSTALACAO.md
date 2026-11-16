@@ -108,6 +108,39 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 6. Usa **Mais → Simular o resto da época** e abre as notícias: devem aparecer goleadas, surpresas, hat-tricks, mudanças de liderança, o título decidido, descidas, finais das taças e noites europeias, e mercado.
 7. Grava, sai para o menu e volta a carregar a carreira: as notícias continuam lá.
 
+### Fase 9
+1. **Nova carreira → Jogador**: escolhe nome, nacionalidade, posição, pé e clube.
+2. Abre o separador **Carreira → Perfil**: atributos, estatuto, contrato e valor.
+3. Joga: nas mensagens aparecem a nota e os minutos; se o estatuto mudar, chega um aviso.
+4. Toca em **Pedir mais minutos ao treinador**.
+5. Escolhe o **Foco do treino**: chega a mensagem «Treino: a tua evolução».
+6. Vê as metas do treinador no Perfil e no Início.
+7. Em julho, agosto ou janeiro abre **Propostas**: aceita ou recusa, pede transferência ou empréstimo, renova o contrato.
+8. Simula a época: aparecem os **Prémios** e, em **Liga → Histórico**, o melhor da época e a Bola de Ouro.
+9. Quando fores convocado para a seleção, vê os jogos em **Percurso**.
+10. No fim da carreira (35 a 38 anos) aparece o resumo e o convite para treinador.
+
+### Fase 10
+1. No menu principal toca em **Editor** (aviso «Base de dados das carreiras novas»; separadores Clubes, Jogadores e Ficheiros).
+2. Em **Clubes**: escolhe o país e um clube, muda o nome, a capacidade ou a cor, toca em **Aplicar** e depois em **Guardar alterações**.
+3. Experimenta trocar um clube de liga (só com um clube do mesmo país).
+4. Em **Jogadores**: procura, filtra, mexe nos atributos e vê o «Geral» mudar.
+5. **+ Novo** e **Apagar**: a aplicação recusa deixar um clube abaixo de 18 jogadores ou sem 2 guarda-redes.
+6. Guarda e começa uma **Nova carreira**: as mudanças aparecem. As carreiras antigas não mudam.
+7. Em **Ficheiros**: exporta e volta a importar o mesmo ficheiro; aparece «Pronto a importar»; **Aplicar** e **Guardar**.
+8. Importa um ficheiro estragado (um atributo de 150, ou um clube com 10 jogadores): aparece «Importação bloqueada».
+9. **Repor dados originais** volta à base de origem.
+10. Numa carreira: **Mais → Opções → Editar esta carreira** (aqui não se troca de liga e só se importam clubes).
+
+### Jogadores reais e nacionalidades
+1. Começa uma **Nova carreira**: os plantéis têm jogadores reais (por exemplo, no teu clube reconheces os nomes).
+2. **Mais → Seleções → Convocados**: Argentina, Brasil, Países Baixos e Marrocos têm jogadores reais, com o clube onde jogam.
+3. Abre a ficha de um estrangeiro: a nacionalidade aparece com o nome do país.
+4. Se um jogador do teu clube for convocado, chega uma mensagem e ele aparece em «Convocados do teu clube».
+5. Seleções com poucos jogadores reais (por exemplo, a Islândia) continuam com 23 convocados, completados com inventados.
+6. Uma gravação antiga abre e mostra os nomes dos países.
+7. Nota: os dados vêm da Wikipédia e podem estar uma época desatualizados; as notas são estimadas.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados
