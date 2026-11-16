@@ -271,6 +271,7 @@ object Gravador {
         bd.carregar { ficheiros[it] }
         if (bd.selecoesJson == null) bd.selecoesJson = lerPadrao("selecoes.json")
         if (bd.rivalidadesJson == null) bd.rivalidadesJson = lerPadrao("rivalidades.json")
+        if (bd.nacionalidadesJson == null) bd.nacionalidadesJson = lerPadrao("nacionalidades.json")
         require(bd.equipas.isNotEmpty()) { "Gravação sem equipas: ${bd.erros.take(3)}" }
         bd.garantirTacas()   // gravações antigas não tinham taças: ficam definidas para a época seguinte
         require(gravacao.info.equipaId in bd.equipas) { "O clube da carreira não existe na gravação" }

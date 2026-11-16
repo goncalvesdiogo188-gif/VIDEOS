@@ -478,7 +478,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         val e = j.epoca
         return FichaJogadorUi(
             j.id, j.nome,
-            "${j.posicao} · ${j.idade} anos · pé ${j.pe} · ${c.bd.paises[j.nacionalidade]?.nome ?: j.nacionalidade}",
+            "${j.posicao} · ${j.idade} anos · pé ${j.pe} · ${c.bd.nomeNacionalidade(j.nacionalidade)}",
             dono?.nome ?: "Sem clube", dono?.let { emblema(it) },
             j.geral(), c.olheiros.potencial(j),
             listOf("Ritmo" to "ritmo", "Remate" to "remate", "Passe" to "passe", "Drible" to "drible", "Defesa" to "defesa", "Físico" to "fisico", "Guarda-redes" to "guarda_redes")

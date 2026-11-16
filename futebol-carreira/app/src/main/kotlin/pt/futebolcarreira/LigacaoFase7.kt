@@ -145,15 +145,13 @@ internal object LigacaoFase7 {
      * fariam agora. Primeiro as do utilizador, depois as das bases de dados e as fictícias mais bem classificadas.
      */
     private fun convocatorias(c: Carreira, s: EstadoSelecoes, interesse: Set<String>): List<ConvocatoriaUi> {
-        val janela = s.convocadosDaJanela()
         val ranking = s.ranking().map { it.nacao }
-        val nacoes = (interesse.toList() + s.nacoes.values.filter { it.baseDados }.map { it.id } + ranking.filter { s.nacoes[it]?.baseDados == false }.take(10))
+        // As do utilizador, as com jogadores reais e as melhores do ranking (para não encher o ecrã).
+        val nacoes = (interesse.toList() + ranking.filter { s.usaJogadoresReais(it) }.take(12) + ranking.take(6))
             .distinct().filter { it in s.nacoes }
         return nacoes.map { id ->
             val nacao = s.nacoes.getValue(id)
-            val jogadores = if (nacao.baseDados) {
-                janela[id]?.mapNotNull { c.bd.jogadores[it] } ?: s.calcularConvocatoria(id)
-            } else s.esquadraoFicticio(id)
+            val jogadores = s.convocatoriaAtual(id)
             val convocados = jogadores.sortedWith(compareBy({ ORDEM_POSICOES.indexOf(it.posicao) }, { -it.geral() })).map { j ->
                 val clube = c.bd.equipas[j.equipa]?.nome ?: "Clube estrangeiro"
                 ConvocadoUi(j.posicao, j.nome, clube, j.geral().toInt(), j.equipa == c.info.equipaId && (c.info.jogadorId == null || c.info.jogadorId == j.id), nacao.nome)

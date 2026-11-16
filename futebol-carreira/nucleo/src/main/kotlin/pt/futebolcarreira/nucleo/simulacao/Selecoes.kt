@@ -144,32 +144,70 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
 
     // ---------------------------------------------------------------- convocatórias
 
-    /** Escolhe 23 jogadores da nacionalidade (3 GR + melhores por posição; lesionados só se faltar gente). Não altera o estado. */
+    /** Jogadores da base de dados (nos clubes, fora das academias) com esta nacionalidade. */
+    private fun jogadoresReais(nacao: String): List<Jogador> = bd.jogadores.values.filter { it.nacionalidade == nacao && !it.academia }
+
+    /** Há jogadores que chegam para formar o núcleo da seleção (16 ou mais, com pelo menos 2 guarda-redes)? */
+    private fun nucleoReal(reais: List<Jogador>) = reais.size >= MINIMO_REAIS && reais.count { it.posicao == "GR" } >= MINIMO_GR_REAIS
+
+    /**
+     * A seleção é feita sobretudo com jogadores reais da base de dados (nações dos clubes ou com jogadores que chegam
+     * para formar o núcleo; o plantel fictício só completa o que faltar)?
+     */
+    fun usaJogadoresReais(nacao: String): Boolean {
+        val n = nacoes[nacao] ?: return false
+        return n.baseDados || nucleoReal(jogadoresReais(nacao))
+    }
+
+    /**
+     * Escolhe 23 jogadores (3 GR + melhores por posição; lesionados só se faltar gente). Não altera o estado.
+     * Nações com núcleo real: primeiro os reais de cada posição e o fictício completa o que falta. Nas outras
+     * (poucos jogadores reais) vale o melhor de cada posição, reais ou fictícios.
+     */
     fun calcularConvocatoria(nacao: String): List<Jogador> {
-        val candidatos = bd.jogadores.values.filter { it.nacionalidade == nacao && !it.academia }
+        val reais = jogadoresReais(nacao)
+        val ficticios = esquadroes[nacao].orEmpty()
+        val nucleo = nacoes[nacao]?.baseDados == true || nucleoReal(reais)
         fun nota(j: Jogador) = j.geral() + j.bonusForma() * 0.5 - (if (j.lesao > 0) 20 + minOf(j.lesao, 10) else 0)
+        val porNota = compareByDescending<Jogador> { nota(it) }
+        // Com núcleo real, os reais ganham sempre aos fictícios (bónus que os põe à frente).
+        val prioridade = compareByDescending<Jogador> { (if (nucleo && it.id > 0) 1000.0 else 0.0) + nota(it) }
+        val candidatos = reais + ficticios
         val escolhidos = LinkedHashSet<Jogador>()
         for ((pos, quantos) in QUOTAS) {
-            escolhidos += candidatos.filter { it.posicao == pos }.sortedByDescending { nota(it) }.take(quantos)
+            escolhidos += candidatos.filter { it.posicao == pos }.sortedWith(prioridade).take(quantos)
         }
         if (escolhidos.size < TAMANHO_CONVOCATORIA) {
-            escolhidos += candidatos.filter { it !in escolhidos }.sortedByDescending { nota(it) }.take(TAMANHO_CONVOCATORIA - escolhidos.size)
+            escolhidos += candidatos.filter { it !in escolhidos }.sortedWith(prioridade.thenComparing(porNota)).take(TAMANHO_CONVOCATORIA - escolhidos.size)
         }
         return escolhidos.toList()
     }
 
+    private fun resolver(nacao: String, ids: List<Int>): List<Jogador> {
+        val ficticios = esquadroes[nacao].orEmpty().associateBy { it.id }
+        return ids.mapNotNull { bd.jogadores[it] ?: ficticios[it] }
+    }
+
     /** A convocatória em vigor de uma seleção (calcula-a se ainda não existir nesta janela). */
     fun convocados(nacao: String): List<Jogador> {
-        val n = nacoes[nacao] ?: return emptyList()
-        if (!n.baseDados) return esquadroes[nacao].orEmpty()
-        val atual = convocatorias[nacao]?.mapNotNull { bd.jogadores[it] }
+        nacoes[nacao] ?: return emptyList()
+        val atual = convocatorias[nacao]?.let { resolver(nacao, it) }
         if (atual != null && atual.size >= MINIMO_CONVOCADOS) return atual
+        // Sem jogadores reais nenhum (nem para entrar por mérito), é o plantel fictício, sem guardar nada.
+        if (nacoes[nacao]?.baseDados != true && bd.jogadores.values.none { it.nacionalidade == nacao && !it.academia }) return esquadroes[nacao].orEmpty()
         val nova = calcularConvocatoria(nacao)
         convocatorias[nacao] = nova.map { it.id }
         return nova
     }
 
-    /** Convocatórias da janela em curso (só seleções da base de dados): nação -> ids. */
+    /** A convocatória a mostrar: a da janela em curso, ou a que se faria agora (sem a guardar). */
+    fun convocatoriaAtual(nacao: String): List<Jogador> {
+        val guardada = convocatorias[nacao]?.let { resolver(nacao, it) }
+        if (guardada != null && guardada.size >= MINIMO_CONVOCADOS) return guardada
+        return calcularConvocatoria(nacao)
+    }
+
+    /** Convocatórias da janela em curso (seleções com jogadores reais; ids negativos são fictícios): nação -> ids. */
     fun convocadosDaJanela(): Map<String, List<Int>> = convocatorias.toMap()
 
     /** Em que seleção está convocado este jogador (na janela em curso)? null = não está. */
@@ -190,7 +228,7 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
         val fim = proxima.plusDays(JANELA_DIAS.toLong())
         val jogam = competicoesAtivas().flatMap { it.jogos }
             .filter { !it.jogado && it.dataLocal() in proxima..fim }.flatMap { listOf(it.casa, it.fora) }.toSet()
-        for (n in jogam) if (nacoes[n]?.baseDados == true) convocados(n)
+        for (n in jogam) convocados(n)
         return convocatorias.toMap()
     }
 
@@ -686,6 +724,9 @@ class EstadoSelecoes private constructor(val bd: BaseDados) {
         val QUOTAS = linkedMapOf("GR" to 3, "DD" to 2, "DC" to 4, "DE" to 2, "MDC" to 2, "MC" to 3, "MOC" to 2, "ED" to 2, "EE" to 2, "PL" to 1)
         const val TAMANHO_CONVOCATORIA = 23
         private const val MINIMO_CONVOCADOS = 18
+        /** Jogadores reais (e guarda-redes entre eles) que uma nação precisa para formar o núcleo da seleção. */
+        const val MINIMO_REAIS = 16
+        const val MINIMO_GR_REAIS = 2
         /** Dias seguidos sem jogos a partir dos quais começa outra janela. */
         private const val JANELA_DIAS = 10
 

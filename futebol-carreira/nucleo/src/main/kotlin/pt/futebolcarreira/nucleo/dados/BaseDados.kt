@@ -20,6 +20,7 @@ import pt.futebolcarreira.nucleo.simulacao.CatalogoSelecoes
  *   nomes.json             nomes próprios e apelidos por país (para gerar jogadores)
  *   selecoes.json          seleções nacionais (opcional)
  *   rivalidades.json       derbies entre clubes (opcional)
+ *   nacionalidades.json    nome de cada país (código -> nome) (opcional)
  *   equipas/<PAIS>.json    clubes de cada país
  *   jogadores/<PAIS>.json  jogadores dos clubes de cada país
  */
@@ -35,6 +36,20 @@ class BaseDados {
      * (ver paraJsonCompleto); gravações antigas não o têm e a aplicação fornece o da pasta de dados.
      */
     var selecoesJson: String? = null
+
+    /**
+     * Texto de "nacionalidades.json" (código -> nome do país); vai junto com a base de dados da carreira gravada.
+     * Gravações antigas não o têm e a aplicação fornece o da pasta de dados.
+     */
+    var nacionalidadesJson: String? = null
+        set(valor) { field = valor; nacionalidadesCache = null }
+    private var nacionalidadesCache: Nacionalidades? = null
+
+    /** Os nomes dos países (códigos sem nome ficam como estão). */
+    fun nacionalidades(): Nacionalidades = nacionalidadesCache ?: Nacionalidades.deTexto(nacionalidadesJson).also { nacionalidadesCache = it }
+
+    /** Nome do país de uma nacionalidade. */
+    fun nomeNacionalidade(codigo: String): String = nacionalidades().nome(codigo)
 
     /**
      * Texto de "rivalidades.json" (derbies), se existir; vai junto com a base de dados da carreira gravada.
@@ -66,6 +81,7 @@ class BaseDados {
         proximoId = 1
         selecoesJson = ler("selecoes.json")
         rivalidadesJson = ler("rivalidades.json")
+        nacionalidadesJson = ler("nacionalidades.json")
 
         lerJson("paises.json", ler, ListSerializer(Pais.serializer()))?.forEach { paises[it.id] = it }
         lerJson("competicoes.json", ler, ListSerializer(Competicao.serializer()))?.forEach { competicoes[it.id] = it }
@@ -87,6 +103,7 @@ class BaseDados {
         for (pais in paises.keys) {
             for (j in lerJson("jogadores/$pais.json", ler, ListSerializer(Jogador.serializer()), obrigatorio = false).orEmpty()) {
                 j.normalizar()
+                j.nacionalidade = Nacionalidades.normalizar(j.nacionalidade)
                 if (j.id <= 0 || j.id in jogadores) j.id = 0  // id em falta ou repetido: recebe um novo
                 adicionarJogador(j)
             }
@@ -94,6 +111,7 @@ class BaseDados {
         // Jogadores sem clube (opcional).
         for (j in lerJson("jogadores/livres.json", ler, ListSerializer(Jogador.serializer()), obrigatorio = false).orEmpty()) {
             j.normalizar()
+            j.nacionalidade = Nacionalidades.normalizar(j.nacionalidade)
             j.equipa = ""
             if (j.id <= 0 || j.id in jogadores) j.id = 0
             adicionarJogador(j)
@@ -216,6 +234,7 @@ class BaseDados {
         ficheiros["nomes.json"] = JSON.encodeToString(MapSerializer(String.serializer(), ListaNomes.serializer()), nomes)
         selecoesJson?.let { ficheiros["selecoes.json"] = it }
         rivalidadesJson?.let { ficheiros["rivalidades.json"] = it }
+        nacionalidadesJson?.let { ficheiros["nacionalidades.json"] = it }
         ficheiros += paraJson()
         return ficheiros
     }
