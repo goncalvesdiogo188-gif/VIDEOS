@@ -1,5 +1,7 @@
 package pt.futebolcarreira.nucleo.modelos
 
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -27,6 +29,7 @@ class EstatisticasEpoca {
  * Um jogador de futebol: identidade, posição e atributos.
  * Os campos têm os mesmos nomes que no ficheiro JSON.
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 class Jogador(
     var id: Int = 0,
@@ -51,7 +54,7 @@ class Jogador(
     /** true = está na academia do clube (não conta para o plantel nem joga). */
     var academia: Boolean = false,
     /** Geral no fim de cada época já jogada, por idade que tinha nessa época (serve para o gráfico de evolução). */
-    @SerialName("geral_por_idade") val geralPorIdade: MutableMap<Int, Int> = mutableMapOf(),
+    @EncodeDefault(EncodeDefault.Mode.NEVER) @SerialName("geral_por_idade") val geralPorIdade: MutableMap<Int, Int> = mutableMapOf(),
 ) {
     /** Estatísticas da época em curso. */
     @Transient

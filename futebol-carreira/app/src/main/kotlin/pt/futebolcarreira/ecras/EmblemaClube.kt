@@ -36,7 +36,7 @@ internal fun padraoDoClube(e: EmblemaUi): PadraoClube {
     return PadraoClube.entries[h % PadraoClube.entries.size]
 }
 
-private fun corPadrao(e: EmblemaUi): Color = lerp(Color(e.fundo), Color(e.letras), 0.55f)
+private fun corPadrao(e: EmblemaUi): Color = lerp(Color(e.fundo), Color(e.letras), 0.3f)
 
 /** Escudo de um clube: forma de escudo, cores e padrão do clube, e a sigla por cima. */
 @Composable

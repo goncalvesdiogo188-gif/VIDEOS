@@ -68,7 +68,7 @@ private fun posicoesDoCampo(f: Formacao): Map<Int, Offset> {
     val mapa = HashMap<Int, Offset>()
     linhas.forEachIndexed { l, indices ->
         // A linha 0 (guarda-redes) fica em baixo; a última (ataque) em cima.
-        val y = if (linhas.size == 1) 0.5f else 0.90f - (0.90f - 0.12f) * l / (linhas.size - 1)
+        val y = if (linhas.size == 1) 0.5f else 0.81f - (0.81f - 0.12f) * l / (linhas.size - 1)
         indices.forEachIndexed { k, indice -> mapa[indice] = Offset((k + 1f) / (indices.size + 1f), y) }
     }
     return mapa
@@ -88,7 +88,7 @@ internal fun CampoTatico(
     var deslocamento by remember { mutableStateOf(Offset.Zero) }
     var alvo by remember { mutableStateOf(-1) }
 
-    BoxWithConstraints(modifier.fillMaxWidth().aspectRatio(0.9f).clip(RoundedCornerShape(16.dp))) {
+    BoxWithConstraints(modifier.fillMaxWidth().aspectRatio(0.92f).clip(RoundedCornerShape(16.dp))) {
         val largura = constraints.maxWidth.toFloat()
         val altura = constraints.maxHeight.toFloat()
         val ficha = 40.dp
@@ -161,7 +161,7 @@ internal fun CampoTatico(
 /** Relva às riscas, linhas, grande área e círculo central. */
 @Composable
 private fun CampoDesenhado() {
-    Canvas(Modifier.fillMaxWidth().aspectRatio(0.9f)) {
+    Canvas(Modifier.fillMaxWidth().aspectRatio(0.92f)) {
         val riscas = 8
         for (i in 0 until riscas) {
             drawRect(if (i % 2 == 0) RELVA_CLARA else RELVA_ESCURA, Offset(0f, size.height * i / riscas), Size(size.width, size.height / riscas + 1f))
