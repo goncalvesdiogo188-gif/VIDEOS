@@ -55,6 +55,13 @@ class Fase13RegrasTest {
         repeat((segundos * 30f).toInt()) { p.passo(1f / 30f, comando) }
     }
 
+    /** Espera que quem cobra o lance parado chegue à bola (agora corre até lá) e depois "extra" segundos. */
+    private fun esperarCobrador(m: MotorAoVivo, extra: Float = 0.6f) {
+        var n = 0
+        while (!m.cobChegou && n < 600) { m.passo(1f / 30f, Comando()); n++ }
+        correr(m, extra)
+    }
+
     /** Joga um jogo todo; devolve o número de passos (e falha se ficar preso). */
     private fun jogarAteAoFim(p: PartidaAoVivo, limite: Int = 60_000, comando: (Int) -> Comando = { Comando() }): Int {
         var passos = 0
@@ -239,7 +246,7 @@ class Fase13RegrasTest {
         val m = motor(t[0], t[1], 5)
         correr(m, 1f)
         m.iniciarReinicio(FaseJogo.LANCAMENTO, 0, 10f, -34f)
-        correr(m, 0.6f)
+        esperarCobrador(m, 0.6f)
         val bp = assertNotNull(m.estado.bolaParada)
         assertEquals(TipoParada.LANCAMENTO, bp.tipo)
         assertTrue(bp.doUtilizador && bp.casa)
@@ -259,7 +266,7 @@ class Fase13RegrasTest {
         val m = motor(t[2], t[3], 6)
         correr(m, 1f)
         m.iniciarReinicio(FaseJogo.CANTO, 0, 52.5f, 34f)
-        correr(m, 0.6f)
+        esperarCobrador(m, 0.6f)
         assertEquals(TipoParada.CANTO, assertNotNull(m.estado.bolaParada).tipo)
         assertTrue(m.executarParada(ComandoParada(forca = 0.7f)))
         var maxZ = 0f
@@ -274,7 +281,7 @@ class Fase13RegrasTest {
         val m = motor(t[4], t[5], 7)
         correr(m, 1f)
         m.iniciarReinicio(FaseJogo.LIVRE, 0, 35f, 6f)
-        correr(m, 3f)
+        esperarCobrador(m, 3f)
         val bp = assertNotNull(m.estado.bolaParada)
         assertTrue(bp.podeRematar && bp.barreira)
         assertTrue(bp.distanciaBaliza < 25f)
@@ -292,7 +299,7 @@ class Fase13RegrasTest {
         val m = motor(t[0], t[1], 8)
         correr(m, 1f)
         m.iniciarReinicio(FaseJogo.LIVRE, 1, -20f, 0f)
-        correr(m, 0.6f)
+        esperarCobrador(m, 0.6f)
         val bp = assertNotNull(m.estado.bolaParada)
         assertFalse(bp.doUtilizador)
         assertEquals(-1f, bp.tempoRestante)
@@ -305,6 +312,8 @@ class Fase13RegrasTest {
         val m = motor(t[0], t[1], 9)
         correr(m, 1f)
         m.iniciarReinicio(FaseJogo.CANTO, 0, 52.5f, -34f)
+        var n0 = 0
+        while (!m.cobChegou && n0 < 600) { m.passo(1f / 30f, Comando()); n0++ }
         correr(m, 9f)
         assertEquals(FaseJogo.CANTO, m.estado.fase, "ainda há tempo")
         correr(m, 2.5f)
@@ -322,7 +331,7 @@ class Fase13RegrasTest {
                 correr(m, 1f)
                 val g0 = m.golos[0]
                 m.iniciarReinicio(FaseJogo.PENALTI, 0, 41.5f, 0f)
-                correr(m, 0.6f)
+                esperarCobrador(m, 0.6f)
                 val bp = assertNotNull(m.estado.bolaParada)
                 assertEquals(TipoParada.PENALTI, bp.tipo)
                 assertTrue(bp.doUtilizador)

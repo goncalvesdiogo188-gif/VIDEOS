@@ -280,9 +280,9 @@ class MotorAoVivo(
         }
         temporizadores(dt)
         if (fase == FaseJogo.GOLO) {
-            relogio += dt * taxa
+            if (tFase <= 4.5f) relogio += dt * taxa   // o tempo que os jogadores levam a voltar às posições não conta
             celebrar(dt)
-            if (tFase >= 4.5f) depoisDoGolo()
+            if (tFase >= 4.5f && (todosNasPosicoesDeSaida() || tFase >= 8f)) depoisDoGolo()
             return
         }
         relogio += dt * taxa
@@ -332,8 +332,20 @@ class MotorAoVivo(
         } else if (carrinho[i] > 0f) {
             val f = carrinho[i] / 0.55f
             dx = lungeX[i] * f; dy = lungeY[i] * f
-        } else if (i == cobrador && fase != FaseJogo.A_JOGAR) {
+        } else if (i == cobrador && fase != FaseJogo.A_JOGAR && cobChegou) {
             // quem cobra um lance parado espera junto à bola
+        } else if (i == cobrador && fase != FaseJogo.A_JOGAR) {
+            // ainda vai a caminho da bola
+            val ex = cobX - px[i]; val ey = cobY - py[i]
+            val d = hypot(ex, ey)
+            if (d < 0.5f || tFase > 9f) {
+                px[i] = cobX; py[i] = cobY; dir[i] = cobDir; vx[i] = 0f; vy[i] = 0f
+                cobChegou = true; cobChegadaT = tFase
+            } else {
+                spr = d > 6f && stam[i] > 12f
+                val v = min(if (spr) vmax * 1.28f else vmax * 1.05f, d * 3f)
+                dx = ex / d * v; dy = ey / d * v
+            }
         } else if (controlo) {
             val m = hypot(comX, comY)
             if (m > 0.05f) {
@@ -486,6 +498,16 @@ class MotorAoVivo(
 
     internal var penaltiAtual = false
 
+    // Quem cobra um lance parado corre até à bola em vez de aparecer lá de repente.
+    internal var cobX = 0f
+    internal var cobY = 0f
+    internal var cobDir = 0f
+    internal var cobChegou = true
+    /** Instante (tFase) em que o cobrador chegou à bola; conta o tempo de espera e o tempo do utilizador. */
+    internal var cobChegadaT = 0f
+    /** Segundos desde que o cobrador chegou à bola. */
+    internal val tCobranca: Float get() = tFase - cobChegadaT
+
     private fun celebrar(dt: Float) {
         // A bola acaba dentro da baliza; o marcador festeja.
         bvx *= 0.97f; bvy *= 0.97f
@@ -500,12 +522,46 @@ class MotorAoVivo(
         }
         for (i in 0 until N) {
             if (!ativo[i]) continue
+            // Depois de festejar, todos voltam a correr para o seu sítio do pontapé de saída.
+            if (tFase > (if (i == marcador) 1.8f else 1.2f)) {
+                val (sx, sy) = slotSaida(i, eqReinicio)
+                val ex = sx - px[i]; val ey = sy - py[i]
+                val d = hypot(ex, ey)
+                if (d > 0.4f) {
+                    val v = min(10f, d * 3f)
+                    vx[i] = ex / d * v; vy[i] = ey / d * v
+                    px[i] += vx[i] * dt; py[i] += vy[i] * dt
+                    dir[i] = atan2(vy[i], vx[i])
+                    anim[i] = if (v > 6f) Animacao.SPRINT else Animacao.CORRER
+                } else {
+                    vx[i] = 0f; vy[i] = 0f
+                    anim[i] = Animacao.PARADO
+                }
+                continue
+            }
             val s = hypot(vx[i], vy[i])
             val f = max(0f, 1f - 4f * dt)
             vx[i] *= f; vy[i] *= f
             px[i] += vx[i] * dt; py[i] += vy[i] * dt
             anim[i] = if (i == marcador) Animacao.FESTEJAR else if (s > 0.5f) Animacao.CORRER else Animacao.PARADO
         }
+    }
+
+    /** Onde o jogador i fica no pontapé de saída (a equipa que não pontapeia fica na sua metade). */
+    internal fun slotSaida(i: Int, eqSaida: Int): Pair<Float, Float> {
+        val e = eq(i); val s = sinal(e)
+        var u = baseU[i]
+        if (e == eqSaida) u = min(u, -2f) else u = min(u, -12f)
+        return (u * s) to (baseV[i] * s)
+    }
+
+    private fun todosNasPosicoesDeSaida(): Boolean {
+        for (i in 0 until N) {
+            if (!ativo[i]) continue
+            val (sx, sy) = slotSaida(i, eqReinicio)
+            if (hypot(sx - px[i], sy - py[i]) > 1.0f) return false
+        }
+        return true
     }
 
     private fun depoisDoGolo() {
@@ -554,24 +610,42 @@ class MotorAoVivo(
         if (forcarCobrador >= 0 && ativo[forcarCobrador] && eq(forcarCobrador) == e) c = forcarCobrador
         if (c < 0) c = (base until base + 11).firstOrNull { ativo[it] } ?: base
         cobrador = c
-        // Posição de quem cobra e direção
+        // Posição de quem cobra e direção. Se está longe da bola, corre até lá (só o pontapé de saída é instantâneo).
+        cobChegou = true; cobChegadaT = 0f
+        if (reg.desempate == null && nova != FaseJogo.PONTAPE_SAIDA) {
+            var sx = 0f; var sy = 0f; var sd = 0f
+            when (nova) {
+                FaseJogo.LANCAMENTO -> { sx = x; sy = y + sign(y) * 0.8f; sd = atan2(-y, 0.001f) }
+                FaseJogo.CANTO -> { sx = x - sign(x) * 0.6f; sy = y + sign(y) * 0.6f; sd = atan2(-y, -x) }
+                FaseJogo.PENALTI -> { val g = sign(x); sx = x - g * 1.5f; sy = 0f; sd = if (g > 0f) 0f else Math.PI.toFloat() }
+                else -> { val a = atan2(-y, -x); sx = x - cos(a) * 0.8f; sy = y - sin(a) * 0.8f; sd = a }
+            }
+            if (hypot(px[c] - sx, py[c] - sy) > 2.5f) {
+                cobX = sx; cobY = sy; cobDir = sd; cobChegou = false
+            }
+        }
         when (nova) {
             FaseJogo.PONTAPE_SAIDA -> { px[c] = -0.8f * s; py[c] = 0f; dir[c] = if (s > 0f) 0f else Math.PI.toFloat() }
-            FaseJogo.LANCAMENTO -> { px[c] = x; py[c] = y + sign(y) * 0.8f; dir[c] = atan2(-y, 0.001f) }
-            FaseJogo.CANTO -> { px[c] = x - sign(x) * 0.6f; py[c] = y + sign(y) * 0.6f; dir[c] = atan2(-y, -x) }
-            FaseJogo.PENALTI -> {
+            FaseJogo.LANCAMENTO -> if (cobChegou) { px[c] = x; py[c] = y + sign(y) * 0.8f; dir[c] = atan2(-y, 0.001f) }
+            FaseJogo.CANTO -> if (cobChegou) { px[c] = x - sign(x) * 0.6f; py[c] = y + sign(y) * 0.6f; dir[c] = atan2(-y, -x) }
+            FaseJogo.PENALTI -> if (!cobChegou) {
+                val g = sign(x)
+                val gr = ((1 - e) * 11 until (1 - e) * 11 + 11).firstOrNull { ativo[it] && papel[it] == 0 }
+                if (gr != null) { px[gr] = g * (K.MX - 0.5f); py[gr] = 0f; vx[gr] = 0f; vy[gr] = 0f; dir[gr] = if (g > 0f) Math.PI.toFloat() else 0f }
+            } else {
                 val g = sign(x) // baliza que ataca
                 px[c] = x - g * 1.5f; py[c] = 0f; dir[c] = if (g > 0f) 0f else Math.PI.toFloat()
                 val gr = ((1 - e) * 11 until (1 - e) * 11 + 11).firstOrNull { ativo[it] && papel[it] == 0 }
                 if (gr != null) { px[gr] = g * (K.MX - 0.5f); py[gr] = 0f; vx[gr] = 0f; vy[gr] = 0f; dir[gr] = if (g > 0f) Math.PI.toFloat() else 0f }
             }
-            else -> {
+            else -> if (cobChegou) {
                 val a = atan2(-y, -x)
                 px[c] = x - cos(a) * 0.8f; py[c] = y - sin(a) * 0.8f; dir[c] = a
             }
         }
-        vx[c] = 0f; vy[c] = 0f; atordoado[c] = 0f
-        alvoX[c] = px[c]; alvoY[c] = py[c]
+        if (cobChegou) { vx[c] = 0f; vy[c] = 0f }
+        atordoado[c] = 0f
+        alvoX[c] = if (cobChegou) px[c] else cobX; alvoY[c] = if (cobChegou) py[c] else cobY
         espera = if (nova == FaseJogo.PONTAPE_SAIDA) 1.5f else 1.0f + rng.nextFloat() * 0.8f
         if (nova == FaseJogo.PENALTI) espera = 2.0f
         // Quem o utilizador comanda

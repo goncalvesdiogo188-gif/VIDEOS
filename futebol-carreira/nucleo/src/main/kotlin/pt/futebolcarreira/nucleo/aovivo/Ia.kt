@@ -353,8 +353,9 @@ internal fun MotorAoVivo.reinicioIA() {
         if (fase != FaseJogo.GOLO && fase != FaseJogo.INTERVALO) iniciarReinicio(fase, eqReinicio, bx, by)
         return
     }
-    if (eq(c) == eqUser) { if (tFase > TEMPO_PARADA_UTILIZADOR) executarReinicio(c); return }
-    if (tFase >= espera) executarReinicio(c)
+    if (!cobChegou) return   // ainda vai a caminho da bola
+    if (eq(c) == eqUser) { if (tCobranca > TEMPO_PARADA_UTILIZADOR) executarReinicio(c); return }
+    if (tCobranca >= espera) executarReinicio(c)
 }
 
 private fun MotorAoVivo.executarReinicio(c: Int) {

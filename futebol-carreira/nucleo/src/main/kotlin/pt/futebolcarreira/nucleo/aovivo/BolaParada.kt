@@ -87,7 +87,7 @@ internal fun MotorAoVivo.construirBolaParada(): BolaParada? {
     val user = e == eqUser
     return BolaParada(
         tipo, e == 0, bx, by, jog[c]!!.id, numero[c], user,
-        if (user) max(0f, TEMPO_PARADA_UTILIZADOR - tFase) else -1f,
+        if (user) max(0f, TEMPO_PARADA_UTILIZADOR - (if (cobChegou) tCobranca else 0f)) else -1f,
         dG, atan2(-by, gx - bx),
         podeRematar = tipo == TipoParada.PENALTI || (tipo == TipoParada.LIVRE && dG < 32f),
         barreira = tipo == TipoParada.LIVRE && reg.muro[0] >= 0,
@@ -131,7 +131,7 @@ internal fun MotorAoVivo.pontoDaBarreira(i: Int): Pair<Float, Float>? {
 internal fun MotorAoVivo.executarParadaUtilizador(cmd: ComandoParada): Boolean {
     if (reg.desempate != null && reg.desempate!!.estado != EstadoChute.PREPARAR) return false
     val k = cobrador
-    if (k < 0 || !ativo[k] || eqUser < 0 || eq(k) != eqUser || tFase < 0.4f) return false
+    if (k < 0 || !ativo[k] || eqUser < 0 || eq(k) != eqUser || !cobChegou || tCobranca < 0.4f) return false
     val f = cmd.forca.coerceIn(0f, 1f)
     when (fase) {
         FaseJogo.PENALTI -> penaltiUtilizador(k, cmd.mira, cmd.altura, f)

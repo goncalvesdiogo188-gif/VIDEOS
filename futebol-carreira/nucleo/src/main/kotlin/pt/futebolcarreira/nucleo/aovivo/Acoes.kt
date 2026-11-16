@@ -33,7 +33,7 @@ internal fun MotorAoVivo.usarComando() {
     osPasse = false; osRemate = false
     if (!passe && !remate) return
     val temBola = fase == FaseJogo.A_JOGAR && dono == c
-    val cobra = fase != FaseJogo.A_JOGAR && fase != FaseJogo.GOLO && cobrador == c && eq(c) == eqUser && tFase >= 0.4f
+    val cobra = fase != FaseJogo.A_JOGAR && fase != FaseJogo.GOLO && cobrador == c && eq(c) == eqUser && cobChegou && tCobranca >= 0.4f
     when {
         fase == FaseJogo.PENALTI && cobra -> penaltiComJoystick(c)
         (temBola || cobra) && remate -> remateUtilizador(c)
@@ -154,7 +154,7 @@ internal fun MotorAoVivo.chutarAlto(i: Int, tx0: Float, ty0: Float, t: Float, si
     val tx = tx0.coerceIn(-K.MX + 1f, K.MX - 1f); val ty = ty0.coerceIn(-K.MY + 1f, K.MY - 1f)
     val d = hypot(tx - bx, ty - by)
     val a = atan2(ty - by, tx - bx) + gauss() * sigma * (1f + d * 0.015f)
-    val tt = t * (1f + gauss() * 0.04f)
+    val tt = (t * (1f + gauss() * 0.04f)).coerceAtMost(2.4f)   // limita a altura: nada de bolas a 40 m
     val vh = d / tt
     bvx = cos(a) * vh; bvy = sin(a) * vh; bvz = 4.9f * tt
     dir[i] = atan2(ty - py[i], tx - px[i])
@@ -190,7 +190,7 @@ internal fun MotorAoVivo.rematar(i: Int, aimY: Float, aimZ: Float, v: Float, sig
     var vz = (aimZ + 4.9f * t * t) / t
     val a = atan2(dy, dx) + gauss() * sigma
     vz += gauss() * sigma * v * 0.7f
-    bvx = cos(a) * v; bvy = sin(a) * v; bvz = max(0.2f, vz)
+    bvx = cos(a) * v; bvy = sin(a) * v; bvz = vz.coerceIn(0.2f, 11f)
     dir[i] = atan2(dy, dx)
     // Vai à baliza? (previsão com a velocidade final)
     var alvo = false
