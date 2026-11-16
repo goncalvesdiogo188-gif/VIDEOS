@@ -249,7 +249,7 @@ private fun MotorAoVivo.tocar(i: Int, vh: Float) {
         rolouDefesa = true
         val dist3 = hypot(hypot(px[i] - bx, py[i] - by), max(0f, bz - 0.9f))
         val q = dist3 / 2.6f
-        val p = (0.97f - q * 0.5f - max(0f, vh - 18f) * 0.011f) * (0.5f + 0.5f * aGR[i] / 100f)
+        val p = (1.05f - q * 0.4f - max(0f, vh - 18f) * 0.011f) * (0.58f + 0.42f * aGR[i] / 100f)
         if (rng.nextFloat() < p) defender(i, vh)
         return
     }

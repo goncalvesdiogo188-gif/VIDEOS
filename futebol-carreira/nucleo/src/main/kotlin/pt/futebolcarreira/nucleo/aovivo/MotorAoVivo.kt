@@ -335,8 +335,11 @@ class MotorAoVivo(
                 dx = ex / d * v; dy = ey / d * v
             }
         }
+        // O guarda-redes que se lança à bola acelera muito mais (mergulho)
+        val mergulho = papel[i] == 0 && gkAtivo[eq(i)] && gkAtraso[eq(i)] <= 0f
+        if (mergulho) { dx *= 1.3f; dy *= 1.3f }
         var ax = dx - vx[i]; var ay = dy - vy[i]
-        val l = hypot(ax, ay); val m = K.ACEL * dt
+        val l = hypot(ax, ay); val m = K.ACEL * dt * (if (mergulho) 3.5f else 1f)
         if (l > m) { ax *= m / l; ay *= m / l }
         vx[i] += ax; vy[i] += ay
         px[i] = (px[i] + vx[i] * dt).coerceIn(-K.MX - 4f, K.MX + 4f)

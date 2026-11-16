@@ -5,6 +5,7 @@ import pt.futebolcarreira.nucleo.aovivo.EstadoPartida
 import pt.futebolcarreira.nucleo.aovivo.FabricaPartida
 import pt.futebolcarreira.nucleo.aovivo.FaseJogo
 import pt.futebolcarreira.nucleo.aovivo.PartidaAoVivo
+import pt.futebolcarreira.nucleo.aovivo.lesionar
 import pt.futebolcarreira.nucleo.carreira.Carreira
 import pt.futebolcarreira.nucleo.carreira.Gravador
 import pt.futebolcarreira.nucleo.carreira.ModoCarreira
@@ -302,6 +303,47 @@ class Fase11Test {
             for (f in rel.casa.fichas) assertEquals(jogosAntes.getValue(f.jogador.id) + 1, f.jogador.epoca.jogos)
             assertEquals(golosAntes + rel.golosCasa, rel.casa.fichas.sumOf { it.jogador.epoca.golos })
         }
+    }
+
+    @Test
+    fun `penaltis e lesoes funcionam`() {
+        val bd = carregar()
+        val t = equipasValidas(bd)
+        var golos = 0
+        val n = 24
+        for (k in 0 until n) {
+            val m = FabricaPartida.criar(t[k % 10], t[10 + k % 10], true, Random(k + 40), 240f, semUtilizador = true) as pt.futebolcarreira.nucleo.aovivo.MotorAoVivo
+            repeat(60) { m.passo(1f / 30f, Comando()) }
+            val g0 = m.golos[0]
+            // Penálti a favor da casa (ataca para +x na primeira parte)
+            m.iniciarReinicio(FaseJogo.PENALTI, 0, 41.5f, 0f)
+            assertEquals(FaseJogo.PENALTI, m.estado.fase)
+            var passos = 0
+            while (m.estado.fase == FaseJogo.PENALTI && passos++ < 300) m.passo(1f / 30f, Comando())
+            repeat(90) { m.passo(1f / 30f, Comando()) }
+            assertTrue(m.estado.fase != FaseJogo.PENALTI)
+            if (m.golos[0] > g0) golos++
+        }
+        println("F11 penaltis: $golos golos em $n")
+        assertTrue(golos in 8..23, "penáltis marcados: $golos de $n")
+        // Lesão com substituição e sem substituição
+        val m = FabricaPartida.criar(t[0], t[1], true, Random(5), 240f, semUtilizador = true) as pt.futebolcarreira.nucleo.aovivo.MotorAoVivo
+        repeat(300) { m.passo(1f / 30f, Comando()) }
+        val antes = m.partes.size
+        m.lesionar(5)
+        assertEquals(antes + 1, m.partes.size)
+        assertTrue(m.estado.jogadores.size == 22)
+        // Sem suplentes, a equipa fica com menos um
+        m.banco[0].clear()
+        m.lesionar(6)
+        assertEquals(21, m.estado.jogadores.size)
+        repeat(30) { m.passo(1f / 30f, Comando()) }
+        var passos = 0
+        while (!m.terminou && passos++ < 20_000) m.passo(1f / 30f, Comando())
+        val rel = FabricaPartida.relatorio(m)
+        assertTrue(rel.eventos.count { it.tipo == TipoEvento.LESAO } == 2)
+        assertTrue(rel.eventos.count { it.tipo == TipoEvento.SUBSTITUICAO } == 1)
+        assertTrue(rel.casa.fichas.count { it.lesao > 0 } == 2)
     }
 
     @Test
