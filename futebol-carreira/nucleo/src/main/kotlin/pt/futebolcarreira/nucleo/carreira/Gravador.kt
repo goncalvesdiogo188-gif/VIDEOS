@@ -157,6 +157,10 @@ private class Gravacao(
     val historico: List<ResumoEpoca> = emptyList(),
     val mensagens: List<Mensagem> = emptyList(),
     val olheiros: EstadoOlheiros = EstadoOlheiros(),
+    /** Manchetes (a mais recente primeiro). Gravações antigas, de antes da Fase 8, não as têm. */
+    val noticias: List<Noticia> = emptyList(),
+    /** Acontecimentos únicos já noticiados nesta época (título decidido...). */
+    val noticiasMarcas: List<String> = emptyList(),
 )
 
 private const val VERSAO = 1
@@ -249,6 +253,8 @@ object Gravador {
             historico = g.historico.toList(),
             mensagens = c.mensagens.toList(),
             olheiros = c.olheiros.estado,
+            noticias = c.manchetes.toList(),
+            noticiasMarcas = c.geradorNoticias.marcas.toList(),
         )
         return JSON.encodeToString(Gravacao.serializer(), gravacao)
     }
@@ -355,6 +361,8 @@ object Gravador {
 
         return Carreira(bd, gestor, gravacao.info, gravacao.olheiros).also {
             it.mensagens += gravacao.mensagens
+            it.manchetes += gravacao.noticias
+            it.geradorNoticias.marcas += gravacao.noticiasMarcas
             it.baseDadosPorGravar = false
         }
     }

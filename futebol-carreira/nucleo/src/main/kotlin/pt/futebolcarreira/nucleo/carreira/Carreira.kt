@@ -79,6 +79,10 @@ class JogoDoClube(
     val indiceRonda: Int = 0,
     /** Id do clube a que o jogo diz respeito. */
     val clubeId: String = "",
+    /** Nome do derby (rivalidade) entre os dois clubes, ou null se não é um derby. */
+    val derby: String? = null,
+    /** Intensidade do derby (1 a 3); 0 = jogo normal. */
+    val intensidadeDerby: Int = 0,
 ) {
     /** Só nas taças: true se o clube passou, false se foi eliminado, null se ainda não está decidido. */
     val passou: Boolean? get() = confronto?.vencedor?.let { it == clubeId }
@@ -99,6 +103,12 @@ class Carreira(
 ) {
     /** Caixa de entrada: a mensagem mais recente fica em primeiro lugar. */
     val mensagens = mutableListOf<Mensagem>()
+
+    /** As notícias (manchetes) do mundo do jogo, a mais recente em primeiro lugar (no máximo [GeradorNoticias.MAX_NOTICIAS]). */
+    val manchetes = mutableListOf<Noticia>()
+
+    /** Cria as manchetes a partir do que acontece nos jogos. */
+    val geradorNoticias = GeradorNoticias(this)
 
     /**
      * true quando a base de dados (equipas, jogadores) mudou desde a última gravação.
@@ -179,10 +189,12 @@ class Carreira(
 
     private fun jogoEuropeu(tipo: TipoEuropa, j: JogoEuropa, jornada: Int, ronda: String, perna: Int, c: Confronto?, eFinal: Boolean, indiceRonda: Int): JogoDoClube {
         val emCasa = j.casa == info.equipaId
+        val riv = bd.rivalidades().entre(j.casa, j.fora)
         return JogoDoClube(
             jornada, 0, j.dia, bd.equipas.getValue(if (emCasa) j.fora else j.casa), emCasa,
             if (j.jogado) resultadoEuropeu(j) else null,
             tipo.id, tipo.nome, "europa", ronda, j.neutro, perna, c, eFinal, indiceRonda, info.equipaId,
+            derby = riv?.nome, intensidadeDerby = riv?.intensidade ?: 0,
         )
     }
 
@@ -194,11 +206,13 @@ class Carreira(
             if (indice < 0) return@mapIndexedNotNull null
             val jogo = jogos[indice]
             val emCasa = jogo.casa == info.equipaId
+            val riv = bd.rivalidades().entre(jogo.casa, jogo.fora)
             JogoDoClube(
                 jornada + 1, indice, e.datas[jornada],
                 bd.equipas.getValue(if (emCasa) jogo.fora else jogo.casa), emCasa,
                 e.resultados.getOrNull(jornada)?.getOrNull(indice),
                 competicaoId = liga.id, competicaoNome = liga.nome, clubeId = info.equipaId,
+                derby = riv?.nome, intensidadeDerby = riv?.intensidade ?: 0,
             )
         }
     }
@@ -210,11 +224,13 @@ class Carreira(
             val indice = ronda.confrontos.indexOfFirst { it.envolve(info.equipaId) }
             if (indice < 0) return@flatMapIndexed emptyList()
             val c = ronda.confrontos[indice]
+            val riv = bd.rivalidades().entre(c.a, c.b)
             c.datas.mapIndexed { i, data ->
                 JogoDoClube(
                     r + 1, indice, data, bd.equipas.getValue(c.adversarioDe(info.equipaId)), c.casaDoJogo(i) == info.equipaId,
                     c.jogos.getOrNull(i), comp.id, comp.nome, comp.tipo, ronda.nome, c.neutro,
                     if (c.idaEVolta) i + 1 else 0, c, r == t.defs.size - 1, r, info.equipaId,
+                    derby = riv?.nome, intensidadeDerby = riv?.intensidade ?: 0,
                 )
             }
         }
@@ -235,11 +251,13 @@ class Carreira(
         if (gestor.epocaTerminada() || info.despedido) return null
         var alvo = proximoJogo()
         val antes = gestor.data
+        var negocios = emptyList<String>()
+        gestor.fatorAmbiente = ambiente(alvo).fator
         if (alvo == null) {
             gestor.simularAteAoFim()
         } else {
             // Enquanto o mercado está aberto, os outros clubes também compram e vendem.
-            val negocios = mercado.negociosDosOutros(6)
+            negocios = mercado.negociosDosOutros(6)
             if (negocios.isNotEmpty()) mensagem("Mercado: negócios dos outros clubes", negocios.take(4).joinToString(" "))
             // Dia a dia: um sorteio de taça feito pelo caminho pode trazer um jogo do clube antes do que se esperava.
             while (true) {
@@ -274,10 +292,17 @@ class Carreira(
                 avaliarJogoDeTaca(jogado)
             }
         }
+        // Notícias do que se jogou (no clube e no resto do mundo).
+        val jogosN = gestor.jogosParaNoticias.toList()
+        val confrontosN = gestor.confrontosParaNoticias.toList()
+        gestor.jogosParaNoticias.clear()
+        gestor.confrontosParaNoticias.clear()
+        geradorNoticias.gerar(jogosN, confrontosN, negocios)
         if (gestor.epocaTerminada()) {
             mensagemFimDeEpoca()
             avaliarEpoca()
         }
+        geradorNoticias.publicar()
         return jogado
     }
 
@@ -293,8 +318,12 @@ class Carreira(
         gestor.avancarParaEpocaSeguinte()
         mercado.recusados.clear()
         gestor.noticias.clear()
+        gestor.jogosParaNoticias.clear()
+        gestor.confrontosParaNoticias.clear()
+        geradorNoticias.novaEpoca()
         // O torneio de verão (Final Four, Euro ou Mundial) jogou-se ao mudar de época: resultados e convocatórias.
         avisarSelecoes()
+        geradorNoticias.publicar()
         if (gestor.avisos.isNotEmpty()) mensagem("Plantel: o que mudou no verão", gestor.avisos.joinToString(" "))
         val jovens = academia.novaGeracao()
         if (eTreinador) mensagem("Academia: nova geração", "Entraram na academia: " + jovens.joinToString { "${it.nome} (${it.posicao}, ${it.idade} anos)" } + ".")
@@ -340,8 +369,22 @@ class Carreira(
         info.objetivoTexto = texto
     }
 
+    /**
+     * O ambiente à volta do clube neste momento: confiança dos adeptos e da direção, forma nos últimos 5 jogos
+     * e, se o próximo jogo for um derby, a tensão que isso traz.
+     */
+    fun ambiente(proximo: JogoDoClube? = proximoJogo()): Ambiente {
+        val recentes = jogosDoClube().filter { it.resultado != null }.takeLast(5)
+        val pontos = recentes.map { if (it.golosMarcados > it.golosSofridos) 3 else if (it.golosMarcados == it.golosSofridos) 1 else 0 }.sum()
+        return Ambiente.calcular(info.confiancaAdeptos, info.confiancaDirecao, pontos, recentes.size, proximo?.intensidadeDerby ?: 0)
+    }
+
+    /** Num derby os efeitos na confiança contam 1,5 a 2 vezes mais (conforme a intensidade). */
+    private fun escalarDerby(valor: Int, intensidade: Int): Int =
+        if (intensidade <= 0 || valor == 0) valor else (if (valor < 0) -1 else 1) * Math.round(Math.abs(valor) * (1.25 + 0.25 * intensidade)).toInt()
+
     /** Depois de cada jogo, a direção e os adeptos ficam mais (ou menos) contentes com o treinador. */
-    private fun avaliarJogo(jogo: JogoDoClube) {
+    internal fun avaliarJogo(jogo: JogoDoClube) {
         if (!eTreinador) return
         // Diferença de qualidade: positiva se o adversário é mais forte.
         val diferenca = jogo.adversario.forca().geral - equipa.forca().geral
@@ -351,11 +394,13 @@ class Carreira(
             saldo == 0 -> if (diferenca >= 4) 1 else -1
             else -> if (diferenca >= 6) -2 else if (diferenca <= -3) -4 else -3
         }
-        val adeptos = when {
+        var adeptos = when {
             saldo > 0 -> 4
             saldo == 0 -> -1
             else -> if (saldo <= -3) -7 else -5
         }
+        direcao = escalarDerby(direcao, jogo.intensidadeDerby)
+        adeptos = escalarDerby(adeptos, jogo.intensidadeDerby)
         // Com a época já lançada, conta também a distância ao objetivo.
         if (estadoLiga.jornada >= 6) {
             val atraso = posicao() - info.objetivoPosicao
@@ -466,13 +511,19 @@ class Carreira(
             "${s.nome(g.casa)} ${g.golosCasa}-${g.golosFora} ${s.nome(g.fora)}$pen"
         }
         if (linhas.isNotEmpty()) {
-            mensagem("Seleções: resultados", linhas.take(6).joinToString(". ") + (if (linhas.size > 6) ". E mais ${linhas.size - 6} jogos." else "."), data)
+            val corpo = linhas.take(6).joinToString(". ") + (if (linhas.size > 6) ". E mais ${linhas.size - 6} jogos." else ".")
+            mensagem("Seleções: resultados", corpo, data)
+            val manchete = listOf("Dia de seleções: ${linhas.first()}", "Seleção em ação: ${linhas.first()}", "Paragem para as seleções: ${linhas.first()}").random(gestor.aleatorio)
+            geradorNoticias.adicionar(50, "selecao", manchete, corpo, false, data)
         }
         // Vencedores: a final acabou de se jogar.
         for (j in jogos.filter { it.fase == "Final" }) {
             val comp = s.competicao(j.competicaoId)?.takeIf { it.terminada } ?: continue
             val v = comp.vencedor ?: continue
-            mensagem("Seleções: ${comp.nome}", "${s.nome(v)} venceu a final (${s.nome(j.jogo.casa)} ${j.jogo.golosCasa}-${j.jogo.golosFora} ${s.nome(j.jogo.fora)}).", j.jogo.dataLocal())
+            val texto = "${s.nome(v)} venceu a final (${s.nome(j.jogo.casa)} ${j.jogo.golosCasa}-${j.jogo.golosFora} ${s.nome(j.jogo.fora)})."
+            mensagem("Seleções: ${comp.nome}", texto, j.jogo.dataLocal())
+            val titulo = listOf("${s.nome(v)} conquista a ${comp.nome}", "${comp.nome}: ${s.nome(v)} é campeã", "${s.nome(v)} no topo: vence a ${comp.nome}").random(gestor.aleatorio)
+            geradorNoticias.adicionar(if (v == equipa.pais) 80 else 62, "selecao", titulo, texto, false, j.jogo.dataLocal())
         }
         // Lesões dos nossos ao serviço da seleção.
         val lesoes = LinkedHashMap<Int, String>()
@@ -498,10 +549,13 @@ class Carreira(
         if (!eTreinador) {
             val nacao = meus.firstOrNull { it.first.id == info.jogadorId }?.second ?: return
             mensagem("Convocatória", "Foste convocado para a seleção de ${s.nome(nacao)}!", c.data)
+            geradorNoticias.adicionar(46, "selecao", "Convocado! ${jogador?.nome ?: info.nome} chamado à seleção", "O jogador do ${equipa.nome} foi chamado à seleção de ${s.nome(nacao)}.", true, c.data)
             return
         }
         val lista = meus.take(8).joinToString { (j, n) -> "${j.nome} (${s.nome(n)})" } + if (meus.size > 8) " e mais ${meus.size - 8}" else ""
         mensagem("Convocatórias", "Jogadores do teu clube chamados às seleções: $lista.", c.data)
+        val titulo = listOf("${equipa.nome} cede ${meus.size} à seleção", "Convocatórias: ${meus.size} jogadores do ${equipa.nome} chamados", "Seleções chamam ${meus.size} do ${equipa.nome}").random(gestor.aleatorio)
+        geradorNoticias.adicionar(44, "selecao", titulo, "Chamados: $lista.", true, c.data)
     }
 
     /** Avisa quando o mercado de transferências abre ou fecha entre dois dias. */
@@ -516,6 +570,7 @@ class Carreira(
     /** Golos, lesões e castigos do jogo do clube (e a nota do jogador do utilizador). */
     private fun linhasDoRelatorio(jogo: JogoDoClube): MutableList<String> {
         val linhas = mutableListOf<String>()
+        jogo.derby?.let { linhas += "$it: jogo de grande intensidade." }
         val relatorio = jogo.resultado?.relatorio
         if (relatorio != null) {
             val lado = if (jogo.emCasa) relatorio.casa else relatorio.fora
@@ -629,8 +684,8 @@ class Carreira(
             diferenca <= -6 && !jogo.eFinal -> -3 to -4
             else -> 0 to -1
         }
-        info.confiancaDirecao = (info.confiancaDirecao + direcao).coerceIn(0, 100)
-        info.confiancaAdeptos = (info.confiancaAdeptos + adeptos).coerceIn(0, 100)
+        info.confiancaDirecao = (info.confiancaDirecao + escalarDerby(direcao, jogo.intensidadeDerby)).coerceIn(0, 100)
+        info.confiancaAdeptos = (info.confiancaAdeptos + escalarDerby(adeptos, jogo.intensidadeDerby)).coerceIn(0, 100)
     }
 
     private fun mensagemFimDeEpoca() {
@@ -654,6 +709,12 @@ class Carreira(
             val tipo = TipoEuropa.values().firstOrNull { it.id == id } ?: continue
             val vencedor = bd.equipas[t.vencedor]?.nome ?: continue
             tacas.append(if (t.vencedor == info.equipaId) " O teu clube venceu a ${tipo.nome}!" else " ${tipo.nome}: $vencedor.")
+        }
+        val chaveTitulo = "titulo/${gestor.ano}/${liga.id}"
+        if (liga.nivel == 1 && chaveTitulo !in geradorNoticias.marcas) {
+            geradorNoticias.marcas += chaveTitulo
+            val campeao = bd.equipas[resumo.campeao]?.nome ?: resumo.campeao
+            geradorNoticias.adicionar(70, "titulo", "$campeao é campeão da ${liga.nome}", "Com ${resumo.pontos} pontos, $campeao termina a época no primeiro lugar.", resumo.campeao == info.equipaId)
         }
         mensagem(
             "Fim da época ${gestor.nomeEpoca()}",

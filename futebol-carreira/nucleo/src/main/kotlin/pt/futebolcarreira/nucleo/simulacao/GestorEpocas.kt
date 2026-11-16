@@ -113,6 +113,16 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     fun tacaDoPais(pais: String, supertaca: Boolean = false): EstadoEliminatoria? =
         eliminatorias.values.firstOrNull { bd.competicoes[it.id]?.let { c -> c.pais == pais && (if (supertaca) c.eSupertaca else c.eTaca) } == true }
 
+    /**
+     * Efeito do ambiente à volta do clube do utilizador na assistência dos seus jogos em casa (ver Ambiente).
+     * Quem usa o gestor sozinho deixa 1,0.
+     */
+    var fatorAmbiente = 1.0
+
+    /** Jogos e eliminatórias decididas ainda por transformar em notícias (só se há clube do utilizador). Quem os lê esvazia as listas. */
+    val jogosParaNoticias = mutableListOf<JogoNoticia>()
+    val confrontosParaNoticias = mutableListOf<ConfrontoNoticia>()
+
     /** Frases sobre o que aconteceu na mudança de época (empréstimos que acabam, renovações...). */
     val avisos = mutableListOf<String>()
 
@@ -254,12 +264,16 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             }
             if (s != null && selecao != null && selecao <= proxima) registarJogosSelecoes(s.jogarAte(selecao))
             if (clube == null || clube > proxima) continue
-            for (e in estado.values) if (e.proximaData?.let { it <= proxima } == true) jogarJornada(e)
+            for ((id, e) in estado) if (e.proximaData?.let { it <= proxima } == true) jogarJornada(id, e)
             for (t in eliminatorias.values) if (t.proximaData?.let { it <= proxima } == true) jogarEliminatoria(t, proxima)
             europa?.let { eu ->
                 if (eu.proximaData()?.let { it <= proxima } == true) {
-                    eu.jogarAte(proxima, bd, rng, setOf(clubeDoUtilizador)) { _, relatorio ->
+                    eu.jogarAte(proxima, bd, rng, setOf(clubeDoUtilizador)) { jogo, relatorio ->
                         Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
+                        if (clubeDoUtilizador.isNotEmpty()) {
+                            val tipo = if (jogo.casa in eu.estado(TipoEuropa.CAMPEOES).clubes) TipoEuropa.CAMPEOES else TipoEuropa.EUROPA
+                            jogosParaNoticias += JogoNoticia(tipo.id, "europa", Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio, relatorio.prolongamento), 0, jogo.fase)
+                        }
                     }
                 }
             }
@@ -275,15 +289,30 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         if (epocaTerminada() && !epocaFechada) fecharEpoca()
     }
 
-    private fun jogarJornada(e: EstadoLiga) {
+    private fun jogarJornada(ligaId: String, e: EstadoLiga) {
         e.resultados += e.calendario[e.jornada].map { jogo ->
-            val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng)
+            val derby = bd.rivalidades().intensidade(jogo.casa, jogo.fora)
+            val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng, derby = derby)
             MotorJogo.aplicar(relatorio)
             Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
+            efeitoDoDerby(relatorio, derby)
             e.tabela.registar(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora)
-            Financas.jornada(bd.equipas.getValue(jogo.casa), true, e.totalJornadas)
+            val ambiente = if (jogo.casa == clubeDoUtilizador) fatorAmbiente else 1.0
+            Financas.jornada(bd.equipas.getValue(jogo.casa), true, e.totalJornadas, derby > 0, ambiente)
             Financas.jornada(bd.equipas.getValue(jogo.fora), false, e.totalJornadas)
-            Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
+            val resultado = Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio)
+            if (clubeDoUtilizador.isNotEmpty()) jogosParaNoticias += JogoNoticia(ligaId, "liga", resultado, derby)
+            resultado
+        }
+    }
+
+    /** Depois de um derby, a moral do plantel do vencedor sobe e a do vencido desce (mais num clássico). */
+    private fun efeitoDoDerby(relatorio: RelatorioJogo, derby: Int) {
+        if (derby <= 0 || relatorio.golosCasa == relatorio.golosFora) return
+        val casaGanhou = relatorio.golosCasa > relatorio.golosFora
+        for (lado in listOf(relatorio.casa, relatorio.fora)) {
+            val ganhou = (lado === relatorio.casa) == casaGanhou
+            for (j in bd.equipas[lado.equipa]?.plantel.orEmpty()) j.moral = (j.moral + if (ganhou) 2 * derby else -2 * derby).coerceIn(0, 100)
         }
     }
 
@@ -292,6 +321,9 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         t.jogarDia(dia, { casa, fora, neutro, antesCasa, antesFora, decisivo -> jogarJogoDeTaca(casa, fora, neutro, antesCasa, antesFora, decisivo) }) { confronto, ronda ->
             val vencedor = bd.equipas.getValue(confronto.vencedor!!)
             val vencido = bd.equipas.getValue(confronto.perdedor!!)
+            if (clubeDoUtilizador.isNotEmpty()) {
+                confrontosParaNoticias += ConfrontoNoticia(comp.id, comp.tipo, t.rondas[ronda].nome, ronda == t.defs.size - 1, confronto)
+            }
             if (comp.eSupertaca) {
                 Financas.premioSupertaca(vencedor, true)
                 Financas.premioSupertaca(vencido, false)
@@ -305,10 +337,12 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     private fun jogarJogoDeTaca(casaId: String, foraId: String, neutro: Boolean, antesCasa: Int, antesFora: Int, decisivo: Boolean): Resultado {
         val casa = bd.equipas.getValue(casaId)
         val fora = bd.equipas.getValue(foraId)
-        val relatorio = MotorJogo.simular(casa, fora, rng, neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null)
+        val derby = bd.rivalidades().intensidade(casaId, foraId)
+        val relatorio = MotorJogo.simular(casa, fora, rng, neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null, derby)
         MotorJogo.aplicar(relatorio, taca = true)
         Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
-        Financas.bilheteiraTaca(casa, fora, neutro)
+        efeitoDoDerby(relatorio, derby)
+        Financas.bilheteiraTaca(casa, fora, neutro, derby > 0)
         var penaltisCasa = 0
         var penaltisFora = 0
         if (decisivo && relatorio.golosCasa + antesCasa == relatorio.golosFora + antesFora) {

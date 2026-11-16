@@ -17,17 +17,25 @@ object Financas {
         return (1.17.pow(nivel - 50.0) * 60_000.0 * 15.5).toLong()
     }
 
-    /** Espectadores num jogo em casa: estádios de clubes grandes enchem mais. */
-    fun assistencia(e: Equipa): Int = (e.capacidade * (0.55 + e.reputacao / 250.0).coerceAtMost(0.97)).toInt()
+    /**
+     * Espectadores num jogo em casa: estádios de clubes grandes enchem mais.
+     * Num derby o estádio enche; "fatorAmbiente" (cerca de 0,9 a 1,06) é o efeito do ambiente à volta do clube.
+     */
+    fun assistencia(e: Equipa, derby: Boolean = false, fatorAmbiente: Double = 1.0): Int {
+        if (derby) return e.capacidade
+        val normal = e.capacidade * (0.55 + e.reputacao / 250.0).coerceAtMost(0.97)
+        return (normal * fatorAmbiente).toInt().coerceIn(0, e.capacidade)
+    }
 
     /** Receita de bilheteira de um jogo em casa. */
-    fun bilheteira(e: Equipa): Long = (assistencia(e) * (12.0 + e.reputacao * 0.35)).toLong()
+    fun bilheteira(e: Equipa, derby: Boolean = false, fatorAmbiente: Double = 1.0): Long =
+        (assistencia(e, derby, fatorAmbiente) * (12.0 + e.reputacao * 0.35)).toLong()
 
     /** Contas de uma jornada: uma fatia dos patrocínios e dos salários, e a bilheteira se jogou em casa. */
-    fun jornada(e: Equipa, emCasa: Boolean, totalJornadas: Int) {
+    fun jornada(e: Equipa, emCasa: Boolean, totalJornadas: Int, derby: Boolean = false, fatorAmbiente: Double = 1.0) {
         val patrocinio = patrocinioAnual(e) / totalJornadas
         val salarios = e.folhaSalarial() / totalJornadas
-        val bilhetes = if (emCasa) bilheteira(e) else 0L
+        val bilhetes = if (emCasa) bilheteira(e, derby, fatorAmbiente) else 0L
         e.contas.patrocinios += patrocinio
         e.contas.salarios += salarios
         e.contas.bilheteira += bilhetes
@@ -38,9 +46,9 @@ object Financas {
      * Bilheteira de um jogo de taça. Em casa, fica toda para a casa; em campo neutro divide-se
      * em partes iguais, com a receita do estádio maior dos dois.
      */
-    fun bilheteiraTaca(casa: Equipa, fora: Equipa, neutro: Boolean) {
+    fun bilheteiraTaca(casa: Equipa, fora: Equipa, neutro: Boolean, derby: Boolean = false) {
         if (!neutro) {
-            val valor = bilheteira(casa)
+            val valor = bilheteira(casa, derby)
             casa.contas.bilheteira += valor
             casa.orcamento += valor
             return

@@ -41,9 +41,12 @@ object MotorJogo {
     const val CUSTO_JOGADOR_A_MENOS = 5.0
     /** De quantos em quantos amarelos na época há um jogo de castigo. */
     const val AMARELOS_PARA_CASTIGO = 5
+    /** Num derby (intensidade 1 a 3): mais cartões e uma pequena ajuda do público a quem joga em casa. */
+    const val CARTOES_POR_INTENSIDADE_DERBY = 0.12
+    const val CASA_POR_INTENSIDADE_DERBY = 0.03
 
     /** Um dos lados durante o jogo. */
-    private class Lado(val equipa: Equipa, val casa: Boolean, val rng: Random, val neutro: Boolean = false) {
+    private class Lado(val equipa: Equipa, val casa: Boolean, val rng: Random, val neutro: Boolean = false, val derby: Int = 0) {
         val formacao: Formacao = equipa.formacao
         val lugares = formacao.lugares
         val emCampo = arrayOfNulls<FichaJogador>(11)
@@ -194,13 +197,15 @@ object MotorJogo {
      * "precisaProlongamento" (só nas eliminatórias): recebe os golos da casa e da fora aos 90 minutos e diz
      * se é preciso prolongamento (30 minutos a mais). Assim serve para jogos únicos e para a segunda mão,
      * onde conta o resultado agregado. Os penáltis não são daqui: ver "Penaltis".
+     * "derby" (0 a 3) é a intensidade da rivalidade entre os dois clubes: 0 = jogo normal.
      */
     fun simular(
         casa: Equipa, fora: Equipa, rng: Random, neutro: Boolean = false,
         precisaProlongamento: ((Int, Int) -> Boolean)? = null,
+        derby: Int = 0,
     ): RelatorioJogo {
-        val c = Lado(casa, true, rng, neutro)
-        val f = Lado(fora, false, rng, neutro)
+        val c = Lado(casa, true, rng, neutro, derby)
+        val f = Lado(fora, false, rng, neutro, derby)
         val eventos = mutableListOf<Evento>()
         escolherMentalidadeInicial(c, f)
         escolherMentalidadeInicial(f, c)
@@ -295,7 +300,7 @@ object MotorJogo {
         // ---- Remates e golos ----
         val base = when {
             lado.neutro -> (SimuladorJogo.GOLOS_BASE_CASA + SimuladorJogo.GOLOS_BASE_FORA) / 2   // sem vantagem de campo
-            lado.casa -> SimuladorJogo.GOLOS_BASE_CASA
+            lado.casa -> SimuladorJogo.GOLOS_BASE_CASA * (1.0 + CASA_POR_INTENSIDADE_DERBY * lado.derby)
             else -> SimuladorJogo.GOLOS_BASE_FORA
         }
         val ataque = lado.ataque + lado.mentalidade.ataque
@@ -351,11 +356,12 @@ object MotorJogo {
         if (rng.nextDouble() < faltas / 90.0) {
             est.faltas++
             val sorte = rng.nextDouble()
-            if (sorte < PROB_AMARELO + PROB_VERMELHO) {
+            val cartoes = 1.0 + CARTOES_POR_INTENSIDADE_DERBY * lado.derby
+            if (sorte < (PROB_AMARELO + PROB_VERMELHO) * cartoes) {
                 val i = lado.sortear { i -> if (lado.lugares[i] == "GR") 0.1 else Equipa.PESO_DEFESA.getValue(lado.lugares[i]) + 0.7 }
                 val ficha = i?.let { lado.emCampo[it] }
                 if (i != null && ficha != null) {
-                    if (sorte < PROB_VERMELHO) {
+                    if (sorte < PROB_VERMELHO * cartoes) {
                         ficha.vermelho = true
                         ficha.vermelhoDireto = true
                         est.vermelhos++
