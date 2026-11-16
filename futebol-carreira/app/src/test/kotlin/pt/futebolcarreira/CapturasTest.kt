@@ -249,6 +249,8 @@ class CapturasTest {
         capturar("25-selecoes-real")
         tocar("Convocados")
         capturar("26-convocados-real")
+        tocar("Argentina")
+        capturar("26b-convocados-argentina")
 
         // ---- Fase 8: notícias no Início e lista completa ----
         assertTrue(jogo.ui!!.noticias.isNotEmpty())

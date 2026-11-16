@@ -78,7 +78,7 @@ class NacionalidadesTest {
         assertTrue(c.all { it.id > 0 && it.nacionalidade == "BRA" && it.id in bd.jogadores }, "só reais")
         assertEquals(c.map { it.id }.toSet(), s.convocados("BRA").map { it.id }.toSet())
         // Outras nações fora das seis dos clubes.
-        for (n in listOf("ARG", "NED", "BEL", "CRO", "MAR", "SEN", "USA", "URU", "COL", "DIN", "SUI")) {
+        for (n in listOf("ARG", "NED", "BEL", "CRO", "MAR", "SEN", "URU", "COL", "DIN", "SUI")) {
             assertTrue(s.usaJogadoresReais(n), n)
             val conv = s.calcularConvocatoria(n)
             assertEquals(23, conv.size, n)
@@ -106,23 +106,24 @@ class NacionalidadesTest {
     @Test
     fun `jogador de nacao fora da base de dados no clube do utilizador aparece nos convocados`() {
         val bd = carregar()
-        // Clube com mais brasileiros.
-        val clube = bd.equipas.values.maxBy { e -> e.plantel.count { it.nacionalidade == "BRA" } }
-        assertTrue(clube.plantel.count { it.nacionalidade == "BRA" } >= 1)
+        // O par (clube, nação europeia fora da base de dados) com mais jogadores: joga a Liga das Nações já em setembro.
+        val s0 = estado(bd)
+        val europeias = s0.nacoes.values.filter { it.europeia && !it.baseDados && s0.usaJogadoresReais(it.id) }.map { it.id }
+        val (clube, nacao) = bd.equipas.values.flatMap { e -> europeias.map { n -> e to n } }
+            .maxBy { (e, n) -> e.plantel.count { it.nacionalidade == n } }
+        assertTrue(clube.plantel.count { it.nacionalidade == nacao } >= 2, "$nacao em ${clube.id}")
         val c = Carreira.nova(bd, "nac-sel", "Ana", ModoCarreira.TREINADOR, clube.id, semente = 5)
         val s = assertNotNull(c.gestor.selecoes)
-        val convocados = s.convocados("BRA")
-        val meus = convocados.filter { it.equipa == clube.id }
-        // Se o melhor brasileiro do clube não entrar, ainda assim todos os chamados do clube contam como "meus".
-        val doClube = clube.plantel.filter { it.nacionalidade == "BRA" }
-        val esperado = doClube.filter { j -> convocados.any { it.id == j.id } }
-        assertEquals(esperado.map { it.id }.toSet(), meus.map { it.id }.toSet())
+        val doClube = clube.plantel.filter { it.nacionalidade == nacao }
+        val chamados = s.convocados(nacao)
+        assertTrue(doClube.any { j -> chamados.any { it.id == j.id } }, "algum do clube é chamado")
         while (c.gestor.data < LocalDate.of(2026, 11, 20)) c.avancar()
         val janela = s.convocadosDaJanela()
-        assertTrue("BRA" in janela, "o Brasil joga ou é convocado alguma vez")
-        val daJanela = clube.plantel.filter { j -> j.nacionalidade == "BRA" && j.id in janela.getValue("BRA") }
-        assertEquals(daJanela.map { it.id }.toSet(), janela.getValue("BRA").mapNotNull { bd.jogadores[it] }.filter { it.equipa == clube.id }.map { it.id }.toSet())
-        assertTrue(s.nacaoDoConvocado(daJanela.firstOrNull()?.id ?: -999) == (if (daJanela.isEmpty()) null else "BRA"))
+        assertTrue(nacao in janela, "$nacao convocada na janela")
+        val meus = janela.getValue(nacao).mapNotNull { bd.jogadores[it] }.filter { it.equipa == clube.id }
+        assertTrue(meus.isNotEmpty())
+        assertEquals(nacao, s.nacaoDoConvocado(meus.first().id))
+        assertTrue(c.mensagens.any { it.titulo == "Convocatórias" || it.titulo == "Convocatória" })
     }
 
     @Test

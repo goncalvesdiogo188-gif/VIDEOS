@@ -47,7 +47,11 @@ class Fase1Test {
         val bd = carregar()
         val ficheiros = bd.paraJson()
         for ((caminho, texto) in ficheiros) {
-            assertEquals(File(pastaDados, caminho).readText(), texto, "conteúdo de $caminho")
+            // Os códigos de nacionalidade alternativos (CZE, SCO...) saem normalizados (RCH, ESC...).
+            val esperado = Regex("\"nacionalidade\":\"([A-Z]+)\"").replace(File(pastaDados, caminho).readText()) {
+                "\"nacionalidade\":\"${pt.futebolcarreira.nucleo.dados.Nacionalidades.normalizar(it.groupValues[1])}\""
+            }
+            assertEquals(esperado, texto, "conteúdo de $caminho")
         }
     }
 
