@@ -243,6 +243,9 @@ private fun Historico(liga: LigaUi) {
                     }
                     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
                     if (e.marcador.isNotEmpty()) Text("Melhor marcador: ${e.marcador}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
+                    if (e.melhorJogador.isNotEmpty()) Text("Melhor jogador: ${e.melhorJogador}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
+                    if (e.melhorJovem.isNotEmpty()) Text("Melhor jovem: ${e.melhorJovem}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
+                    if (e.bolaDeOuro.isNotEmpty()) Text("Bola de Ouro: ${e.bolaDeOuro}", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                     if (e.sobem.isNotEmpty()) Text("Subiram: ${e.sobem}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                     if (e.descem.isNotEmpty()) Text("Desceram: ${e.descem}", fontSize = 13.sp, color = secundaria, modifier = Modifier.padding(start = 76.dp))
                 }

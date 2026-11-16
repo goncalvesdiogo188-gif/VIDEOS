@@ -20,7 +20,7 @@ fun Aplicacao(jogo: JogoViewModel) {
             Ecra.MENU -> EcraMenu(jogo.gravacoes, jogo.ocupado, jogo::continuar, jogo::abrirNovaCarreira, jogo::abrirCarregar)
             Ecra.NOVA_CARREIRA -> {
                 BackHandler(onBack = jogo::abrirMenu)
-                EcraNovaCarreira(jogo.paises, jogo.ocupado, jogo::comecarCarreira, jogo::abrirMenu)
+                EcraNovaCarreira(jogo.paises, jogo.nacoes, jogo.ocupado, jogo::comecarCarreira, jogo::abrirMenu)
             }
             Ecra.CARREGAR -> {
                 BackHandler(onBack = jogo::abrirMenu)

@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.futebolcarreira.nucleo.carreira.Carreira
+import pt.futebolcarreira.nucleo.carreira.CarreiraJogador
 import pt.futebolcarreira.nucleo.carreira.Instalacao
 import pt.futebolcarreira.nucleo.carreira.JogoDoClube
 import pt.futebolcarreira.nucleo.carreira.Mercado
@@ -64,6 +65,10 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Países, ligas e clubes para escolher numa carreira nova. */
     var paises by mutableStateOf<List<PaisUi>>(emptyList())
+        private set
+
+    /** Nacionalidades à escolha na criação de um jogador. */
+    var nacoes by mutableStateOf<List<NacaoUi>>(emptyList())
         private set
 
     /** O que os ecrãs da carreira mostram (null = nenhuma carreira aberta). */
@@ -128,14 +133,18 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         if (paises.isNotEmpty()) return
         executar({
             val bd = lerBaseDados()
-            bd.paises.values.map { pais ->
+            val lista = bd.paises.values.map { pais ->
                 PaisUi(pais.id, pais.nome, bd.ligasDoPais(pais.id).map { liga ->
                     LigaOpcaoUi(liga.id, liga.nome, bd.equipasDaLiga(liga.id).sortedByDescending { it.reputacao }.map { e ->
                         ClubeUi(e.id, e.nome, e.cidade, emblema(e), ((e.reputacao - 28) / 12).coerceIn(1, 5), e.forca().geral.toInt())
                     })
                 })
             }
-        }) { paises = it }
+            lista to CarreiraJogador.nacionalidadesPossiveis(bd).map { NacaoUi(it.first, it.second) }
+        }) { (lista, possiveis) ->
+            paises = lista
+            nacoes = possiveis
+        }
     }
 
     /** Um ficheiro da pasta assets/dados (null se não existir). */
@@ -156,8 +165,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Cria uma carreira nova, grava-a e abre-a. */
-    fun comecarCarreira(modo: ModoCarreira, nome: String, equipaId: String, posicao: String) = executar({
-        val c = Carreira.nova(lerBaseDados(), "c${System.currentTimeMillis()}", nome, modo, equipaId, posicao)
+    fun comecarCarreira(modo: ModoCarreira, nome: String, equipaId: String, posicao: String, nacionalidade: String = "", pe: String = "") = executar({
+        val c = Carreira.nova(lerBaseDados(), "c${System.currentTimeMillis()}", nome, modo, equipaId, posicao, nacionalidade = nacionalidade, pe = pe)
         armazem.gravar(c)
         c to criarUi(c, ligaVista = "")
     }) { (c, novo) -> abrir(c, novo) }
@@ -649,11 +658,19 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             mensagens = c.mensagens.map { MensagemUi(CalendarioDatas.textoCurto(java.time.LocalDate.parse(it.data)), it.titulo, it.texto) },
             meuJogador = c.jogador?.let { j ->
                 val e = j.epoca
+                val cj = c.jogadorCarreira
+                val ofertas = cj.estado.ofertas.size
                 MeuJogadorUi(
                     j.nome,
                     "${j.posicao} · ${j.idade} anos · Geral ${j.geral()} · Potencial ${j.potencial}",
-                    "Esta época: ${e.jogos} jogos, ${e.golos} golos, ${e.assistencias} assistências" +
+                    "Estatuto: ${cj.estatuto().nome.lowercase()} · ${cj.estado.minutosEpoca} minutos\n" +
+                        "Esta época: ${e.jogos} jogos, ${e.golos} golos, ${e.assistencias} assistências" +
                         (if (e.jogos > 0) ", nota média %.1f".format(e.notaMedia()) else "") + estado(j).let { if (it.isEmpty()) "" else "\n$it" },
+                    listOfNotNull(
+                        cj.estado.pedido?.let { "Pedido do treinador: ${it.texto}" },
+                        if (ofertas > 0) "Tens $ofertas ${if (ofertas == 1) "proposta" else "propostas"} de outros clubes (separador Carreira)." else null,
+                        if (cj.estado.renovacao != null) "O clube quer renovar o teu contrato (separador Carreira)." else null,
+                    ).joinToString("\n"),
                 )
             },
             direcao = if (c.info.modo == ModoCarreira.TREINADOR) c.ambiente().let { a -> DirecaoUi(c.info.objetivoTexto, c.info.confiancaDirecao, c.info.confiancaAdeptos, a.nome, a.ordinal, a.descricao) } else null,
@@ -670,6 +687,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             liga = criarLiga(c, ligaVista),
             gestao = criarGestao(c),
             noticias = c.manchetes.map { NoticiaUi(CalendarioDatas.textoCurto(java.time.LocalDate.parse(it.data)), it.titulo, it.texto, it.doClube) },
+            jogadorCarreira = if (c.info.modo == ModoCarreira.JOGADOR) criarJogadorCarreira(c) else null,
         )
     }
 
@@ -729,10 +747,14 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
         val minimoJogos = maxOf(1, estado.jornada / 2)
         val historico = g.historico.reversed().mapNotNull { resumo ->
             resumo.ligas[id]?.let {
+                val premios = resumo.premios[id]
                 EpocaUi(
                     g.nomeEpoca(resumo.ano), nome(it.campeao), it.pontos,
                     it.sobem.joinToString { e -> nome(e) }, it.descem.joinToString { e -> nome(e) },
                     if (it.melhorMarcador.isEmpty()) "" else "${it.melhorMarcador} (${it.clubeMarcador}), ${it.golosMarcador} golos",
+                    premios?.melhorJogador?.let { p -> "${p.nome} (${p.clube}), nota %.2f".format(p.nota) } ?: "",
+                    premios?.melhorJovem?.let { p -> "${p.nome} (${p.clube}), ${p.idade} anos" } ?: "",
+                    resumo.bolaDeOuro?.let { p -> "${p.nome} (${p.clube})" } ?: "",
                 )
             }
         }
@@ -794,6 +816,103 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             else -> "má"
         }
         return "forma ${palavra(j.forma)} · moral ${palavra(j.moral)}"
+    }
+
+    // ------------------------------------------------- carreira do jogador
+
+    fun escolherFocoJogador(foco: FocoTreino) = acaoDoJogador { it.definirFoco(foco); "" }
+
+    fun pedirMinutos() = acaoDoJogador { it.pedirMinutos() }
+
+    fun pedirSaida(emprestimo: Boolean) = acaoDoJogador { it.pedirSaida(if (emprestimo) "emprestimo" else "transferencia") }
+
+    fun aceitarOferta(id: Int) = acaoDoJogador { it.aceitarOferta(id) }
+
+    fun recusarOferta(id: Int) = acaoDoJogador { it.recusarOferta(id); "" }
+
+    fun aceitarRenovacao() = acaoDoJogador { it.aceitarRenovacao() }
+
+    fun recusarRenovacao() = acaoDoJogador { it.recusarRenovacao(); "" }
+
+    /** Uma ação rápida da carreira do jogador: o texto devolvido (se houver) aparece como aviso. */
+    private fun acaoDoJogador(acao: (CarreiraJogador) -> String) {
+        val c = carreira ?: return
+        if (ocupado || c.info.modo != ModoCarreira.JOGADOR) return
+        val texto = acao(c.jogadorCarreira)
+        porGravar = true
+        if (texto.isNotEmpty()) aviso = texto
+        atualizar()
+    }
+
+    private fun criarJogadorCarreira(c: Carreira): JogadorCarreiraUi? {
+        val j = c.jogador ?: return null
+        val cj = c.jogadorCarreira
+        val e = cj.estado
+        val equipa = c.equipa
+        val g = c.gestor
+        val nome = { id: String -> c.bd.equipas[id]?.nome ?: id }
+        val nacao = g.selecoes?.nome(j.nacionalidade) ?: c.bd.paises[j.nacionalidade]?.nome ?: j.nacionalidade
+        val estatuto = cj.estatuto()
+        val epoca = cj.epocaAtual()
+        val totais = cj.totais()
+        val caps = g.selecoes?.internacionalizacoes(j.id) ?: 0
+        val golosSelecao = g.selecoes?.golosPelaSelecao(j.id) ?: 0
+        val convocado = g.selecoes?.nacaoDoConvocado(j.id)?.let { g.selecoes?.nome(it) }
+        val ultimo = g.historico.lastOrNull { it.premios.isNotEmpty() }
+        val premiosLiga = ultimo?.premios?.get(equipa.liga)
+        val duplo = { p: pt.futebolcarreira.nucleo.simulacao.Premiado -> "${p.nome} (${p.clube})" }
+        return JogadorCarreiraUi(
+            nome = j.nome,
+            linha1 = "${j.posicao} · ${j.idade} anos · pé ${j.pe} · $nacao",
+            clube = equipa.nome, emblema = emblema(equipa),
+            geral = j.geral(), potencial = j.potencial,
+            formaMoral = formaMoral(j),
+            estatuto = estatuto.nome, estatutoNivel = estatuto.ordinal,
+            atributos = Jogador.ATRIBUTOS.filter { it != "guarda_redes" || j.posicao == "GR" }
+                .map { CarreiraJogador.NOMES_ATRIBUTOS.getValue(it) to j.atributo(it) },
+            contrato = listOf(
+                "Clube" to (equipa.nome + if (j.emprestadoPor.isNotEmpty()) " (emprestado pelo ${nome(j.emprestadoPor)})" else ""),
+                "Contrato até" to "${j.contratoAte}",
+                "Salário por ano" to Mercado.euros(j.salario.toLong()),
+                "Valor de mercado" to Mercado.euros(j.valorMercado().toLong()),
+                "Cláusula de rescisão" to Mercado.euros(j.clausula()),
+            ),
+            estaEpoca = epoca?.let {
+                "${it.jogos} jogos, ${it.golos} golos, ${it.assistencias} assistências" + (if (it.jogos > 0) ", nota média %.1f".format(it.nota) else "") + " · ${it.minutos} minutos"
+            } ?: "",
+            minutosEpoca = e.minutosEpoca,
+            totais = "${totais.jogos} jogos, ${totais.golos} golos, ${totais.assistencias} assistências, ${totais.minutos} minutos",
+            selecao = (if (caps == 0) "Ainda sem jogos pela seleção de $nacao." else "$caps ${if (caps == 1) "jogo" else "jogos"} e $golosSelecao golos pela seleção de $nacao.") +
+                (convocado?.let { " Convocado para a seleção de $it." } ?: ""),
+            foco = e.foco,
+            pedido = e.pedido?.let { PedidoTreinadorUi(it.texto, cj.progressoDoPedido(it)) },
+            renovacao = e.renovacao?.let { "${it.anos} épocas por ${Mercado.euros(it.salario.toLong())} por ano (agora: ${Mercado.euros(j.salario.toLong())})" },
+            ofertas = e.ofertas.mapNotNull { o ->
+                val clube = c.bd.equipas[o.clubeId] ?: return@mapNotNull null
+                OfertaUi(
+                    o.id, clube.nome, emblema(clube),
+                    "${c.bd.competicoes[clube.liga]?.nome ?: ""} · Reputação ${clube.reputacao} · Geral ${clube.forca().geral.toInt()}",
+                    if (o.emprestimo) "Empréstimo até ao fim da época" else "${o.anos} épocas · ${Mercado.euros(o.salario.toLong())} por ano · transferência de ${Mercado.euros(o.preco)}",
+                    "Lugar previsto: ${o.estatuto.nome.lowercase()}", o.emprestimo,
+                )
+            },
+            mercadoAberto = c.mercado.aberto, emprestado = j.emprestadoPor.isNotEmpty(),
+            pedidoSaida = when (e.pedidoSaida) { "transferencia" -> "transferência"; "emprestimo" -> "empréstimo"; else -> "" },
+            temporadas = (e.temporadas + listOfNotNull(epoca?.takeIf { it.jogos > 0 || it.minutos > 0 })).reversed().map {
+                TemporadaUi(it.epoca, it.clube, it.jogos, it.golos, it.assistencias, if (it.jogos == 0) "-" else "%.1f".format(it.nota), it.minutos)
+            },
+            trofeus = e.trofeus.reversed().map { ConquistaUi(it.epoca, it.titulo, it.detalhe) },
+            premios = e.premios.reversed().map { ConquistaUi(it.epoca, it.titulo, it.detalhe) },
+            premiosDaLiga = listOfNotNull(
+                premiosLiga?.melhorJogador?.let { "Melhor jogador" to duplo(it) },
+                premiosLiga?.melhorMarcador?.let { "Melhor marcador" to "${duplo(it)}, ${it.golos} golos" },
+                premiosLiga?.melhorJovem?.let { "Melhor jovem" to duplo(it) },
+                premiosLiga?.takeIf { it.onze.isNotEmpty() }?.let { "Onze da época" to it.onze.joinToString { p -> p.nome.substringAfterLast(' ') } },
+            ),
+            tituloPremiosDaLiga = if (ultimo == null) "" else "${c.liga.nome} · ${g.nomeEpoca(ultimo.ano)}",
+            bolaDeOuro = g.historico.filter { it.bolaDeOuro != null }.reversed()
+                .map { g.nomeEpoca(it.ano) to it.bolaDeOuro!!.let { p -> "${duplo(p)}, ${p.golos} golos" } },
+        )
     }
 
     // --------------------------------------------- treino, academia, olheiros
