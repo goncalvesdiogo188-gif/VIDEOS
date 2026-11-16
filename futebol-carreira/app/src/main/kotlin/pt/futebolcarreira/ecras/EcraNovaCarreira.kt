@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pt.futebolcarreira.NacaoUi
 import pt.futebolcarreira.PaisUi
 import pt.futebolcarreira.nucleo.carreira.ModoCarreira
 import pt.futebolcarreira.nucleo.modelos.Jogador
@@ -39,8 +40,8 @@ import pt.futebolcarreira.nucleo.modelos.Jogador
 /** Nova carreira: escolher a via (treinador ou jogador), o nome e o clube. */
 @Composable
 fun EcraNovaCarreira(
-    paises: List<PaisUi>, ocupado: Boolean,
-    aoComecar: (ModoCarreira, String, String, String) -> Unit, aoVoltar: () -> Unit,
+    paises: List<PaisUi>, nacoes: List<NacaoUi>, ocupado: Boolean,
+    aoComecar: (ModoCarreira, String, String, String, String, String) -> Unit, aoVoltar: () -> Unit,
 ) {
     var modo by rememberSaveable { mutableStateOf(ModoCarreira.TREINADOR) }
     var nome by rememberSaveable { mutableStateOf("") }
@@ -48,6 +49,9 @@ fun EcraNovaCarreira(
     var pais by rememberSaveable { mutableIntStateOf(0) }
     var liga by rememberSaveable { mutableIntStateOf(0) }
     var clube by rememberSaveable { mutableStateOf("") }
+    // Só na via de jogador: nacionalidade ("" = a do país do clube) e pé preferido.
+    var nacionalidade by rememberSaveable { mutableStateOf("") }
+    var pe by rememberSaveable { mutableStateOf("direito") }
 
     Column(Modifier.fillMaxSize().systemBarsPadding().imePadding()) {
         BarraVoltar("Nova carreira", aoVoltar)
@@ -60,7 +64,11 @@ fun EcraNovaCarreira(
             Rotulo("1. Que carreira queres?")
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 Escolha("Treinador", "Escolhes a tática e levas o clube ao título.", modo == ModoCarreira.TREINADOR, Modifier.weight(1f)) { modo = ModoCarreira.TREINADOR }
-                Escolha("Jogador", "Começas aos 17 anos e tentas chegar a lenda.", modo == ModoCarreira.JOGADOR, Modifier.weight(1f)) { modo = ModoCarreira.JOGADOR }
+                Escolha("Jogador", "Começas aos 17 anos e tentas chegar a lenda.", modo == ModoCarreira.JOGADOR, Modifier.weight(1f)) {
+                    modo = ModoCarreira.JOGADOR
+                    // Um clube do meio da tabela da primeira divisão, para quem não quiser escolher.
+                    if (clube.isEmpty()) paises.firstOrNull()?.ligas?.firstOrNull()?.let { l -> l.clubes.getOrNull(l.clubes.size / 2)?.let { clube = it.id; pais = 0; liga = 0 } }
+                }
             }
 
             Rotulo("2. O teu nome", Modifier.padding(top = 10.dp))
@@ -70,9 +78,24 @@ fun EcraNovaCarreira(
             )
 
             if (modo == ModoCarreira.JOGADOR) {
+                Rotulo("Nacionalidade", Modifier.padding(top = 10.dp))
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilterChip(nacionalidade.isEmpty(), { nacionalidade = "" }, { Text("Do país do clube") })
+                    for (n in nacoes) FilterChip(nacionalidade == n.id, { nacionalidade = n.id }, { Text(n.nome) })
+                }
+                Text(
+                    "As seleções de fora da Europa só jogam as qualificações e o Mundial (de quatro em quatro anos).",
+                    fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
                 Rotulo("Posição em campo", Modifier.padding(top = 10.dp))
                 Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     for (p in Jogador.POSICOES) FilterChip(posicao == p, { posicao = p }, { Text(p) })
+                }
+                Rotulo("Pé preferido", Modifier.padding(top = 10.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    for ((chave, nome) in listOf("direito" to "Direito", "esquerdo" to "Esquerdo", "ambos" to "Ambos")) {
+                        FilterChip(pe == chave, { pe = chave }, { Text(nome) })
+                    }
                 }
             }
 
@@ -112,7 +135,7 @@ fun EcraNovaCarreira(
             else -> null
         }
         BotaoGrande(falta ?: "Começar carreira", Modifier.padding(12.dp), ativo = falta == null && !ocupado) {
-            aoComecar(modo, nome, clube, posicao)
+            aoComecar(modo, nome, clube, posicao, if (modo == ModoCarreira.JOGADOR) nacionalidade else "", if (modo == ModoCarreira.JOGADOR) pe else "")
         }
     }
 }

@@ -129,10 +129,10 @@ class Equipa(
      * Escolhe os melhores jogadores para os 11 lugares da formação.
      * "candidatos" permite deixar de fora lesionados e castigados.
      */
-    fun melhorOnze(formacao: Formacao = this.formacao, candidatos: List<Jogador> = plantel): List<LugarOnze> {
+    fun melhorOnze(formacao: Formacao = this.formacao, candidatos: List<Jogador> = plantel, paraJogo: Boolean = false): List<LugarOnze> {
         val usados = HashSet<Int>()
         return formacao.lugares.map { lugar ->
-            val melhor = candidatos.filter { it.id !in usados }.maxByOrNull { notaNoLugar(it, lugar) }
+            val melhor = candidatos.filter { it.id !in usados }.maxByOrNull { if (paraJogo) pontuacaoDeEscolha(it, lugar) else notaNoLugar(it, lugar).toDouble() }
             if (melhor == null) {
                 // Menos de 11 jogadores: o lugar fica muito fraco.
                 LugarOnze(lugar, null, 20)
@@ -149,7 +149,7 @@ class Equipa(
      */
     fun onzeParaJogo(): List<LugarOnze> {
         val aptos = plantel.filter { it.disponivel }
-        val manual = onzeManual ?: return melhorOnze(formacao, aptos)
+        val manual = onzeManual ?: return melhorOnze(formacao, aptos, paraJogo = true)
         val lugares = formacao.lugares
         val escolhidos = arrayOfNulls<Jogador>(lugares.size)
         val usados = HashSet<Int>()
@@ -159,13 +159,24 @@ class Equipa(
         }
         for (i in lugares.indices) {
             if (escolhidos[i] != null) continue
-            escolhidos[i] = aptos.filter { it.id !in usados }.maxByOrNull { notaNoLugar(it, lugares[i]) }?.also { usados += it.id }
+            escolhidos[i] = aptos.filter { it.id !in usados }.maxByOrNull { pontuacaoDeEscolha(it, lugares[i]) }?.also { usados += it.id }
         }
         return lugares.mapIndexed { i, lugar ->
             val j = escolhidos[i]
             if (j == null) LugarOnze(lugar, null, 20) else LugarOnze(lugar, j, notaNoLugar(j, lugar))
         }
     }
+
+    /**
+     * Pontos de ajuda dados a certos jogadores na escolha do onze (id -> pontos), por exemplo ao jogador do
+     * utilizador depois de pedir mais minutos. Não conta para a força da equipa nem para as notas.
+     */
+    @Transient
+    val ajudaNaEscolha: MutableMap<Int, Double> = mutableMapOf()
+
+    /** Como o treinador escolhe: a qualidade no lugar, mais um pouco a forma e a moral do momento. */
+    private fun pontuacaoDeEscolha(j: Jogador, lugar: String): Double =
+        notaNoLugar(j, lugar) + j.bonusForma() * PESO_FORMA_NA_ESCOLHA + (ajudaNaEscolha[j.id] ?: 0.0)
 
     /** O banco para o próximo jogo: um guarda-redes e os melhores jogadores de campo que sobram. */
     fun suplentesParaJogo(onze: List<LugarOnze>, quantos: Int = 7): List<Jogador> {
@@ -224,6 +235,9 @@ class Equipa(
 
     companion object {
         const val MAX_NIVEL = 5
+
+        /** Quanto a forma e a moral pesam na escolha do onze (em pontos de "geral" por ponto de bónus). */
+        const val PESO_FORMA_NA_ESCOLHA = 0.6
 
         /** Nota de um jogador num certo lugar (penaliza quem joga fora de posição). */
         fun notaNoLugar(j: Jogador, lugar: String): Int = when {

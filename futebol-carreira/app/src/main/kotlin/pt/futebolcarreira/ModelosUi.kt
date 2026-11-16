@@ -25,6 +25,9 @@ class LigaOpcaoUi(val id: String, val nome: String, val clubes: List<ClubeUi>)
 
 class PaisUi(val id: String, val nome: String, val ligas: List<LigaOpcaoUi>)
 
+/** Uma nacionalidade à escolha na criação do jogador. */
+class NacaoUi(val id: String, val nome: String)
+
 // ------------------------------------------------------------------- liga
 
 enum class Zona { NORMAL, SUBIDA, DESCIDA }
@@ -41,7 +44,11 @@ class LinhaUi(
 
 class ResultadoUi(val indice: Int, val casa: String, val golosCasa: Int, val golosFora: Int, val fora: String, val temRelato: Boolean, val meu: Boolean)
 
-class EpocaUi(val epoca: String, val campeao: String, val pontos: Int, val sobem: String, val descem: String, val marcador: String)
+class EpocaUi(
+    val epoca: String, val campeao: String, val pontos: Int, val sobem: String, val descem: String, val marcador: String,
+    /** Prémios individuais da liga ("" = época de antes dos prémios) e a Bola de Ouro (entre todas as ligas). */
+    val melhorJogador: String = "", val melhorJovem: String = "", val bolaDeOuro: String = "",
+)
 
 /** Linha de uma lista de melhores jogadores (marcadores, assistências, notas). */
 class LinhaJogadorUi(val nome: String, val clube: String, val jogos: Int, val valor: String)
@@ -155,7 +162,49 @@ class ProximoJogoUi(
 
 class MensagemUi(val data: String, val titulo: String, val texto: String)
 
-class MeuJogadorUi(val nome: String, val linha1: String, val linha2: String)
+class MeuJogadorUi(val nome: String, val linha1: String, val linha2: String, val aviso: String = "")
+
+// --------------------------------------------------- carreira do jogador
+
+class PedidoTreinadorUi(val texto: String, val progresso: String)
+
+class OfertaUi(
+    val id: Int, val clube: String, val emblema: EmblemaUi, val detalhes: String, val condicoes: String,
+    val estatuto: String, val emprestimo: Boolean,
+)
+
+class TemporadaUi(val epoca: String, val clube: String, val jogos: Int, val golos: Int, val assistencias: Int, val nota: String, val minutos: Int)
+
+class ConquistaUi(val epoca: String, val titulo: String, val detalhe: String)
+
+/** O separador «Carreira» da via de jogador: perfil, percurso, propostas e prémios. */
+class JogadorCarreiraUi(
+    val nome: String, val linha1: String, val clube: String, val emblema: EmblemaUi,
+    val geral: Int, val potencial: Int,
+    val formaMoral: String,
+    /** Nome do estatuto e o seu nível (0 = indiscutível ... 4 = pouco utilizado). */
+    val estatuto: String, val estatutoNivel: Int,
+    val atributos: List<Pair<String, Int>>,
+    /** título, valor (contrato, salário, valor de mercado...). */
+    val contrato: List<Pair<String, String>>,
+    val estaEpoca: String, val minutosEpoca: Int, val totais: String,
+    val selecao: String,
+    val foco: FocoTreino,
+    val pedido: PedidoTreinadorUi?,
+    val renovacao: String?,
+    val ofertas: List<OfertaUi>,
+    val mercadoAberto: Boolean, val emprestado: Boolean,
+    /** "" ou o que ficou pedido para a próxima janela ("transferência", "empréstimo"). */
+    val pedidoSaida: String,
+    val temporadas: List<TemporadaUi>,
+    val trofeus: List<ConquistaUi>,
+    val premios: List<ConquistaUi>,
+    /** Prémios da liga na última época fechada: título, vencedor. */
+    val premiosDaLiga: List<Pair<String, String>>,
+    val tituloPremiosDaLiga: String,
+    /** Bola de Ouro de cada época (da mais recente para a mais antiga): época, vencedor. */
+    val bolaDeOuro: List<Pair<String, String>>,
+)
 
 // ---------------------------------------------------- mercado e finanças
 
@@ -261,6 +310,8 @@ data class CarreiraUi(
     val gestao: GestaoClubeUi?,
     /** As notícias, da mais recente para a mais antiga. */
     val noticias: List<NoticiaUi> = emptyList(),
+    /** Só na via de jogador (Fase 9). */
+    val jogadorCarreira: JogadorCarreiraUi? = null,
 )
 
 // ------------------------------------------- fase 7: taças, Europa, seleções

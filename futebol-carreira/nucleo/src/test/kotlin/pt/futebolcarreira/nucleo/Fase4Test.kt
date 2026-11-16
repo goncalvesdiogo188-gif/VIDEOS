@@ -92,6 +92,9 @@ class Fase4Test {
 
         // Fim de época: há balanço e a carreira continua.
         c.simularEpoca()
+        // Com os dados reais o clube novo pode despedir a meio da época: aceita-se outra proposta e continua-se.
+        var voltas = 0
+        while (c.info.despedido && c.info.propostas.isNotEmpty() && voltas++ < 4) { c.aceitarProposta(c.info.propostas.first()); c.simularEpoca() }
         assertTrue(c.mensagens.any { it.titulo == "Balanço da direção" })
         if (c.info.despedido) c.aceitarProposta(c.info.propostas.first())
         c.novaEpoca()

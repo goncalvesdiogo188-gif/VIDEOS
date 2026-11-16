@@ -59,8 +59,12 @@ import pt.futebolcarreira.NoticiaUi
 
 private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "💰" to "Mercado", "🏆" to "Liga", "☰" to "Mais")
 
+/** Na via de jogador o separador «Mercado» dá lugar a «Carreira» (perfil, propostas e prémios do jogador). */
+private val SEPARADOR_JOGADOR = "⚽" to "Carreira"
+
 @Composable
 fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0) {
+    val separadores = if (ui.jogadorCarreira != null) SEPARADORES.mapIndexed { i, s -> if (i == 2) SEPARADOR_JOGADOR else s } else SEPARADORES
     var separador by rememberSaveable { mutableIntStateOf(separadorInicial) }
     // A lista completa de notícias abre por cima do Início.
     var todasNoticias by rememberSaveable { mutableStateOf(false) }
@@ -69,7 +73,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
         topBar = { Cabecalho(ui, jogo.ocupado) },
         bottomBar = {
             NavigationBar {
-                SEPARADORES.forEachIndexed { i, (simbolo, nome) ->
+                separadores.forEachIndexed { i, (simbolo, nome) ->
                     NavigationBarItem(
                         selected = separador == i, onClick = { separador = i; todasNoticias = false },
                         icon = { Text(simbolo, fontSize = 20.sp) }, label = { Text(nome, maxLines = 1) },
@@ -90,7 +94,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
                     jogo::abrirEscolha, jogo::onzeAutomatico, jogo::abrirJogador,
                 )
-                2 -> SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
+                2 -> if (ui.jogadorCarreira != null) SeparadorJogador(ui.jogadorCarreira, !jogo.ocupado, jogo) else SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
                 3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel, jogo.fase7, jogo::escolherCompeticao, jogo::abrirJogoPorChave)
                 else -> Mais(ui, !jogo.ocupado, jogo)
                 }
@@ -279,6 +283,7 @@ private fun Inicio(
                     Text(j.nome, fontSize = 18.sp, fontWeight = FontWeight.Bold)
                     Text(j.linha1)
                     Text(j.linha2, fontSize = 13.sp, color = secundaria)
+                    if (j.aviso.isNotEmpty()) Text(j.aviso, Modifier.padding(top = 4.dp), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.tertiary)
                 }
             }
         }

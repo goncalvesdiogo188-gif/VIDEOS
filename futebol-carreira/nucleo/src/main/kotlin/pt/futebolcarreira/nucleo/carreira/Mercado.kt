@@ -194,6 +194,26 @@ class Mercado(private val c: Carreira) {
         return feitos
     }
 
+    /**
+     * Via de jogador: muda o jogador do utilizador para outro clube. Numa transferência o clube novo paga ao antigo
+     * ("preco") e o jogador assina "anos" épocas pelo salário combinado; num empréstimo não há pagamento e o
+     * jogador volta ao clube de origem no fim da época.
+     */
+    fun transferirJogador(j: Jogador, destino: Equipa, preco: Long, salario: Int, anos: Int, emprestimo: Boolean = false) {
+        val origem = bd.equipas[j.equipa]
+        if (emprestimo) {
+            j.emprestadoPor = origem?.id ?: ""
+            bd.mudarDeEquipa(j, destino.id)
+        } else {
+            if (origem != null && preco > 0) pagar(destino, origem, preco)
+            j.emprestadoPor = ""
+            mudar(j, destino)
+            j.contratoAte = c.gestor.ano + anos
+            j.salario = salario
+        }
+        c.baseDadosPorGravar = true
+    }
+
     private fun pagar(comprador: Equipa, vendedor: Equipa, valor: Long) {
         comprador.orcamento -= valor
         comprador.contas.compras += valor

@@ -2,6 +2,7 @@ package pt.futebolcarreira.nucleo.simulacao
 
 import pt.futebolcarreira.nucleo.dados.BaseDados
 import pt.futebolcarreira.nucleo.modelos.Equipa
+import pt.futebolcarreira.nucleo.modelos.FocoTreino
 import pt.futebolcarreira.nucleo.modelos.Jogador
 import kotlin.math.roundToInt
 import kotlin.random.Random
@@ -22,13 +23,13 @@ object Treino {
      * Um mês de treino em todos os clubes. Devolve frases sobre os jogadores do
      * clube do utilizador que mudaram de "geral" (plantel e academia).
      */
-    fun mensal(bd: BaseDados, rng: Random, clubeDoUtilizador: String = ""): List<String> {
+    fun mensal(bd: BaseDados, rng: Random, clubeDoUtilizador: String = "", focosIndividuais: Map<Int, FocoTreino> = emptyMap()): List<String> {
         val frases = mutableListOf<String>()
         for (equipa in bd.equipas.values) {
             val meu = equipa.id == clubeDoUtilizador
             for (j in equipa.plantel) {
                 val antes = j.geral()
-                evoluir(j, equipa, rng, naAcademia = false)
+                evoluir(j, equipa, rng, naAcademia = false, focoIndividual = focosIndividuais[j.id])
                 if (meu && j.geral() != antes) frases += "${j.nome} ($antes→${j.geral()})"
             }
             for (j in equipa.academia) {
@@ -42,9 +43,12 @@ object Treino {
     }
 
     /** Um mês de treino de um jogador. */
-    fun evoluir(j: Jogador, equipa: Equipa, rng: Random, naAcademia: Boolean) {
+    fun evoluir(j: Jogador, equipa: Equipa, rng: Random, naAcademia: Boolean, focoIndividual: FocoTreino? = null) {
         val pesos = Jogador.PESOS[j.posicao] ?: Jogador.PESOS.getValue("MC")
-        val foco = equipa.focoTreino.atributos
+        // O jogador do utilizador pode ter um foco só dele (conta mais do que o foco da equipa).
+        val foco = (focoIndividual ?: equipa.focoTreino).atributos
+        val ganhoFoco = if (focoIndividual != null && focoIndividual != FocoTreino.EQUILIBRADO) 1.8 else 1.5
+        val perdaFora = if (focoIndividual != null && focoIndividual != FocoTreino.EQUILIBRADO) 0.7 else 0.8
         val jogosTotais = j.epoca.jogos + j.epocaTaca.jogos
         val temJogado = jogosTotais > j.jogosNoUltimoTreino
         j.jogosNoUltimoTreino = jogosTotais
@@ -65,7 +69,7 @@ object Treino {
             for (atributo in Jogador.ATRIBUTOS) {
                 if (atributo == "guarda_redes" && j.posicao != "GR") continue
                 var pa = if (atributo in pesos) p else p * 0.4
-                if (foco.isNotEmpty()) pa *= if (atributo in foco) 1.5 else 0.8
+                if (foco.isNotEmpty()) pa *= if (atributo in foco) ganhoFoco else perdaFora
                 if (rng.nextDouble() < pa) {
                     j.atributos[atributo] = (j.atributo(atributo) + 1).coerceAtMost(99)
                     // Nunca passa do potencial.
