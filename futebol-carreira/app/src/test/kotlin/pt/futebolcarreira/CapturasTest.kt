@@ -249,6 +249,15 @@ class CapturasTest {
         capturar("25-selecoes-real")
         tocar("Convocados")
         capturar("26-convocados-real")
+
+        // ---- Fase 8: notícias no Início e lista completa ----
+        assertTrue(jogo.ui!!.noticias.isNotEmpty())
+        tocar("Início")
+        regra.onNodeWithText("Ver todas").performScrollTo()
+        capturar("27-noticias")
+        tocar("Ver todas")
+        capturar("28-noticias-todas")
+        tocar("Fechar")
     }
 
     /** Ecrãs da fase 7 (taças, Europa, seleções) com dados de demonstração. */

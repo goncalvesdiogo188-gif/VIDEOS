@@ -149,6 +149,8 @@ class ProximoJogoUi(
     val ronda: String = "",
     /** Campo neutro: não se diz "em casa" nem "fora". */
     val neutro: Boolean = false,
+    /** Nome do derby ("Derby de Lisboa"); "" se não é um derby. */
+    val derby: String = "",
 )
 
 class MensagemUi(val data: String, val titulo: String, val texto: String)
@@ -193,7 +195,14 @@ class FinancasUi(
 )
 
 /** Objetivo da direção e confiança no treinador (0 a 100). */
-class DirecaoUi(val objetivo: String, val direcao: Int, val adeptos: Int)
+class DirecaoUi(
+    val objetivo: String, val direcao: Int, val adeptos: Int,
+    /** Ambiente à volta do clube: nome ("Tenso"), nível (0 = eufórico ... 4 = hostil) e uma frase. */
+    val ambiente: String = "Normal", val ambienteNivel: Int = 2, val ambienteTexto: String = "",
+)
+
+/** Uma notícia (manchete e texto); "doClube" = diz respeito ao clube do utilizador. */
+class NoticiaUi(val data: String, val titulo: String, val texto: String, val doClube: Boolean)
 
 /** Um clube que quer contratar o treinador. */
 class PropostaUi(val equipaId: String, val nome: String, val emblema: EmblemaUi, val detalhes: String)
@@ -250,6 +259,8 @@ data class CarreiraUi(
     val plantel: PlantelUi,
     val liga: LigaUi,
     val gestao: GestaoClubeUi?,
+    /** As notícias, da mais recente para a mais antiga. */
+    val noticias: List<NoticiaUi> = emptyList(),
 )
 
 // ------------------------------------------- fase 7: taças, Europa, seleções

@@ -1,5 +1,6 @@
 package pt.futebolcarreira.ecras
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,6 +39,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -47,6 +49,7 @@ import pt.futebolcarreira.CarreiraUi
 import pt.futebolcarreira.JogoCalendarioUi
 import pt.futebolcarreira.JogoViewModel
 import pt.futebolcarreira.LinhaUi
+import pt.futebolcarreira.NoticiaUi
 
 /**
  * Ecrã central da carreira. Em baixo há cinco separadores:
@@ -59,6 +62,8 @@ private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "💰
 @Composable
 fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0) {
     var separador by rememberSaveable { mutableIntStateOf(separadorInicial) }
+    // A lista completa de notícias abre por cima do Início.
+    var todasNoticias by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = { Cabecalho(ui, jogo.ocupado) },
@@ -66,7 +71,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
             NavigationBar {
                 SEPARADORES.forEachIndexed { i, (simbolo, nome) ->
                     NavigationBarItem(
-                        selected = separador == i, onClick = { separador = i },
+                        selected = separador == i, onClick = { separador = i; todasNoticias = false },
                         icon = { Text(simbolo, fontSize = 20.sp) }, label = { Text(nome, maxLines = 1) },
                     )
                 }
@@ -74,10 +79,12 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
         },
     ) { margens ->
         Box(Modifier.padding(margens).fillMaxSize()) {
-            when (separador) {
+            when {
+                separador == 0 && todasNoticias -> ListaNoticias(ui.noticias) { todasNoticias = false }
+                else -> when (separador) {
                 0 -> Inicio(
                     ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
-                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas,
+                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true },
                 )
                 1 -> ConteudoPlantel(
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
@@ -86,6 +93,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 2 -> SeparadorMercado(ui.mercado, jogo::filtrarMercado, jogo::abrirJogador)
                 3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel, jogo.fase7, jogo::escolherCompeticao, jogo::abrirJogoPorChave)
                 else -> Mais(ui, !jogo.ocupado, jogo)
+                }
             }
         }
     }
@@ -126,7 +134,7 @@ private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
 private fun Inicio(
     ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
     aoAbrirJogo: (Int) -> Unit, aoAbrirChave: (String) -> Unit, aoVerLiga: () -> Unit,
-    aoAceitar: (String) -> Unit, aoRecusar: () -> Unit,
+    aoAceitar: (String) -> Unit, aoRecusar: () -> Unit, aoVerNoticias: () -> Unit = {},
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     LazyColumn(
@@ -182,6 +190,12 @@ private fun Inicio(
                             Text("vs", color = secundaria, fontSize = 16.sp)
                             Box(Modifier.weight(1f), contentAlignment = Alignment.Center) { if (proximo.emCasa) adversario() else eu() }
                         }
+                        if (proximo.derby.isNotEmpty()) {
+                            Text(
+                                proximo.derby, Modifier.fillMaxWidth().padding(bottom = 4.dp), textAlign = TextAlign.Center,
+                                fontWeight = FontWeight.Bold, fontSize = 15.sp, color = COR_DERBY, maxLines = 2,
+                            )
+                        }
                         Text(
                             "${proximo.data} · ${if (proximo.neutro) "campo neutro" else if (proximo.emCasa) "em casa" else "fora"}", Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center, fontWeight = FontWeight.Bold,
@@ -233,6 +247,26 @@ private fun Inicio(
                     Text(d.objetivo, fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 6.dp))
                     Confianca("Direção", d.direcao)
                     Confianca("Adeptos", d.adeptos)
+                    Ambiente(d.ambiente, d.ambienteNivel, d.ambienteTexto)
+                }
+            }
+        }
+
+        // ---- Notícias ----
+        item {
+            Bloco {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Rotulo("Notícias", Modifier.weight(1f))
+                    if (ui.noticias.isNotEmpty()) TextButton(onClick = aoVerNoticias) { Text("Ver todas") }
+                }
+                if (ui.noticias.isEmpty()) {
+                    Text("Ainda não há notícias. Joga o primeiro jogo.", Modifier.padding(top = 4.dp), fontSize = 14.sp, color = secundaria)
+                }
+                for (n in ui.noticias.take(3)) {
+                    Column(Modifier.padding(top = 8.dp)) {
+                        Text(n.titulo, fontWeight = FontWeight.Bold, fontSize = 15.sp, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        Text("${n.data} · ${n.texto}", fontSize = 12.sp, color = secundaria, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                    }
                 }
             }
         }
@@ -266,6 +300,52 @@ private fun Inicio(
                     Text(m.data, fontSize = 12.sp, color = secundaria, modifier = Modifier.padding(start = 8.dp))
                 }
                 Text(m.texto, fontSize = 14.sp, color = secundaria)
+            }
+        }
+    }
+}
+
+private val COR_DERBY = Color(0xFFEF6C00)
+
+/** O ambiente à volta do clube: etiqueta colorida (eufórico a hostil) e uma frase. */
+@Composable
+private fun Ambiente(nome: String, nivel: Int, texto: String) {
+    val cor = when (nivel) {
+        0 -> COR_VITORIA
+        1 -> Color(0xFF689F38)
+        2 -> COR_EMPATE
+        3 -> COR_DERBY
+        else -> COR_DERROTA
+    }
+    Row(Modifier.padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text("Ambiente", Modifier.width(70.dp), fontSize = 13.sp)
+        Surface(color = cor, shape = MaterialTheme.shapes.small) {
+            Text(nome, Modifier.padding(horizontal = 8.dp, vertical = 2.dp), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.White, maxLines = 1)
+        }
+        Text(texto, Modifier.weight(1f).padding(start = 8.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+    }
+}
+
+/** Todas as notícias guardadas (as últimas 80). */
+@Composable
+private fun ListaNoticias(noticias: List<NoticiaUi>, aoFechar: () -> Unit) {
+    BackHandler(onBack = aoFechar)
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        item {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Notícias", Modifier.weight(1f), fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                TextButton(onClick = aoFechar) { Text("Fechar") }
+            }
+        }
+        if (noticias.isEmpty()) item { Text("Ainda não há notícias.", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        items(noticias) { n ->
+            Bloco {
+                Row {
+                    if (n.doClube) Rotulo("O teu clube", Modifier.weight(1f)) else Spacer(Modifier.weight(1f))
+                    Text(n.data, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                Text(n.titulo, Modifier.padding(top = 2.dp), fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                Text(n.texto, Modifier.padding(top = 2.dp), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }

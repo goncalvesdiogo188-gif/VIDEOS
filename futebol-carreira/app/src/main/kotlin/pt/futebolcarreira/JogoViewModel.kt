@@ -632,6 +632,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                     competicao = if (it.eLiga) "" else it.competicaoNome,
                     ronda = if (it.eLiga) "" else rondaTexto(it),
                     neutro = it.neutro,
+                    derby = it.derby ?: "",
                 )
             },
             ultimo = calendario.lastOrNull { it.desfecho.isNotEmpty() },
@@ -655,7 +656,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                         (if (e.jogos > 0) ", nota média %.1f".format(e.notaMedia()) else "") + estado(j).let { if (it.isEmpty()) "" else "\n$it" },
                 )
             },
-            direcao = if (c.info.modo == ModoCarreira.TREINADOR) DirecaoUi(c.info.objetivoTexto, c.info.confiancaDirecao, c.info.confiancaAdeptos) else null,
+            direcao = if (c.info.modo == ModoCarreira.TREINADOR) c.ambiente().let { a -> DirecaoUi(c.info.objetivoTexto, c.info.confiancaDirecao, c.info.confiancaAdeptos, a.nome, a.ordinal, a.descricao) } else null,
             propostas = c.info.propostas.mapNotNull { id ->
                 c.bd.equipas[id]?.let { e ->
                     PropostaUi(id, e.nome, emblema(e), "${c.bd.competicoes[e.liga]?.nome ?: ""} · Reputação ${e.reputacao} · Geral ${e.forca().geral.toInt()}")
@@ -668,6 +669,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             plantel = criarPlantel(c, equipa),
             liga = criarLiga(c, ligaVista),
             gestao = criarGestao(c),
+            noticias = c.manchetes.map { NoticiaUi(CalendarioDatas.textoCurto(java.time.LocalDate.parse(it.data)), it.titulo, it.texto, it.doClube) },
         )
     }
 
