@@ -22,7 +22,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -66,7 +66,7 @@ internal fun SeparadorCompeticao(
     val atual = nomes[separador.coerceIn(0, nomes.size - 1)]
 
     Column(Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = nomes.indexOf(atual)) {
+        ScrollableTabRow(edgePadding = 0.dp, selectedTabIndex = nomes.indexOf(atual)) {
             nomes.forEachIndexed { i, nome ->
                 Tab(selected = atual == nome, onClick = { separador = i }, text = { Text(nome, maxLines = 1, fontSize = 13.sp) })
             }

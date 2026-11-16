@@ -84,17 +84,17 @@ internal fun SeparadorMercado(mercado: MercadoUi, aoFiltrar: (String?, FiltroMer
             if (!mercado.aberto) Text("Só se podem contratar jogadores sem clube.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = secundaria)
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (f in FiltroMercado.entries) FilterChip(mercado.filtro == f, { aoFiltrar(mercado.posicao, f) }, { Text(f.nome) })
+            for (f in FiltroMercado.entries) ChipToque(mercado.filtro == f, { aoFiltrar(mercado.posicao, f) }, { Text(f.nome) })
         }
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            FilterChip(mercado.posicao == null, { aoFiltrar(null, mercado.filtro) }, { Text("Todas") })
-            for (p in Jogador.POSICOES) FilterChip(mercado.posicao == p, { aoFiltrar(p, mercado.filtro) }, { Text(p) })
+            ChipToque(mercado.posicao == null, { aoFiltrar(null, mercado.filtro) }, { Text("Todas") })
+            for (p in Jogador.POSICOES) ChipToque(mercado.posicao == p, { aoFiltrar(p, mercado.filtro) }, { Text(p) })
         }
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (f in FiltroIdade.entries) FilterChip(idade == f, { idade = f }, { Text(f.nome) })
+            for (f in FiltroIdade.entries) ChipToque(idade == f, { idade = f }, { Text(f.nome) })
         }
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (f in FiltroPreco.entries) FilterChip(preco == f, { preco = f }, { Text(f.nome) })
+            for (f in FiltroPreco.entries) ChipToque(preco == f, { preco = f }, { Text(f.nome) })
         }
         Text("${visiveis.size} jogadores", Modifier.padding(vertical = 4.dp), fontSize = 12.sp, color = secundaria)
         LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {

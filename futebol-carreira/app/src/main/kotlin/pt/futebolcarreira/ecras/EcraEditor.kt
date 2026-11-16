@@ -172,8 +172,8 @@ private fun Aviso(c: ControloEditor) {
 private fun SeparadorClubes(c: ControloEditor) {
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FilterChip(c.filtroPais == null, { c.filtrarClubes(null, c.textoClubes) }, { Text("Todos") })
-            for (p in c.paises) FilterChip(c.filtroPais == p.id, { c.filtrarClubes(p.id, c.textoClubes) }, { Text(p.texto) })
+            ChipToque(c.filtroPais == null, { c.filtrarClubes(null, c.textoClubes) }, { Text("Todos") })
+            for (p in c.paises) ChipToque(c.filtroPais == p.id, { c.filtrarClubes(p.id, c.textoClubes) }, { Text(p.texto) })
         }
         OutlinedTextField(
             c.textoClubes, { c.filtrarClubes(c.filtroPais, it) }, Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
@@ -262,8 +262,8 @@ private fun SeparadorJogadores(c: ControloEditor) {
             OutlinedButton(onClick = c::novoJogador) { Text("+ Novo") }
         }
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            FilterChip(c.filtroPosicao == null, { c.filtrarJogadores(c.filtroClube, null, c.textoJogadores) }, { Text("Todas") })
-            for (p in Jogador.POSICOES) FilterChip(c.filtroPosicao == p, { c.filtrarJogadores(c.filtroClube, p, c.textoJogadores) }, { Text(p) })
+            ChipToque(c.filtroPosicao == null, { c.filtrarJogadores(c.filtroClube, null, c.textoJogadores) }, { Text("Todas") })
+            for (p in Jogador.POSICOES) ChipToque(c.filtroPosicao == p, { c.filtrarJogadores(c.filtroClube, p, c.textoJogadores) }, { Text(p) })
         }
         Text(
             if (c.totalJogadores > c.jogadores.size) "A mostrar os ${c.jogadores.size} melhores de ${c.totalJogadores}" else "${c.totalJogadores} jogadores",
@@ -310,12 +310,12 @@ private fun PaginaJogador(c: ControloEditor, ficha: JogadorFichaUi) {
         Text("Posição", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         for (linha in Jogador.POSICOES.chunked(5)) {
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                for (p in linha) FilterChip(f.posicao == p, { f = f.copy(posicao = p) }, { Text(p, fontSize = 13.sp) })
+                for (p in linha) ChipToque(f.posicao == p, { f = f.copy(posicao = p) }, { Text(p, fontSize = 13.sp) })
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
             Text("Pé", Modifier.width(30.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            for (p in listOf("direito", "esquerdo", "ambos")) FilterChip(f.pe == p, { f = f.copy(pe = p) }, { Text(p, fontSize = 13.sp) })
+            for (p in listOf("direito", "esquerdo", "ambos")) ChipToque(f.pe == p, { f = f.copy(pe = p) }, { Text(p, fontSize = 13.sp) })
         }
         Bloco {
             Row(verticalAlignment = Alignment.CenterVertically) {

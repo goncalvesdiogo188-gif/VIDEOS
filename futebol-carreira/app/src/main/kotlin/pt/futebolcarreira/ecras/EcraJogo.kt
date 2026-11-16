@@ -87,12 +87,12 @@ fun EcraJogo(jogo: JogoUi, aoFechar: () -> Unit) {
                 Column(Modifier.fillMaxWidth().padding(12.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Emblema(jogo.emblemaCasa, 34.dp)
-                        Text(jogo.casa, Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp, maxLines = 2)
+                        Text(jogo.casa, Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 13.sp, maxLines = 3)
                         Text(
-                            "${ultimo?.golosCasa ?: 0} - ${ultimo?.golosFora ?: 0}", Modifier.width(84.dp),
-                            textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 28.sp,
+                            "${ultimo?.golosCasa ?: 0} - ${ultimo?.golosFora ?: 0}", Modifier.width(76.dp),
+                            textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 26.sp,
                         )
-                        Text(jogo.fora, Modifier.weight(1f), textAlign = TextAlign.End, fontWeight = FontWeight.Bold, fontSize = 14.sp, maxLines = 2)
+                        Text(jogo.fora, Modifier.weight(1f), textAlign = TextAlign.End, fontWeight = FontWeight.Bold, fontSize = 13.sp, maxLines = 3)
                         Emblema(jogo.emblemaFora, 34.dp)
                     }
                     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
