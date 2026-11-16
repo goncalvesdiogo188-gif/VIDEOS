@@ -128,6 +128,9 @@ fun EcraAoVivo(
         MarcadorETempo(estado, Modifier.align(Alignment.TopCenter))
         if (mostrarMedidor) TextoMedidor(sessao.medidor, pausa || terminou, Modifier.align(Alignment.BottomStart))
         if (!terminou) Mensagem(estado, Modifier.align(Alignment.TopCenter).padding(top = 58.dp))
+        if (!terminou && !pausa && !aSimular && !depressa && precisaPainel(estado.bolaParada)) {
+            PainelBolaParada(sessao.partida, estado.bolaParada!!, sessao.sentido(), Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp))
+        }
 
         if (!terminou) {
             // Botão de pausa, em cima à esquerda.
