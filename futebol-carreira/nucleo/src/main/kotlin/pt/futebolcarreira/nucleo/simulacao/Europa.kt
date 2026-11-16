@@ -223,6 +223,9 @@ class EstadoEuropa private constructor(
      * Aplica o MotorJogo (golos, cartões, lesões) e paga bilheteira e prémios.
      * "manter" são ids de clubes cujos relatórios completos se guardam. Devolve os jogos feitos.
      */
+    /** Jogo do utilizador jogado ao vivo (Fase 11): usado no lugar da simulação quando chega o jogo entre estas duas equipas. */
+    internal var relatorioAoVivo: RelatorioJogo? = null
+
     fun jogarAte(
         ate: LocalDate, bd: BaseDados, rng: Random, manter: Set<String> = emptySet(),
         aoJogar: ((JogoEuropa, RelatorioJogo) -> Unit)? = null,
@@ -262,7 +265,9 @@ class EstadoEuropa private constructor(
         val decisivo = tie != null && tie.jogos.last() === jogo
         val antesCasa = tie?.golos(jogo.casa) ?: 0
         val antesFora = tie?.golos(jogo.fora) ?: 0
-        val rel = MotorJogo.simular(casa, fora, rng, jogo.neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null)
+        val vivo = relatorioAoVivo?.takeIf { it.casa.equipa == jogo.casa && it.fora.equipa == jogo.fora }
+        if (vivo != null) relatorioAoVivo = null
+        val rel = vivo ?: MotorJogo.simular(casa, fora, rng, jogo.neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null)
         MotorJogo.aplicar(rel, taca = true)
         aoJogar?.invoke(jogo, rel)
         jogo.golosCasa = rel.golosCasa
