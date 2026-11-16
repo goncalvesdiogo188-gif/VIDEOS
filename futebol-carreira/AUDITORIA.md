@@ -26,7 +26,7 @@ Percurso automático (`AuditoriaEcrasTest`) por todos os ecrãs principais, num 
 <!-- AUTO:INICIO -->
 _Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Auditoria*'`). Não editar à mão: é reescrito de cada vez que o teste corre._
 
-### Telemóvel grande (411x914 dp, letra 130 %) (376 alvos de toque e 1369 textos verificados)
+### Telemóvel grande (411x914 dp, letra 130 %) (381 alvos de toque e 1360 textos verificados)
 
 - **plantel**
   - texto cortado: «Mosquera»
@@ -34,14 +34,14 @@ _Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Au
 - **editor-jogador**
   - texto cortado: «Guarda-redes»
 
-### Telemóvel pequeno (360x640 dp, letra 130 %) (286 alvos de toque e 942 textos verificados)
+### Telemóvel pequeno (360x640 dp, letra 130 %) (282 alvos de toque e 941 textos verificados)
 
 - **plantel**
   - texto cortado: «Jakupović»
 - **mais-opcoes**
   - texto cortado: «Sistema»
 - **ficha-jogador**
-  - alvo de toque pequeno: 308x33 dp: «Jogar em 3D»
+  - alvo de toque pequeno: 52x33 dp: «»
 - **editor-jogadores**
   - texto cortado: «Clube: Todos os clubes»
 - **editor-clube**
