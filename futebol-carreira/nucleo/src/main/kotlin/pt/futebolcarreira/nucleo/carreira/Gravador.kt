@@ -256,7 +256,7 @@ object Gravador {
     /**
      * Reconstrói a carreira a partir dos dois textos gravados. Lança uma exceção se estiverem estragados.
      * "lerPadrao" lê ficheiros da pasta de dados da aplicação: só serve para gravações antigas, sem
-     * "selecoes.json" na base de dados, que recebem assim o catálogo das seleções.
+     * "selecoes.json" ou "rivalidades.json" na base de dados, que recebem assim o catálogo das seleções e os derbies.
      */
     fun deTexto(texto: String, baseDados: String, lerPadrao: (String) -> String? = { null }): Carreira {
         val gravacao = JSON.decodeFromString(Gravacao.serializer(), texto)
@@ -264,6 +264,7 @@ object Gravador {
         val bd = BaseDados()
         bd.carregar { ficheiros[it] }
         if (bd.selecoesJson == null) bd.selecoesJson = lerPadrao("selecoes.json")
+        if (bd.rivalidadesJson == null) bd.rivalidadesJson = lerPadrao("rivalidades.json")
         require(bd.equipas.isNotEmpty()) { "Gravação sem equipas: ${bd.erros.take(3)}" }
         bd.garantirTacas()   // gravações antigas não tinham taças: ficam definidas para a época seguinte
         require(gravacao.info.equipaId in bd.equipas) { "O clube da carreira não existe na gravação" }

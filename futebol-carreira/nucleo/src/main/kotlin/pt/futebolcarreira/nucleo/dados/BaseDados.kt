@@ -19,6 +19,7 @@ import pt.futebolcarreira.nucleo.simulacao.CatalogoSelecoes
  *   competicoes.json       ligas, taças e supertaças
  *   nomes.json             nomes próprios e apelidos por país (para gerar jogadores)
  *   selecoes.json          seleções nacionais (opcional)
+ *   rivalidades.json       derbies entre clubes (opcional)
  *   equipas/<PAIS>.json    clubes de cada país
  *   jogadores/<PAIS>.json  jogadores dos clubes de cada país
  */
@@ -34,6 +35,17 @@ class BaseDados {
      * (ver paraJsonCompleto); gravações antigas não o têm e a aplicação fornece o da pasta de dados.
      */
     var selecoesJson: String? = null
+
+    /**
+     * Texto de "rivalidades.json" (derbies), se existir; vai junto com a base de dados da carreira gravada.
+     * Gravações antigas não o têm e a aplicação fornece o da pasta de dados.
+     */
+    var rivalidadesJson: String? = null
+        set(valor) { field = valor; rivalidadesCache = null }
+    private var rivalidadesCache: Rivalidades? = null
+
+    /** As rivalidades (vazias se faltar o ficheiro). */
+    fun rivalidades(): Rivalidades = rivalidadesCache ?: Rivalidades.deTexto(rivalidadesJson).also { rivalidadesCache = it }
 
     /** O catálogo das seleções (null se faltar o ficheiro ou estiver mal). */
     fun catalogoSelecoes(): CatalogoSelecoes? = CatalogoSelecoes.carregar { if (it == "selecoes.json") selecoesJson else null }
@@ -53,6 +65,7 @@ class BaseDados {
         paises.clear(); competicoes.clear(); equipas.clear(); jogadores.clear(); erros.clear()
         proximoId = 1
         selecoesJson = ler("selecoes.json")
+        rivalidadesJson = ler("rivalidades.json")
 
         lerJson("paises.json", ler, ListSerializer(Pais.serializer()))?.forEach { paises[it.id] = it }
         lerJson("competicoes.json", ler, ListSerializer(Competicao.serializer()))?.forEach { competicoes[it.id] = it }
@@ -202,6 +215,7 @@ class BaseDados {
         ficheiros["competicoes.json"] = JSON.encodeToString(ListSerializer(Competicao.serializer()), competicoes.values.toList())
         ficheiros["nomes.json"] = JSON.encodeToString(MapSerializer(String.serializer(), ListaNomes.serializer()), nomes)
         selecoesJson?.let { ficheiros["selecoes.json"] = it }
+        rivalidadesJson?.let { ficheiros["rivalidades.json"] = it }
         ficheiros += paraJson()
         return ficheiros
     }
