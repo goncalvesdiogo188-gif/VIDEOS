@@ -80,7 +80,7 @@ fun EcraAoVivo(
     aoContinuar: (PartidaAoVivo) -> Unit,
     aoSair: () -> Unit,
     fixarOrientacao: Boolean = true,
-    vistaJogo: @Composable (Modifier) -> Unit = { VistaGl(sessao, it) },
+    vistaJogo: @Composable (Modifier, Boolean) -> Unit = { m, parado -> VistaGl(sessao, m, parado) },
 ) {
     if (fixarOrientacao) ModoPaisagem()
 
@@ -113,7 +113,7 @@ fun EcraAoVivo(
     BackHandler(enabled = !terminou) { pausa = !pausa }
 
     Box(Modifier.fillMaxSize().background(Color.Black)) {
-        vistaJogo(Modifier.fillMaxSize())
+        vistaJogo(Modifier.fillMaxSize(), pausa || terminou)
 
         MarcadorETempo(estado, Modifier.align(Alignment.TopCenter))
         if (!terminou) Mensagem(estado, Modifier.align(Alignment.TopCenter).padding(top = 58.dp))

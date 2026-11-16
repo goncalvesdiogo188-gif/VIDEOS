@@ -48,7 +48,7 @@ class EcraAoVivoTest {
     private fun mostrar(sessao: SessaoAoVivo) {
         regra.setContent {
             Tema {
-                EcraAoVivo(sessao, { entregue = it }, { saiu = true }, fixarOrientacao = false) { m ->
+                EcraAoVivo(sessao, { entregue = it }, { saiu = true }, fixarOrientacao = false) { m, _ ->
                     Box(m.background(Color(0xFF2E7D32)), contentAlignment = Alignment.Center) { Text("(vista 3D)", color = Color.White) }
                 }
             }

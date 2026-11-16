@@ -13,9 +13,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 
-/** A vista OpenGL do jogo dentro do Compose. É o único sítio que cria o GLSurfaceView. */
+/**
+ * A vista OpenGL do jogo dentro do Compose. É o único sítio que cria o GLSurfaceView.
+ * "parado" (pausa ou jogo acabado): deixa de desenhar a 60 imagens/s e mantém a última imagem no ecrã.
+ */
 @Composable
-fun VistaGl(sessao: SessaoAoVivo, modifier: Modifier = Modifier) {
+fun VistaGl(sessao: SessaoAoVivo, modifier: Modifier = Modifier, parado: Boolean = false) {
     val contexto = LocalContext.current
     val vista = remember(sessao) {
         GLSurfaceView(contexto).apply {
@@ -44,7 +47,18 @@ fun VistaGl(sessao: SessaoAoVivo, modifier: Modifier = Modifier) {
             vista.onPause()
         }
     }
-    AndroidView(factory = { vista }, modifier = modifier)
+    AndroidView(
+        factory = { vista },
+        modifier = modifier,
+        update = { v ->
+            val modo = if (parado) GLSurfaceView.RENDERMODE_WHEN_DIRTY else GLSurfaceView.RENDERMODE_CONTINUOUSLY
+            // Só mexe quando muda, para não pedir imagens a cada recomposição.
+            if (v.renderMode != modo) {
+                v.renderMode = modo
+                if (parado) v.requestRender()   // desenha uma vez, para a última imagem ficar no ecrã
+            }
+        },
+    )
 }
 
 /** Sobe pela cadeia de contextos até encontrar um do tipo T (por exemplo, a Activity). */
