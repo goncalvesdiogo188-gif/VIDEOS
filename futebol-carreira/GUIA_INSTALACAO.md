@@ -152,6 +152,12 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 6. Uma gravação antiga abre e mostra os nomes dos países.
 7. Nota: os dados vêm da Wikipédia e podem estar uma época desatualizados; as notas são estimadas.
 
+### Fase 12 — ícone, arranque e 3D mais leve
+1. Instala a versão 0.12 por cima da anterior. No ecrã do telemóvel vês o ícone novo: uma bola de futebol branca sobre fundo verde. No Android 13 ou mais recente, com os ícones temáticos ligados, o ícone fica de uma só cor.
+2. Abre a aplicação: o fundo é escuro desde o primeiro instante, sem clarão branco. No Android 12 ou mais recente vês o ecrã de abertura com a bola.
+3. Abre uma carreira, toca em **Jogar ao vivo (3D)** e joga uns minutos. Toca em II (pausa): o telemóvel deve aquecer menos do que com o jogo a correr. Toca em «Continuar» e confirma que o jogo volta sem falhas.
+4. Diz-me se o 3D corre fluido e se o telemóvel aquece muito.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados

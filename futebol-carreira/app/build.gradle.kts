@@ -13,8 +13,8 @@ android {
         applicationId = "pt.futebolcarreira"
         minSdk = 26          // Android 8.0 ou mais recente
         targetSdk = 35
-        versionCode = 11
-        versionName = "0.11 (Fase 11)"
+        versionCode = 12
+        versionName = "0.12 (Fase 12)"
     }
 
     // Chave de TESTE, partilhada no repositório para as atualizações instalarem por cima

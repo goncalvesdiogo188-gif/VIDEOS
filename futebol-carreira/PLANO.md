@@ -31,7 +31,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | 9 | Modo carreira de jogador | ✅ à espera de confirmação |
 | 10 | Editor e importação de JSON | ✅ à espera de confirmação |
 | 11 | Jogo ao vivo em 3D | ✅ à espera de confirmação |
-| 12 | Otimização e exportação Android | ⬜ |
+| 12 | Otimização e acabamentos (só para uso pessoal) | ✅ à espera de confirmação |
 
 ---
 
@@ -163,9 +163,15 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [ ] Os jogadores são figuras simples de caixas.
 - [ ] Nunca foi testado num telemóvel nem num emulador: a fluidez e o aspeto do 3D são desconhecidos.
 
-## Fase 12 — Otimização e exportação Android
-- [ ] Desempenho em telemóveis médios (30/60 fps), tamanho do APK.
-- [ ] Ícone, ecrã de arranque, chave privada e AAB assinado para a Play Store.
+## Fase 12 — Otimização e acabamentos ✅ (à espera de confirmação)
+O jogo é só para uso pessoal: a publicação na Play Store foi cancelada (chave privada, pacote assinado e guia da loja deixaram de fazer falta). Continua a usar-se a chave de teste, para as atualizações instalarem por cima.
+- [x] Medições de desempenho do núcleo (`Fase12DesempenhoTest.kt`): carregar a base de dados 87 ms, uma jornada 44 ms, uma época inteira 2 s, gravar 0,2 s (2,2 MB), carregar uma gravação 0,3 s (num computador; num telemóvel será mais lento, mas há muita folga).
+- [x] Tamanho do APK analisado: 1,8 MB; os jogadores em JSON ocupam 240 KB comprimidos. Nada a mexer.
+- [x] Ícone novo (bola de futebol, adaptativo, redondo e monocromático para o Android 13).
+- [x] Ecrã de arranque: sem o clarão branco ao abrir e com o ecrã de abertura do Android 12.
+- [x] 3D: as rotações dos jogadores deixam de criar lixo a cada imagem (`Mat4`, com testes); o 3D deixa de redesenhar a 60 imagens por segundo com o jogo em pausa ou acabado (poupa bateria); menos objetos criados por imagem nos controlos.
+- [ ] Ficou por fazer, por ser arriscado sem ver o 3D a correr: juntar a geometria fixa do campo (bancadas, balizas, relvado) num único desenho, o que reduziria as cerca de 320 chamadas ao GL por imagem para umas poucas; e reutilizar o estado dos jogadores em vez de criar cerca de 25 objetos por imagem.
+- [ ] O desempenho do 3D num telemóvel real continua desconhecido.
 
 ---
 
@@ -177,7 +183,7 @@ futebol-carreira/
 ├── GUIA_INSTALACAO.md       instalar, abrir, testar
 ├── apk/futebol-carreira.apk APK de teste, pronto a instalar no telemóvel
 ├── capturas/                imagens dos ecrãs, tiradas automaticamente a cada compilação
-├── chaves/teste.keystore    chave de TESTE (não serve para a Play Store)
+├── chaves/teste.keystore    chave de TESTE (usada em todas as versões, para atualizar por cima)
 ├── settings.gradle.kts …    configuração da compilação (Gradle)
 ├── nucleo/                  DADOS E SIMULAÇÃO (Kotlin puro, sem Android)
 │   └── src/main/kotlin/pt/futebolcarreira/nucleo/
