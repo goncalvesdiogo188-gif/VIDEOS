@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -50,52 +52,49 @@ import pt.futebolcarreira.nucleo.aovivo.DuracaoJogo
 import pt.futebolcarreira.nucleo.aovivo.NivelMira
 
 /** Opções do jogo ao vivo (em Mais → Opções): duração do jogo, ajuda de mira e botões. Guarda nas SharedPreferences "opcoes". */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun BlocoOpcoesAoVivo() {
     val prefs = OpcoesAoVivo.prefs(LocalContext.current)
     var duracao by remember { mutableStateOf(OpcoesAoVivo.duracaoMinutos(prefs)) }
     var mira by remember { mutableStateOf(OpcoesAoVivo.miraEscolhida(prefs)) }
     var editar by remember { mutableStateOf(false) }
-    var ps1 by remember { mutableStateOf(OpcoesAoVivo.estiloPs1(prefs)) }
+    var estilo by remember { mutableStateOf(OpcoesAoVivo.estilo(prefs)) }
     var dificuldade by remember { mutableStateOf(pt.futebolcarreira.nucleo.aovivo.Dificuldade.deTexto(prefs.getString("dificuldade_3d", null))) }
     Bloco {
         Rotulo("Jogo ao vivo: gráficos")
-        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FilterChip(
-                selected = ps1, onClick = { ps1 = true; OpcoesAoVivo.definirEstiloPs1(prefs, true) },
-                label = { Text("PlayStation 1", fontSize = 15.sp) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
-            )
-            FilterChip(
-                selected = !ps1, onClick = { ps1 = false; OpcoesAoVivo.definirEstiloPs1(prefs, false) },
-                label = { Text("Normal", fontSize = 15.sp) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+        FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (e in EstiloGraficos.entries) FilterChip(
+                selected = estilo == e, onClick = { estilo = e; OpcoesAoVivo.definirEstilo(prefs, e) },
+                label = { Text(e.nome.replace("PlayStation", "PS"), fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.heightIn(min = 48.dp),
             )
         }
-        Text("Imagem pixelizada, arestas a tremer e cores limitadas. Vale para o próximo jogo.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("PS2: imagem suave com relva, público e luzes. PS1: pixelizado. Vale para o próximo jogo.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Rotulo("Jogo ao vivo: dificuldade", Modifier.padding(top = 10.dp))
-        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in pt.futebolcarreira.nucleo.aovivo.Dificuldade.entries) FilterChip(
                 selected = dificuldade == d, onClick = { dificuldade = d; prefs.edit().putString("dificuldade_3d", d.name).apply() },
-                label = { Text(d.nome, fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                label = { Text(d.nome, fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.heightIn(min = 48.dp),
             )
         }
         Text("Muda a defesa e a pressão do adversário.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Rotulo("Jogo ao vivo: duração", Modifier.padding(top = 10.dp))
-        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (m in DuracaoJogo.OPCOES_MINUTOS) FilterChip(
                 selected = duracao == m, onClick = { duracao = m; OpcoesAoVivo.definirDuracao(prefs, m) },
-                label = { Text(DuracaoJogo.texto(m), fontSize = 15.sp) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                label = { Text(DuracaoJogo.texto(m), fontSize = 15.sp) }, modifier = Modifier.heightIn(min = 48.dp),
             )
         }
         Text("Tempo real de um jogo de 90 minutos.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Rotulo("Ajuda de mira", Modifier.padding(top = 10.dp))
-        Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             FilterChip(
                 selected = mira == null, onClick = { mira = null; OpcoesAoVivo.definirMira(prefs, null) },
-                label = { Text("Auto", fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                label = { Text("Auto", fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.heightIn(min = 48.dp),
             )
             for (n in NivelMira.entries) FilterChip(
                 selected = mira == n, onClick = { mira = n; OpcoesAoVivo.definirMira(prefs, n) },
-                label = { Text(n.nome, fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.weight(1f).heightIn(min = 48.dp),
+                label = { Text(n.nome, fontSize = 14.sp, maxLines = 1) }, modifier = Modifier.heightIn(min = 48.dp),
             )
         }
         Text(

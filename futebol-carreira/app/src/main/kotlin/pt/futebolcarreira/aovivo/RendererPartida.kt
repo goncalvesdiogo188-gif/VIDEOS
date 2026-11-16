@@ -18,7 +18,7 @@ import kotlin.math.sin
  * ([SessaoAoVivo.avancar]) e desenha o estado. Tudo o que é fixo (campo, balizas, bancadas) é calculado uma vez;
  * durante o jogo não se criam objetos novos, só se reaproveitam as matrizes.
  */
-class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: Boolean = true) : GLSurfaceView.Renderer {
+class RendererPartida(private val sessao: SessaoAoVivo, private val estilo: EstiloGraficos = EstiloGraficos.PS2) : GLSurfaceView.Renderer {
     private val camera = CameraTransmissao()
     private var proporcao = 2f
     private var ultimoNs = 0L
@@ -32,7 +32,10 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
     private var uLuz = 0
     private var uRes = 0
     private var uPs1 = 0
-    private var uPs1F = 0
+    private var uEst = 0
+    private var uMat = 0
+    private var uRuido = 0
+    private var texRuido = 0
     private var uNevoa = 0
     private var vbo = 0
 
@@ -77,7 +80,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
     private var coresDe: EstadoPartida? = null
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        GLES20.glClearColor(0.34f, 0.42f, 0.55f, 1f)
+        if (estilo == EstiloGraficos.PS2) GLES20.glClearColor(CEU2_R, CEU2_G, CEU2_B, 1f) else GLES20.glClearColor(0.34f, 0.42f, 0.55f, 1f)
         programa = criarPrograma(VERTICE, FRAGMENTO)
         uMvp = GLES20.glGetUniformLocation(programa, "uMvp")
         uModelo = GLES20.glGetUniformLocation(programa, "uModelo")
@@ -85,13 +88,16 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         uLuz = GLES20.glGetUniformLocation(programa, "uLuz")
         uRes = GLES20.glGetUniformLocation(programa, "uRes")
         uPs1 = GLES20.glGetUniformLocation(programa, "uPs1")
-        uPs1F = GLES20.glGetUniformLocation(programa, "uPs1F")
+        uEst = GLES20.glGetUniformLocation(programa, "uEst")
+        uMat = GLES20.glGetUniformLocation(programa, "uMat")
+        uRuido = GLES20.glGetUniformLocation(programa, "uRuido")
+        criarTexturaRuido()
         uNevoa = GLES20.glGetUniformLocation(programa, "uNevoa")
         programaEcra = criarPrograma(VERTICE_ECRA, FRAGMENTO_ECRA)
         uTexEcra = GLES20.glGetUniformLocation(programaEcra, "uTex")
         fbo = 0; fboTextura = 0; fboProfundidade = 0; fboOk = false   // o contexto pode ter sido recriado
 
-        malhas = Malhas.criar(poucosPoligonos = estiloPs1)
+        malhas = Malhas.criar(poucosPoligonos = estilo == EstiloGraficos.PS1)
         val buf = ByteBuffer.allocateDirect(malhas.dados.size * 4).order(ByteOrder.nativeOrder()).asFloatBuffer()
         buf.put(malhas.dados).position(0)
         val ids = IntArray(1)
@@ -110,7 +116,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         GLES20.glViewport(0, 0, largura, altura)
         ecraLargura = largura; ecraAltura = altura
         proporcao = largura.toFloat() / altura.coerceAtLeast(1)
-        if (estiloPs1) criarImagemPequena(largura, altura)
+        if (estilo != EstiloGraficos.NORMAL) criarImagemPequena(largura, altura)
         Matrix.perspectiveM(projecao, 0, camera.campoDeVisaoV, proporcao, 8f, 260f)
     }
 
@@ -128,17 +134,22 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         Matrix.setLookAtM(vista, 0, camera.olhoX, camera.olhoY, camera.olhoZ, camera.alvoX, camera.alvoY, 0f, 0f, 0f, 1f)
         Matrix.multiplyMM(vp, 0, projecao, 0, vista, 0)
 
-        val ps1 = estiloPs1 && fboOk
+        val ps1 = estilo != EstiloGraficos.NORMAL && fboOk
         if (ps1) {
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, fbo)
             GLES20.glViewport(0, 0, fboLargura, fboAltura)
         }
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
         GLES20.glUseProgram(programa)
-        GLES20.glUniform1f(uPs1, if (ps1) 1f else 0f)
-        GLES20.glUniform1f(uPs1F, if (ps1) 1f else 0f)
+        GLES20.glUniform1f(uPs1, if (ps1 && estilo == EstiloGraficos.PS1) 1f else 0f)   // vértices a saltar só no PS1
+        GLES20.glUniform1f(uEst, if (!ps1) 0f else if (estilo == EstiloGraficos.PS1) 1f else 2f)
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texRuido)
+        GLES20.glUniform1i(uRuido, 1)
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glUniform2f(uRes, if (ps1) fboLargura.toFloat() else ecraLargura.toFloat(), if (ps1) fboAltura.toFloat() else ecraAltura.toFloat())
-        GLES20.glUniform3f(uNevoa, NEVOA_R, NEVOA_G, NEVOA_B)
+        if (estilo == EstiloGraficos.PS2) GLES20.glUniform3f(uNevoa, CEU2_R, CEU2_G, CEU2_B)
+        else GLES20.glUniform3f(uNevoa, NEVOA_R, NEVOA_G, NEVOA_B)
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
         GLES20.glEnableVertexAttribArray(0)
         GLES20.glVertexAttribPointer(0, 3, GLES20.GL_FLOAT, false, 24, 0)
@@ -169,6 +180,26 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
 
     // ----------------------------------------------------- estilo PS1
 
+    /** Textura de ruído (64x64, quatro canais aleatórios) usada pela relva e pelo público no estilo PS2. */
+    private fun criarTexturaRuido() {
+        val n = 64
+        val dados = ByteArray(n * n * 4)
+        val rng = java.util.Random(12345L)
+        rng.nextBytes(dados)
+        val buf = ByteBuffer.allocateDirect(dados.size).order(ByteOrder.nativeOrder())
+        buf.put(dados).position(0)
+        val id = IntArray(1)
+        GLES20.glGenTextures(1, id, 0); texRuido = id[0]
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texRuido)
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, n, n, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buf)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT)
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
+    }
+
     /** Cria a imagem pequena em que o jogo se desenha (nítida ao ampliar, como nos ecrãs de há 25 anos). */
     private fun criarImagemPequena(largura: Int, altura: Int) {
         if (fbo != 0) {
@@ -176,14 +207,15 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
             GLES20.glDeleteTextures(1, intArrayOf(fboTextura), 0)
             GLES20.glDeleteRenderbuffers(1, intArrayOf(fboProfundidade), 0)
         }
-        fboAltura = ALTURA_PS1.coerceAtMost(altura.coerceAtLeast(1))
+        fboAltura = (if (estilo == EstiloGraficos.PS2) ALTURA_PS2 else ALTURA_PS1).coerceAtMost(altura.coerceAtLeast(1))
         fboLargura = (fboAltura * largura.toFloat() / altura.coerceAtLeast(1)).toInt().coerceAtLeast(1)
         val id = IntArray(1)
         GLES20.glGenTextures(1, id, 0); fboTextura = id[0]
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, fboTextura)
         GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, fboLargura, fboAltura, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null)
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST)
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST)
+        val filtro = if (estilo == EstiloGraficos.PS1) GLES20.GL_NEAREST else GLES20.GL_LINEAR   // PS2: ampliação suave
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, filtro)
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, filtro)
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
         GLES20.glGenRenderbuffers(1, id, 0); fboProfundidade = id[0]
@@ -247,7 +279,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
             if (transparentes != null && p.transparente != transparentes) continue
             System.arraycopy(f.matrizes, 16 * i, modelo, 0, 16)
             val malha = when (p.forma) { Forma.CAIXA -> malhas.caixa; Forma.DISCO -> malhas.disco; Forma.ANEL -> malhas.anel }
-            desenhar(malha, f.cores[4 * i], f.cores[4 * i + 1], f.cores[4 * i + 2], f.cores[4 * i + 3], luz)
+            desenhar(malha, f.cores[4 * i], f.cores[4 * i + 1], f.cores[4 * i + 2], f.cores[4 * i + 3], luz, p.material.toFloat())
         }
     }
 
@@ -356,8 +388,8 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         // Pernas (meias na cor dos calções escurecida) e braços.
         perna(0.12f, pernaD, sr * 0.8f + 0.1f, sg * 0.8f + 0.1f, sb * 0.8f + 0.1f)
         perna(-0.12f, pernaE, sr * 0.8f + 0.1f, sg * 0.8f + 0.1f, sb * 0.8f + 0.1f)
-        braco(0.31f, bracoD, cr, cg, cb)
-        braco(-0.31f, bracoE, cr, cg, cb)
+        braco(0.31f, bracoD, cr, cg, cb, pr, pg, pb)
+        braco(-0.31f, bracoE, cr, cg, cb, pr, pg, pb)
         // Calções, tronco e cabeça.
         caixa(0f, 0f, 0.9f, 0.27f, 0.46f, 0.3f, sr, sg, sb)
         caixa(0f, 0f, 1.27f, 0.28f, 0.5f, 0.62f, cr, cg, cb)
@@ -365,6 +397,14 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         Matrix.translateM(modelo, 0, 0f, 0f, 1.74f)
         Matrix.scaleM(modelo, 0, 0.14f, 0.14f, 0.15f)
         desenhar(malhas.esfera, pr, pg, pb, 1f, 1f)
+        // Cabelo (cor conforme o jogador), gola da camisola e pescoço.
+        val cabelo = (j.id / 3) % 4
+        val hr = if (cabelo == 0) 0.08f else if (cabelo == 1) 0.30f else if (cabelo == 2) 0.78f else 0.55f
+        val hg = if (cabelo == 0) 0.07f else if (cabelo == 1) 0.18f else if (cabelo == 2) 0.62f else 0.27f
+        val hb = if (cabelo == 0) 0.07f else if (cabelo == 1) 0.10f else if (cabelo == 2) 0.28f else 0.12f
+        caixa(-0.01f, 0f, 1.86f, 0.30f, 0.30f, 0.10f, hr, hg, hb)
+        caixa(0f, 0f, 1.62f, 0.10f, 0.10f, 0.08f, pr, pg, pb)
+        caixa(0f, 0f, 1.57f, 0.30f, 0.52f, 0.05f, cr * 0.8f, cg * 0.8f, cb * 0.8f)
     }
 
     private fun caixa(x: Float, y: Float, z: Float, sx: Float, sy: Float, sz: Float, r: Float, g: Float, b: Float) {
@@ -380,17 +420,28 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         Matrix.translateM(parte, 0, 0f, y, ANCA)
         Mat4.rodar(parte, angulo, 0f, 1f, 0f)
         Matrix.translateM(parte, 0, 0f, 0f, -0.42f)
+        // Bota, no fim da perna.
+        System.arraycopy(parte, 0, modelo, 0, 16)
+        Matrix.translateM(modelo, 0, 0.05f, 0f, -0.40f)
+        Matrix.scaleM(modelo, 0, 0.28f, 0.19f, 0.10f)
+        desenhar(malhas.caixa, 0.07f, 0.07f, 0.08f, 1f, 1f)
         Matrix.scaleM(parte, 0, 0.17f, 0.17f, 0.84f)
         System.arraycopy(parte, 0, modelo, 0, 16)
         desenhar(malhas.caixa, r, g, b, 1f, 1f)
     }
 
-    private fun braco(y: Float, angulo: Float, r: Float, g: Float, b: Float) {
+    private fun braco(y: Float, angulo: Float, r: Float, g: Float, b: Float, pr: Float, pg: Float, pb: Float) {
         System.arraycopy(base, 0, parte, 0, 16)
         Matrix.translateM(parte, 0, 0f, y, 1.52f)
         Mat4.rodar(parte, angulo, 0f, 1f, 0f)
         Matrix.translateM(parte, 0, 0f, 0f, -0.3f)
-        Matrix.scaleM(parte, 0, 0.12f, 0.12f, 0.6f)
+        // Antebraço com a cor da pele, por baixo da manga.
+        System.arraycopy(parte, 0, modelo, 0, 16)
+        Matrix.translateM(modelo, 0, 0f, 0f, -0.24f)
+        Matrix.scaleM(modelo, 0, 0.115f, 0.115f, 0.2f)
+        desenhar(malhas.caixa, pr, pg, pb, 1f, 1f)
+        Matrix.translateM(parte, 0, 0f, 0f, 0.1f)
+        Matrix.scaleM(parte, 0, 0.13f, 0.13f, 0.4f)
         System.arraycopy(parte, 0, modelo, 0, 16)
         desenhar(malhas.caixa, r, g, b, 1f, 1f)
     }
@@ -407,12 +458,13 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
 
     // ----------------------------------------------------------- comum
 
-    private fun desenhar(m: Malha, r: Float, g: Float, b: Float, a: Float, luz: Float) {
+    private fun desenhar(m: Malha, r: Float, g: Float, b: Float, a: Float, luz: Float, material: Float = 0f) {
         Matrix.multiplyMM(mvp, 0, vp, 0, modelo, 0)
         GLES20.glUniformMatrix4fv(uMvp, 1, false, mvp, 0)
         GLES20.glUniformMatrix4fv(uModelo, 1, false, modelo, 0)
         GLES20.glUniform4f(uCor, r, g, b, a)
         GLES20.glUniform1f(uLuz, luz)
+        GLES20.glUniform1f(uMat, material)
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, m.inicio, m.vertices)
     }
 
@@ -446,6 +498,10 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
         const val RAIO_BOLA = 0.38f   // maior que a bola verdadeira (0,11 m) para se ver bem
 
         const val ALTURA_PS1 = 240       // linhas da imagem pequena (a PlayStation usava 240)
+        const val ALTURA_PS2 = 480       // PS2: 480 linhas, ampliadas com suavização
+        const val CEU2_R = 0.47f
+        const val CEU2_G = 0.60f
+        const val CEU2_B = 0.80f
         const val NEVOA_R = 0.34f
         const val NEVOA_G = 0.42f
         const val NEVOA_B = 0.55f
@@ -459,6 +515,7 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
             attribute vec3 aNor;
             varying vec3 vNor;
             varying float vFundo;
+            varying vec3 vMundo;
             void main() {
                 vec4 p = uMvp * vec4(aPos, 1.0);
                 if (uPs1 > 0.5 && p.w > 0.5) {
@@ -468,17 +525,25 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
                 }
                 gl_Position = p;
                 vFundo = p.w;
+                vMundo = (uModelo * vec4(aPos, 1.0)).xyz;
                 vNor = (uModelo * vec4(aNor, 0.0)).xyz;
             }
         """
         const val FRAGMENTO = """
+            #ifdef GL_FRAGMENT_PRECISION_HIGH
+            precision highp float;
+            #else
             precision mediump float;
+            #endif
             uniform vec4 uCor;
             uniform float uLuz;
-            uniform float uPs1F;
+            uniform float uEst;   // 0 normal, 1 PS1, 2 PS2
+            uniform float uMat;   // 0 normal, 1 relva, 2 público, 3 luz
             uniform vec3 uNevoa;
+            uniform sampler2D uRuido;
             varying vec3 vNor;
             varying float vFundo;
+            varying vec3 vMundo;
             // Matriz 4x4 de Bayer (tremido ordenado), calculada sem tabelas.
             float bayer(vec2 p) {
                 vec2 q = mod(p, 4.0);
@@ -488,11 +553,37 @@ class RendererPartida(private val sessao: SessaoAoVivo, private val estiloPs1: B
             }
             void main() {
                 vec3 luz = normalize(vec3(0.35, -0.45, 0.85));
-                float d = max(dot(normalize(vNor), luz), 0.0);
-                if (uPs1F > 0.5) d = floor(d * 3.0 + 0.5) / 3.0;   // sombreado em poucos degraus
-                float k = mix(1.0, 0.55 + 0.5 * d, uLuz);
+                vec3 n = normalize(vNor);
+                float d = max(dot(n, luz), 0.0);
+                bool ps1 = uEst > 0.5 && uEst < 1.5;
+                bool ps2 = uEst > 1.5;
+                if (ps1) d = floor(d * 3.0 + 0.5) / 3.0;   // sombreado em poucos degraus
+                float k;
+                if (ps2) {
+                    float h = 0.5 + 0.5 * dot(n, luz);       // luz envolvente (meia-lambert)
+                    k = mix(1.0, 0.56 + 0.30 * d + 0.20 * h + 0.10 * n.z, uLuz);
+                } else {
+                    k = mix(1.0, 0.55 + 0.5 * d, uLuz);
+                }
                 vec3 c = uCor.rgb * k;
-                if (uPs1F > 0.5) {
+                if (ps2) {
+                    if (uMat > 0.5 && uMat < 1.5) {
+                        // Relva: grão fino e manchas largas, a partir do ruído.
+                        vec4 r1 = texture2D(uRuido, vMundo.xy * 0.125);
+                        vec4 r2 = texture2D(uRuido, vMundo.xy * 0.0156);
+                        c *= 0.92 + 0.09 * r1.r + 0.07 * (r2.g - 0.5);
+                    } else if (uMat > 1.5 && uMat < 2.5) {
+                        // Público: pontos de cor (camisolas) sobre as bancadas.
+                        vec2 p = vec2(vMundo.x * 1.6 + vMundo.z * 2.0, vMundo.y * 1.6 + vMundo.z * 1.3);
+                        vec4 r = texture2D(uRuido, (floor(p) + 0.5) / 64.0);
+                        vec3 camisa = mix(mix(vec3(0.85, 0.12, 0.12), vec3(0.95, 0.95, 0.95), r.g), vec3(0.15, 0.30, 0.80), step(0.66, r.b));
+                        c = mix(c * (0.55 + 0.6 * r.r), camisa * (0.55 + 0.5 * r.a) * k, step(0.30, r.a));
+                    } else if (uMat > 2.5) {
+                        c = uCor.rgb * 1.1;   // holofotes: brilham
+                    }
+                    c = mix(c, uNevoa, clamp((vFundo - 95.0) / 170.0, 0.0, 1.0) * 0.5);   // ar ao longe
+                }
+                if (ps1) {
                     c = mix(c, uNevoa, clamp((vFundo - 55.0) / 120.0, 0.0, 1.0) * 0.65);   // névoa à distância
                     float t = bayer(floor(gl_FragCoord.xy)) - 0.5;
                     c = floor(c * 31.0 + t + 0.5) / 31.0;   // 5 bits por cor, com tremido

@@ -241,11 +241,12 @@ private fun Opcoes(
         Bloco {
             Rotulo("Aspeto")
             val contexto = LocalContext.current
-            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+            androidx.compose.foundation.layout.FlowRow(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 for (m in ModoTema.entries) {
                     FilterChip(
                         selected = PreferenciaTema.modo == m, onClick = { PreferenciaTema.definir(contexto, m) },
-                        label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) }, modifier = Modifier.weight(1f),
+                        label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) }, modifier = Modifier.heightIn(min = 48.dp),
                     )
                 }
             }

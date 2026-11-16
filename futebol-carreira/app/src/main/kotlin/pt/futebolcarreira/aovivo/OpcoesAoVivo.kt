@@ -28,16 +28,25 @@ object OpcoesAoVivo {
     /** O nível a usar: o escolhido, ou o da dificuldade (texto como "NORMAL"; null = Normal). */
     fun nivelMira(p: SharedPreferences, dificuldade: String? = null): NivelMira = miraEscolhida(p) ?: NivelMira.daDificuldade(dificuldade)
 
-    const val CHAVE_PS1 = "graficos_ps1"
+    const val CHAVE_ESTILO = "estilo_graficos"
 
-    /** Gráficos ao estilo PlayStation 1 (ligados por defeito). */
-    fun estiloPs1(p: SharedPreferences): Boolean = p.getBoolean(CHAVE_PS1, true)
+    /** Estilo gráfico do jogo 3D (PlayStation 2 por defeito). */
+    fun estilo(p: SharedPreferences): EstiloGraficos = EstiloGraficos.deNome(p.getString(CHAVE_ESTILO, null))
 
-    fun definirEstiloPs1(p: SharedPreferences, ligado: Boolean) = p.edit().putBoolean(CHAVE_PS1, ligado).apply()
+    fun definirEstilo(p: SharedPreferences, e: EstiloGraficos) = p.edit().putString(CHAVE_ESTILO, e.name).apply()
 
     fun disposicao(p: SharedPreferences): DisposicaoBotoes = DisposicaoBotoes.ler(p.getString(CHAVE_BOTOES, null))
 
     fun guardarDisposicao(p: SharedPreferences, d: DisposicaoBotoes) = p.edit().putString(CHAVE_BOTOES, d.serializar()).apply()
 
     fun repor(p: SharedPreferences) = p.edit().remove(CHAVE_BOTOES).apply()
+}
+
+/** Aspeto do jogo 3D: PS2 (imagem de 480 linhas, suave, com texturas), PS1 (240 linhas, pixelizado) ou Normal (resolução total). */
+enum class EstiloGraficos(val nome: String) {
+    PS2("PlayStation 2"), PS1("PlayStation 1"), NORMAL("Normal");
+
+    companion object {
+        fun deNome(t: String?): EstiloGraficos = entries.firstOrNull { it.name == t } ?: PS2
+    }
 }

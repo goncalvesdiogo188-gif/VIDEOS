@@ -16,6 +16,8 @@ class Peca(
     val sx: Float, val sy: Float, val sz: Float, val rotacao: Float, val cor: Int,
     /** true = rede (desenha-se com transparência). */
     val transparente: Boolean = false,
+    /** Material para o estilo PS2: 0 normal, 1 relva (com textura), 2 público (pontos de cor), 3 luz (brilha). */
+    val material: Int = 0,
 )
 
 /** O campo, as linhas, as balizas e a bancada, como listas de peças (sem OpenGL, para se poder testar). */
@@ -37,12 +39,12 @@ object CenarioCampo {
         val l = ArrayList<Peca>(64)
         // Terreno à volta do estádio e relva.
         l += Peca(Forma.CAIXA, 0f, 0f, -0.05f, 400f, 300f, 0.1f, 0f, 0xFF1B2A1E.toInt())
-        l += Peca(Forma.CAIXA, 0f, 0f, 0f, COMPRIMENTO + 2 * MARGEM, LARGURA + 2 * MARGEM, 0.02f, 0f, RELVA_ESCURA)
+        l += Peca(Forma.CAIXA, 0f, 0f, 0f, COMPRIMENTO + 2 * MARGEM, LARGURA + 2 * MARGEM, 0.02f, 0f, RELVA_ESCURA, material = 1)
         // Listas verticais: 14 faixas, as pares mais claras.
         val n = 14
         val larg = COMPRIMENTO / n
         for (i in 0 until n step 2) {
-            l += Peca(Forma.CAIXA, -COMPRIMENTO / 2 + larg * (i + 0.5f), 0f, 0.01f, larg, LARGURA, 0.02f, 0f, RELVA_CLARA)
+            l += Peca(Forma.CAIXA, -COMPRIMENTO / 2 + larg * (i + 0.5f), 0f, 0.01f, larg, LARGURA, 0.02f, 0f, RELVA_CLARA, material = 1)
         }
         linhas(l)
         return l
@@ -134,17 +136,23 @@ object CenarioCampo {
                 val x = -a + (2 * a) * (i + 0.5f) / segLong
                 val cor = publico[(i + degrau) % publico.size]
                 val c = 2 * a / segLong
-                l += Peca(Forma.CAIXA, x, -(b + recuo + 1.5f), altura / 2, c, 3f, altura, 0f, cor)
-                l += Peca(Forma.CAIXA, x, b + recuo + 1.5f, altura / 2, c, 3f, altura, 0f, cor)
+                l += Peca(Forma.CAIXA, x, -(b + recuo + 1.5f), altura / 2, c, 3f, altura, 0f, cor, material = 2)
+                l += Peca(Forma.CAIXA, x, b + recuo + 1.5f, altura / 2, c, 3f, altura, 0f, cor, material = 2)
             }
             val segCurto = 3
             for (i in 0 until segCurto) {
                 val y = -b + (2 * b) * (i + 0.5f) / segCurto
                 val cor = publico[(i + degrau + 2) % publico.size]
                 val c = 2 * b / segCurto
-                l += Peca(Forma.CAIXA, -(a + recuo + 1.5f), y, altura / 2, 3f, c, altura, 0f, cor)
-                l += Peca(Forma.CAIXA, a + recuo + 1.5f, y, altura / 2, 3f, c, altura, 0f, cor)
+                l += Peca(Forma.CAIXA, -(a + recuo + 1.5f), y, altura / 2, 3f, c, altura, 0f, cor, material = 2)
+                l += Peca(Forma.CAIXA, a + recuo + 1.5f, y, altura / 2, 3f, c, altura, 0f, cor, material = 2)
             }
+        }
+        // Quatro torres de holofotes nos cantos do estádio.
+        for (sx in intArrayOf(-1, 1)) for (sy in intArrayOf(-1, 1)) {
+            val tx = sx * (a + 16f); val ty = sy * (b + 16f)
+            l += Peca(Forma.CAIXA, tx, ty, 11f, 0.7f, 0.7f, 22f, 0f, 0xFF50565C.toInt())
+            l += Peca(Forma.CAIXA, tx, ty, 22.8f, 5.5f, 2.2f, 2.6f, 0f, 0xFFFFF4D0.toInt(), material = 3)
         }
         return l
     }

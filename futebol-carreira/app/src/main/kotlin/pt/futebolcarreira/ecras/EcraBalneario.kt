@@ -3,6 +3,8 @@ package pt.futebolcarreira.ecras
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,13 +37,14 @@ import pt.futebolcarreira.JogoViewModel
 // Fase 13 (F3 e F4): em Mais → Clube há três partes: Gestão (treino, instalações...), Balneário e História.
 
 /** O separador «Clube» com o seletor Gestão · Balneário · História. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SeparadorClubeEmocao(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     var parte by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
-        Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             listOf("Instalações", "Balneário", "História").forEachIndexed { i, nome ->
-                FilterChip(parte == i, { parte = i }, { Text(nome, maxLines = 1, fontSize = 14.sp) }, Modifier.weight(1f).heightIn(min = 48.dp))
+                FilterChip(parte == i, { parte = i }, { Text(nome, maxLines = 1, fontSize = 14.sp) }, Modifier.heightIn(min = 48.dp))
             }
         }
         when (parte) {
