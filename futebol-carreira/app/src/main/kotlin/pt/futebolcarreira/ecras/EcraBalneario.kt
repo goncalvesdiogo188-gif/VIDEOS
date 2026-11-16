@@ -40,7 +40,7 @@ internal fun SeparadorClubeEmocao(ui: CarreiraUi, ativo: Boolean, jogo: JogoView
     var parte by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            listOf("Gestão", "Balneário", "História").forEachIndexed { i, nome ->
+            listOf("Instalações", "Balneário", "História").forEachIndexed { i, nome ->
                 FilterChip(parte == i, { parte = i }, { Text(nome, maxLines = 1, fontSize = 14.sp) }, Modifier.weight(1f).heightIn(min = 48.dp))
             }
         }
