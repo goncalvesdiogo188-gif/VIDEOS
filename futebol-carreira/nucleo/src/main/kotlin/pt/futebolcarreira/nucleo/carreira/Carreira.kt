@@ -113,6 +113,9 @@ class Carreira(
     /** Cria as manchetes a partir do que acontece nos jogos. */
     val geradorNoticias = GeradorNoticias(this)
 
+    /** Fase 13: conferências de imprensa, conversas, balneário e momentos de carreira. */
+    val emocao = Emocao(this)
+
     /**
      * true quando a base de dados (equipas, jogadores) mudou desde a última gravação.
      * Acontece ao criar a carreira e no início de cada época.
@@ -315,6 +318,7 @@ class Carreira(
             jogadorCarreira.fecharEpoca()
             gestor.historico.lastOrNull()?.let { jogadorCarreira.anunciarPremios(it) }
         }
+        emocao.atualizar(jogado)
         geradorNoticias.publicar()
         return jogado
     }
@@ -383,6 +387,7 @@ class Carreira(
             info.modo = ModoCarreira.TREINADOR
             info.jogadorId = null
         }
+        emocao.novaEpoca()
         mensagem(
             "Começa a época ${gestor.nomeEpoca()}",
             "O teu clube joga nesta competição: ${liga.nome}. O primeiro jogo é a ${proximoJogo()?.let { CalendarioDatas.textoCurto(it.data) } ?: "?"}.",
