@@ -1,7 +1,7 @@
 # Futebol Carreira — Progresso até agora
 
 Resumo do que já está feito no jogo, do que foi verificado e do que falta.
-Atualizado a 16 de novembro de 2026, no fim da Fase 10 (versão 0.10 da aplicação).
+Atualizado a 16 de novembro de 2026, no fim da Fase 11 (versão 0.11 da aplicação).
 
 ## Em que ponto estamos
 
@@ -18,8 +18,8 @@ Atualizado a 16 de novembro de 2026, no fim da Fase 10 (versão 0.10 da aplicaç
 | 8 | Notícias, rivalidades e ambiente | Feita, à espera da tua confirmação |
 | 9 | Modo carreira de jogador completo | Feita, à espera da tua confirmação |
 | 10 | Editor e importação de JSON | Feita, à espera da tua confirmação |
-| 11 | Jogo em 3D | Por fazer (é a próxima) |
-| 12 | Otimização e versão final | Por fazer |
+| 11 | Jogo ao vivo em 3D | Feita, à espera da tua confirmação |
+| 12 | Otimização e versão final | Por fazer (é a próxima) |
 
 O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 
@@ -109,20 +109,27 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - **Editor** no menu principal: mudas clubes e jogadores da base das carreiras novas (nome, cores, estádio, atributos, contrato, clube, liga…), com «Repor dados originais». Também há **Mais → Opções → Editar esta carreira**.
 - Exportar e importar ficheiros .json (a base, um país ou um clube), com relatório de erros: um ficheiro estragado é recusado.
 
+### Jogo ao vivo em 3D (Fase 11)
+- **Jogar ao vivo (3D)** no Início: um jogo de 90 minutos em cerca de 8 minutos reais, em ecrã horizontal, com campo, bancadas, 22 jogadores e bola em 3D, câmara de transmissão e controlos tácteis (joystick, passe, remate, sprint, trocar de jogador).
+- O motor tem faltas, cartões, penáltis, lesões, bolas paradas e uma IA por posição; os atributos dos jogadores contam. No fim, o resultado entra na carreira como um jogo normal (tabela, estatísticas, mensagens, relatório), nas ligas, taças e Europa.
+- Em **Mais → Opções → Jogos** escolhes simular (por defeito), ver em 3D (as duas equipas pela IA) ou jogar em 3D. Há «Simular o resto» e, se abandonares, o jogo simula-se.
+
 ### Jogadores reais e nacionalidades
 - Os plantéis são reais: nomes, clubes e nacionalidades vêm da Wikipédia, e idades e posições do Wikidata. As notas são em parte de listas minhas (jogadores conhecidos) e o resto estimado pelo nível do clube.
 - Todas as nacionalidades têm nome em português. As seleções usam jogadores reais (16 ou mais, com pelo menos 2 guarda-redes) e os inventados só completam.
 
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 101 testes, todos a passar (0 falhas). Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), um teste que junta tudo, e as rivalidades, os efeitos dos derbies, as notícias, a gravação (também de uma gravação antiga sem notícias) e o ambiente (`Fase8Test.kt`), a carreira de jogador (`Fase9Test.kt`), o editor e o validador (`Fase10Test.kt`) e as nacionalidades e convocatórias reais (`NacionalidadesTest.kt`).
-- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Há 4 testes de ecrãs (a aplicação toda, os ecrãs da Fase 7, o editor e a carreira de jogador), todos a passar. Guardam 59 imagens dos ecrãs na pasta `capturas/` (incluindo as notícias do Início e a lista completa).
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 117 testes, todos a passar (0 falhas). Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), um teste que junta tudo, e as rivalidades, os efeitos dos derbies, as notícias, a gravação (também de uma gravação antiga sem notícias) e o ambiente (`Fase8Test.kt`), a carreira de jogador (`Fase9Test.kt`), o editor e o validador (`Fase10Test.kt`) as nacionalidades e convocatórias reais (`NacionalidadesTest.kt`) e o motor do jogo ao vivo e a sua ligação à carreira (`Fase11Test.kt`).
+- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Há 26 testes de ecrãs e do 3D (a aplicação toda, incluindo um jogo ao vivo jogado até ao fim, os ecrãs da Fase 7, o editor, a carreira de jogador, o HUD do 3D e a matemática da câmara e dos controlos), todos a passar. Guardam 62 imagens dos ecrãs na pasta `capturas/` (incluindo as notícias do Início e a lista completa).
+- **O 3D nunca correu num telemóvel nem num emulador.** Os testes automáticos não executam o OpenGL: só verifiquei o motor, a matemática, o HUD e a ligação à carreira. A fluidez, o aspeto e a facilidade dos controlos são desconhecidos: tens de me dizer.
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados reais**: os clubes (estádio, lotação, cores) vêm da minha memória, não de uma fonte verificada. Os jogadores vêm da Wikipédia e do Wikidata e podem estar uma época desatualizados; as notas são estimadas. Pode haver erros.
 
 ## O que ficou simples ou por fazer dentro das fases feitas
 
-- Substituições durante o jogo: o jogo é calculado de uma vez e só depois mostrado; fica para a Fase 11.
+- Substituições durante o jogo: ainda não há, nem simulado nem ao vivo.
+- Jogo ao vivo: sem fora de jogo, sem substituições tácticas nem cabeceamentos; o prolongamento não se joga ao vivo (nas taças, um empate vai aos penáltis simulados); os jogadores são figuras simples de caixas; o controlo começa num jogador escolhido pelo motor (não no teu jogador na carreira de jogador).
 - Os contratos do teu clube renovam-se sozinhos; não há negociação de salário nem prémios.
 - Os outros clubes não fazem propostas pelos teus jogadores: és tu que os pões à venda.
 - Carreira de jogador: a renovação é opcional (se recusares, renova nas condições mínimas); o clube nunca recusa vender o jogador; o preço das propostas está limitado ao orçamento de quem compra; as seleções fora da Europa só jogam qualificações e Mundial; valores e salários disparam para jogadores com geral acima de 90.
@@ -165,6 +172,6 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 
 ## O que preciso de ti
 
-1. Experimentar a versão 0.10 no telemóvel e dizer-me o que funciona e o que não funciona (a carreira de jogador, o editor e os jogadores reais em particular).
+1. Experimentar o jogo ao vivo em 3D no telemóvel (**Jogar ao vivo (3D)**) e dizer-me se corre fluido, se os controlos são fáceis e se a câmara está boa; e o que não funciona no resto da versão 0.11.
 2. Dizer-me se os preços, os salários, a velocidade de evolução dos jogadores e a dificuldade te parecem bem.
-3. Confirmar para eu começar a Fase 11 (jogo em 3D). Aviso: é a fase maior e mais difícil do projeto.
+3. Confirmar a Fase 11 para eu começar a Fase 12 (otimização e versão final).

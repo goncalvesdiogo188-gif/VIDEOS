@@ -132,6 +132,17 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 9. **Repor dados originais** volta à base de origem.
 10. Numa carreira: **Mais → Opções → Editar esta carreira** (aqui não se troca de liga e só se importam clubes).
 
+### Fase 11 — jogo ao vivo em 3D
+1. No **Início** toca em **Jogar ao vivo (3D)**. O ecrã fica na horizontal.
+2. Vês o campo, os 22 jogadores e a bola; a câmara segue a bola. Diz-me se corre fluido ou aos soluços.
+3. Põe o dedo na metade esquerda do ecrã para o **joystick**: mexes o jogador com o anel amarelo. Atacas sempre para a direita (na 2.ª parte a câmara roda).
+4. À direita: **PASSE** (toque curto = passe; premido = passe longo), **REMATE** (quanto mais premido, mais força; o telemóvel vibra), **SPRINT** (premido) e **TROCAR** (a defender, passa para o jogador mais perto da bola).
+5. Quando há golo aparece uma faixa dourada com o marcador e o minuto. O jogo dura cerca de 8 minutos reais.
+6. Toca em **II** (ou em Voltar) para pausar: **Continuar**, **Simular o resto** (acaba o jogo depressa) ou **Abandonar o jogo** (o jogo é simulado normalmente).
+7. No fim aparece o resultado; toca em **Continuar**: o jogo fica registado na carreira e abre o relatório normal (golos, estatísticas, notas). Confirma no calendário, na tabela e nas mensagens.
+8. **Mais → Opções → Jogos**: **Simular** (por defeito, o botão «Jogar» simula), **Ver em 3D** (as duas equipas jogam sozinhas) ou **Jogar em 3D** (o botão «Jogar» abre o 3D).
+9. Nota: ainda não há fora de jogo, substituições a meio do jogo nem prolongamento ao vivo.
+
 ### Jogadores reais e nacionalidades
 1. Começa uma **Nova carreira**: os plantéis têm jogadores reais (por exemplo, no teu clube reconheces os nomes).
 2. **Mais → Seleções → Convocados**: Argentina, Brasil, Países Baixos e Marrocos têm jogadores reais, com o clube onde jogam.

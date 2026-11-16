@@ -30,7 +30,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | 8 | Notícias, rivalidades e ambiente | ✅ à espera de confirmação |
 | 9 | Modo carreira de jogador | ✅ à espera de confirmação |
 | 10 | Editor e importação de JSON | ✅ à espera de confirmação |
-| 11 | Partida 3D | ⬜ |
+| 11 | Jogo ao vivo em 3D | ✅ à espera de confirmação |
 | 12 | Otimização e exportação Android | ⬜ |
 
 ---
@@ -78,7 +78,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Confiança da direção e dos adeptos, que sobe e desce com os resultados e com a distância ao objetivo.
 - [x] Despedimento (a meio ou no fim da época) e propostas de outros clubes; mudar de clube.
 - [x] Testes automáticos da Fase 4 (`Fase4Test.kt`).
-- [ ] Substituições feitas pelo treinador durante o jogo: ficam para a fase do jogo em 3D (Fase 11), quando o jogo passar a ser jogado ao vivo.
+- [ ] Substituições feitas pelo treinador durante o jogo: continuam por fazer: o jogo ao vivo da Fase 11 ainda não as tem.
 
 ## Fase 5 — Transferências e finanças ✅ (à espera de confirmação)
 - [x] Contratos: salário anual, ano em que o contrato acaba e cláusula de rescisão (três vezes o valor de mercado).
@@ -149,12 +149,19 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Nacionalidades reais nas seleções: nomes de países para todas as nacionalidades, seleções feitas com jogadores reais de qualquer nacionalidade (16 ou mais, com 2 guarda-redes) completadas com fictícios, e jogadores do teu clube de qualquer nacionalidade podem ser convocados.
 - Os dados podem estar uma época desatualizados e as notas são estimativas. Para atualizar: `python3 ferramentas/plantel_wikipedia.py todos` e depois `python3 ferramentas/juntar_reais.py`. Não se editam à mão os ficheiros `jogadores/*.json`; usa o Editor (Fase 10).
 
-## Fase 11 — Partida 3D
-- [ ] Escolher a biblioteca 3D (OpenGL ES através de Filament/SceneView, ou motor próprio simples) com um protótipo.
-- [ ] Campo, jogadores low-poly e câmara de transmissão.
-- [ ] Controlos táteis (joystick + passe/remate/sprint) e IA da restante equipa.
-- [ ] Ligação ao motor de simulação (resultado, estatísticas, lesões).
-- [ ] Opção de jogar, ver resumo ou simular.
+## Fase 11 — Jogo ao vivo em 3D ✅ (à espera de confirmação)
+- [x] Motor do jogo ao vivo no núcleo (`aovivo/`): 22 jogadores, física da bola, golos, trave, bolas paradas (lançamentos, cantos, pontapés de baliza), faltas, cartões, penáltis e lesões.
+- [x] IA por posição (forma, pressão, passe, drible, remate, guarda-redes) e atributos a contar (passe, remate, drible, defesa, físico, ritmo).
+- [x] Relatório do jogo igual ao da simulação (golos, marcadores, assistências, cartões, estatísticas, notas, lesões): o jogo ao vivo entra na carreira como um jogo simulado (liga, taças, supertaças e Europa).
+- [x] Ecrã 3D próprio em OpenGL ES 2.0 (sem bibliotecas novas): campo, balizas, bancadas, jogadores com animação, bola com sombra, câmara de transmissão; ecrã na horizontal.
+- [x] Controlos táteis: joystick, PASSE (toque ou premido), REMATE com força, SPRINT, TROCAR; marcador, mensagens de golo, pausa, «Simular o resto» e cartão de fim.
+- [x] «Jogar ao vivo (3D)» no Início e opção Mais → Opções → Jogos: simular / ver em 3D (as duas equipas pela IA) / jogar em 3D. Se abandonares, o jogo é simulado.
+- [x] Testes: `Fase11Test.kt` (núcleo), testes do ecrã e da matemática do 3D, capturas 60, 60b e 60c, e um jogo ao vivo jogado até ao fim com o motor real no teste dos ecrãs.
+- [ ] Não há fora de jogo.
+- [ ] Não há substituições táticas durante o jogo nem cabeceamentos.
+- [ ] O prolongamento não se joga ao vivo: nas taças, um empate vai direto aos penáltis (simulados).
+- [ ] Os jogadores são figuras simples de caixas.
+- [ ] Nunca foi testado num telemóvel nem num emulador: a fluidez e o aspeto do 3D são desconhecidos.
 
 ## Fase 12 — Otimização e exportação Android
 - [ ] Desempenho em telemóveis médios (30/60 fps), tamanho do APK.
