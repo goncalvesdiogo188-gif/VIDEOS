@@ -261,7 +261,7 @@ class GeradorNoticias(private val c: Carreira) {
         val resultado = resultadoComExtras(ultimo)
         if (cn.tipo == "supertaca") {
             if (rel || cn.eFinal) {
-                adicionar(if (rel) 66 else 40, "taca", variante("${vencedor.nome} vence a $comp", "$comp: ${vencedor.nome} levanta o troféu"), "$resultado.", doClube)
+                adicionar(if (rel) 66 else 40, "taca", variante("${vencedor.nome} vence a $comp", "$comp: ${vencedor.nome} levanta o troféu"), "${resultado.trimEnd('.')}.", doClube)
             }
             return
         }
@@ -271,7 +271,7 @@ class GeradorNoticias(private val c: Carreira) {
                 "$comp: ${vencedor.nome} festeja",
                 "${vencedor.nome} vence a final da $comp e ergue o troféu",
             )
-            adicionar(if (rel) 80 else 52, "taca", titulo, "Na final: $resultado. ${vencido.nome} fica a um passo da glória.", doClube)
+            adicionar(if (rel) 80 else 52, "taca", titulo, "Na final: ${resultado.trimEnd('.')}. ${vencido.nome} fica a um passo da glória.", doClube)
             return
         }
         val gigante = nivel(vencido) < nivel(vencedor) || vencido.reputacao - vencedor.reputacao >= 15
@@ -281,7 +281,7 @@ class GeradorNoticias(private val c: Carreira) {
                 "Gigante caído: ${vencido.nome} fora da $comp",
                 "David vence Golias: ${vencedor.nome} afasta ${vencido.nome}",
             )
-            adicionar(if (rel) 68 else 38, "taca", titulo, "${cn.ronda}: $resultado.", doClube)
+            adicionar(if (rel) 68 else 38, "taca", titulo, "${cn.ronda}: ${resultado.trimEnd('.')}.", doClube)
         }
     }
 
@@ -296,7 +296,7 @@ class GeradorNoticias(private val c: Carreira) {
             val vencedor = bd.equipas[campeao] ?: return
             val rel = relevante(vencedor, pais) || relevante(casa, pais) || relevante(fora, pais)
             val titulo = variante("${vencedor.nome} é campeão europeu", "${tipo.nome}: ${vencedor.nome} no topo da Europa", "Noite histórica: ${vencedor.nome} vence a ${tipo.nome}")
-            adicionar(if (rel) 85 else 60, "europa", titulo, "Na final: ${resultadoComExtras(r)}.", doClube)
+            adicionar(if (rel) 85 else 60, "europa", titulo, "Na final: ${resultadoComExtras(r).trimEnd('.')}.", doClube)
             return
         }
         val nacional = if (relevante(casa, pais)) casa else if (relevante(fora, pais)) fora else return
@@ -316,7 +316,7 @@ class GeradorNoticias(private val c: Carreira) {
             )
             else -> variante("${tipo.nome}: ${nacional.nome} empata com ${outro.nome}", "Empate europeu: ${nacional.nome} e ${outro.nome} dividem pontos")
         }
-        adicionar(if (doClube) 54 else 46, "europa", titulo, "${tipo.nome} (${jn.fase}): ${resultadoComExtras(r)}." + marcadores(r), doClube)
+        adicionar(if (doClube) 54 else 46, "europa", titulo, "${tipo.nome} (${jn.fase}): ${resultadoComExtras(r).trimEnd('.')}." + marcadores(r), doClube)
     }
 
     // ------------------------------------------------ mercado e adeptos

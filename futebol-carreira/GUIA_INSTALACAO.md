@@ -99,6 +99,15 @@ As Fases 1 e 2 (ligas, tabelas, jogos em detalhe, táticas) testam-se agora dent
 8. Usa **Mais → Simular o resto da época** e vê o fim: finais das taças em maio, final da Champions no último sábado de maio, e o histórico de vencedores em cada competição.
 9. Começa mais uma época e confirma que a taça, a Europa e a Liga das Nações voltam a começar. Em 2028 há o **Euro** e em 2030 o **Mundial**, em **Mais → Seleções**.
 
+### Fase 8
+1. Começa uma **Nova carreira** como treinador num clube com derbies (por exemplo, SL Benfica, FC Porto, Sporting CP, Real Madrid, Liverpool ou AC Milan). As carreiras antigas também carregam: só ficam sem notícias até ao primeiro jogo.
+2. No **Início**, o bloco **Objetivo da direção** tem agora uma linha **Ambiente** (Eufórico, Bom, Normal, Tenso ou Hostil). Joga alguns jogos e vê-o mudar com os resultados e a confiança dos adeptos.
+3. Joga a primeira jornada: aparece o bloco **Notícias** com as manchetes mais recentes (do teu clube e do resto do mundo). Toca em **Ver todas** para a lista completa (as últimas 80) e em **Fechar** para voltar.
+4. Procura em **Mais → Jogos** um jogo contra um rival (por exemplo, o Derby de Lisboa). Quando é o próximo jogo, o cartão do Início mostra o nome do derby a laranja.
+5. Joga o derby: a mensagem do jogo começa com o nome do derby, o estádio fica cheio, e a confiança dos adeptos e da direção sobe (vitória) ou desce (derrota) mais do que num jogo normal. A moral dos jogadores também (vê em **Plantel**).
+6. Usa **Mais → Simular o resto da época** e abre as notícias: devem aparecer goleadas, surpresas, hat-tricks, mudanças de liderança, o título decidido, descidas, finais das taças e noites europeias, e mercado.
+7. Grava, sai para o menu e volta a carregar a carreira: as notícias continuam lá.
+
 As imagens na pasta `capturas/` do repositório mostram como cada ecrã deve aparecer.
 
 ## Como editar a base de dados
@@ -106,6 +115,7 @@ Os ficheiros estão em `app/src/main/assets/dados/`:
 - `equipas/<PAÍS>.json`: nome, sigla, cidade, estádio, reputação, liga onde joga.
 - `jogadores/<PAÍS>.json`: um jogador por linha, com `"equipa"` a indicar o id do clube.
 - `competicoes.json`: nomes das ligas, número de descidas.
+- `rivalidades.json`: os derbies, um por linha, com `"a"` e `"b"` (ids dos dois clubes), `"nome"` e `"intensidade"` de 1 a 3. Se um id não existir, o derby é ignorado.
 
 Regras do JSON: texto entre aspas `"assim"`, vírgula entre elementos, **sem** vírgula a seguir ao último. Se houver um erro, a app mostra um aviso a vermelho com o nome do ficheiro.
 

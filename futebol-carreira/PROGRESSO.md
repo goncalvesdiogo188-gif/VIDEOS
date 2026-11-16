@@ -1,7 +1,7 @@
 # Futebol Carreira — Progresso até agora
 
 Resumo do que já está feito no jogo, do que foi verificado e do que falta.
-Atualizado a 15 de novembro de 2026, no fim da Fase 7 (versão 0.7 da aplicação).
+Atualizado a 15 de novembro de 2026, no fim da Fase 8 (versão 0.8 da aplicação).
 
 ## Em que ponto estamos
 
@@ -15,8 +15,8 @@ Atualizado a 15 de novembro de 2026, no fim da Fase 7 (versão 0.7 da aplicaçã
 | 5 | Transferências e finanças | Feita, à espera da tua confirmação |
 | 6 | Treino, scouting e academia | Feita, à espera da tua confirmação |
 | 7 | Taças, competições europeias e seleções | Feita, à espera da tua confirmação |
-| 8 | Notícias e rivalidades | Por fazer (é a próxima) |
-| 9 | Modo carreira de jogador completo | Por fazer |
+| 8 | Notícias, rivalidades e ambiente | Feita, à espera da tua confirmação |
+| 9 | Modo carreira de jogador completo | Por fazer (é a próxima) |
 | 10 | Editor e importação de JSON | Por fazer |
 | 11 | Jogo em 3D | Por fazer |
 | 12 | Otimização e versão final | Por fazer |
@@ -89,10 +89,17 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Ecrãs: o seletor do separador **Liga** também lista as taças, as supertaças e as competições europeias (eliminatórias com a.p./g.p., tabela da fase de liga com zonas, histórico de vencedores). Novo **Mais → Seleções** (torneios, grupos, eliminatórias, ranking, convocatórias, vencedores). O **Início** e o calendário (**Mais → Jogos**) mostram a competição e a ronda de cada jogo; tocar num jogo já jogado do teu clube abre o relato.
 - As carreiras da versão 0.6 ainda carregam; nelas, as taças, a Europa e as seleções começam do zero na época seguinte. Para ver tudo, começa uma carreira nova.
 
+### Notícias e rivalidades (Fase 8)
+- **Rivalidades**: 44 derbies reais entre clubes que existem na base de dados, em `app/src/main/assets/dados/rivalidades.json` (Derby de Lisboa, O Clássico, Derby do Minho, El Clásico, Derbi madrileño, Derbi sevillano, Derby do Norte de Londres, Merseyside, Manchester, Madonnina, Derby d'Italia, Capitale, Der Klassiker, Revierderby, Le Classique, Derby du Rhône e outros). Cada derby tem dois clubes, um nome e uma intensidade de 1 a 3. O ficheiro é opcional e fica gravado com a carreira; as carreiras antigas usam o da aplicação.
+- **Efeitos de um derby**: mais cartões, uma pequena ajuda do público a quem joga em casa, estádio cheio, moral do plantel que sobe com a vitória e desce com a derrota (mais num clássico) e confiança da direção e dos adeptos a mexer 1,5 a 2 vezes mais. O Início, o calendário e as mensagens mostram o nome do derby.
+- **Notícias**: manchete e texto curto, com vários modelos de frase por tipo de acontecimento, escolhidos ao acaso. Há notícias do teu clube e do resto do mundo: goleadas, surpresas, derbies, hat-tricks, sequências de golos, mudanças de liderança, título e descida decididos, surpresas e finais das taças, noites europeias dos clubes do teu país e finais europeias, grandes transferências de outros clubes, lesões de figuras, convocatórias e vencedores das seleções, e o estado de espírito dos adeptos e da direção («Adeptos contestam o treinador», «Direção renova confiança no treinador»). No máximo 5 por dia de jogos; ficam gravadas as últimas 80. Só se noticia o que o jogo simula: não há notícias de despedimentos de outros treinadores.
+- **Ambiente**: Eufórico, Bom, Normal, Tenso ou Hostil, conforme a confiança dos adeptos e da direção, a forma nos últimos 5 jogos e um derby à porta. Mexe até 6% para cima ou 10% para baixo na assistência dos jogos de liga em casa do teu clube.
+- **Ecrãs**: bloco **Notícias** no Início (as 3 mais recentes e «Ver todas»), nome do derby no cartão do próximo jogo e linha **Ambiente** no bloco «Objetivo da direção».
+
 ## O que foi verificado e o que não foi
 
-- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 57 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), mais um teste que junta tudo.
-- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Guarda 40 imagens dos ecrãs na pasta `capturas/`.
+- **Testes automáticos do núcleo** (regras do jogo, sem ecrãs): 64 testes, todos a passar. Cobrem a base de dados, os calendários, os jogos, as táticas, as datas, a carreira, a gravação, o onze, a direção, as contas, o mercado, o treino, a forma e a moral, a academia, as instalações, os olheiros, as taças, as supertaças, as competições europeias e as seleções (ficheiros `Fase7Test.kt`, `Fase7EuropaTest.kt` e `Fase7SelecoesTest.kt`), um teste que junta tudo, e as rivalidades, os efeitos dos derbies, as notícias, a gravação (também de uma gravação antiga sem notícias) e o ambiente (`Fase8Test.kt`).
+- **Teste dos ecrãs**: um teste percorre a aplicação num telemóvel simulado (criar carreira, comprar e vender, jogar, mudar tática, mudar o treino, promover um jovem, enviar o olheiro, ver as taças, a Europa e as seleções, acabar a época, gravar e voltar a carregar) e passa. Guarda 42 imagens dos ecrãs na pasta `capturas/` (incluindo as notícias do Início e a lista completa).
 - **Num telemóvel verdadeiro**: ainda não tenho confirmação tua de nenhuma fase. Tens dito «Avança» sem relatar o teste, por isso não sei como o jogo se comporta no teu aparelho (velocidade, texto cortado, botões difíceis de tocar).
 - **Dados dos clubes reais**: vêm da minha memória, não de uma fonte verificada. Pode haver um estádio, uma lotação ou uma cor errada.
 
@@ -110,6 +117,9 @@ O plano completo, com o detalhe de cada fase, está em `PLANO.md`.
 - Os anfitriões do Euro e do Mundial são ignorados: os jogos são em campo neutro.
 - As nações não europeias só jogam nas épocas de Mundial.
 - Nos sorteios das eliminatórias europeias não há proteção de países (podem calhar clubes do mesmo país).
+- O ambiente só mexe na assistência dos jogos de liga do teu clube; nas taças e na Europa só o derby enche o estádio.
+- As sequências de golos e a liderança (para as notícias) recomeçam a contar quando se carrega uma gravação.
+- Não há derbies entre clubes de países diferentes (na Europa).
 - As carreiras criadas em versões antigas mantêm os dados antigos (clubes inventados, sem contratos). Para ver tudo o que há de novo, começa uma carreira nova.
 
 ## Onde estão as coisas
@@ -136,7 +146,7 @@ Tudo está no repositório `goncalvesdiogo188-gif/VIDEOS`, no ramo `ccr-c95fc920
 
 ## O que preciso de ti
 
-1. Experimentar a versão 0.7 no telemóvel e dizer-me o que funciona e o que não funciona.
+1. Experimentar a versão 0.8 no telemóvel e dizer-me o que funciona e o que não funciona (as notícias, os derbies e o ambiente em particular).
 2. Dizer-me se os preços, os salários, a velocidade de evolução dos jogadores e a dificuldade te parecem bem.
 3. Dizer-me se queres jogadores reais (é um trabalho grande: mais de 5000 nomes e atributos).
-4. Confirmar para eu começar a Fase 8 (notícias e rivalidades).
+4. Confirmar para eu começar a Fase 9 (modo carreira de jogador completo).

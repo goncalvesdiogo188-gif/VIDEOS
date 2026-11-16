@@ -27,7 +27,7 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 | 5 | Transferências e finanças | ✅ à espera de confirmação |
 | 6 | Treino, scouting e academia | ✅ à espera de confirmação |
 | 7 | Taças, Europa e seleções | ✅ à espera de confirmação |
-| 8 | Notícias, rivalidades e ambiente | ⬜ |
+| 8 | Notícias, rivalidades e ambiente | ✅ à espera de confirmação |
 | 9 | Modo carreira de jogador | ⬜ |
 | 10 | Editor e importação de JSON | ⬜ |
 | 11 | Partida 3D | ⬜ |
@@ -111,9 +111,14 @@ Jogo de futebol para Android com modo carreira (jogador e treinador).
 - [x] Testes automáticos da Fase 7 (`Fase7Test.kt`, `Fase7EuropaTest.kt`, `Fase7SelecoesTest.kt` e um teste de integração).
 - [ ] Ficou de fora ou simples: as seleções são simuladas em segundo plano (não treinas nenhuma); na via de jogador ainda não há carreira na seleção (Fase 9); não há subidas e descidas na Liga das Nações; os anfitriões do Euro e do Mundial são ignorados (campo neutro); as nações não europeias só jogam nas épocas de Mundial; os sorteios das eliminatórias europeias não têm proteção de países.
 
-## Fase 8 — Notícias, rivalidades e ambiente
-- [ ] Manchetes geradas a partir dos acontecimentos.
-- [ ] Rivalidades e derbies (ficheiro JSON), ambiente com adeptos e direção.
+## Fase 8 — Notícias, rivalidades e ambiente ✅ (à espera de confirmação)
+- [x] Rivalidades reais (`app/src/main/assets/dados/rivalidades.json`, 44 derbies entre clubes que existem na base de dados): Derby de Lisboa, O Clássico, Derby do Minho, El Clásico, Derbi madrileño, Derbi sevillano, Derbi vasco, Derby do Norte de Londres, Merseyside, Manchester, Madonnina, Derby d'Italia, Capitale, Der Klassiker, Revierderby, Le Classique, Derby du Rhône e outros. Cada um tem dois clubes, um nome e uma intensidade de 1 a 3. O ficheiro é opcional e vai na base de dados gravada de cada carreira (as gravações antigas usam o da aplicação).
+- [x] Efeitos de um derby: um pouco mais de cartões, uma pequena ajuda do público a quem joga em casa, estádio cheio, moral do plantel que sobe com a vitória e desce com a derrota (mais num clássico) e confiança da direção e dos adeptos a mexer 1,5 a 2 vezes mais. O próximo jogo mostra o nome do derby no Início, no calendário e nas mensagens.
+- [x] Notícias: manchete e texto curto, em tom de jornal português, a partir do que o jogo modela: goleadas, surpresas, derbies, hat-tricks, sequências de golos, mudanças de liderança, título e descida decididos, surpresas e finais das taças, noites europeias dos clubes do teu país, finais europeias, grandes transferências de outros clubes, lesões de figuras, convocatórias e vencedores das seleções, e o estado de espírito de adeptos e direção. No máximo 5 por dia de jogos (as mais importantes) e as últimas 80 ficam gravadas com a carreira.
+- [x] Ambiente (Eufórico, Bom, Normal, Tenso, Hostil) calculado a partir da confiança dos adeptos e da direção, da forma nos últimos 5 jogos e de um derby à porta; mexe um pouco na assistência dos jogos em casa e aparece no bloco «Objetivo da direção».
+- [x] Ecrãs: bloco **Notícias** no Início (as 3 mais recentes e «Ver todas»), nome do derby no cartão do próximo jogo, ambiente no bloco da direção.
+- [x] Testes automáticos da Fase 8 (`Fase8Test.kt`) e duas capturas novas (`27-noticias`, `28-noticias-todas`).
+- [ ] Ficou de fora ou simples: o ambiente só mexe na assistência dos jogos de liga do teu clube; não há notícias sobre despedimentos de outros treinadores (o jogo não os simula); as sequências de golos e a liderança recomeçam a contar ao carregar uma gravação; os derbies entre clubes de países diferentes (na Europa) não existem.
 
 ## Fase 9 — Modo carreira de jogador
 - [ ] Criar jogador, evolução, pedidos do treinador, titularidade.

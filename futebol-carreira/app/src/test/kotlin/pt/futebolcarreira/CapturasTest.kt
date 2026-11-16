@@ -1,6 +1,9 @@
 package pt.futebolcarreira
 
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
@@ -224,16 +227,13 @@ class CapturasTest {
             esperar { !jogo.ocupado }
         }
         val taca = jogo.fase7.competicoes.first { it.tipo == pt.futebolcarreira.TipoCompeticao.TACA && jogo.ui!!.liga.ligaId.startsWith(it.id.substringBefore("_")) }
+        esperar { !jogo.ocupado }
         tocar("Liga")
-        regra.onNodeWithText("▾", substring = true).performClick()
-        regra.waitForIdle()
-        regra.onNodeWithText(taca.nome, substring = true).performClick()
+        jogo.escolherCompeticao(taca.id)
         regra.waitForIdle()
         assertEquals(taca.id, jogo.fase7.competicaoId)
         capturar("22-taca-real")
-        regra.onNodeWithText("▾", substring = true).performClick()
-        regra.waitForIdle()
-        regra.onNodeWithText("Liga dos Campeões", substring = true).performScrollTo().performClick()
+        jogo.escolherCompeticao("UCL")
         regra.waitForIdle()
         assertEquals("UCL", jogo.fase7.competicaoId)
         capturar("23-europa-real")
@@ -253,7 +253,7 @@ class CapturasTest {
         // ---- Fase 8: notícias no Início e lista completa ----
         assertTrue(jogo.ui!!.noticias.isNotEmpty())
         tocar("Início")
-        regra.onNodeWithText("Ver todas").performScrollTo()
+        regra.onNode(hasScrollAction()).performScrollToNode(hasText("Ver todas"))
         capturar("27-noticias")
         tocar("Ver todas")
         capturar("28-noticias-todas")
