@@ -209,7 +209,7 @@ class JogadorCarreiraUi(
 // ---------------------------------------------------- mercado e finanças
 
 /** O que se pode fazer com um jogador no mercado. */
-enum class AcaoMercado { PAGAR_PEDIDO, OFERECER_90, OFERECER_80, PEDIR_EMPRESTIMO, CONTRATAR_LIVRE, VENDER, EMPRESTAR, PROMOVER, DISPENSAR }
+enum class AcaoMercado { PAGAR_PEDIDO, OFERECER_90, OFERECER_80, PEDIR_EMPRESTIMO, CONTRATAR_LIVRE, VENDER, EMPRESTAR, PROMOVER, DISPENSAR, PEDIDO_EM_PRESTACOES, EMPRESTIMO_COM_OPCAO }
 
 class BotaoMercadoUi(val acao: AcaoMercado, val texto: String)
 

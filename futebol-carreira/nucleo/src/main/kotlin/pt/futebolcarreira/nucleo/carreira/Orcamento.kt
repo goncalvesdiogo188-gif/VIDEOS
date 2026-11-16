@@ -74,8 +74,10 @@ class Orcamento(private val c: Carreira, private val g: GestaoClube) {
     fun receitaPrevista(): Long {
         val patrocinio = Financas.patrocinioAnual(meu)
         val casa = c.estadoLiga.totalJornadas / 2
-        val bilheteira = Financas.bilheteira(meu) * casa
-        return patrocinio + bilheteira + patrocinio / 12 + deltaPatrocinios()
+        // Os clubes grandes enchem mais nos derbies e jogam mais em casa (taças e Europa): até +45% de bilheteira.
+        val extra = 1.05 + (meu.reputacao - 60).coerceIn(0, 30) / 30.0 * 0.4
+        val bilheteira = (Financas.bilheteira(meu) * casa * extra).toLong()
+        return patrocinio + bilheteira + patrocinio * 15 / 100 + deltaPatrocinios()
     }
 
     /** A direção sugere gastar em salários (plantel e equipa técnica) 75% da receita prevista. */
@@ -268,7 +270,7 @@ class Orcamento(private val c: Carreira, private val g: GestaoClube) {
     /** As regras de equilíbrio financeiro, em frases (para o ecrã). */
     fun regras(): List<String> = listOf(
         "Os salários (plantel e equipa técnica) não devem passar de 90% da receita.",
-        "Se as perdas das últimas três épocas passarem de 25% da receita anual, o clube fica impedido de comprar jogadores durante uma época.",
+        "Se as perdas das últimas três épocas passarem de 25% da receita anual e a caixa estiver curta, o clube fica impedido de comprar jogadores durante uma época.",
         "O crédito bancário tem de caber em 40% da receita prevista e não se pede durante um embargo.",
         "Caixa negativa faz a direção perder confiança em ti a cada jornada.",
     )
@@ -328,7 +330,9 @@ class Orcamento(private val c: Carreira, private val g: GestaoClube) {
         val acumulado = e.resultados.sum()
         val limite = -(receitas * 25 / 100)
         val linhas = mutableListOf("Resultado da época: ${Mercado.euros(resultado)}.")
-        if (e.resultados.size >= 2 && acumulado < limite) {
+        // Quem tem reservas grandes aguenta perdas: só há embargo se a caixa já está curta (ou as perdas são enormes).
+        val reservasCurtas = meu.orcamento < receitas / 2
+        if (e.resultados.size >= 2 && acumulado < limite && (reservasCurtas || acumulado < limite * 2)) {
             e.embargoAteAno = ano + 1
             linhas += "As perdas das últimas ${e.resultados.size} épocas (${Mercado.euros(acumulado)}) passam o limite: o clube fica impedido de contratar até ao fim da próxima época."
         } else if (resultado < 0) {
