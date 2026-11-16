@@ -12,6 +12,7 @@ import pt.futebolcarreira.nucleo.simulacao.EstadoLiga
 import pt.futebolcarreira.nucleo.simulacao.GestorEpocas
 import pt.futebolcarreira.nucleo.simulacao.FasesEuropa
 import pt.futebolcarreira.nucleo.simulacao.JogoEuropa
+import pt.futebolcarreira.nucleo.simulacao.RelatorioJogo
 import pt.futebolcarreira.nucleo.simulacao.Resultado
 import pt.futebolcarreira.nucleo.simulacao.TipoEuropa
 import pt.futebolcarreira.nucleo.simulacao.TipoEvento
@@ -316,6 +317,35 @@ class Carreira(
         }
         geradorNoticias.publicar()
         return jogado
+    }
+
+    /**
+     * Fase 11: o próximo jogo do clube, se puder ser jogado ao vivo (liga, taças e competições europeias).
+     * Devolve (casa, fora) pela ordem do jogo (num jogo em campo neutro, "casa" é só a equipa nomeada primeiro),
+     * ou null se não há jogo, a época acabou ou o treinador foi despedido. Quem joga ao vivo deve criar a partida
+     * com FabricaPartida.criar(casa, fora, utilizadorCasa = casa.id == info.equipaId, ...) e, no fim,
+     * entregar o relatório a [registarJogoAoVivo].
+     */
+    fun prepararJogoAoVivo(): Pair<Equipa, Equipa>? {
+        if (gestor.epocaTerminada() || info.despedido) return null
+        val jogo = proximoJogo() ?: return null
+        return if (jogo.emCasa) equipa to jogo.adversario else jogo.adversario to equipa
+    }
+
+    /**
+     * Fase 11: avança até ao próximo jogo do clube como [avancar], mas usa o relatório de um jogo jogado ao vivo
+     * no lugar da simulação desse jogo (os outros jogos do dia continuam simulados). Tabela, estatísticas, lesões,
+     * castigos, finanças, mensagens e notícias atualizam-se como num jogo simulado.
+     * Nas eliminatórias, se o jogo ao vivo acabar empatado e for decisivo, o prolongamento não se joga: vai-se direto aos penáltis.
+     * Se o jogo que se seguiu não era o da partida (um sorteio de taça pelo caminho), o relatório é descartado e o jogo simula-se.
+     */
+    fun registarJogoAoVivo(relatorio: RelatorioJogo): JogoDoClube? {
+        gestor.jogoAoVivo = relatorio
+        try {
+            return avancar()
+        } finally {
+            gestor.jogoAoVivo = null
+        }
     }
 
     /** Simula tudo o que falta desta época (modo "férias"). */

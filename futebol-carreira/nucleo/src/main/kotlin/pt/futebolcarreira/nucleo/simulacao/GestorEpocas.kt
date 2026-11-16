@@ -141,6 +141,21 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Id do clube do utilizador (para os avisos lhe dizerem respeito). */
     var clubeDoUtilizador: String = ""
 
+    /**
+     * Jogo do utilizador jogado ao vivo (Fase 11), à espera de ser usado no lugar da simulação: quando chega
+     * o jogo entre estas duas equipas (casa e fora, por esta ordem), o relatório é usado e esta variável fica a null.
+     */
+    var jogoAoVivo: RelatorioJogo? = null
+        internal set
+
+    /** Entrega o relatório do jogo ao vivo se é o jogo "casaId" contra "foraId"; senão devolve null (e o jogo simula-se). */
+    private fun relatorioAoVivo(casaId: String, foraId: String): RelatorioJogo? {
+        val r = jogoAoVivo ?: return null
+        if (r.casa.equipa != casaId || r.fora.equipa != foraId) return null
+        jogoAoVivo = null
+        return r
+    }
+
     internal val aleatorio get() = rng
 
     /** Uma entrada por época terminada. */
@@ -277,12 +292,19 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             for (t in eliminatorias.values) if (t.proximaData?.let { it <= proxima } == true) jogarEliminatoria(t, proxima)
             europa?.let { eu ->
                 if (eu.proximaData()?.let { it <= proxima } == true) {
+                    val aoVivo = jogoAoVivo
+                    if (aoVivo != null) { eu.campeoes.relatorioAoVivo = aoVivo; eu.europa.relatorioAoVivo = aoVivo }
                     eu.jogarAte(proxima, bd, rng, setOf(clubeDoUtilizador)) { jogo, relatorio ->
                         Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
                         if (clubeDoUtilizador.isNotEmpty()) {
                             val tipo = if (jogo.casa in eu.estado(TipoEuropa.CAMPEOES).clubes) TipoEuropa.CAMPEOES else TipoEuropa.EUROPA
                             jogosParaNoticias += JogoNoticia(tipo.id, "europa", Resultado(jogo.casa, jogo.fora, relatorio.golosCasa, relatorio.golosFora, relatorio, relatorio.prolongamento), 0, jogo.fase)
                         }
+                    }
+                    if (aoVivo != null) {
+                        // Se uma das competições o usou, já não está à espera.
+                        if (eu.campeoes.relatorioAoVivo == null || eu.europa.relatorioAoVivo == null) jogoAoVivo = null
+                        eu.campeoes.relatorioAoVivo = null; eu.europa.relatorioAoVivo = null
                     }
                 }
             }
@@ -301,7 +323,8 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     private fun jogarJornada(ligaId: String, e: EstadoLiga) {
         e.resultados += e.calendario[e.jornada].map { jogo ->
             val derby = bd.rivalidades().intensidade(jogo.casa, jogo.fora)
-            val relatorio = MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng, derby = derby)
+            val relatorio = relatorioAoVivo(jogo.casa, jogo.fora)
+                ?: MotorJogo.simular(bd.equipas.getValue(jogo.casa), bd.equipas.getValue(jogo.fora), rng, derby = derby)
             MotorJogo.aplicar(relatorio)
             Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
             efeitoDoDerby(relatorio, derby)
@@ -347,7 +370,8 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         val casa = bd.equipas.getValue(casaId)
         val fora = bd.equipas.getValue(foraId)
         val derby = bd.rivalidades().intensidade(casaId, foraId)
-        val relatorio = MotorJogo.simular(casa, fora, rng, neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null, derby)
+        val relatorio = relatorioAoVivo(casaId, foraId)
+            ?: MotorJogo.simular(casa, fora, rng, neutro, if (decisivo) { gc, gf -> gc + antesCasa == gf + antesFora } else null, derby)
         MotorJogo.aplicar(relatorio, taca = true)
         Treino.depoisDoJogo(bd, relatorio, rng, clubeDoUtilizador, noticias)
         efeitoDoDerby(relatorio, derby)
