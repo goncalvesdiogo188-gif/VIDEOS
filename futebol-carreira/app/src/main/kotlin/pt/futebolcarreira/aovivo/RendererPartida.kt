@@ -135,7 +135,7 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
         for ((i, p) in pecas.withIndex()) {
             Matrix.setIdentityM(m, 0)
             Matrix.translateM(m, 0, p.x, p.y, p.z)
-            if (p.rotacao != 0f) Matrix.rotateM(m, 0, Math.toDegrees(p.rotacao.toDouble()).toFloat(), 0f, 0f, 1f)
+            if (p.rotacao != 0f) Mat4.rodar(m, Math.toDegrees(p.rotacao.toDouble()).toFloat(), 0f, 0f, 1f)
             when (p.forma) {
                 Forma.CAIXA -> Matrix.scaleM(m, 0, p.sx, p.sy, p.sz)
                 else -> Matrix.scaleM(m, 0, p.sx / 2f, p.sy / 2f, 1f)
@@ -254,11 +254,11 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
         // Base: posição e direção do jogador no campo.
         Matrix.setIdentityM(base, 0)
         Matrix.translateM(base, 0, j.x, j.y, 0f)
-        Matrix.rotateM(base, 0, Math.toDegrees(j.direcao.toDouble()).toFloat(), 0f, 0f, 1f)
+        Mat4.rodar(base, Math.toDegrees(j.direcao.toDouble()).toFloat(), 0f, 0f, 1f)
         // Corpo inteiro roda em torno da anca (inclinação para a frente/trás, queda para o lado).
         Matrix.translateM(base, 0, 0f, 0f, ANCA + descer)
-        if (rola != 0f) Matrix.rotateM(base, 0, rola, 1f, 0f, 0f)
-        if (inclina != 0f) Matrix.rotateM(base, 0, inclina, 0f, 1f, 0f)
+        if (rola != 0f) Mat4.rodar(base, rola, 1f, 0f, 0f)
+        if (inclina != 0f) Mat4.rodar(base, inclina, 0f, 1f, 0f)
         Matrix.translateM(base, 0, 0f, 0f, -ANCA)
 
         // Pernas (meias na cor dos calções escurecida) e braços.
@@ -286,7 +286,7 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
     private fun perna(y: Float, angulo: Float, r: Float, g: Float, b: Float) {
         System.arraycopy(base, 0, parte, 0, 16)
         Matrix.translateM(parte, 0, 0f, y, ANCA)
-        Matrix.rotateM(parte, 0, angulo, 0f, 1f, 0f)
+        Mat4.rodar(parte, angulo, 0f, 1f, 0f)
         Matrix.translateM(parte, 0, 0f, 0f, -0.42f)
         Matrix.scaleM(parte, 0, 0.17f, 0.17f, 0.84f)
         System.arraycopy(parte, 0, modelo, 0, 16)
@@ -296,7 +296,7 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
     private fun braco(y: Float, angulo: Float, r: Float, g: Float, b: Float) {
         System.arraycopy(base, 0, parte, 0, 16)
         Matrix.translateM(parte, 0, 0f, y, 1.52f)
-        Matrix.rotateM(parte, 0, angulo, 0f, 1f, 0f)
+        Mat4.rodar(parte, angulo, 0f, 1f, 0f)
         Matrix.translateM(parte, 0, 0f, 0f, -0.3f)
         Matrix.scaleM(parte, 0, 0.12f, 0.12f, 0.6f)
         System.arraycopy(parte, 0, modelo, 0, 16)
