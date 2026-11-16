@@ -86,7 +86,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 separadores.forEachIndexed { i, (simbolo, nome) ->
                     NavigationBarItem(
                         selected = separador == i, onClick = { if (separador != i) vibrar(); separador = i; todasNoticias = false },
-                        icon = { Icon(simbolo, contentDescription = null) }, label = { Text(nome, maxLines = 1) },
+                        icon = { Icon(simbolo, contentDescription = null) }, label = { Text(nome, maxLines = 1, fontSize = 11.sp, softWrap = false) },
                     )
                 }
             }
@@ -130,7 +130,7 @@ private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
                 Emblema(ui.emblema, 44.dp)
                 Column(Modifier.weight(1f)) {
                     Text(ui.clube, fontWeight = FontWeight.Bold, fontSize = 18.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text("Época ${ui.epoca} · ${ui.data}", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                    Text("Época ${ui.epoca} · ${ui.data}", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                 }
                 if (ui.mercadoAberto) {
                     Surface(color = MaterialTheme.colorScheme.tertiary, shape = MaterialTheme.shapes.small) {

@@ -149,7 +149,7 @@ private fun Perfil(j: JogadorCarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
                 Rotulo("Foco do treino")
                 Text("Escolhe o que treinas mais. Conta para os treinos mensais do jogador.", Modifier.padding(vertical = 4.dp), fontSize = 13.sp, color = secundaria)
                 Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    for (f in FocoTreino.entries) FilterChip(j.foco == f, { jogo.escolherFocoJogador(f) }, { Text(f.nome) }, enabled = ativo)
+                    for (f in FocoTreino.entries) ChipToque(j.foco == f, { jogo.escolherFocoJogador(f) }, { Text(f.nome) }, enabled = ativo)
                 }
             }
         }
@@ -176,7 +176,7 @@ private fun Percurso(j: JogadorCarreiraUi) {
                     Celula("J", 28.dp, cor = secundaria)
                     Celula("G", 28.dp, cor = secundaria)
                     Celula("A", 28.dp, cor = secundaria)
-                    Celula("Nota", 40.dp, cor = secundaria)
+                    Celula("Nota", 52.dp, cor = secundaria)
                     Celula("Min.", 44.dp, cor = secundaria)
                 }
                 if (j.temporadas.isEmpty()) Text("Ainda não jogaste nenhuma partida.", Modifier.padding(top = 6.dp), fontSize = 13.sp, color = secundaria)
@@ -194,7 +194,7 @@ private fun LinhaTemporada(t: TemporadaUi) {
         Celula("${t.jogos}", 28.dp)
         Celula("${t.golos}", 28.dp)
         Celula("${t.assistencias}", 28.dp)
-        Celula(t.nota, 40.dp)
+        Celula(t.nota, 52.dp)
         Celula("${t.minutos}", 44.dp)
     }
 }

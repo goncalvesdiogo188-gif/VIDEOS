@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.futebolcarreira.EmblemaUi
@@ -91,3 +92,9 @@ internal fun saldo(golos: Int): String = if (golos == 0) "0" else "%+d".format(g
 /** Pílula colorida com V, E ou D (vitória, empate, derrota). */
 @Composable
 internal fun Desfecho(letra: String) = PilulaForma(letra)
+
+/** Chip de filtro com largura mínima de 48 dp (alvo de toque), para rótulos curtos como «MDC» ou «30+». */
+@Composable
+internal fun ChipToque(selected: Boolean, onClick: () -> Unit, label: @Composable () -> Unit, enabled: Boolean = true) {
+    androidx.compose.material3.FilterChip(selected, onClick, label, Modifier.widthIn(min = 48.dp), enabled = enabled)
+}

@@ -94,7 +94,7 @@ private fun Torneios(sel: SelecoesUi, aoAbrirChave: (String) -> Unit) {
         item {
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 sel.torneios.forEachIndexed { i, t ->
-                    FilterChip(selected = i == escolhido, onClick = { escolhido = i }, label = { Text(t.nome, maxLines = 1) })
+                    ChipToque(selected = i == escolhido, onClick = { escolhido = i }, label = { Text(t.nome, maxLines = 1) })
                 }
             }
         }
@@ -126,7 +126,7 @@ private fun androidx.compose.foundation.lazy.LazyListScope.itensEliminatoriasCom
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 elim.rondas.forEachIndexed { k, r ->
-                    FilterChip(selected = k == ronda.coerceIn(0, elim.rondas.size - 1), onClick = { ronda = k }, label = { Text(r.nome, maxLines = 1) })
+                    ChipToque(selected = k == ronda.coerceIn(0, elim.rondas.size - 1), onClick = { ronda = k }, label = { Text(r.nome, maxLines = 1) })
                 }
             }
             for (par in elim.rondas[ronda.coerceIn(0, elim.rondas.size - 1)].pares) CartaoPar(par, aoAbrirChave)
@@ -251,7 +251,7 @@ private fun Convocados(sel: SelecoesUi) {
         item {
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 sel.convocatorias.forEachIndexed { i, c ->
-                    FilterChip(selected = i == escolhida, onClick = { escolhida = i }, label = { Text(c.selecao, maxLines = 1) })
+                    ChipToque(selected = i == escolhida, onClick = { escolhida = i }, label = { Text(c.selecao, maxLines = 1) })
                 }
             }
         }

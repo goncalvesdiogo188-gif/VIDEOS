@@ -57,13 +57,13 @@ internal fun ConteudoPlantel(
             // "Auto" deixa a escolha ao treinador-adjunto (o computador).
             Text("Formação (em uso: ${plantel.formacaoEmUso})", fontSize = 13.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 8.dp))
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                FilterChip(plantel.formacao == null, { aoMudarFormacao(null) }, { Text("Auto") })
-                for (f in Formacao.entries) FilterChip(plantel.formacao == f, { aoMudarFormacao(f) }, { Text(f.nome) })
+                ChipToque(plantel.formacao == null, { aoMudarFormacao(null) }, { Text("Auto") })
+                for (f in Formacao.entries) ChipToque(plantel.formacao == f, { aoMudarFormacao(f) }, { Text(f.nome) })
             }
             Text("Mentalidade", fontSize = 13.sp, fontWeight = FontWeight.Bold)
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                FilterChip(plantel.mentalidade == null, { aoMudarMentalidade(null) }, { Text("Auto") })
-                for (m in Mentalidade.entries) FilterChip(plantel.mentalidade == m, { aoMudarMentalidade(m) }, { Text(m.nome) })
+                ChipToque(plantel.mentalidade == null, { aoMudarMentalidade(null) }, { Text("Auto") })
+                for (m in Mentalidade.entries) ChipToque(plantel.mentalidade == m, { aoMudarMentalidade(m) }, { Text(m.nome) })
             }
         } else {
             Text(
