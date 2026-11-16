@@ -81,6 +81,7 @@ class CapturasTest {
         esperar { jogo.ecra == Ecra.CARREIRA && !jogo.ocupado }
         assertEquals(clube.nome, jogo.ui?.clube)
         capturar("04-inicio")
+        regra.onNodeWithText("Jogar ao vivo (3D)").assertExists()
 
         // ---- Mercado (está aberto em julho): procurar, abrir a ficha de um jogador e fazer uma proposta ----
         tocar("Mercado")
@@ -180,6 +181,14 @@ class CapturasTest {
         capturar("15e-calendario")
         tocar("Opções")
         capturar("16-mais")
+        // Jogo 3D (o ecrã com OpenGL não corre aqui): opção guardada e ligação provisória ao fim do jogo.
+        tocarComScroll("Ver em 3D")
+        assertEquals(pt.futebolcarreira.aovivo.ModoJogos.VER_3D, jogo.modoJogos)
+        tocarComScroll("Simular")
+        assertEquals(pt.futebolcarreira.aovivo.ModoJogos.SIMULAR, jogo.modoJogos)
+        jogo.registarJogoAoVivo(pt.futebolcarreira.nucleo.aovivo.PartidaFalsa(pt.futebolcarreira.nucleo.modelos.Equipa(id = "a", nome = "A"), pt.futebolcarreira.nucleo.modelos.Equipa(id = "b", nome = "B"), true))
+        assertEquals("Resultado ao vivo será ligado na junção", jogo.aviso)
+        jogo.fecharAviso()
 
         // ---- Fim de época e época seguinte ----
         jogo.simularEpoca()
