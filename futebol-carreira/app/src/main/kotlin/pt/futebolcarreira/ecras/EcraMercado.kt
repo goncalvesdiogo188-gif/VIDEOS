@@ -27,6 +27,10 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -41,50 +45,76 @@ import pt.futebolcarreira.FinancasUi
 import pt.futebolcarreira.MercadoUi
 import pt.futebolcarreira.nucleo.modelos.Jogador
 
+private enum class FiltroIdade(val nome: String, val min: Int, val max: Int) {
+    TODAS("Todas as idades", 0, 99), JOVENS("Até 21", 0, 21), MEIO("22 a 29", 22, 29), VETERANOS("30 ou mais", 30, 99)
+}
+
+private enum class FiltroPreco(val nome: String, val max: Long) {
+    TODOS("Qualquer preço", Long.MAX_VALUE), ATE_1M("Até 1 M€", 1_000_000L), ATE_5M("Até 5 M€", 5_000_000L), ATE_20M("Até 20 M€", 20_000_000L)
+}
+
 /** Separador «Mercado»: procurar jogadores de outros clubes ou sem clube. Tocar num jogador abre a ficha. */
 @Composable
 internal fun SeparadorMercado(mercado: MercadoUi, aoFiltrar: (String?, FiltroMercado) -> Unit, aoAbrirJogador: (Int) -> Unit) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+    var idade by rememberSaveable { mutableStateOf(FiltroIdade.TODAS) }
+    var preco by rememberSaveable { mutableStateOf(FiltroPreco.TODOS) }
+    // Idade e preço filtram a lista já carregada (os 60 melhores com a posição e o filtro de cima).
+    val visiveis = mercado.jogadores.filter { j ->
+        j.idade in idade.min..idade.max && (preco == FiltroPreco.TODOS || j.preco == "livre" || j.valor <= preco.max)
+    }
     Column(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
-        Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f)) {
-                Rotulo("Dinheiro em caixa")
-                Text(mercado.caixa, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+        Bloco(Modifier.padding(top = 10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Rotulo("Dinheiro em caixa")
+                    Text(mercado.caixa, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                }
+                Surface(
+                    color = if (mercado.aberto) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.surfaceContainerHighest,
+                    shape = MaterialTheme.shapes.small,
+                ) {
+                    Text(
+                        if (mercado.aberto) "Aberto" else "Fechado",
+                        Modifier.padding(horizontal = 10.dp, vertical = 4.dp), fontSize = 13.sp, fontWeight = FontWeight.Bold,
+                        color = if (mercado.aberto) MaterialTheme.colorScheme.onTertiary else secundaria,
+                    )
+                }
             }
-            Text(
-                if (mercado.aberto) "Mercado aberto" else "Mercado fechado\n(só jogadores sem clube)",
-                fontSize = 13.sp, textAlign = TextAlign.End,
-                color = if (mercado.aberto) MaterialTheme.colorScheme.tertiary else secundaria,
-            )
+            if (!mercado.aberto) Text("Só se podem contratar jogadores sem clube.", Modifier.padding(top = 4.dp), fontSize = 12.sp, color = secundaria)
         }
-        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(Modifier.horizontalScroll(rememberScrollState()).padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (f in FiltroMercado.entries) FilterChip(mercado.filtro == f, { aoFiltrar(mercado.posicao, f) }, { Text(f.nome) })
         }
         Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             FilterChip(mercado.posicao == null, { aoFiltrar(null, mercado.filtro) }, { Text("Todas") })
             for (p in Jogador.POSICOES) FilterChip(mercado.posicao == p, { aoFiltrar(p, mercado.filtro) }, { Text(p) })
         }
-        Row(Modifier.padding(top = 4.dp, bottom = 4.dp)) {
-            Celula("Pos", 40.dp, negrito = true)
-            Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-            Celula("Id.", 28.dp, negrito = true)
-            Celula("Ger", negrito = true)
-            Celula("Pedem", 76.dp, negrito = true)
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (f in FiltroIdade.entries) FilterChip(idade == f, { idade = f }, { Text(f.nome) })
         }
-        LazyColumn(Modifier.weight(1f)) {
-            if (mercado.jogadores.isEmpty()) item { Text("Nenhum jogador com estes filtros.", Modifier.padding(top = 12.dp), color = secundaria) }
-            items(mercado.jogadores, key = { it.id }) { j ->
-                Row(Modifier.fillMaxWidth().clickable { aoAbrirJogador(j.id) }.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Celula(j.posicao, 40.dp)
-                    Column(Modifier.weight(1f)) {
-                        Text(j.nome, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Text(j.clube, fontSize = 12.sp, color = secundaria)
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (f in FiltroPreco.entries) FilterChip(preco == f, { preco = f }, { Text(f.nome) })
+        }
+        Text("${visiveis.size} jogadores", Modifier.padding(vertical = 4.dp), fontSize = 12.sp, color = secundaria)
+        LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(bottom = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (visiveis.isEmpty()) item { Text("Nenhum jogador com estes filtros.", Modifier.padding(top = 8.dp), color = secundaria) }
+            items(visiveis, key = { it.id }) { j ->
+                Bloco(aoTocar = { aoAbrirJogador(j.id) }) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = MaterialTheme.shapes.small) {
+                            Text(j.posicao, Modifier.width(44.dp).padding(vertical = 6.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSecondaryContainer, maxLines = 1)
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text(j.nome, fontSize = 15.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text("${j.clube} · ${j.idade} anos", fontSize = 12.sp, color = secundaria, maxLines = 1)
+                        }
+                        Column(horizontalAlignment = Alignment.End) {
+                            Text("${j.geral}", fontSize = 20.sp, fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.primary)
+                            Text(j.preco, fontSize = 12.sp, color = secundaria, maxLines = 1)
+                        }
                     }
-                    Celula(j.idade.toString(), 28.dp)
-                    Celula(j.geral.toString(), negrito = true)
-                    Celula(j.preco, 76.dp)
                 }
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             }
         }
     }

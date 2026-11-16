@@ -2,14 +2,18 @@ package pt.futebolcarreira.ecras
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -18,6 +22,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -107,49 +112,75 @@ private fun Tabela(linhas: List<LinhaUi>, aoTocarEquipa: (String) -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         // Em ecrãs largos (telemóvel deitado, tablet) há espaço para os golos marcados e sofridos.
         val comGolos = maxWidth > 480.dp
-        LazyColumn {
+        val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
+        LazyColumn(contentPadding = PaddingValues(bottom = 12.dp)) {
             item {
-                Row(Modifier.padding(horizontal = 8.dp, vertical = 6.dp)) {
-                    Celula("#", 28.dp, negrito = true)
-                    Text("Equipa", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                    for (titulo in listOf("J", "V", "E", "D")) Celula(titulo, negrito = true)
+                Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceContainerHigh).padding(start = 12.dp, end = 8.dp, top = 8.dp, bottom = 8.dp)) {
+                    Celula("#", 26.dp, negrito = true, cor = secundaria)
+                    Text("Equipa", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 13.sp, color = secundaria)
+                    for (titulo in listOf("J", "V", "E", "D")) Celula(titulo, negrito = true, cor = secundaria)
                     if (comGolos) {
-                        Celula("GM", negrito = true)
-                        Celula("GS", negrito = true)
+                        Celula("GM", negrito = true, cor = secundaria)
+                        Celula("GS", negrito = true, cor = secundaria)
                     }
-                    Celula("DG", 36.dp, negrito = true)
-                    Celula("Pts", 36.dp, negrito = true)
+                    Celula("DG", 36.dp, negrito = true, cor = secundaria)
+                    Celula("Pts", 38.dp, negrito = true, cor = secundaria)
                 }
             }
             items(linhas, key = { it.equipaId }) { l ->
-                val fundo = when (l.zona) {
+                val faixa = when (l.zona) {
                     Zona.SUBIDA -> COR_SUBIDA      // campeão ou zona de subida
                     Zona.DESCIDA -> COR_DESCIDA    // zona de descida
                     Zona.NORMAL -> Color.Transparent
                 }
+                val fundo = if (l.meu) MaterialTheme.colorScheme.primary.copy(alpha = 0.16f) else Color.Transparent
+                val cor = if (l.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                 Row(
-                    Modifier.clickable { aoTocarEquipa(l.equipaId) }.background(fundo).padding(horizontal = 8.dp, vertical = 9.dp),
+                    Modifier.fillMaxWidth().clickable { aoTocarEquipa(l.equipaId) }.background(fundo),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Celula(l.posicao.toString(), 28.dp)
-                    Text(
-                        (if (l.meu) "▸ " else "") + l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        fontWeight = if (l.meu) FontWeight.Bold else FontWeight.Normal,
-                    )
-                    Celula(l.j.toString())
-                    Celula(l.v.toString())
-                    Celula(l.e.toString())
-                    Celula(l.d.toString())
-                    if (comGolos) {
-                        Celula(l.gm.toString())
-                        Celula(l.gs.toString())
+                    Box(Modifier.width(5.dp).height(40.dp).background(faixa))
+                    Row(Modifier.weight(1f).padding(start = 7.dp, end = 8.dp, top = 9.dp, bottom = 9.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Celula(l.posicao.toString(), 26.dp, negrito = l.meu, cor = cor)
+                        Text(
+                            l.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, color = cor,
+                            fontWeight = if (l.meu) FontWeight.Bold else FontWeight.Normal,
+                        )
+                        Celula(l.j.toString(), cor = cor)
+                        Celula(l.v.toString(), cor = cor)
+                        Celula(l.e.toString(), cor = cor)
+                        Celula(l.d.toString(), cor = cor)
+                        if (comGolos) {
+                            Celula(l.gm.toString(), cor = cor)
+                            Celula(l.gs.toString(), cor = cor)
+                        }
+                        Celula(saldo(l.gm - l.gs), 36.dp, cor = cor)
+                        Celula(l.pts.toString(), 38.dp, negrito = true, cor = cor)
                     }
-                    Celula(saldo(l.gm - l.gs), 36.dp)
-                    Celula(l.pts.toString(), 36.dp, negrito = true)
                 }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             }
+            item {
+                val temSubida = linhas.any { it.zona == Zona.SUBIDA }
+                val temDescida = linhas.any { it.zona == Zona.DESCIDA }
+                Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    if (temSubida) LegendaZona(COR_SUBIDA, "Título / subida")
+                    if (temDescida) LegendaZona(COR_DESCIDA, "Descida")
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(Modifier.size(10.dp).background(MaterialTheme.colorScheme.primary.copy(alpha = 0.4f), MaterialTheme.shapes.extraSmall))
+                        Text("  O teu clube", fontSize = 12.sp, color = secundaria)
+                    }
+                }
+            }
         }
+    }
+}
+
+@Composable
+private fun LegendaZona(cor: Color, texto: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(Modifier.size(10.dp).background(cor, MaterialTheme.shapes.extraSmall))
+        Text("  $texto", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -174,16 +205,18 @@ private fun Resultados(liga: LigaUi, aoMudarJornada: (Int) -> Unit, aoAbrirJogo:
             }
             items(liga.resultados) { r ->
                 val peso = if (r.meu) FontWeight.Bold else FontWeight.Normal
-                Row(
-                    Modifier.fillMaxWidth().clickable { aoAbrirJogo(r.indice) }.padding(vertical = 11.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(r.casa, Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = peso)
-                    Text("${r.golosCasa} - ${r.golosFora}", Modifier.width(64.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold)
-                    Text(r.fora, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = peso)
+                val cor = if (r.meu) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                Bloco(Modifier.padding(top = 8.dp), aoTocar = { aoAbrirJogo(r.indice) }) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(r.casa, Modifier.weight(1f), textAlign = TextAlign.End, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = peso, color = cor)
+                        Surface(Modifier.padding(horizontal = 10.dp), color = MaterialTheme.colorScheme.surfaceContainerHighest, shape = MaterialTheme.shapes.small) {
+                            Text("${r.golosCasa} - ${r.golosFora}", Modifier.width(56.dp).padding(vertical = 4.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        }
+                        Text(r.fora, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, fontWeight = peso, color = cor)
+                    }
                 }
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             }
+            item { Spacer(Modifier.height(12.dp)) }
         }
     }
 }

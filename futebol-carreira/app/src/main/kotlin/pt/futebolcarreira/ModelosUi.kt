@@ -228,7 +228,7 @@ class FichaJogadorUi(
 
 enum class FiltroMercado(val nome: String) { TODOS("Todos"), POSSO_PAGAR("Posso pagar"), LIVRES("Sem clube") }
 
-class LinhaMercadoUi(val id: Int, val posicao: String, val nome: String, val clube: String, val idade: Int, val geral: Int, val preco: String)
+class LinhaMercadoUi(val id: Int, val posicao: String, val nome: String, val clube: String, val idade: Int, val geral: Int, val preco: String, val valor: Long = 0)
 
 class MercadoUi(
     val aberto: Boolean, val caixa: String, val posicao: String?, val filtro: FiltroMercado,
@@ -290,6 +290,8 @@ data class CarreiraUi(
     val pontos: Int,
     val proximo: ProximoJogoUi?,
     val ultimo: JogoCalendarioUi?,
+    /** Resultados dos últimos jogos do clube ("V", "E", "D"), do mais antigo para o mais recente (no máximo 5). */
+    val forma: List<String> = emptyList(),
     /** A época acabou: mostra-se o resumo e o botão para começar a seguinte. */
     val terminada: Boolean,
     val resumoFim: String,
