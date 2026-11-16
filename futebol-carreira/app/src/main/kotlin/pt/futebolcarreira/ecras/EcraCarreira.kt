@@ -22,6 +22,9 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
@@ -59,10 +62,10 @@ import pt.futebolcarreira.NoticiaUi
  * (em «Mais» estão as finanças, o calendário e as opções).
  */
 
-private val SEPARADORES = listOf("🏠" to "Início", "👥" to "Plantel", "💰" to "Mercado", "🏆" to "Liga", "☰" to "Mais")
+private val SEPARADORES = listOf(Icones.Inicio to "Início", Icones.Plantel to "Plantel", Icones.Mercado to "Mercado", Icones.Liga to "Liga", Icones.Mais to "Mais")
 
 /** Na via de jogador o separador «Mercado» dá lugar a «Carreira» (perfil, propostas e prémios do jogador). */
-private val SEPARADOR_JOGADOR = "⚽" to "Carreira"
+private val SEPARADOR_JOGADOR = Icones.Jogador to "Carreira"
 
 @Composable
 fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0) {
@@ -70,6 +73,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
     var separador by rememberSaveable { mutableIntStateOf(separadorInicial) }
     // A lista completa de notícias abre por cima do Início.
     var todasNoticias by rememberSaveable { mutableStateOf(false) }
+    val vibrar = rememberVibracao()
 
     Scaffold(
         topBar = { Cabecalho(ui, jogo.ocupado) },
@@ -77,17 +81,21 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
             NavigationBar {
                 separadores.forEachIndexed { i, (simbolo, nome) ->
                     NavigationBarItem(
-                        selected = separador == i, onClick = { separador = i; todasNoticias = false },
-                        icon = { Text(simbolo, fontSize = 20.sp) }, label = { Text(nome, maxLines = 1) },
+                        selected = separador == i, onClick = { if (separador != i) vibrar(); separador = i; todasNoticias = false },
+                        icon = { Icon(simbolo, contentDescription = null) }, label = { Text(nome, maxLines = 1) },
                     )
                 }
             }
         },
     ) { margens ->
         Box(Modifier.padding(margens).fillMaxSize()) {
+            // Os separadores deslizam para o lado de onde vem o novo (ou para onde vai o anterior).
+            AnimatedContent(
+                targetState = separador, transitionSpec = { transicaoDeslizante(targetState > initialState) }, label = "separadores",
+            ) { alvo ->
             when {
-                separador == 0 && todasNoticias -> ListaNoticias(ui.noticias) { todasNoticias = false }
-                else -> when (separador) {
+                alvo == 0 && todasNoticias -> ListaNoticias(ui.noticias) { todasNoticias = false }
+                else -> when (alvo) {
                 0 -> Inicio(
                     ui, !jogo.ocupado, jogo::jogar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
                     aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true }, aoJogarAoVivo = jogo::abrirAoVivo,
@@ -100,6 +108,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 3 -> SeparadorLiga(ui.liga, jogo::escolherLiga, jogo::mudarJornada, jogo::abrirJogo, jogo::abrirPlantel, jogo.fase7, jogo::escolherCompeticao, jogo::abrirJogoPorChave)
                 else -> Mais(ui, !jogo.ocupado, jogo)
                 }
+            }
             }
         }
     }
@@ -465,12 +474,14 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
                 }
             }
         }
-        when (separador) {
+        AnimatedContent(separador, transitionSpec = { transicaoDeslizante(targetState > initialState) }, label = "mais") { alvo ->
+        when (alvo) {
             0 -> SeparadorClube(ui.gestao, ativo, jogo)
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
             else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos)
+        }
         }
     }
 }
@@ -486,6 +497,19 @@ private fun Opcoes(
             Rotulo("A tua carreira")
             Text(ui.utilizador, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Text("${ui.modo.nome} · ${ui.clube}")
+        }
+        Bloco {
+            Rotulo("Aspeto")
+            val contexto = LocalContext.current
+            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (m in ModoTema.entries) {
+                    FilterChip(
+                        selected = PreferenciaTema.modo == m, onClick = { PreferenciaTema.definir(contexto, m) },
+                        label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) }, modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+            Text("«Sistema» segue o tema claro ou escuro do telemóvel.", Modifier.padding(top = 6.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         Bloco {
             Rotulo("Gravação")

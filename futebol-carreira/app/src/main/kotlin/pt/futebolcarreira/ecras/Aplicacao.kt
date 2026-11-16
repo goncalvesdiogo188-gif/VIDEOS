@@ -27,7 +27,7 @@ fun Aplicacao(jogo: JogoViewModel) {
                 BackHandler(onBack = jogo::abrirMenu)
                 EcraCarregar(jogo.gravacoes, jogo.ocupado, jogo::carregarCarreira, jogo::apagarCarreira, jogo::abrirMenu)
             }
-            Ecra.CARREIRA -> jogo.ui?.let { EcraCarreira(it, jogo) }
+            Ecra.CARREIRA -> jogo.ui?.let { EcraCarreira(it, jogo) } ?: EcraCarregamento()
             Ecra.EDITOR -> EcraEditor(jogo.editor, jogo::fecharEditor)
         }
 

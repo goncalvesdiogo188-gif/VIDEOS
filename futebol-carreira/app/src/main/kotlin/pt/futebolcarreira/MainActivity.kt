@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import pt.futebolcarreira.ecras.Aplicacao
 import pt.futebolcarreira.ecras.Tema
+import pt.futebolcarreira.ecras.corDoClube
 
 /** Ponto de entrada da aplicação: abre o menu principal. */
 class MainActivity : ComponentActivity() {
@@ -16,7 +17,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Tema { Aplicacao(jogo) }
+            // A cor do clube da carreira aberta dá o destaque ao jogo todo.
+            val destaque = jogo.ui?.takeIf { jogo.ecra == Ecra.CARREIRA }?.let { corDoClube(it.emblema) }
+            Tema(corDestaque = destaque) { Aplicacao(jogo) }
         }
     }
 

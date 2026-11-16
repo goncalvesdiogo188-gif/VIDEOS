@@ -1,5 +1,6 @@
 package pt.futebolcarreira.ecras
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -49,12 +50,17 @@ internal fun Emblema(e: EmblemaUi, tamanho: Dp = 40.dp) {
     }
 }
 
-/** Cartão: um bloco com fundo próprio. Se "aoTocar" existir, o cartão é um botão. */
+/** Cartão: um bloco com fundo próprio e contorno fino. Se "aoTocar" existir, o cartão é um botão. */
 @Composable
 internal fun Bloco(modifier: Modifier = Modifier, aoTocar: (() -> Unit)? = null, conteudo: @Composable ColumnScope.() -> Unit) {
     val forma = MaterialTheme.shapes.medium
-    val toque = if (aoTocar != null) Modifier.clip(forma).clickable(onClick = aoTocar) else Modifier
-    Surface(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = forma, modifier = modifier.fillMaxWidth().then(toque)) {
+    val vibrar = rememberVibracao()
+    val toque = if (aoTocar != null) Modifier.clip(forma).clickable { vibrar(); aoTocar() } else Modifier
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = forma, tonalElevation = Elevacoes.cartao,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+        modifier = modifier.fillMaxWidth().then(toque),
+    ) {
         Column(Modifier.padding(14.dp), content = conteudo)
     }
 }
@@ -63,7 +69,7 @@ internal fun Bloco(modifier: Modifier = Modifier, aoTocar: (() -> Unit)? = null,
 @Composable
 internal fun Rotulo(texto: String, modifier: Modifier = Modifier) {
     Text(
-        texto.uppercase(), modifier, fontSize = 12.sp, fontWeight = FontWeight.Bold,
+        texto.uppercase(), modifier, style = MaterialTheme.typography.labelMedium,
         color = MaterialTheme.colorScheme.primary, letterSpacing = 1.sp,
     )
 }
@@ -71,7 +77,8 @@ internal fun Rotulo(texto: String, modifier: Modifier = Modifier) {
 /** Botão principal, alto e largo, fácil de tocar. */
 @Composable
 internal fun BotaoGrande(texto: String, modifier: Modifier = Modifier, ativo: Boolean = true, aoTocar: () -> Unit) {
-    Button(onClick = aoTocar, enabled = ativo, modifier = modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+    val vibrar = rememberVibracao()
+    Button(onClick = { vibrar(); aoTocar() }, enabled = ativo, modifier = modifier.fillMaxWidth().heightIn(min = 54.dp)) {
         Text(texto, fontSize = 17.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
     }
 }
@@ -88,15 +95,6 @@ internal fun Celula(texto: String, largura: Dp = LARGURA_NUMERO, negrito: Boolea
 /** Diferença de golos com sinal: +3, 0, -2. */
 internal fun saldo(golos: Int): String = if (golos == 0) "0" else "%+d".format(golos)
 
-/** Quadradinho colorido com V, E ou D (vitória, empate, derrota). */
+/** Pílula colorida com V, E ou D (vitória, empate, derrota). */
 @Composable
-internal fun Desfecho(letra: String) {
-    val cor = when (letra) {
-        "V" -> COR_VITORIA
-        "D" -> COR_DERROTA
-        else -> COR_EMPATE
-    }
-    Box(Modifier.size(24.dp).background(cor, MaterialTheme.shapes.extraSmall), contentAlignment = Alignment.Center) {
-        Text(letra, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp)
-    }
-}
+internal fun Desfecho(letra: String) = PilulaForma(letra)
