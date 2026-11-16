@@ -15,6 +15,9 @@ android {
         targetSdk = 35
         versionCode = 12
         versionName = "0.12 (Fase 12)"
+        // Só telemóveis de 64 bits: o Godot traz 4 tipos de processador e cada um pesa ~70 MB.
+        // x86_64 serve para o emulador do Android Studio.
+        ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
     }
 
     // Chave de TESTE, partilhada no repositório para as atualizações instalarem por cima
@@ -76,6 +79,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+
+    // O motor Godot para Android (Maven Central, versão igual ao Godot que exporta o .pck).
+    implementation("org.godotengine:godot:4.5.1.stable")
+    implementation("androidx.fragment:fragment:1.8.6")   // a GodotActivity herda de FragmentActivity
 
     // Só para os testes dos ecrãs (não entram no APK).
     testImplementation("junit:junit:4.13.2")

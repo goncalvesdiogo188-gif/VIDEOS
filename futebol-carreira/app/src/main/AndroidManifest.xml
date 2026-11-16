@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -19,8 +20,23 @@
             </intent-filter>
         </activity>
 
+        <!-- Protótipo Godot (fase C0): processo próprio, para o Godot desaparecer por inteiro ao sair. -->
+        <activity
+            android:name=".aovivo.EcraGodot"
+            android:process=":godot"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation|density|uiMode" />
+
+        <!-- O FileProvider da biblioteca do Godot (para instalar APKs no editor) não é preciso aqui. -->
         <provider
             android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            tools:node="remove" />
+
+        <provider
+            android:name=".RelatoriosFileProvider"
             android:authorities="${applicationId}.relatorios"
             android:exported="false"
             android:grantUriPermissions="true">
