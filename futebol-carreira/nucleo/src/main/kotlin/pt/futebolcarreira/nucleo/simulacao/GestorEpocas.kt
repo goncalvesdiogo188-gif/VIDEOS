@@ -141,6 +141,9 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
     /** Id do clube do utilizador (para os avisos lhe dizerem respeito). */
     var clubeDoUtilizador: String = ""
 
+    /** Fase 13: o clube do utilizador renova este jogador sozinho no fim do contrato? (a carreira troca-o conforme a política de renovações). */
+    var renovaClubeDoUtilizador: (Jogador) -> Boolean = { true }
+
     /**
      * Jogo do utilizador jogado ao vivo (Fase 11), à espera de ser usado no lugar da simulação: quando chega
      * o jogo entre estas duas equipas (casa e fora, por esta ordem), o relatório é usado e esta variável fica a null.
@@ -503,7 +506,7 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
             }
         }
         avisos.clear()
-        FimDeEpoca.contratos(bd, ano, rng, avisos, clubeDoUtilizador)
+        FimDeEpoca.contratos(bd, ano, rng, avisos, clubeDoUtilizador, renovaClubeDoUtilizador)
         EvolucaoPlantel.aplicar(bd, gerador, rng, ano + 1, avisos, clubeDoUtilizador)
         FimDeEpoca.completarPlanteis(bd, gerador, ano + 1)
         ano++

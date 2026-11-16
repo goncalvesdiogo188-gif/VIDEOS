@@ -21,6 +21,13 @@ enum class Resposta(val frase: String) {
     NAO_PERMITIDO("Só o treinador pode tratar disto."),
     NIVEL_MAXIMO("Já está no nível máximo."),
     OLHEIRO_OCUPADO("O olheiro ainda não voltou da última viagem."),
+    ORCAMENTO_SALARIOS("Isto ultrapassa o orçamento de salários definido (ou o máximo que a direção aceita)."),
+    ORCAMENTO_TRANSFERENCIAS("Isto ultrapassa o orçamento de transferências desta época."),
+    EMBARGO("O clube está impedido de contratar por regras de equilíbrio financeiro."),
+    EQUIPA_COMPLETA("Já tens alguém nesta função (ou o máximo de pessoas)."),
+    SEM_CREDITO("O banco não empresta esse valor (mínimo de 100 mil €; limite de 40% da receita prevista, descontada a dívida)."),
+    JA_TEM_PATROCINIO("Já tens um patrocinador neste lugar: rescinde primeiro o contrato."),
+    SEM_VAGAS_TREINO("Não há vagas: termina ou cancela outro treino antes."),
 }
 
 const val MAX_PLANTEL = EvolucaoPlantel.MAX_PLANTEL
@@ -61,29 +68,35 @@ class Mercado(private val c: Carreira) {
     private fun verificarCompra(j: Jogador): Resposta? = when {
         c.info.modo != ModoCarreira.TREINADOR || c.info.despedido -> Resposta.NAO_PERMITIDO
         meu.plantel.size >= MAX_PLANTEL -> Resposta.PLANTEL_CHEIO
-        else -> null
+        else -> c.gestaoClube.bloqueioSalarios(maxOf(j.salario, j.salarioJusto()).toLong())
     }
 
-    /** Proposta de compra. Abaixo do pedido, o clube pode aceitar ou fechar a porta. */
-    fun comprar(j: Jogador, oferta: Long): Resposta {
+    /**
+     * Proposta de compra. Abaixo do pedido, o clube pode aceitar ou fechar a porta.
+     * Com "prestacoes" > 0 paga-se um quarto agora e o resto em prestações mensais (o clube aceita um pouco menos
+     * facilmente, porque recebe mais tarde).
+     */
+    fun comprar(j: Jogador, oferta: Long, prestacoes: Int = 0): Resposta {
         verificarCompra(j)?.let { return it }
         val dono = bd.equipas[j.equipa] ?: return contratarLivre(j)
         if (dono === meu || j.emprestadoPor.isNotEmpty()) return Resposta.CLUBE_NAO_CEDE
         if (!aberto) return Resposta.MERCADO_FECHADO
         if (j.id in recusados) return Resposta.JA_RECUSOU
         if (!podeSair(j, dono)) return Resposta.CLUBE_NAO_CEDE
-        if (oferta > meu.orcamento) return Resposta.SEM_DINHEIRO
+        if ((if (prestacoes > 0) oferta / 4 else oferta) > meu.orcamento) return Resposta.SEM_DINHEIRO
+        c.gestaoClube.bloqueioTransferencias(oferta)?.let { return it }
         if (!jogadorAceita(j)) return Resposta.JOGADOR_RECUSA
         val pedido = pedido(j)
         // Com 70% do pedido não há hipótese; com 100% é certo.
-        val probabilidade = if (oferta >= pedido) 1.0 else ((oferta.toDouble() / pedido - 0.7) / 0.3).coerceAtLeast(0.0).pow(2)
+        val efetiva = if (prestacoes > 0) oferta * (1.0 - 0.0025 * prestacoes) else oferta.toDouble()
+        val probabilidade = if (efetiva >= pedido) 1.0 else ((efetiva / pedido - 0.7) / 0.3).coerceAtLeast(0.0).pow(2)
         if (rng.nextDouble() >= probabilidade) {
             recusados += j.id
             return Resposta.RECUSADA
         }
-        pagar(meu, dono, oferta)
+        if (prestacoes > 0) c.gestaoClube.negociacoes.pagarEmPrestacoes(dono, oferta, prestacoes, "${j.nome} (${dono.abreviatura})") else pagar(meu, dono, oferta)
         mudar(j, meu)
-        c.mensagem("Contratação: ${j.nome}", "${j.nome} (${j.posicao}, geral ${j.geral()}) chega de ${dono.nome} por ${euros(oferta)}. Contrato até ${j.contratoAte}.")
+        c.mensagem("Contratação: ${j.nome}", "${j.nome} (${j.posicao}, geral ${j.geral()}) chega de ${dono.nome} por ${euros(oferta)}" + (if (prestacoes > 0) " (em $prestacoes prestações mensais)" else "") + ". Contrato até ${j.contratoAte}.")
         return Resposta.ACEITE
     }
 
@@ -120,6 +133,7 @@ class Mercado(private val c: Carreira) {
         verificarCompra(j)?.let { return it }
         val dono = bd.equipas[j.equipa] ?: return Resposta.CLUBE_NAO_CEDE
         if (!aberto) return Resposta.MERCADO_FECHADO
+        c.gestaoClube.bloqueioTransferencias(0)?.let { return it }
         if (dono === meu || j.emprestadoPor.isNotEmpty()) return Resposta.CLUBE_NAO_CEDE
         // Só emprestam quem não é titular, e só se ficarem com gente suficiente.
         if (dono.onzeParaJogo().any { it.jogador === j } || dono.plantel.size <= 20 || !podeSair(j, dono)) return Resposta.CLUBE_NAO_CEDE
@@ -214,7 +228,7 @@ class Mercado(private val c: Carreira) {
         c.baseDadosPorGravar = true
     }
 
-    private fun pagar(comprador: Equipa, vendedor: Equipa, valor: Long) {
+    internal fun pagar(comprador: Equipa, vendedor: Equipa, valor: Long) {
         comprador.orcamento -= valor
         comprador.contas.compras += valor
         vendedor.orcamento += valor
@@ -222,7 +236,7 @@ class Mercado(private val c: Carreira) {
     }
 
     /** Muda o jogador de clube com um contrato novo de três anos. */
-    private fun mudar(j: Jogador, destino: Equipa) {
+    internal fun mudar(j: Jogador, destino: Equipa) {
         bd.mudarDeEquipa(j, destino.id)
         j.contratoAte = c.gestor.ano + 1 + 3
         j.salario = maxOf(j.salario, j.salarioJusto())

@@ -65,11 +65,12 @@ object Treino {
             val instalacoes = 0.8 + 0.1 * (if (naAcademia) equipa.nivelAcademia else equipa.nivelTreino)
             // Quem joga evolui mais; os da academia têm os seus próprios jogos.
             val minutos = if (naAcademia) 1.0 else if (temJogado) 1.15 else 0.85
-            val p = base * margem * instalacoes * minutos * equipa.intensidade.crescimento
+            val p = base * margem * instalacoes * minutos * equipa.intensidade.crescimento * equipa.ajustes.crescimento
             for (atributo in Jogador.ATRIBUTOS) {
                 if (atributo == "guarda_redes" && j.posicao != "GR") continue
                 var pa = if (atributo in pesos) p else p * 0.4
                 if (foco.isNotEmpty()) pa *= if (atributo in foco) ganhoFoco else perdaFora
+                pa *= equipa.ajustes.peso(atributo)
                 if (rng.nextDouble() < pa) {
                     j.atributos[atributo] = (j.atributo(atributo) + 1).coerceAtMost(99)
                     // Nunca passa do potencial.
@@ -80,6 +81,7 @@ object Treino {
             var q = 0.10 + (j.idade - idadeDeDeclinio(j)) * 0.03
             // Bom trabalho físico atrasa a quebra.
             if ("fisico" in foco) q *= 0.8
+            q *= equipa.ajustes.declinio
             for (atributo in pesos.keys) {
                 val qa = if (atributo == "ritmo" || atributo == "fisico") q * 1.5 else q
                 if (rng.nextDouble() < qa) j.atributos[atributo] = (j.atributo(atributo) - 1).coerceAtLeast(1)
@@ -116,15 +118,15 @@ object Treino {
             }
 
             // Departamento médico: cada nível acima do primeiro dá mais hipóteses de encurtar uma paragem.
-            val medico = (equipa.nivelMedico - 1) * 0.08
+            val medico = (equipa.nivelMedico - 1) * 0.08 + equipa.ajustes.recuperacao
             for (j in lado.indisponiveis) {
                 if (j.lesao > 0 && rng.nextDouble() < medico) j.lesao--
             }
 
             // Lesões no treino: dependem da intensidade (e um bom departamento médico evita algumas).
-            val risco = equipa.intensidade.riscoLesao * (1.0 - 0.1 * (equipa.nivelMedico - 1))
+            val risco = equipa.intensidade.riscoLesao * (1.0 - 0.1 * (equipa.nivelMedico - 1)) * equipa.ajustes.riscoLesao
             for (j in equipa.plantel) {
-                if (j.lesao == 0 && rng.nextDouble() < risco) {
+                if (j.lesao == 0 && rng.nextDouble() < risco * equipa.ajustes.riscoJogador(j)) {
                     j.lesao = rng.nextInt(1, 5)
                     j.forma = (j.forma - 10).coerceAtLeast(0)
                     if (equipa.id == clubeDoUtilizador) noticias += "${j.nome} lesionou-se no treino e falha ${if (j.lesao == 1) "1 jogo" else "${j.lesao} jogos"}."

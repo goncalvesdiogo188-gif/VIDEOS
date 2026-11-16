@@ -89,7 +89,11 @@ object FimDeEpoca {
      * (sempre no clube do utilizador; quase sempre nos outros) ou o jogador fica livre.
      * Quem esteve um ano inteiro sem clube deixa o futebol.
      */
-    fun contratos(bd: BaseDados, ano: Int, rng: Random, avisos: MutableList<String>, clubeDoUtilizador: String = "") {
+    fun contratos(
+        bd: BaseDados, ano: Int, rng: Random, avisos: MutableList<String>, clubeDoUtilizador: String = "",
+        /** Fase 13: o clube do utilizador renova este jogador sem negociação? (false = só fica se o treinador renovou.) */
+        renovaUtilizador: (pt.futebolcarreira.nucleo.modelos.Jogador) -> Boolean = { true },
+    ) {
         val fim = ano + 1   // a época "ano" acaba no verão de ano + 1
         for (j in bd.livres()) if (j.contratoAte < fim) bd.removerJogador(j)
         for (j in bd.jogadores.values.toList()) {
@@ -103,7 +107,7 @@ object FimDeEpoca {
             }
             // Os jovens da academia só assinam contrato a sério quando sobem ao plantel.
             if (j.equipa.isEmpty() || j.academia || j.contratoAte > fim) continue
-            val renova = j.equipa == clubeDoUtilizador || rng.nextDouble() < 0.8 || j.idade >= 33
+            val renova = if (j.equipa == clubeDoUtilizador) renovaUtilizador(j) else rng.nextDouble() < 0.8 || j.idade >= 33
             if (renova) {
                 j.contratoAte = fim + rng.nextInt(1, 4)
                 j.salario = maxOf(j.salario, j.salarioJusto())
@@ -119,7 +123,7 @@ object FimDeEpoca {
     fun completarPlanteis(bd: BaseDados, gerador: GeradorJogadores, anoNovo: Int) {
         for (equipa in bd.equipas.values) {
             var guarda = 0
-            while (equipa.plantel.size < 22 && guarda++ < 12) {
+            while (equipa.plantel.size < 22 && guarda++ < 40) {   // 40: com renovações negociadas podem sair muitos de uma vez
                 // A posição que mais falta faz, em comparação com o plantel-tipo.
                 val posicao = GeradorJogadores.PLANTEL_TIPO.maxByOrNull { (p, quantos) -> quantos - equipa.plantel.count { it.posicao == p } }!!.key
                 val nivel = GeradorJogadores.nivelDaReputacao(equipa.reputacao)

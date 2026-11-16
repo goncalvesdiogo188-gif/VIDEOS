@@ -161,6 +161,8 @@ private class Gravacao(
     val noticias: List<Noticia> = emptyList(),
     /** Acontecimentos únicos já noticiados nesta época (título decidido...). */
     val noticiasMarcas: List<String> = emptyList(),
+    /** Fase 13: equipa técnica, contratos, orçamento e treino detalhado. null = gravação antiga (tudo normal). */
+    val gestao: EstadoGestao? = null,
 )
 
 private const val VERSAO = 1
@@ -255,6 +257,7 @@ object Gravador {
             olheiros = c.olheiros.estado,
             noticias = c.manchetes.toList(),
             noticiasMarcas = c.geradorNoticias.marcas.toList(),
+            gestao = c.gestaoClube.estado,
         )
         return JSON.encodeToString(Gravacao.serializer(), gravacao)
     }
@@ -364,6 +367,7 @@ object Gravador {
             it.mensagens += gravacao.mensagens
             it.manchetes += gravacao.noticias
             it.geradorNoticias.marcas += gravacao.noticiasMarcas
+            it.gestaoClube.carregar(gravacao.gestao)
             it.baseDadosPorGravar = false
         }
     }
