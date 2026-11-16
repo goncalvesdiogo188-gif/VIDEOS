@@ -25,7 +25,7 @@ class Fase5Test {
     @Test
     fun `contratos e contas de uma epoca`() {
         val bd = carregar()
-        assertTrue(bd.jogadores.values.all { it.salario >= 12_000 && it.contratoAte in 2027..2030 })
+        assertTrue(bd.jogadores.values.all { it.salario >= 12_000 && it.contratoAte in 2027..2031 })
         val grande = bd.equipasDaLiga("POR1").maxBy { it.reputacao }
         val pequeno = bd.equipasDaLiga("POR2").minBy { it.reputacao }
         println("Folha salarial: ${grande.nome} ${grande.folhaSalarial() / 1_000_000} M€, ${pequeno.nome} ${pequeno.folhaSalarial() / 1000} mil €")

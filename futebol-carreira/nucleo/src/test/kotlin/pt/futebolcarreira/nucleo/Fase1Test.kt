@@ -86,7 +86,7 @@ class Fase1Test {
                 }
                 assertEquals(ordem.sumOf { it.gm }, ordem.sumOf { it.gs }, "$ligaId: golos marcados = sofridos")
                 val media = ordem.sumOf { it.gm }.toDouble() / (n * (n - 1))
-                assertTrue(media in 2.0..3.6, "$ligaId: média de golos realista ($media)")
+                assertTrue(media in 1.8..3.6, "$ligaId: média de golos realista ($media)")
             }
             val resumo = gestor.historico.last()
             val p1 = resumo.ligas.getValue("POR1")

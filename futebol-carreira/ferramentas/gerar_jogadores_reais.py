@@ -10,7 +10,8 @@ Cada linha do CSV (separador ";", com cabeçalho):
 - posicao: GR DD DC DE MDC MC MOC ED EE PL
 - pe: direito / esquerdo / ambos
 - geral e potencial: 1 a 99 (potencial >= geral)
-- contrato_ate: ano em que o contrato acaba (2027 a 2032)
+- contrato_ate: ano em que o contrato acaba (fica entre 2027 e 2031)
+Cada clube fica com 28 jogadores no máximo (saem os de menor "geral").
 
 Os atributos são gerados à volta do "geral", com os pesos da posição (iguais aos do jogo),
 de forma determinista (o mesmo nome dá sempre os mesmos atributos).
@@ -81,11 +82,22 @@ def gerar(pais):
                     "id": 0, "nome": r["nome"], "nacionalidade": nac, "idade": int(r["idade"]), "posicao": pos, "pe": pe,
                     "equipa": eq, "potencial": max(g, min(99, pot)),
                     "atributos": {a: attr[a] for a in ATRIBUTOS},
-                    "salario": salario_justo(g), "contrato_ate": int(r["contrato_ate"] or 2028),
+                    "salario": salario_justo(g), "contrato_ate": max(2027, min(2031, int(r["contrato_ate"] or 2028))),
                     "emprestado_por": "", "academia": False,
                 })
             except Exception as e:
                 erros.append(f"linha {i}: ERRO {e}")
+    # Cada clube fica com 28 jogadores no máximo (deixa lugar para subir jovens da academia):
+    # saem os de menor "geral", mas nunca abaixo de 3 guarda-redes.
+    MAXIMO = 28
+    por_equipa = {}
+    for j in linhas: por_equipa.setdefault(j["equipa"], []).append(j)
+    for eq, js in por_equipa.items():
+        while len(js) > MAXIMO:
+            grs = sum(1 for j in js if j["posicao"] == "GR")
+            candidatos = [j for j in js if j["posicao"] != "GR" or grs > 3]
+            fora = min(candidatos, key=lambda j: geral(j["atributos"], j["posicao"]))
+            js.remove(fora); linhas.remove(fora)
     # Mesma ordem que o jogo grava: por clube (ordem do ficheiro de equipas), depois pela ordem do CSV.
     ordem = [e["id"] for e in json.load(open(os.path.join(DADOS, "equipas", pais + ".json"), encoding="utf-8"))]
     linhas.sort(key=lambda j: ordem.index(j["equipa"]))

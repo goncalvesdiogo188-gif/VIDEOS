@@ -1,0 +1,1005 @@
+equipa;nome;nacionalidade;idade;posicao;pe;geral;potencial;contrato_ate
+ITA_01;Meret;ITA;29;GR;direito;79;79;2027
+ITA_01;Vanja Milinković-Savić;SER;29;GR;direito;76;76;2028
+ITA_01;Contini;ITA;27;GR;direito;68;68;2028
+ITA_01;Di Lorenzo;ITA;33;DD;direito;81;81;2028
+ITA_01;Mazzocchi;ITA;32;DD;direito;72;72;2027
+ITA_01;Spinazzola;ITA;33;DE;esquerdo;77;77;2026
+ITA_01;Olivera;URU;29;DE;esquerdo;76;76;2027
+ITA_01;Gutiérrez;ESP;25;DE;esquerdo;72;75;2028
+ITA_01;Buongiorno;ITA;27;DC;direito;82;83;2029
+ITA_01;Rrahmani;KOS;32;DC;direito;80;80;2028
+ITA_01;Beukema;NED;28;DC;direito;78;79;2029
+ITA_01;Juan Jesus;BRA;35;DC;esquerdo;73;73;2026
+ITA_01;Marianucci;ITA;23;DC;direito;66;67;2028
+ITA_01;Lobotka;SVK;32;MDC;direito;82;82;2028
+ITA_01;Gilmour;ESC;28;MDC;direito;77;78;2028
+ITA_01;Anguissa;CAM;30;MC;direito;81;81;2027
+ITA_01;McTominay;ESC;29;MC;direito;84;84;2028
+ITA_01;De Bruyne;BEL;35;MOC;direito;85;85;2027
+ITA_01;Elmas;MKD;27;MOC;direito;75;75;2027
+ITA_01;Billing;DIN;30;MC;direito;72;72;2028
+ITA_01;Vergara;ITA;23;MC;direito;69;74;2027
+ITA_01;Politano;ITA;33;ED;esquerdo;79;79;2027
+ITA_01;Neres;BRA;29;ED;esquerdo;80;80;2029
+ITA_01;Lang;NED;27;EE;direito;79;79;2029
+ITA_01;Hojlund;DIN;23;PL;direito;80;85;2030
+ITA_01;Lukaku;BEL;33;PL;direito;82;82;2027
+ITA_01;Lucca;ITA;26;PL;direito;73;73;2028
+ITA_02;Sommer;SUI;37;GR;direito;82;82;2027
+ITA_02;Josep Martínez;ESP;28;GR;direito;70;71;2027
+ITA_02;Raffaele Di Gennaro;ITA;22;GR;direito;64;67;2028
+ITA_02;Pavard;FRA;30;DD;direito;79;79;2028
+ITA_02;Darmian;ITA;36;DD;direito;73;73;2026
+ITA_02;Dumfries;NED;30;DD;direito;82;82;2028
+ITA_02;Dimarco;ITA;28;DE;esquerdo;85;86;2027
+ITA_02;Carlos Augusto;BRA;27;DE;esquerdo;77;78;2028
+ITA_02;Acerbi;ITA;38;DC;esquerdo;76;76;2026
+ITA_02;de Vrij;NED;34;DC;direito;77;77;2026
+ITA_02;Bastoni;ITA;27;DC;esquerdo;86;87;2028
+ITA_02;Akanji;SUI;31;DC;direito;81;81;2028
+ITA_02;Bisseck;ALE;25;DC;direito;78;83;2028
+ITA_02;Palacios;ARG;22;DC;direito;66;68;2028
+ITA_02;Barella;ITA;29;MC;direito;86;86;2029
+ITA_02;Çalhanoğlu;TUR;32;MDC;direito;86;86;2027
+ITA_02;Mkhitaryan;ARS;37;MC;direito;78;78;2026
+ITA_02;Zielinski;POL;32;MC;direito;80;80;2028
+ITA_02;Asllani;ALB;24;MDC;direito;73;76;2027
+ITA_02;Frattesi;ITA;26;MC;direito;79;79;2028
+ITA_02;Sučić;CRO;23;MC;direito;76;81;2030
+ITA_02;Diouf;FRA;22;MC;direito;67;72;2028
+ITA_02;Marcus Thuram;FRA;29;PL;direito;84;84;2029
+ITA_02;Lautaro Martínez;ARG;28;PL;direito;89;89;2029
+ITA_02;Pio Esposito;ITA;21;PL;direito;73;81;2030
+ITA_02;Bonny;FRA;22;PL;direito;75;79;2030
+ITA_02;Taremi;IRA;34;PL;direito;77;77;2027
+ITA_02;Luis Henrique;BRA;25;ED;direito;77;81;2030
+ITA_03;Carnesecchi;ITA;26;GR;direito;79;80;2028
+ITA_03;Musso;ARG;32;GR;direito;75;75;2027
+ITA_03;Rossi;ITA;22;GR;direito;66;67;2029
+ITA_03;Zappacosta;ITA;34;DD;direito;76;76;2027
+ITA_03;Bellanova;ITA;26;DD;direito;76;76;2029
+ITA_03;Hien;SUE;27;DC;direito;78;78;2029
+ITA_03;Djimsiti;ALB;33;DC;direito;77;77;2027
+ITA_03;Kolašinac;BOS;33;DC;esquerdo;77;77;2027
+ITA_03;Scalvini;ITA;22;DC;direito;80;82;2029
+ITA_03;Ahanor;ITA;19;DC;direito;63;73;2029
+ITA_03;Kossounou;CIV;25;DC;direito;74;77;2028
+ITA_03;Zalewski;POL;24;DE;esquerdo;74;79;2028
+ITA_03;Ederson;BRA;26;MDC;direito;81;81;2029
+ITA_03;de Roon;NED;35;MDC;direito;78;78;2026
+ITA_03;Pasalic;CRO;31;MOC;direito;77;77;2027
+ITA_03;Éderson Pontes;BRA;26;MC;direito;71;71;2028
+ITA_03;Samardžić;SER;24;MOC;direito;75;78;2028
+ITA_03;Yunus Musah;USA;23;MC;direito;76;81;2029
+ITA_03;Sulemana;GAN;23;MC;direito;72;76;2029
+ITA_03;Lookman;NIG;28;EE;direito;84;84;2027
+ITA_03;De Ketelaere;BEL;25;MOC;direito;82;85;2029
+ITA_03;Krstović;SER;26;PL;direito;77;77;2029
+ITA_03;Scamacca;ITA;27;PL;direito;80;80;2028
+ITA_03;Retegui;ITA;27;PL;esquerdo;79;80;2028
+ITA_04;Di Gregorio;ITA;26;GR;direito;78;78;2029
+ITA_04;Perin;ITA;33;GR;direito;72;72;2027
+ITA_04;Pinsoglio;ITA;36;GR;direito;64;64;2027
+ITA_04;Cambiaso;ITA;26;DD;direito;82;83;2029
+ITA_04;Kalulu;FRA;26;DD;direito;77;78;2029
+ITA_04;Joao Mário;POR;26;DD;direito;73;73;2030
+ITA_04;Gatti;ITA;27;DC;direito;77;77;2028
+ITA_04;Bremer;BRA;29;DC;direito;84;84;2028
+ITA_04;Kelly;ING;27;DC;direito;75;76;2029
+ITA_04;Rugani;ITA;32;DC;direito;71;71;2027
+ITA_04;Cabal;COL;25;DE;esquerdo;75;79;2029
+ITA_04;Kostić;SER;33;EE;esquerdo;75;75;2027
+ITA_04;Locatelli;ITA;28;MDC;direito;80;80;2028
+ITA_04;Khéphren Thuram;FRA;25;MC;direito;81;86;2029
+ITA_04;Koopmeiners;NED;28;MC;direito;80;80;2029
+ITA_04;McKennie;USA;27;MC;direito;77;77;2028
+ITA_04;Douglas Luiz;BRA;28;MC;direito;76;77;2029
+ITA_04;Adzić;SER;20;MOC;direito;68;73;2029
+ITA_04;Conceição;POR;23;ED;direito;79;84;2029
+ITA_04;Yıldız;TUR;21;EE;direito;82;92;2029
+ITA_04;Zhegrova;KOS;27;ED;direito;79;80;2029
+ITA_04;Mbangula;ALE;22;ED;direito;70;73;2028
+ITA_04;Openda;BEL;26;PL;direito;78;79;2030
+ITA_04;David;CAN;26;PL;direito;81;82;2030
+ITA_04;Vlahović;SER;26;PL;direito;82;82;2026
+ITA_05;Svilar;SER;27;GR;direito;80;80;2027
+ITA_05;Gollini;ITA;31;GR;direito;69;69;2027
+ITA_05;Pietro Boer;ITA;21;GR;direito;62;73;2028
+ITA_05;Zeki Çelik;TUR;29;DD;direito;75;75;2027
+ITA_05;Rensch;NED;23;DD;direito;70;74;2029
+ITA_05;Wesley;BRA;22;DD;direito;73;77;2030
+ITA_05;Mancini;ITA;30;DC;direito;79;79;2028
+ITA_05;Ndicka;CIV;26;DC;esquerdo;80;80;2028
+ITA_05;Hermoso;ESP;31;DC;esquerdo;78;78;2027
+ITA_05;Ziółkowski;POL;21;DC;direito;68;81;2029
+ITA_05;Ghilardi;ITA;23;DC;direito;68;72;2028
+ITA_05;Angeliño;ESP;29;DE;esquerdo;77;77;2027
+ITA_05;Tsimikas;GRE;30;DE;esquerdo;70;70;2027
+ITA_05;Cristante;ITA;31;MDC;direito;78;78;2027
+ITA_05;Paredes;ARG;32;MDC;direito;76;76;2027
+ITA_05;Koné;FRA;25;MC;direito;79;84;2029
+ITA_05;El Aynaoui;MAR;25;MC;direito;77;81;2029
+ITA_05;Pisilli;ITA;21;MC;direito;70;83;2029
+ITA_05;Lorenzo Pellegrini;ITA;30;MOC;direito;79;79;2026
+ITA_05;Dybala;ARG;32;MOC;esquerdo;83;83;2026
+ITA_05;Baldanzi;ITA;23;MOC;direito;70;75;2028
+ITA_05;El Shaarawy;ITA;33;EE;esquerdo;75;75;2027
+ITA_05;Soulé;ARG;23;ED;esquerdo;79;84;2029
+ITA_05;Zaragoza;ESP;24;ED;direito;72;76;2029
+ITA_05;Bailey;JAM;28;ED;direito;72;72;2027
+ITA_05;Dovbyk;UCR;28;PL;direito;77;77;2029
+ITA_05;Evan Ferguson;IRL;26;PL;direito;76;77;2028
+ITA_06;De Gea;ESP;35;GR;direito;80;80;2027
+ITA_06;Martinelli;ITA;24;GR;direito;66;68;2028
+ITA_06;Dodô;BRA;27;DD;direito;76;77;2028
+ITA_06;Comuzzo;ITA;21;DC;direito;76;87;2029
+ITA_06;Pongračić;CRO;28;DC;direito;76;77;2028
+ITA_06;Ranieri;ITA;27;DC;direito;74;75;2028
+ITA_06;Pablo Marí;ESP;32;DC;esquerdo;72;72;2027
+ITA_06;Viti;ITA;23;DE;esquerdo;72;76;2029
+ITA_06;Gosens;ALE;32;DE;esquerdo;77;77;2027
+ITA_06;Parisi;ITA;25;DE;esquerdo;72;77;2028
+ITA_06;Mandragora;ITA;28;MC;direito;76;76;2029
+ITA_06;Fagioli;ITA;25;MC;direito;75;78;2029
+ITA_06;Ndour;SEN;22;MC;direito;72;74;2029
+ITA_06;Richardson;USA;23;MC;direito;73;78;2029
+ITA_06;Brescianini;ITA;26;MC;direito;74;74;2029
+ITA_06;Sohm;SUI;25;MC;direito;72;77;2029
+ITA_06;Fazzini;ITA;22;MOC;direito;72;75;2028
+ITA_06;Beltrán;ARG;24;MOC;direito;75;77;2029
+ITA_06;Gudmundsson;ISL;28;MOC;direito;76;77;2027
+ITA_06;Kean;ITA;26;PL;direito;80;80;2029
+ITA_06;Piccoli;ITA;25;PL;direito;73;76;2028
+ITA_06;Dzeko;BOS;40;PL;direito;72;72;2026
+ITA_06;Luigi Pellegrini;ITA;30;GR;direito;60;60;2027
+ITA_06;Christian Lombardi;ITA;24;GR;direito;59;61;2028
+ITA_06;Jan Novak;SLO;26;GR;direito;60;61;2029
+ITA_07;Provedel;ITA;32;GR;direito;77;77;2027
+ITA_07;Mandas;GRE;24;GR;direito;70;72;2029
+ITA_07;Furlanetto;ITA;26;GR;direito;64;64;2027
+ITA_07;Marusic;MKD;33;DD;direito;75;75;2027
+ITA_07;Lazzari;ITA;32;DD;direito;74;74;2027
+ITA_07;Gila;ESP;26;DC;direito;76;76;2028
+ITA_07;Romagnoli;ITA;31;DC;direito;79;79;2027
+ITA_07;Gigot;FRA;32;DC;direito;74;74;2027
+ITA_07;Provstgaard;DIN;23;DC;direito;72;77;2029
+ITA_07;Hysaj;ALB;32;DE;esquerdo;73;73;2027
+ITA_07;Nuno Tavares;POR;26;DE;esquerdo;75;75;2029
+ITA_07;Luca Pellegrini;ITA;26;DE;esquerdo;71;72;2028
+ITA_07;Danilo Cataldi;ITA;31;MDC;direito;71;71;2027
+ITA_07;Rovella;ITA;24;MDC;direito;77;82;2029
+ITA_07;Guendouzi;FRA;27;MC;direito;78;79;2029
+ITA_07;Basic;CRO;29;MC;direito;76;76;2028
+ITA_07;Vecino;URU;35;MC;direito;72;72;2026
+ITA_07;Belahyane;MAR;23;MC;direito;72;76;2028
+ITA_07;Dele-Bashiru;NIG;24;MC;direito;73;77;2029
+ITA_07;Isaksen;DIN;25;ED;direito;76;79;2029
+ITA_07;Zaccagni;ITA;31;EE;direito;79;79;2028
+ITA_07;Pedro;ESP;38;ED;direito;75;75;2026
+ITA_07;Dia;SEN;29;PL;direito;77;77;2028
+ITA_07;Castellanos;ARG;27;PL;direito;79;80;2029
+ITA_07;Noslin;NED;26;PL;direito;73;73;2029
+ITA_08;Maignan;FRA;30;GR;direito;87;87;2029
+ITA_08;Terracciano;ITA;26;GR;direito;70;70;2028
+ITA_08;Torriani;ITA;19;GR;direito;62;71;2029
+ITA_08;Estupiñán;EQU;28;DE;esquerdo;78;78;2029
+ITA_08;Saelemaekers;BEL;27;DD;direito;76;76;2028
+ITA_08;Walker;ING;36;DD;direito;76;76;2026
+ITA_08;Tomori;ING;28;DC;direito;82;83;2029
+ITA_08;Gabbia;ITA;26;DC;direito;79;79;2028
+ITA_08;Pavlović;SER;25;DC;direito;79;81;2029
+ITA_08;De Winter;BEL;23;DC;direito;74;75;2029
+ITA_08;Odogu;ING;25;DC;direito;70;71;2028
+ITA_08;Bartesaghi;ITA;20;DE;esquerdo;70;82;2029
+ITA_08;Fofana;FRA;25;MDC;direito;77;81;2029
+ITA_08;Ricci;ITA;25;MDC;direito;77;78;2029
+ITA_08;Modrić;CRO;40;MC;direito;82;82;2026
+ITA_08;Rabiot;FRA;31;MC;direito;83;83;2028
+ITA_08;Loftus-Cheek;ING;30;MC;direito;77;77;2028
+ITA_08;Jashari;SUI;24;MC;direito;76;78;2030
+ITA_08;Reijnders;NED;27;MC;direito;83;83;2028
+ITA_08;Leão;POR;27;EE;direito;86;86;2030
+ITA_08;Pulišić;USA;27;ED;direito;79;79;2027
+ITA_08;Nkunku;FRA;28;MOC;direito;80;80;2029
+ITA_08;Gimenez;MEX;25;PL;direito;79;83;2029
+ITA_08;Füllkrug;ALE;33;PL;direito;75;75;2027
+ITA_08;Jovic;SER;28;PL;direito;72;72;2027
+ITA_09;Skorupski;POL;35;GR;direito;75;75;2027
+ITA_09;Ravaglia;ITA;27;GR;direito;68;68;2028
+ITA_09;Federico Massolo;ITA;23;GR;direito;62;64;2028
+ITA_09;Heggem;NOR;25;DC;direito;76;78;2029
+ITA_09;Lucumí;COL;28;DC;direito;77;78;2028
+ITA_09;Vitik;SVK;23;DC;direito;72;74;2029
+ITA_09;Casale;ITA;28;DC;direito;73;74;2028
+ITA_09;Holm;NOR;25;DD;direito;75;78;2028
+ITA_09;De Silvestri;ITA;38;DD;direito;70;70;2026
+ITA_09;Miranda;ESP;26;DE;esquerdo;76;77;2028
+ITA_09;Lykogiannis;GRE;32;DE;esquerdo;71;71;2027
+ITA_09;Freuler;SUI;32;MC;direito;76;76;2027
+ITA_09;Moro;CRO;29;MC;direito;74;74;2028
+ITA_09;Pobega;ITA;26;MC;direito;77;78;2029
+ITA_09;Lewis Ferguson;ESC;24;MC;direito;76;77;2029
+ITA_09;Fabbian;ITA;23;MC;direito;72;75;2029
+ITA_09;Aebischer;SUI;28;MC;direito;74;75;2028
+ITA_09;Odgaard;DIN;26;MOC;direito;75;76;2028
+ITA_09;Orsolini;ITA;28;ED;esquerdo;78;78;2028
+ITA_09;Dominguez;ARG;24;EE;direito;74;78;2028
+ITA_09;Karlsson;SUE;23;ED;direito;73;78;2029
+ITA_09;Castro;ARG;22;PL;direito;75;76;2029
+ITA_09;Immobile;ITA;36;PL;direito;75;75;2026
+ITA_09;Dallinga;NED;27;PL;direito;72;73;2028
+ITA_09;Bernardeschi;ITA;32;ED;direito;74;74;2027
+ITA_10;Butez;FRA;33;GR;direito;74;74;2027
+ITA_10;Reina;ESP;43;GR;direito;68;68;2026
+ITA_10;Vigorito;ITA;28;GR;direito;64;65;2027
+ITA_10;Smolčić;CRO;25;DD;direito;74;79;2029
+ITA_10;Van der Brempt;BEL;23;DD;direito;72;76;2029
+ITA_10;Diego Carlos;BRA;33;DC;direito;75;75;2027
+ITA_10;Kempf;ALE;31;DC;direito;74;74;2027
+ITA_10;Ramón;ESP;24;DC;direito;72;74;2029
+ITA_10;Goldaniga;ITA;32;DC;direito;70;70;2027
+ITA_10;Valle;ESP;25;DE;esquerdo;74;75;2029
+ITA_10;Moreno;ESP;25;DE;esquerdo;72;77;2029
+ITA_10;Perrone;ARG;23;MDC;direito;75;78;2029
+ITA_10;Sergi Roberto;ESP;34;MC;direito;73;73;2026
+ITA_10;Da Cunha;BRA;25;MC;direito;77;79;2029
+ITA_10;Mazzitelli;ITA;32;MC;direito;72;72;2027
+ITA_10;Caqueret;FRA;25;MC;direito;73;76;2028
+ITA_10;Nico Paz;ARG;22;MOC;direito;79;84;2029
+ITA_10;Fàbregas;ESP;23;MC;direito;70;71;2029
+ITA_10;Addai;GAN;26;EE;direito;72;72;2028
+ITA_10;Strefezza;ITA;29;ED;direito;74;74;2028
+ITA_10;Douvikas;GRE;27;PL;direito;75;76;2029
+ITA_10;Baturina;CRO;23;MOC;direito;75;77;2030
+ITA_10;Cutrone;ITA;28;PL;direito;72;73;2027
+ITA_10;Morata;ESP;33;PL;direito;76;76;2027
+ITA_10;Jesús Rodríguez;ESP;20;ED;direito;70;77;2029
+ITA_11;Paleari;ITA;33;GR;direito;67;67;2027
+ITA_11;Israel;URU;26;GR;direito;68;69;2029
+ITA_11;Pedersen;NOR;30;DD;direito;74;74;2027
+ITA_11;Lazaro;AUT;29;DD;direito;71;71;2028
+ITA_11;Maripán;RCH;32;DC;direito;74;74;2027
+ITA_11;Coco;ITA;27;DC;direito;73;74;2029
+ITA_11;Masina;ITA;32;DE;esquerdo;73;73;2027
+ITA_11;Walukiewicz;POL;26;DC;direito;72;73;2028
+ITA_11;Tameze;CAM;32;MC;direito;72;72;2027
+ITA_11;Ismajli;ALB;30;DC;direito;72;72;2028
+ITA_11;Biraghi;ITA;33;DE;esquerdo;73;73;2027
+ITA_11;Ilkhan;TUR;22;MC;direito;73;77;2029
+ITA_11;Casadei;ITA;23;MC;direito;72;76;2029
+ITA_11;Gineitis;ESC;21;MC;direito;70;75;2029
+ITA_11;Vlasic;CRO;28;MOC;direito;75;75;2028
+ITA_11;Aboukhlal;MAR;25;ED;direito;72;73;2029
+ITA_11;Ngonge;BEL;25;ED;direito;72;75;2029
+ITA_11;Zapata;COL;35;PL;direito;75;75;2026
+ITA_11;Adams;ESC;30;PL;direito;74;74;2028
+ITA_11;Simeone;ARG;31;PL;direito;76;76;2028
+ITA_11;Njie;ING;23;PL;direito;70;73;2029
+ITA_11;Karamoh;CIV;27;EE;esquerdo;71;71;2027
+ITA_11;Luigi Colombo;ITA;30;GR;direito;59;59;2030
+ITA_11;Lorenzo Bruno;ITA;29;GR;direito;61;61;2028
+ITA_11;Emanuele Leone;ITA;24;GR;esquerdo;60;63;2030
+ITA_12;Okoye;NIG;26;GR;direito;74;74;2028
+ITA_12;Padelli;ITA;40;GR;direito;64;64;2026
+ITA_12;Sava;ITA;21;GR;direito;66;75;2028
+ITA_12;Kamara;FRA;29;DD;direito;70;70;2028
+ITA_12;Ehizibue;NIG;30;DD;direito;70;70;2027
+ITA_12;Kristensen;DIN;23;DD;direito;73;74;2028
+ITA_12;Kabasele;BEL;34;DC;direito;71;71;2027
+ITA_12;Solet;FRA;26;DC;direito;73;73;2028
+ITA_12;Bijol;SLO;27;DC;direito;76;76;2028
+ITA_12;Goglichidze;GEO;27;DC;direito;72;72;2029
+ITA_12;Zemura;ZIM;27;DE;esquerdo;73;73;2027
+ITA_12;Ekkelenkamp;NED;26;MC;direito;74;75;2028
+ITA_12;Karlström;SUE;30;MC;direito;73;73;2027
+ITA_12;Lovric;SLO;27;MC;direito;73;73;2027
+ITA_12;Atta;FRA;24;MC;direito;73;77;2029
+ITA_12;Zaniolo;ITA;27;MOC;direito;73;73;2027
+ITA_12;Sanchez;CHI;28;MC;direito;72;72;2027
+ITA_12;Davis;ING;28;PL;direito;74;74;2028
+ITA_12;Brenner;BRA;22;PL;direito;70;74;2029
+ITA_12;Iker Bravo;ESP;21;PL;direito;72;81;2029
+ITA_12;Thauvin;FRA;33;EE;direito;74;74;2027
+ITA_12;Payero;ARG;26;MC;direito;71;72;2028
+ITA_12;Michele Mancini;ITA;21;DE;esquerdo;58;63;2028
+ITA_12;Filippo Valentini;ITA;27;GR;ambos;56;56;2030
+ITA_12;Davide Mazza;ITA;20;GR;direito;58;69;2027
+ITA_13;Leali;ITA;32;GR;direito;70;70;2027
+ITA_13;Siegrist;SUI;34;GR;direito;70;70;2027
+ITA_13;Sommariva;ITA;27;GR;direito;64;64;2027
+ITA_13;Sabelli;ITA;34;DD;direito;70;70;2027
+ITA_13;Norton-Cuffy;ING;22;DD;direito;72;76;2029
+ITA_13;Vásquez;MEX;27;DC;direito;74;74;2027
+ITA_13;Marcandalli;ITA;28;DC;direito;72;72;2028
+ITA_13;Otoa;ESP;27;DC;direito;70;71;2028
+ITA_13;Ostigard;NOR;26;DC;direito;73;74;2028
+ITA_13;Martín;ESP;26;DE;esquerdo;72;72;2029
+ITA_13;Frendrup;DIN;25;MDC;direito;74;76;2029
+ITA_13;Badelj;CRO;37;MDC;direito;70;70;2026
+ITA_13;Malinovskyi;UCR;33;MOC;esquerdo;75;75;2027
+ITA_13;Masini;ITA;23;MC;direito;70;72;2029
+ITA_13;Thorsby;NOR;30;MC;direito;72;72;2027
+ITA_13;Messias;BRA;35;MC;direito;70;70;2026
+ITA_13;Ekuban;GAN;32;PL;direito;70;70;2027
+ITA_13;Vitinha;POR;25;PL;direito;76;77;2029
+ITA_13;Colombo;ITA;23;PL;direito;74;77;2028
+ITA_13;Zanoli;ITA;25;DD;direito;70;74;2028
+ITA_13;Ellertsson;ISL;23;EE;direito;70;75;2029
+ITA_13;Ekhator;NIG;20;ED;direito;70;85;2029
+ITA_13;Kelechi Balogun;NIG;22;DE;esquerdo;58;61;2028
+ITA_13;Luca Parisi;ITA;31;GR;direito;59;59;2030
+ITA_13;Fabio Barbieri;ITA;20;GR;ambos;57;63;2027
+ITA_14;Montipò;ITA;29;GR;direito;70;70;2028
+ITA_14;Perilli;ITA;29;GR;direito;66;66;2027
+ITA_14;Toniolo;ITA;22;GR;direito;60;63;2028
+ITA_14;Belghali;MAR;23;DD;direito;69;71;2029
+ITA_14;Frese;NOR;29;DD;direito;68;68;2027
+ITA_14;Bradarić;CRO;26;DE;esquerdo;69;70;2028
+ITA_14;Edmundsson;ISL;27;DC;direito;68;69;2028
+ITA_14;Nelsson;DIN;27;DC;direito;70;71;2028
+ITA_14;Valentini;ARG;28;DC;direito;69;69;2028
+ITA_14;Dawidowicz;POL;30;DC;direito;68;68;2027
+ITA_14;Serdar;ALE;27;MC;direito;69;69;2028
+ITA_14;Harroui;MAR;27;MC;direito;67;68;2028
+ITA_14;Duda;SVK;31;MOC;direito;69;69;2027
+ITA_14;Niasse;SEN;25;MC;direito;66;71;2028
+ITA_14;Lazović;SER;33;ED;direito;66;66;2027
+ITA_14;Mosquera;COL;24;PL;direito;67;68;2028
+ITA_14;Tengstedt;DIN;25;PL;direito;69;74;2028
+ITA_14;Sarr;SEN;24;PL;direito;68;70;2029
+ITA_14;Bowie;ESC;27;PL;direito;66;67;2027
+ITA_14;Livramento;ING;21;ED;direito;66;77;2029
+ITA_14;Orban;HUN;33;PL;direito;68;68;2026
+ITA_14;Filippo Costa;ITA;24;DE;esquerdo;55;58;2027
+ITA_14;Cristian Testa;ITA;20;GR;esquerdo;52;57;2028
+ITA_14;Andrei Dragomir;ROM;22;GR;ambos;53;54;2030
+ITA_14;Christian Fabbri;ITA;24;GR;esquerdo;52;56;2027
+ITA_15;Caprile;ITA;24;GR;direito;72;73;2029
+ITA_15;Sherri;ALB;27;GR;direito;64;65;2027
+ITA_15;Radunović;SER;29;GR;direito;66;66;2027
+ITA_15;Zappa;ITA;23;DD;direito;68;69;2029
+ITA_15;Palomino;ARG;35;DC;direito;70;70;2026
+ITA_15;Mina;COL;31;DC;direito;71;71;2027
+ITA_15;Luperto;ITA;29;DC;direito;70;70;2028
+ITA_15;Dossena;ITA;36;DC;direito;66;66;2026
+ITA_15;Obert;ITA;25;DD;direito;68;73;2029
+ITA_15;Augello;ITA;31;DE;esquerdo;69;69;2027
+ITA_15;Luvumbo;ANG;24;EE;direito;70;74;2029
+ITA_15;Adopo;FRA;25;MDC;direito;70;75;2029
+ITA_15;Prati;ITA;22;MC;direito;68;69;2029
+ITA_15;Deiola;ITA;30;MC;direito;69;69;2027
+ITA_15;Makoumbou;RDC;27;MDC;direito;68;69;2028
+ITA_15;Gaetano;ITA;25;MOC;direito;71;73;2028
+ITA_15;Mendy;SEN;25;MC;direito;67;71;2028
+ITA_15;Felici;ITA;24;MC;direito;66;70;2028
+ITA_15;Zortea;ITA;26;ED;direito;69;70;2028
+ITA_15;Pavoletti;ITA;37;PL;direito;68;68;2026
+ITA_15;Esposito;ITA;23;PL;direito;70;73;2029
+ITA_15;Kingstone;ING;24;PL;direito;66;70;2028
+ITA_15;Palestra;ITA;21;ED;direito;70;75;2029
+ITA_15;Folorunsho;ITA;27;MC;direito;70;70;2028
+ITA_16;Suzuki;JAP;23;GR;direito;72;77;2029
+ITA_16;Corvi;ITA;32;GR;direito;67;67;2027
+ITA_16;Rinaldi;ITA;21;GR;direito;62;76;2028
+ITA_16;Delprato;ITA;26;DD;direito;69;70;2028
+ITA_16;Coulibaly;ITA;24;DD;direito;68;72;2029
+ITA_16;Circati;AUS;22;DC;direito;70;74;2029
+ITA_16;Balogh;HUN;26;DC;direito;69;70;2028
+ITA_16;Troilo;ITA;29;DC;direito;69;69;2028
+ITA_16;Valenti;ITA;32;DC;direito;68;68;2027
+ITA_16;Lovik;NOR;26;DE;esquerdo;69;69;2028
+ITA_16;Valeri;ITA;27;DE;esquerdo;70;70;2028
+ITA_16;Keita;SEN;22;MC;direito;68;73;2029
+ITA_16;Hernani;BRA;32;MDC;direito;70;70;2027
+ITA_16;Estévez;ARG;23;MC;direito;68;71;2029
+ITA_16;Bernabé;ESP;24;MC;direito;71;74;2028
+ITA_16;Ondrejka;SVK;25;ED;direito;66;69;2028
+ITA_16;Mihaila;ROM;26;ED;direito;71;72;2028
+ITA_16;Man;ROM;27;ED;esquerdo;71;71;2028
+ITA_16;Almqvist;SUE;22;EE;direito;68;71;2029
+ITA_16;Cancellieri;ITA;24;ED;direito;69;71;2029
+ITA_16;Pellegrino;ARG;25;PL;direito;70;73;2028
+ITA_16;Djuric;BOS;35;PL;direito;67;67;2026
+ITA_16;Haj Mohamed;TUN;22;MOC;direito;68;73;2029
+ITA_16;Diego Giordano;ITA;25;MDC;direito;56;58;2030
+ITA_16;Cristian Carbone;ITA;21;GR;direito;55;69;2027
+ITA_17;Falcone;ITA;30;GR;direito;71;71;2027
+ITA_17;Fruchtl;ALE;25;GR;direito;66;69;2028
+ITA_17;Samooja;FIN;23;GR;direito;60;61;2028
+ITA_17;Gallo;ITA;25;DE;esquerdo;69;73;2028
+ITA_17;Danilo Veiga;POR;24;DD;direito;67;71;2029
+ITA_17;Gaspar;POR;25;DC;direito;71;76;2028
+ITA_17;Baschirotto;ITA;29;DC;direito;71;71;2028
+ITA_17;Tiago Gabriel;POR;21;DC;direito;68;81;2030
+ITA_17;Siebert;ALE;31;DC;direito;66;66;2027
+ITA_17;Kouassi;FRA;24;DD;direito;66;69;2028
+ITA_17;Pierotti;ITA;25;ED;direito;69;72;2028
+ITA_17;Ramadani;KOS;29;MDC;direito;69;69;2027
+ITA_17;Berisha;ALB;29;MC;direito;67;67;2027
+ITA_17;Helgason;ISL;25;MC;direito;66;69;2028
+ITA_17;Rafia;TUN;25;MC;direito;68;71;2028
+ITA_17;Pierret;FRA;25;MC;direito;68;69;2029
+ITA_17;Sala;ITA;28;ED;direito;67;67;2027
+ITA_17;Banda;ZAM;25;ED;direito;68;72;2028
+ITA_17;Stulic;CRO;29;PL;direito;67;67;2027
+ITA_17;Burnete;ROM;25;PL;direito;66;68;2028
+ITA_17;Camarda;ITA;18;PL;direito;66;79;2030
+ITA_17;Morente;ESP;24;EE;esquerdo;66;70;2028
+ITA_17;Luigi Amato;ITA;30;DE;direito;55;55;2027
+ITA_17;Leonardo Grasso;ITA;23;GR;direito;54;55;2030
+ITA_17;Nicolò Colombo;ITA;26;GR;ambos;54;54;2028
+ITA_18;Muric;KOS;27;GR;direito;71;72;2028
+ITA_18;Turati;ITA;23;GR;direito;68;72;2029
+ITA_18;Satalino;ITA;25;GR;direito;62;67;2027
+ITA_18;Toljan;ALE;31;DD;direito;69;69;2027
+ITA_18;Idzes;POL;25;DC;direito;72;76;2028
+ITA_18;Muharemović;BOS;24;DC;direito;70;72;2029
+ITA_18;Romagna;ITA;30;DC;direito;68;68;2027
+ITA_18;Candé;GUI;22;DC;direito;67;71;2029
+ITA_18;Doig;ESC;23;DE;esquerdo;70;73;2029
+ITA_18;Garcia;ESP;27;DE;esquerdo;67;67;2027
+ITA_18;Matheus Henrique;BRA;28;MDC;direito;70;70;2028
+ITA_18;Thorstvedt;NOR;26;MC;direito;72;72;2029
+ITA_18;Boloca;ITA;26;MC;direito;70;70;2028
+ITA_18;Lipani;ITA;22;MC;direito;66;70;2029
+ITA_18;Volpato;ITA;22;MOC;direito;69;71;2029
+ITA_18;Laurienté;FRA;27;EE;direito;73;74;2028
+ITA_18;Berardi;ITA;32;ED;direito;76;76;2027
+ITA_18;Fadera;GAM;23;ED;direito;68;71;2029
+ITA_18;Pinamonti;ITA;27;PL;direito;73;73;2028
+ITA_18;Mulattieri;ITA;25;PL;direito;67;72;2028
+ITA_18;Vranckx;BEL;22;MC;direito;68;70;2029
+ITA_18;Mattia Barbieri;ITA;27;DD;esquerdo;58;58;2027
+ITA_18;Leonardo Marino;ITA;31;GR;ambos;56;56;2027
+ITA_18;Amine Alaoui;MAR;29;GR;esquerdo;54;54;2027
+ITA_18;Fabio Ferri;ITA;24;GR;esquerdo;54;59;2027
+ITA_19;Semper;POL;23;GR;direito;68;71;2029
+ITA_19;Nicolas;BRA;27;GR;direito;70;70;2028
+ITA_19;Scuffet;ITA;29;GR;direito;67;67;2028
+ITA_19;Calabresi;ITA;29;DD;direito;68;68;2027
+ITA_19;Touré;SEN;25;DD;direito;68;69;2028
+ITA_19;Caracciolo;ITA;28;DC;direito;68;69;2028
+ITA_19;Canestrelli;ITA;28;DC;direito;69;70;2028
+ITA_19;Bonfanti;ITA;22;DC;direito;66;70;2029
+ITA_19;Coppola;ITA;26;DC;direito;68;68;2028
+ITA_19;Angori;ITA;27;DE;esquerdo;66;67;2028
+ITA_19;Beruatto;ITA;28;DE;esquerdo;69;70;2027
+ITA_19;Piccinini;ITA;25;DC;direito;66;68;2028
+ITA_19;Marin;ROM;26;MC;direito;69;69;2028
+ITA_19;Tramoni;FRA;25;MOC;direito;68;70;2029
+ITA_19;Loyola;ARG;22;MC;direito;66;68;2029
+ITA_19;Hojholt;DIN;22;MC;direito;67;68;2029
+ITA_19;Akinsanmiro;NIG;22;MC;direito;69;74;2029
+ITA_19;Moreo;ITA;32;MC;direito;70;70;2027
+ITA_19;Cuadrado;COL;38;ED;direito;70;70;2026
+ITA_19;Mlakar;SLO;26;PL;direito;69;69;2028
+ITA_19;Meister;FRA;27;PL;direito;69;69;2028
+ITA_19;Vural;TUR;25;PL;direito;66;71;2028
+ITA_19;Stengs;NED;26;ED;direito;69;69;2028
+ITA_19;Leris;ITA;28;MC;direito;67;67;2027
+ITA_20;Audero;ITA;28;GR;direito;70;71;2028
+ITA_20;Saro;ITA;27;GR;direito;64;64;2027
+ITA_20;Jungdal;DIN;26;GR;direito;62;62;2028
+ITA_20;Barbieri;ITA;28;DD;direito;67;68;2028
+ITA_20;Bianchetti;ITA;34;DC;direito;66;66;2027
+ITA_20;Lochoshvili;GEO;26;DC;direito;69;70;2028
+ITA_20;Terzi;ITA;27;DC;direito;67;68;2028
+ITA_20;Pezzella;ITA;29;DC;direito;67;67;2027
+ITA_20;Floriani Mussolini;ITA;22;DE;esquerdo;65;66;2028
+ITA_20;Sernicola;ITA;28;DD;direito;67;68;2028
+ITA_20;Vandeputte;BEL;26;MOC;direito;69;69;2028
+ITA_20;Collocolo;ITA;26;MC;direito;68;69;2028
+ITA_20;Castagnetti;ITA;29;MC;direito;66;66;2027
+ITA_20;Grassi;ITA;31;MC;direito;67;67;2027
+ITA_20;Bondo;ITA;27;MC;direito;68;69;2028
+ITA_20;Zerbin;ITA;26;ED;direito;67;68;2028
+ITA_20;Johnsen;NOR;23;ED;direito;67;70;2029
+ITA_20;Vazquez;ITA;27;PL;direito;68;68;2027
+ITA_20;Bonazzoli;ITA;29;PL;direito;69;69;2027
+ITA_20;Okereke;NIG;28;ED;direito;68;69;2027
+ITA_20;Moumbagna;CAM;27;PL;direito;67;67;2028
+ITA_20;Tommaso Villa;ITA;31;DE;esquerdo;58;58;2027
+ITA_20;Lorenzo Romano;ITA;22;GR;ambos;54;57;2027
+ITA_20;Marco Caruso;ITA;23;GR;esquerdo;56;61;2030
+ITA_20;Samuele Fontana;ITA;22;GR;direito;54;58;2028
+ITA_21;Vasquez;ITA;27;GR;direito;64;65;2028
+ITA_21;Seghetti;ITA;28;GR;direito;60;61;2027
+ITA_21;Saporiti;ITA;21;GR;direito;57;66;2029
+ITA_21;Goglichidze Gaetano;ITA;25;DC;direito;63;68;2028
+ITA_21;Ismajli Ardian;ALB;30;DC;direito;64;64;2027
+ITA_21;Romagnoli Sam;ITA;27;DC;direito;62;63;2028
+ITA_21;Pezzola;ITA;25;DD;direito;62;64;2028
+ITA_21;Pellegri;ITA;24;PL;direito;64;66;2028
+ITA_21;Esposito Sebastiano;ITA;23;PL;direito;65;68;2029
+ITA_21;Maleh;MAR;27;MC;direito;64;65;2027
+ITA_21;Haas;ALE;24;MDC;direito;62;67;2028
+ITA_21;Henderson;ING;23;MC;direito;63;67;2028
+ITA_21;Colombo Lorenzo;ITA;23;PL;direito;66;70;2028
+ITA_21;Cacace;NZL;25;DE;esquerdo;64;67;2028
+ITA_21;Fazzini2;ITA;22;MOC;direito;64;68;2028
+ITA_21;Mattia Pagano;ITA;30;DD;direito;61;61;2027
+ITA_21;Cristian Fontana;ITA;28;GR;esquerdo;58;58;2027
+ITA_21;Emanuele Fontana;ITA;27;GR;direito;60;61;2027
+ITA_21;Daniele Vitale;ITA;19;GR;esquerdo;57;70;2027
+ITA_21;Emanuele Monti;ITA;23;DD;direito;63;65;2028
+ITA_21;Antonio Mancini;ITA;22;DC;ambos;64;68;2030
+ITA_21;Matteo Sala;ITA;32;DC;esquerdo;62;62;2029
+ITA_21;Samuele Giordano;ITA;22;DC;esquerdo;61;63;2027
+ITA_21;Salvatore Basile;ITA;26;DC;direito;59;60;2030
+ITA_21;Vincenzo Pellegrini;ITA;32;DE;esquerdo;58;58;2028
+ITA_22;Stankovic;SER;31;GR;direito;65;65;2027
+ITA_22;Joronen;FIN;32;GR;direito;63;63;2027
+ITA_22;Idzes2;POL;26;DC;direito;64;64;2028
+ITA_22;Schingtienne;FRA;25;DC;direito;64;66;2028
+ITA_22;Svoboda;CZE;27;DC;direito;65;65;2028
+ITA_22;Candela;ITA;31;DE;esquerdo;64;64;2027
+ITA_22;Zampano;ITA;31;DD;direito;65;65;2027
+ITA_22;Hainaut;FRA;29;DD;direito;64;64;2028
+ITA_22;Busio;USA;24;MC;direito;66;68;2028
+ITA_22;Nicolussi Caviglia;ITA;25;MC;direito;66;71;2028
+ITA_22;Duncan;GAN;32;MC;direito;64;64;2027
+ITA_22;Doumbia;MAL;25;MC;direito;62;66;2028
+ITA_22;Oristanio;ITA;23;MOC;direito;66;70;2029
+ITA_22;Pierini;ITA;25;PL;direito;64;65;2028
+ITA_22;Yeboah;GAN;24;ED;direito;65;69;2028
+ITA_22;Adrian Bohm;ALE;26;PL;direito;64;64;2028
+ITA_22;Edoardo Mazza;ITA;20;GR;direito;61;68;2028
+ITA_22;Artem Shevchenko;UCR;29;GR;direito;57;57;2027
+ITA_22;Matteo Piras;ITA;29;GR;direito;62;62;2028
+ITA_22;Lorenzo Ferrari;ITA;20;DC;direito;59;64;2030
+ITA_22;Marius Popescu;ROM;21;DD;direito;61;71;2028
+ITA_22;Christian Mazza;ITA;24;DD;ambos;60;61;2027
+ITA_22;Riccardo Fabbri;ITA;27;DC;ambos;59;60;2030
+ITA_22;Matheus Santos;BRA;24;DC;direito;65;70;2030
+ITA_22;Simone Romano;ITA;19;DC;direito;63;71;2030
+ITA_23;Turati2;ITA;24;GR;direito;62;66;2028
+ITA_23;Sommariva2;ITA;28;GR;direito;62;62;2027
+ITA_23;Izzo;ITA;32;DC;direito;66;66;2027
+ITA_23;Caldirola;ITA;35;DC;direito;65;65;2026
+ITA_23;Pablo Marí2;ESP;31;DC;esquerdo;65;65;2027
+ITA_23;Carboni;ARG;20;DC;esquerdo;63;75;2029
+ITA_23;Birindelli;ITA;26;DD;direito;64;64;2028
+ITA_23;Kyriakopoulos;GRE;29;DE;esquerdo;64;64;2027
+ITA_23;Pessina;ITA;29;MC;direito;66;66;2028
+ITA_23;Colpani;ITA;27;MOC;direito;67;68;2027
+ITA_23;Maldini Daniel;ITA;24;MOC;direito;66;69;2028
+ITA_23;Bondo2;ITA;27;MC;direito;64;64;2027
+ITA_23;Mota;POR;26;PL;direito;66;67;2028
+ITA_23;Mazza;ITA;22;PL;direito;66;68;2029
+ITA_23;Dany Mota;POR;27;ED;direito;66;66;2028
+ITA_23;Kledi Cela;ALB;21;GR;esquerdo;62;69;2027
+ITA_23;Giovanni Neri;ITA;31;GR;direito;57;57;2027
+ITA_23;Enrico Parisi;ITA;19;GR;direito;61;67;2028
+ITA_23;Denis Ionescu;ROM;32;DD;direito;60;60;2028
+ITA_23;Daniele Marino;ITA;24;DD;direito;65;67;2027
+ITA_23;Hamza Alaoui;MAR;24;DE;direito;59;60;2030
+ITA_23;Diego Villa;ITA;23;DC;direito;61;63;2027
+ITA_23;Tommaso Ferrari;ITA;32;DC;esquerdo;59;59;2029
+ITA_23;Ibrahima Diop;SEN;21;DC;direito;64;70;2027
+ITA_23;Marco Barbieri;ITA;26;DC;direito;60;60;2028
+ITA_24;Bertola;ITA;28;GR;direito;62;63;2027
+ITA_24;Mascardi;ITA;25;GR;direito;58;63;2028
+ITA_24;Aurelio;ITA;27;DC;direito;63;63;2028
+ITA_24;Hristov;BUL;29;DC;direito;63;63;2027
+ITA_24;Mateju;CZE;28;DD;direito;62;62;2027
+ITA_24;Cassata;ITA;32;MC;direito;63;63;2027
+ITA_24;Esposito Salvatore;ITA;25;MC;direito;63;65;2028
+ITA_24;Aurelio2;ITA;27;MC;direito;62;63;2028
+ITA_24;Elia;ITA;26;ED;direito;62;63;2028
+ITA_24;Falcinelli;ITA;34;PL;direito;62;62;2027
+ITA_24;Antonucci;ITA;26;PL;direito;63;64;2028
+ITA_24;Nagy;HUN;26;DC;direito;61;62;2028
+ITA_24;Federico Sanna;ITA;32;GR;direito;61;61;2027
+ITA_24;Thiago Silva;BRA;23;GR;direito;59;60;2027
+ITA_24;Jacopo Coppola;ITA;27;GR;esquerdo;60;61;2028
+ITA_24;Giovanni Parisi;ITA;21;DD;direito;59;65;2030
+ITA_24;Pietro Parisi;ITA;26;DD;ambos;59;60;2027
+ITA_24;Federico Bruno;ITA;23;DC;esquerdo;58;59;2028
+ITA_24;Alessandro Santoro;ITA;23;DC;direito;59;64;2027
+ITA_24;Matheus Costa;BRA;20;DC;direito;59;68;2029
+ITA_24;Fabio D'Angelo;ITA;24;DC;direito;58;60;2027
+ITA_24;Giorgos Dimitriou;GRE;28;DE;esquerdo;58;58;2030
+ITA_24;Nicolò Guerra;ITA;29;DE;direito;59;59;2028
+ITA_24;Vincenzo Donati;ITA;29;MDC;direito;59;59;2028
+ITA_24;Marco Sanna;ITA;23;MDC;direito;59;63;2027
+ITA_25;Pigliacelli;ITA;32;GR;direito;64;64;2027
+ITA_25;Sala Giacomo;ITA;23;GR;direito;58;63;2028
+ITA_25;Brighenti;ITA;31;DC;direito;63;63;2027
+ITA_25;Scognamillo;ITA;25;DC;direito;64;66;2028
+ITA_25;Antonini;ITA;26;DD;direito;63;64;2028
+ITA_25;Pompetti;ITA;27;MC;direito;63;64;2027
+ITA_25;Pontisso;ITA;29;MC;direito;62;62;2027
+ITA_25;Petriccione;ITA;36;MC;direito;63;63;2026
+ITA_25;Iemmello;ITA;34;PL;direito;67;67;2027
+ITA_25;Pittarello;ITA;26;PL;direito;63;63;2028
+ITA_25;Biasci;ITA;31;PL;direito;62;62;2027
+ITA_25;Buso;ITA;26;ED;direito;62;63;2028
+ITA_25;Andrea Morelli;ITA;23;GR;direito;58;62;2030
+ITA_25;Andrea Vitale;ITA;32;GR;direito;57;57;2028
+ITA_25;Artem Kovalenko;UCR;20;GR;direito;56;71;2030
+ITA_25;Franco Fernández;ARG;31;DD;esquerdo;63;63;2027
+ITA_25;Michele Amato;ITA;29;DC;direito;57;57;2028
+ITA_25;Matteo Villa;ITA;21;DC;direito;63;77;2027
+ITA_25;Pietro Amato;ITA;23;DC;ambos;63;64;2027
+ITA_25;Mattia Ferri;ITA;28;DC;ambos;62;63;2030
+ITA_25;Alberto Serra;ITA;29;DE;direito;58;58;2027
+ITA_25;Giacomo Neri;ITA;21;DE;esquerdo;59;71;2028
+ITA_25;Riccardo Sartori;ITA;20;MDC;direito;59;64;2029
+ITA_25;Kelechi Eze;NIG;32;MDC;direito;58;58;2028
+ITA_25;Luka Petrović;SER;21;MOC;direito;61;75;2029
+ITA_26;Confente;ITA;28;GR;direito;62;62;2027
+ITA_26;Thiam;SEN;25;GR;direito;58;61;2028
+ITA_26;Ruggero;ITA;27;DC;direito;61;62;2028
+ITA_26;Mulè;ITA;27;DC;direito;61;61;2028
+ITA_26;Maistro;ITA;28;MC;direito;62;63;2027
+ITA_26;Candellone;ITA;29;PL;direito;63;63;2027
+ITA_26;Gabrielloni;ITA;28;PL;direito;62;63;2027
+ITA_26;Piscopo;ITA;27;ED;direito;62;63;2028
+ITA_26;Pierobon;ITA;27;MC;direito;61;62;2028
+ITA_26;Antonio Santoro;ITA;20;GR;direito;53;58;2028
+ITA_26;Alessandro Mancini;ITA;28;GR;direito;54;55;2027
+ITA_26;Nicolò Coppola;ITA;32;GR;ambos;59;59;2028
+ITA_26;Gabriele Sanna;ITA;24;DD;direito;57;60;2027
+ITA_26;Michele Silvestri;ITA;24;DD;direito;59;62;2028
+ITA_26;Mateo Horvat;CRO;32;DC;direito;57;57;2027
+ITA_26;Luka Marković;SER;27;DC;ambos;55;55;2027
+ITA_26;Vincenzo Conti;ITA;24;DC;esquerdo;57;61;2027
+ITA_26;Diego Romano;ITA;30;DC;ambos;58;58;2028
+ITA_26;Jacopo Monti;ITA;19;DE;esquerdo;55;68;2028
+ITA_26;Ermal Hoxha;ALB;30;DE;esquerdo;55;55;2028
+ITA_26;Giacomo Giordano;ITA;28;MDC;direito;60;60;2029
+ITA_26;Andrea Colombo;ITA;31;MDC;ambos;56;56;2029
+ITA_26;Tommaso D'Angelo;ITA;30;MC;direito;56;56;2030
+ITA_26;Diego Palumbo;ITA;25;MC;direito;55;60;2027
+ITA_26;Luca Rossi;ITA;30;MOC;ambos;57;57;2027
+ITA_27;Audero2;ITA;28;GR;direito;62;63;2027
+ITA_27;Joronen2;FIN;32;GR;direito;62;62;2027
+ITA_27;Desplanches;ITA;23;GR;direito;65;70;2029
+ITA_27;Magnani;ITA;30;DC;direito;65;65;2027
+ITA_27;Bani;ITA;32;DC;direito;65;65;2027
+ITA_27;Ceccaroni;ITA;32;DD;direito;66;66;2027
+ITA_27;Diakité;FRA;25;DC;direito;64;65;2028
+ITA_27;Baniya;ITA;28;DD;direito;66;67;2027
+ITA_27;Pierozzi;ITA;25;DD;direito;66;68;2028
+ITA_27;Corona;MEX;33;ED;direito;64;64;2027
+ITA_27;Segre;ITA;23;MC;direito;65;70;2028
+ITA_27;Gomes;POR;29;MC;direito;64;64;2027
+ITA_27;Ranocchia;ITA;28;MC;direito;65;65;2027
+ITA_27;Le Douaron;FRA;23;MOC;direito;66;70;2029
+ITA_27;Brunori;ITA;31;PL;direito;68;68;2027
+ITA_27;Pohjanpalo;FIN;31;PL;direito;68;68;2027
+ITA_27;Insigne;ITA;35;EE;direito;67;67;2026
+ITA_27;Henry;FRA;24;PL;direito;65;68;2028
+ITA_27;Vasic;SER;25;MC;direito;64;65;2028
+ITA_27;Gabriele Piras;ITA;21;DC;direito;64;73;2029
+ITA_27;Christian Piras;ITA;26;GR;direito;58;58;2030
+ITA_27;Antonio Moretti;ITA;25;GR;esquerdo;58;61;2029
+ITA_27;Mattia Bellini;ITA;27;GR;esquerdo;58;59;2027
+ITA_27;Edoardo Palumbo;ITA;19;DD;direito;60;71;2027
+ITA_27;Andrei Popescu;ROM;30;DD;direito;65;65;2027
+ITA_28;Klinsmann;USA;27;GR;direito;62;62;2027
+ITA_28;Siano;ITA;29;GR;direito;58;58;2027
+ITA_28;Mangraviti;ITA;26;DC;direito;63;64;2028
+ITA_28;Prestia;ITA;32;DC;direito;62;62;2027
+ITA_28;Ciervo;ITA;25;DD;direito;62;65;2028
+ITA_28;Berti;ITA;27;MC;direito;62;63;2028
+ITA_28;Francesconi;ITA;29;MC;direito;62;62;2027
+ITA_28;Calò;ITA;36;MC;direito;62;62;2026
+ITA_28;Shpendi;ALB;22;PL;direito;64;66;2029
+ITA_28;Antolini;ITA;28;PL;direito;62;62;2027
+ITA_28;Bastoni Samuele;ITA;25;ED;direito;62;63;2028
+ITA_28;Antonio Fontana;ITA;20;GR;ambos;55;70;2028
+ITA_28;Nicolò Piras;ITA;25;GR;esquerdo;55;56;2029
+ITA_28;Edoardo Caruso;ITA;30;GR;direito;60;60;2028
+ITA_28;Tommaso Leone;ITA;26;DD;esquerdo;58;59;2027
+ITA_28;Leonardo Santoro;ITA;32;DD;direito;59;59;2028
+ITA_28;Alberto Ferraro;ITA;30;DC;direito;57;57;2028
+ITA_28;Christian Romano;ITA;25;DC;direito;56;61;2029
+ITA_28;Edoardo Rizzo;ITA;20;DC;direito;60;67;2030
+ITA_28;Daniele Luca;ITA;31;DE;esquerdo;62;62;2029
+ITA_28;Ermal Dervishi;ALB;25;DE;esquerdo;62;67;2030
+ITA_28;Diego Rizzo;ITA;19;MDC;direito;60;66;2027
+ITA_28;Redi Hoxha;ALB;30;MDC;esquerdo;58;58;2028
+ITA_28;Jacopo Greco;ITA;19;MOC;direito;58;70;2027
+ITA_28;Federico Testa;ITA;26;MC;ambos;57;58;2027
+ITA_29;Cerofolini;ITA;26;GR;direito;62;63;2027
+ITA_29;Radunovic;SER;29;GR;direito;60;60;2027
+ITA_29;Vicari;ITA;28;DC;direito;63;64;2027
+ITA_29;Mallamo;ITA;23;DC;direito;62;67;2028
+ITA_29;Dorval;ITA;28;DE;esquerdo;62;63;2027
+ITA_29;Pucino;ITA;35;DD;direito;62;62;2026
+ITA_29;Maita;ITA;27;MC;direito;64;64;2028
+ITA_29;Benali;ITA;32;MC;direito;63;63;2027
+ITA_29;Verreth;BEL;27;MC;direito;62;63;2027
+ITA_29;Favilli;ITA;28;PL;direito;64;65;2027
+ITA_29;Moncini;ITA;29;PL;direito;63;63;2027
+ITA_29;Lella;ITA;27;ED;direito;62;63;2027
+ITA_29;Tomás Gómez;ARG;30;GR;direito;55;55;2028
+ITA_29;Christian Serra;ITA;29;GR;ambos;60;60;2030
+ITA_29;Nicolás Gómez;ARG;19;DD;esquerdo;57;68;2030
+ITA_29;Salvatore Bernardi;ITA;21;DD;direito;57;64;2029
+ITA_29;Samuele Neri;ITA;30;DC;direito;62;62;2027
+ITA_29;Dylan Roux;FRA;31;DC;ambos;63;63;2027
+ITA_29;Edoardo Orlando;ITA;25;DC;direito;59;63;2028
+ITA_29;Riccardo De;ITA;26;DC;esquerdo;59;60;2029
+ITA_29;Dušan Ilić;SER;27;DE;esquerdo;61;62;2030
+ITA_29;Federico Moretti;ITA;29;DE;esquerdo;59;59;2029
+ITA_29;Luca D'Angelo;ITA;31;MDC;esquerdo;59;59;2028
+ITA_29;Giacomo Orlando;ITA;32;MDC;direito;60;60;2027
+ITA_29;Nicolò Vitale;ITA;26;MOC;direito;62;63;2028
+ITA_30;Poluzzi;ITA;31;GR;direito;61;61;2027
+ITA_30;Adamonis;LIT;30;GR;direito;58;58;2027
+ITA_30;Pietrangeli;ITA;31;DC;direito;62;62;2027
+ITA_30;Masiello;ITA;33;DC;direito;62;62;2026
+ITA_30;Molina;ARG;27;DD;direito;61;61;2028
+ITA_30;Tait;ITA;27;MC;direito;62;63;2028
+ITA_30;Belardinelli;ITA;28;MC;direito;62;62;2028
+ITA_30;Casiraghi;ITA;26;MC;direito;61;61;2028
+ITA_30;Odogwu;NIG;26;PL;direito;62;63;2027
+ITA_30;Merkaj;ALB;31;PL;direito;63;63;2027
+ITA_30;Davi;ITA;34;ED;direito;60;60;2026
+ITA_30;Cristian Silvestri;ITA;25;GR;direito;58;62;2027
+ITA_30;Davide Giordano;ITA;28;GR;direito;55;55;2027
+ITA_30;Lucas Silva;BRA;19;GR;direito;59;74;2028
+ITA_30;Stefan Jovanović;SER;24;DD;esquerdo;61;64;2029
+ITA_30;Cheikh Ndiaye;SEN;30;DD;direito;55;55;2027
+ITA_30;Giacomo Monti;ITA;25;DC;direito;59;61;2028
+ITA_30;Moussa Fall;SEN;20;DC;direito;59;72;2029
+ITA_30;Jan Krajnc;SLO;22;DC;esquerdo;56;58;2030
+ITA_30;Alberto Giordano;ITA;25;DC;direito;60;65;2030
+ITA_30;Francesco Silvestri;ITA;28;DE;esquerdo;55;56;2028
+ITA_30;Pietro Mancini;ITA;20;DE;esquerdo;57;64;2030
+ITA_30;Emanuele Romano;ITA;23;MDC;direito;61;66;2027
+ITA_30;Salvatore Vitale;ITA;20;MDC;ambos;60;69;2027
+ITA_30;Jan Zupan;SLO;29;MOC;ambos;59;59;2027
+ITA_31;Seculin;ITA;34;GR;direito;62;62;2027
+ITA_31;Gagno;ITA;25;GR;direito;60;62;2028
+ITA_31;Caldara;ITA;32;DC;direito;63;63;2027
+ITA_31;Pergreffi;ITA;31;DC;direito;62;62;2027
+ITA_31;Cauz;ITA;26;DE;esquerdo;62;63;2028
+ITA_31;Cotali;ITA;28;MC;direito;63;63;2028
+ITA_31;Gerli;ITA;27;MC;direito;63;63;2028
+ITA_31;Magnino;ITA;28;MC;direito;63;63;2028
+ITA_31;Mosti;ITA;28;MOC;direito;64;65;2027
+ITA_31;Gliozzi;ITA;32;PL;direito;64;64;2027
+ITA_31;Abiuso;ITA;25;PL;direito;63;64;2028
+ITA_31;Laurenzi;ITA;26;DD;direito;62;62;2028
+ITA_31;Edoardo Marino;ITA;24;GR;direito;55;59;2027
+ITA_31;Giacomo Ricci;ITA;23;GR;ambos;58;61;2029
+ITA_31;Filippo Barbieri;ITA;19;GR;esquerdo;59;67;2027
+ITA_31;Michele Palumbo;ITA;27;DD;esquerdo;60;61;2028
+ITA_31;Giovanni Rizzo;ITA;21;DD;esquerdo;58;72;2027
+ITA_31;Francesco Moretti;ITA;32;DC;direito;61;61;2030
+ITA_31;Stefano Parisi;ITA;28;DC;direito;59;59;2029
+ITA_31;Alexandru Ionescu;ROM;19;DE;esquerdo;60;69;2029
+ITA_31;Daniele Greco;ITA;28;DE;direito;59;60;2028
+ITA_31;Salvatore Pagano;ITA;28;MDC;ambos;57;58;2028
+ITA_31;Emanuele De;ITA;30;MDC;direito;63;63;2027
+ITA_31;Alberto Barbieri;ITA;31;MOC;ambos;59;59;2029
+ITA_31;Luigi Mancini;ITA;19;MC;ambos;61;75;2027
+ITA_32;Bleve;ITA;32;GR;direito;62;62;2027
+ITA_32;Cardelli;ITA;27;GR;direito;57;58;2028
+ITA_32;Illanes;ARG;30;DC;direito;62;62;2027
+ITA_32;Imperiale;ITA;28;DC;direito;61;62;2028
+ITA_32;Zanon;ITA;28;DD;direito;61;61;2028
+ITA_32;Hasa;ALB;26;MC;direito;62;62;2028
+ITA_32;Schiavi;ITA;32;MC;direito;61;61;2027
+ITA_32;Capezzi;ITA;32;MC;direito;62;62;2027
+ITA_32;Giovane;BRA;23;PL;direito;62;64;2028
+ITA_32;Zuelli;ITA;27;MC;direito;62;63;2028
+ITA_32;Shpendi2;ALB;24;PL;direito;61;63;2028
+ITA_32;Pietro Villa;ITA;29;GR;direito;53;53;2028
+ITA_32;Marco Romano;ITA;28;GR;direito;58;59;2028
+ITA_32;Federico Neri;ITA;20;GR;esquerdo;57;67;2027
+ITA_32;Michele Santoro;ITA;23;DD;direito;60;62;2030
+ITA_32;Luigi Fontana;ITA;28;DD;direito;56;56;2028
+ITA_32;Diego Ferrari;ITA;20;DC;direito;60;75;2029
+ITA_32;Marius Ionescu;ROM;30;DC;direito;58;58;2028
+ITA_32;Federico Caruso;ITA;25;DC;ambos;60;64;2029
+ITA_32;Ayoub Alaoui;MAR;31;DC;direito;58;58;2028
+ITA_32;Michele Fontana;ITA;31;DE;esquerdo;60;60;2028
+ITA_32;Alberto Mancini;ITA;21;DE;esquerdo;55;64;2030
+ITA_32;Fabio Fontana;ITA;19;MDC;direito;59;70;2027
+ITA_32;Danylo Shevchenko;UCR;29;MDC;ambos;56;56;2027
+ITA_32;Filippo Santoro;ITA;23;MOC;direito;58;62;2030
+ITA_33;Bardi;ITA;30;GR;direito;62;62;2027
+ITA_33;Motta;ITA;26;GR;direito;58;58;2028
+ITA_33;Libutti;ITA;28;DD;direito;62;62;2027
+ITA_33;Cremonesi;ITA;31;DC;direito;62;62;2027
+ITA_33;Papadopoulos;GRE;27;DC;direito;62;62;2028
+ITA_33;Sampirisi;ITA;32;DD;direito;62;62;2026
+ITA_33;Bozzolan;ITA;26;DE;esquerdo;62;62;2028
+ITA_33;Fontanarosa;ITA;29;DC;direito;61;61;2028
+ITA_33;Vigliotti;ITA;27;MC;direito;62;63;2028
+ITA_33;Maggio;ITA;29;MC;direito;62;62;2027
+ITA_33;Gondo;ITA;27;ED;direito;62;63;2027
+ITA_33;Portanova;ITA;29;PL;direito;62;62;2027
+ITA_33;Rossi Gabriele;ITA;29;MOC;direito;62;62;2027
+ITA_33;Emanuele Carbone;ITA;28;GR;direito;59;60;2027
+ITA_33;Vincenzo Cattaneo;ITA;31;GR;direito;55;55;2028
+ITA_33;Kostas Karras;GRE;19;GR;direito;59;68;2030
+ITA_33;Christian Basile;ITA;31;DC;direito;62;62;2028
+ITA_33;Vincenzo Piras;ITA;27;DD;ambos;61;62;2027
+ITA_33;Stefano Ferrari;ITA;23;DD;direito;56;59;2028
+ITA_33;Edoardo Gatti;ITA;31;DC;direito;61;61;2028
+ITA_33;Vincenzo Barbieri;ITA;21;DC;direito;62;70;2028
+ITA_33;Nicolò Greco;ITA;30;DC;direito;62;62;2029
+ITA_33;Simone Guerra;ITA;32;DE;esquerdo;56;56;2028
+ITA_33;Andrea De;ITA;32;DE;esquerdo;58;58;2028
+ITA_33;Riccardo Moretti;ITA;32;MDC;direito;60;60;2030
+ITA_34;Festa;ITA;32;GR;direito;61;61;2027
+ITA_34;Tonti;ITA;26;GR;direito;56;57;2028
+ITA_34;Radrezza;ITA;27;MC;direito;61;62;2028
+ITA_34;Trimboli;ITA;26;MC;direito;60;61;2028
+ITA_34;Mensah;GAN;28;MC;direito;60;61;2027
+ITA_34;Fiori;ITA;27;MC;direito;60;60;2028
+ITA_34;Bragantini;ITA;28;PL;direito;61;61;2027
+ITA_34;Galuppini;ITA;30;PL;direito;61;61;2027
+ITA_34;Debenedetti;ITA;26;DC;direito;60;61;2028
+ITA_34;Emanuele Coppola;ITA;28;GR;esquerdo;52;52;2028
+ITA_34;Nicolò Sartori;ITA;21;GR;ambos;52;64;2030
+ITA_34;Mateo Babić;CRO;22;GR;esquerdo;52;53;2028
+ITA_34;Tommaso Marino;ITA;28;DD;direito;55;56;2029
+ITA_34;Lorenzo Vitale;ITA;22;DD;esquerdo;59;63;2029
+ITA_34;Giacomo Luca;ITA;20;DC;direito;54;59;2029
+ITA_34;Tommaso Cattaneo;ITA;20;DC;direito;59;74;2029
+ITA_34;Pietro Ferrari;ITA;31;DC;direito;58;58;2030
+ITA_34;Luigi Moretti;ITA;23;DC;ambos;59;64;2027
+ITA_34;Michele Greco;ITA;32;DE;esquerdo;57;57;2028
+ITA_34;Giacomo Gatti;ITA;20;DE;esquerdo;59;70;2028
+ITA_34;Luigi Serra;ITA;25;MDC;esquerdo;54;59;2030
+ITA_34;Davide Pellegrini;ITA;28;MOC;direito;55;56;2027
+ITA_34;Lorenzo Mancini;ITA;23;MC;ambos;57;62;2028
+ITA_34;Gabriele Romano;ITA;28;MC;ambos;54;54;2027
+ITA_34;Daniele Gallo;ITA;32;MOC;ambos;58;58;2027
+ITA_35;Palmisani;ITA;28;GR;direito;63;63;2028
+ITA_35;Cerofolini2;ITA;24;GR;direito;58;59;2028
+ITA_35;Monterisi;ITA;30;DC;direito;64;64;2027
+ITA_35;Oyono;CAM;32;DC;direito;63;63;2027
+ITA_35;Cichella;ITA;24;DE;esquerdo;62;66;2028
+ITA_35;Lusuardi;ITA;27;MC;direito;64;64;2028
+ITA_35;Mazzitelli2;ITA;31;MC;direito;63;63;2027
+ITA_35;Kvernadze;GEO;26;ED;direito;64;64;2028
+ITA_35;Ghedjemis;ALG;22;PL;direito;65;70;2029
+ITA_35;Cheddira;MAR;28;PL;direito;65;65;2027
+ITA_35;Calò2;ITA;28;MC;direito;63;63;2028
+ITA_35;Nicolò Palumbo;ITA;25;GR;ambos;60;65;2030
+ITA_35;Tommaso Morelli;ITA;20;GR;direito;56;65;2027
+ITA_35;Luigi Ferri;ITA;21;GR;direito;60;71;2027
+ITA_35;Stefano Messina;ITA;19;DD;direito;60;67;2027
+ITA_35;Leonardo Orlando;ITA;26;DC;esquerdo;59;59;2028
+ITA_35;Leonardo Palumbo;ITA;20;DC;direito;64;78;2030
+ITA_35;Vincenzo Marino;ITA;22;DC;esquerdo;59;63;2028
+ITA_35;Fabio Lombardi;ITA;19;DC;direito;64;73;2030
+ITA_35;Gabriele Moretti;ITA;23;DE;esquerdo;59;62;2027
+ITA_35;Nicolò Moretti;ITA;28;DE;esquerdo;60;61;2027
+ITA_35;Andrea Coppola;ITA;23;MDC;direito;64;67;2028
+ITA_35;Luigi Orlando;ITA;20;MDC;direito;61;76;2027
+ITA_35;Pietro Leone;ITA;28;MOC;ambos;58;58;2029
+ITA_35;Lorenzo Donati;ITA;27;MC;direito;60;61;2028
+ITA_36;Ghidotti;ITA;28;GR;direito;62;63;2027
+ITA_36;Coda Nicolò;ITA;26;GR;direito;60;61;2028
+ITA_36;Meulensteen;NED;30;DC;direito;63;63;2027
+ITA_36;Venuti;ITA;31;DD;direito;64;64;2027
+ITA_36;Stojanovic;SER;30;DC;direito;64;64;2027
+ITA_36;Giordano;ITA;26;DC;direito;63;63;2028
+ITA_36;Depaoli;ITA;28;DD;direito;64;64;2028
+ITA_36;Ioannou;CYP;23;MC;direito;64;65;2029
+ITA_36;Coda Massimo;ITA;28;PL;direito;66;67;2028
+ITA_36;Brunori2;ITA;28;PL;direito;65;65;2027
+ITA_36;Pedrola;ESP;27;ED;direito;65;65;2028
+ITA_36;Borini;ITA;34;PL;direito;63;63;2026
+ITA_36;Conti;ITA;31;MC;direito;63;63;2027
+ITA_36;Kasami;GRE;33;MC;direito;62;62;2026
+ITA_36;Salvatore Fontana;ITA;23;GR;direito;62;65;2028
+ITA_36;Pietro Barbieri;ITA;26;GR;esquerdo;56;56;2028
+ITA_36;Lautaro Ruiz;ARG;28;GR;ambos;57;58;2028
+ITA_36;Michele Bellini;ITA;26;DC;direito;58;58;2027
+ITA_36;Manuel Gallo;ITA;20;DD;direito;59;67;2028
+ITA_36;Marco Greco;ITA;31;DD;direito;60;60;2027
+ITA_36;Riccardo Mariani;ITA;31;DC;direito;61;61;2027
+ITA_36;Federico D'Angelo;ITA;28;DC;direito;63;63;2029
+ITA_36;Christian Rossi;ITA;28;DC;ambos;58;58;2029
+ITA_36;Alberto Valentini;ITA;23;DE;esquerdo;60;64;2029
+ITA_36;Cristian Sartori;ITA;24;DE;esquerdo;59;61;2030
+ITA_37;Sorrentino;ITA;28;GR;direito;62;62;2027
+ITA_37;Fortin;ITA;27;GR;direito;58;58;2028
+ITA_37;Perrotta;ITA;30;DC;direito;62;62;2027
+ITA_37;Faedo;ITA;31;DC;direito;62;62;2027
+ITA_37;Capelli;ITA;29;DD;direito;61;61;2027
+ITA_37;Ravanelli;ITA;32;MC;direito;62;62;2027
+ITA_37;Tessiore;ITA;25;MC;direito;61;62;2028
+ITA_37;Bortolussi;ITA;35;PL;direito;63;63;2026
+ITA_37;Liguori;ITA;25;ED;direito;61;64;2028
+ITA_37;Crisetig;ITA;29;MDC;direito;62;62;2027
+ITA_37;Lorenzo Barbieri;ITA;24;GR;direito;53;55;2027
+ITA_37;Alberto Donati;ITA;30;GR;ambos;53;53;2028
+ITA_37;Lucas Santos;BRA;20;GR;direito;55;61;2029
+ITA_37;Nikos Papadakis;GRE;27;DD;esquerdo;55;56;2030
+ITA_37;Nikola Petrović;SER;32;DD;esquerdo;55;55;2027
+ITA_37;Michele Rossi;ITA;29;DC;ambos;57;57;2027
+ITA_37;Alessandro Mazza;ITA;32;DC;direito;60;60;2028
+ITA_37;Luka Kovač;SLO;25;DC;direito;55;60;2029
+ITA_37;Manuel Rizzo;ITA;26;DE;esquerdo;56;57;2029
+ITA_37;Marco Russo;ITA;28;DE;direito;57;58;2029
+ITA_37;Nicolò Ricci;ITA;24;MDC;ambos;56;57;2029
+ITA_37;Salvatore Morelli;ITA;21;MC;ambos;57;72;2028
+ITA_37;Matteo De;ITA;27;MC;direito;61;61;2030
+ITA_37;Leonardo Gatti;ITA;26;MOC;esquerdo;61;61;2029
+ITA_37;Mattia Valentini;ITA;26;MOC;direito;60;60;2028
+ITA_38;Iannarilli;ITA;35;GR;direito;61;61;2027
+ITA_38;Marson;ITA;25;GR;direito;57;59;2028
+ITA_38;Simic;CRO;27;DC;direito;62;62;2028
+ITA_38;Cagnano;ITA;30;DC;direito;61;61;2027
+ITA_38;Missori;ITA;29;DD;direito;62;62;2027
+ITA_38;Palmiero;ITA;29;MC;direito;62;62;2027
+ITA_38;Armellino;ITA;26;MC;direito;61;62;2028
+ITA_38;Russo;ITA;31;PL;direito;63;63;2027
+ITA_38;Tutino;ITA;29;PL;direito;63;63;2027
+ITA_38;Sounas;GRE;29;MC;direito;62;62;2027
+ITA_38;Mattia Caruso;ITA;25;GR;esquerdo;59;62;2027
+ITA_38;Fabio Parisi;ITA;24;GR;direito;56;58;2027
+ITA_38;Leonardo Cattaneo;ITA;28;GR;direito;59;59;2028
+ITA_38;Fabio Conti;ITA;30;DD;ambos;58;58;2028
+ITA_38;Pietro Mazza;ITA;25;DD;direito;60;64;2030
+ITA_38;Danylo Kovalenko;UCR;26;DC;direito;61;61;2030
+ITA_38;Simone Mancini;ITA;20;DC;direito;60;72;2030
+ITA_38;Alessandro Rinaldi;ITA;24;DC;direito;55;60;2029
+ITA_38;Marco Carbone;ITA;20;DE;direito;59;73;2029
+ITA_38;Nicolò Romano;ITA;25;DE;esquerdo;57;61;2030
+ITA_38;Salvatore Messina;ITA;28;MDC;direito;55;56;2029
+ITA_38;Christian Russo;ITA;26;MOC;esquerdo;61;61;2027
+ITA_38;Ermal Cela;ALB;25;MOC;direito;56;59;2029
+ITA_38;Daniele Giordano;ITA;22;ED;esquerdo;55;58;2029
+ITA_38;Luigi Martini;ITA;20;ED;direito;61;73;2030
+ITA_39;Siaulys;LIT;30;GR;direito;60;60;2027
+ITA_39;Del Frate;ITA;26;GR;direito;56;57;2028
+ITA_39;Tiritiello;ITA;26;DC;direito;61;61;2028
+ITA_39;Marconi;ITA;28;DC;direito;60;60;2027
+ITA_39;Parodi;ITA;26;DD;direito;60;60;2028
+ITA_39;Guiu;ESP;25;MC;direito;60;63;2028
+ITA_39;Karic;SER;27;MC;direito;61;62;2028
+ITA_39;Lipani2;ITA;26;MC;direito;60;60;2028
+ITA_39;Nichetti;ITA;31;MC;direito;60;60;2027
+ITA_39;Di Mario;ITA;29;PL;direito;61;61;2027
+ITA_39;Ferretti;ITA;31;PL;direito;60;60;2027
+ITA_39;Andrea Longo;ITA;30;GR;ambos;57;57;2027
+ITA_39;Diego Guerra;ITA;21;GR;ambos;57;66;2028
+ITA_39;Josip Babić;CRO;24;DD;ambos;54;58;2029
+ITA_39;Dušan Nikolić;SER;19;DD;esquerdo;56;66;2029
+ITA_39;Gabriele Sala;ITA;31;DC;direito;58;58;2029
+ITA_39;Alberto Longo;ITA;22;DC;ambos;58;61;2028
+ITA_39;Tommaso Rossi;ITA;29;DC;esquerdo;54;54;2027
+ITA_39;Daniele Rossi;ITA;24;DC;direito;58;63;2028
+ITA_39;Michele Bruno;ITA;29;DE;esquerdo;56;56;2028
+ITA_39;Salvatore Santoro;ITA;29;DE;direito;60;60;2027
+ITA_39;Alessandro Gatti;ITA;30;MDC;ambos;54;54;2028
+ITA_39;Luigi Cattaneo;ITA;26;MOC;direito;59;60;2029
+ITA_39;Riccardo Basile;ITA;31;MC;direito;56;56;2027
+ITA_39;Simone Martini;ITA;31;MC;direito;55;55;2028
+ITA_40;Plizzari;ITA;26;GR;direito;63;64;2027
+ITA_40;Saio;ITA;26;GR;direito;57;57;2028
+ITA_40;Ciofi;ITA;31;DC;direito;61;61;2027
+ITA_40;Bellanova2;ITA;26;DC;direito;60;61;2028
+ITA_40;Faraoni;ITA;34;DD;direito;62;62;2026
+ITA_40;Di Nardo;ITA;34;MC;direito;61;61;2026
+ITA_40;Meazzi;ITA;28;MC;direito;60;60;2027
+ITA_40;Tunjov;EST;28;MOC;direito;60;60;2027
+ITA_40;Cangiano;ITA;30;PL;direito;62;62;2027
+ITA_40;Merola;ITA;28;PL;direito;61;62;2027
+ITA_40;Nikola Ilić;SER;21;GR;esquerdo;52;59;2029
+ITA_40;Andrea Grasso;ITA;26;GR;esquerdo;56;57;2030
+ITA_40;Nicolò Caruso;ITA;22;DD;direito;54;58;2027
+ITA_40;Miha Zupan;SLO;26;DD;direito;57;58;2028
+ITA_40;Giacomo Bianchi;ITA;19;DC;esquerdo;55;68;2030
+ITA_40;Matteo Testa;ITA;27;DC;ambos;57;57;2030
+ITA_40;Enrico Basile;ITA;21;DC;esquerdo;57;65;2028
+ITA_40;Luka Novak;SLO;26;DC;direito;54;55;2028
+ITA_40;Jacopo Bernardi;ITA;32;DE;direito;54;54;2029
+ITA_40;Emanuele Neri;ITA;21;DE;esquerdo;55;61;2027
+ITA_40;Kledi Hoxha;ALB;25;MDC;direito;54;56;2027
+ITA_40;Gabriele Fontana;ITA;28;MDC;ambos;59;60;2027
+ITA_40;Kledi Gjoka;ALB;24;MC;direito;59;63;2028
+ITA_40;Alberto Colombo;ITA;23;MC;ambos;55;59;2028
+ITA_40;Diego Monti;ITA;27;MC;esquerdo;56;57;2028

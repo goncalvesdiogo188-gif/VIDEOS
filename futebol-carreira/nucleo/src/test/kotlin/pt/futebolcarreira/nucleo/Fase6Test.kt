@@ -129,7 +129,7 @@ class Fase6Test {
         val bd = carregar()
         val c = Carreira.nova(bd, "o", "O", ModoCarreira.TREINADOR, bd.equipasDaLiga("ESP1")[5].id, semente = 11)
         val o = c.olheiros
-        val jovem = bd.equipas.values.first { it.pais == "ITA" }.plantel.first { it.idade <= 21 }
+        val jovem = bd.equipas.values.filter { it.pais == "ITA" }.flatMap { it.plantel }.first { it.idade <= 21 }
         assertTrue(!o.conhece(jovem) && "–" in o.potencial(jovem), "potencial desconhecido aparece como intervalo")
         val caixa = c.equipa.orcamento
         assertEquals(Resposta.ACEITE, o.enviar("ITA"))
