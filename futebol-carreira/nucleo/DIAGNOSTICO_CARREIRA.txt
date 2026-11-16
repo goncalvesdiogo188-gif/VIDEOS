@@ -1,0 +1,18 @@
+POR1 época 1: Sporting CP 80 pts (24V 8E 2D) plantel 28 [34 jogos, 18 equipas, GM 83 GS 31]
+POR1 época 2: Sporting CP 65 pts (19V 8E 7D) plantel 28 [34 jogos, 18 equipas, GM 57 GS 34]
+POR1 época 3: Sporting CP 73 pts (22V 7E 5D) plantel 28 [34 jogos, 18 equipas, GM 81 GS 34]
+POR1 época 4: Sporting CP 86 pts (27V 5E 2D) plantel 30 [34 jogos, 18 equipas, GM 71 GS 21]
+   ESP1 época 1: despedido, aceita proposta
+ESP1 época 1: Red Star FC 43 pts (12V 7E 15D) plantel 25 [34 jogos, 18 equipas, GM 42 GS 47]
+ESP1 época 2: Red Star FC 54 pts (14V 12E 8D) plantel 25 [34 jogos, 18 equipas, GM 44 GS 37]
+ESP1 época 3: Red Star FC 48 pts (13V 9E 12D) plantel 25 [34 jogos, 18 equipas, GM 45 GS 45]
+ESP1 época 4: Red Star FC 44 pts (11V 11E 12D) plantel 26 [34 jogos, 18 equipas, GM 32 GS 30]
+ING2 época 1: West Ham United 104 pts (31V 11E 4D) plantel 28 [46 jogos, 24 equipas, GM 119 GS 33]
+ING2 época 2: West Ham United 38 pts (9V 11E 18D) plantel 28 [38 jogos, 20 equipas, GM 32 GS 56]
+ING2 época 3: West Ham United 49 pts (13V 10E 15D) plantel 28 [38 jogos, 20 equipas, GM 46 GS 57]
+ING2 época 4: West Ham United 39 pts (10V 9E 19D) plantel 30 [38 jogos, 20 equipas, GM 36 GS 53]
+   ITA1 época 1: despedido, aceita proposta
+ITA1 época 1: AS Nancy-Lorraine 36 pts (10V 6E 18D) plantel 28 [34 jogos, 18 equipas, GM 39 GS 58]
+ITA1 época 2: AS Nancy-Lorraine 55 pts (16V 7E 11D) plantel 28 [34 jogos, 18 equipas, GM 58 GS 52]
+ITA1 época 3: AS Nancy-Lorraine 51 pts (14V 9E 11D) plantel 28 [34 jogos, 18 equipas, GM 48 GS 51]
+ITA1 época 4: AS Nancy-Lorraine 52 pts (15V 7E 12D) plantel 30 [34 jogos, 18 equipas, GM 56 GS 39]
