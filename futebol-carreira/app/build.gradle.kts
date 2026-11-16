@@ -36,7 +36,7 @@ android {
             // Versão otimizada: APK pequeno e mais rápido.
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("teste")
         }
     }
@@ -82,4 +82,5 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("io.github.takahirom.roborazzi:roborazzi:1.46.1")
     testImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")   // declara a ComponentActivity que os testes de ecrã usam
 }

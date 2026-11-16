@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +47,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pt.futebolcarreira.CarreiraUi
+import pt.futebolcarreira.aovivo.ModoJogos
 import pt.futebolcarreira.JogoCalendarioUi
 import pt.futebolcarreira.JogoViewModel
 import pt.futebolcarreira.LinhaUi
@@ -87,8 +89,8 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 separador == 0 && todasNoticias -> ListaNoticias(ui.noticias) { todasNoticias = false }
                 else -> when (separador) {
                 0 -> Inicio(
-                    ui, !jogo.ocupado, jogo::avancar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
-                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true },
+                    ui, !jogo.ocupado, jogo::jogar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
+                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true }, aoJogarAoVivo = jogo::abrirAoVivo,
                 )
                 1 -> ConteudoPlantel(
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
@@ -138,7 +140,7 @@ private fun Cabecalho(ui: CarreiraUi, ocupado: Boolean) {
 private fun Inicio(
     ui: CarreiraUi, ativo: Boolean, aoJogar: () -> Unit, aoNovaEpoca: () -> Unit,
     aoAbrirJogo: (Int) -> Unit, aoAbrirChave: (String) -> Unit, aoVerLiga: () -> Unit,
-    aoAceitar: (String) -> Unit, aoRecusar: () -> Unit, aoVerNoticias: () -> Unit = {},
+    aoAceitar: (String) -> Unit, aoRecusar: () -> Unit, aoVerNoticias: () -> Unit = {}, aoJogarAoVivo: () -> Unit = {},
 ) {
     val secundaria = MaterialTheme.colorScheme.onSurfaceVariant
     LazyColumn(
@@ -209,6 +211,9 @@ private fun Inicio(
                             textAlign = TextAlign.Center, fontSize = 13.sp, color = secundaria,
                         )
                         BotaoGrande("Jogar", ativo = ativo, aoTocar = aoJogar)
+                        OutlinedButton(onClick = aoJogarAoVivo, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).padding(top = 8.dp)) {
+                            Text("Jogar ao vivo (3D)", fontSize = 16.sp)
+                        }
                     }
                 }
             }
@@ -465,13 +470,16 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
-            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira)
+            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos)
         }
     }
 }
 
 @Composable
-private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit, aoEditar: () -> Unit) {
+private fun Opcoes(
+    ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit, aoEditar: () -> Unit,
+    modoJogos: ModoJogos = ModoJogos.SIMULAR, aoModoJogos: (ModoJogos) -> Unit = {},
+) {
     var confirmar by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Bloco {
@@ -482,6 +490,18 @@ private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, a
         Bloco {
             Rotulo("Gravação")
             Text("O jogo grava-se sozinho depois de cada jornada. Podes fechar a aplicação quando quiseres.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        Bloco {
+            Rotulo("Jogos: simular / ver em 3D / jogar em 3D")
+            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (m in ModoJogos.entries) {
+                    FilterChip(
+                        selected = modoJogos == m, onClick = { aoModoJogos(m) }, label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) },
+                        modifier = Modifier.weight(1f),
+                    )
+                }
+            }
+            Text("Em «Ver» e «Jogar» em 3D, o botão «Jogar» abre o jogo no ecrã 3D.", Modifier.padding(top = 6.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)

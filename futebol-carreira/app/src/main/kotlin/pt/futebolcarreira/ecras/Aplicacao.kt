@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import pt.futebolcarreira.Ecra
 import pt.futebolcarreira.JogoViewModel
+import pt.futebolcarreira.aovivo.EcraAoVivo
 
 /** Raiz da aplicação: mostra o ecrã que estiver aberto e, por cima, o jogo, as janelas e os avisos. */
 @Composable
@@ -34,6 +35,7 @@ fun Aplicacao(jogo: JogoViewModel) {
         jogo.ficha?.let { EcraJogador(it, !jogo.ocupado, jogo::negociar, jogo::fecharJogador) }
         jogo.plantel?.let { JanelaPlantel(it, jogo::fecharPlantel, jogo::abrirJogador) }
         jogo.escolha?.let { JanelaEscolha(it, jogo::escolherTitular, jogo::fecharEscolha) }
+        jogo.aoVivo?.let { EcraAoVivo(it, jogo::registarJogoAoVivo, jogo::fecharAoVivo) }
         jogo.aviso?.let { texto ->
             AlertDialog(
                 onDismissRequest = jogo::fecharAviso,

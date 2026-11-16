@@ -9,6 +9,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pt.futebolcarreira.aovivo.ModoJogos
+import pt.futebolcarreira.aovivo.SessaoAoVivo
+import pt.futebolcarreira.nucleo.aovivo.FabricaPartida
+import pt.futebolcarreira.nucleo.aovivo.PartidaAoVivo
 import pt.futebolcarreira.nucleo.carreira.Carreira
 import pt.futebolcarreira.nucleo.carreira.CarreiraJogador
 import pt.futebolcarreira.nucleo.carreira.Instalacao
@@ -128,6 +132,60 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         executar({ armazem.listar() }) { gravacoes = it }
+    }
+
+    // ------------------------------------------------------------ jogo ao vivo (3D)
+
+    private val preferencias = app.getSharedPreferences("opcoes", android.content.Context.MODE_PRIVATE)
+
+    /** Como se jogam os jogos: simular (por defeito), ver em 3D ou jogar em 3D. */
+    var modoJogos by mutableStateOf(ModoJogos.deNome(preferencias.getString("modo_jogos", null)))
+        private set
+
+    /** Cria a partida ao vivo (casa, fora, utilizadorCasa). Os testes trocam-na por um motor falso. */
+    var criarPartida: (Equipa, Equipa, Boolean) -> PartidaAoVivo = { casa, fora, utilizadorCasa ->
+        FabricaPartida.criar(casa, fora, utilizadorCasa, kotlin.random.Random.Default)
+    }
+
+    /** O jogo 3D aberto (null = nenhum). */
+    var aoVivo by mutableStateOf<SessaoAoVivo?>(null)
+        private set
+
+    fun definirModoJogos(modo: ModoJogos) {
+        modoJogos = modo
+        preferencias.edit().putString("modo_jogos", modo.name).apply()
+    }
+
+    /** O botão "Jogar": simula, ou abre o jogo 3D, conforme a opção escolhida. */
+    fun jogar() {
+        if (modoJogos == ModoJogos.SIMULAR || ui?.proximo == null) avancar() else abrirAoVivo()
+    }
+
+    /** Abre o próximo jogo do clube em 3D (só a ver, se a opção for "Ver em 3D"). */
+    fun abrirAoVivo() {
+        val c = carreira ?: return
+        if (ocupado || aoVivo != null) return
+        val proximo = c.proximoJogo()
+        if (proximo == null) {
+            aviso = "Não há jogos por jogar nesta época."
+            return
+        }
+        val casa = if (proximo.emCasa) c.equipa else proximo.adversario
+        val fora = if (proximo.emCasa) proximo.adversario else c.equipa
+        val controlar = modoJogos != ModoJogos.VER_3D
+        executar({ criarPartida(casa, fora, proximo.emCasa) }) { partida ->
+            aoVivo = SessaoAoVivo(partida, proximo.emCasa, controlar)
+        }
+    }
+
+    fun fecharAoVivo() {
+        aoVivo = null
+    }
+
+    /** Regista no calendário o jogo 3D acabado. A parte A (motor) liga isto à carreira; por agora só avisa. */
+    fun registarJogoAoVivo(partida: PartidaAoVivo) {
+        aoVivo = null
+        aviso = "Resultado ao vivo será ligado na junção"
     }
 
     // ------------------------------------------------------------------ editor
