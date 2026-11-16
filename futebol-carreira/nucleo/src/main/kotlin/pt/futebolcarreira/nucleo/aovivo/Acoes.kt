@@ -376,7 +376,7 @@ private fun MotorAoVivo.tentarDesarme(o: Int, c: Int, sl: Boolean) {
     }
 }
 
-private fun MotorAoVivo.falta(inf: Int, vit: Int, sl: Boolean) {
+internal fun MotorAoVivo.falta(inf: Int, vit: Int, sl: Boolean) {
     dbg[5]++
     val e = eq(inf)
     faltas[e]++
