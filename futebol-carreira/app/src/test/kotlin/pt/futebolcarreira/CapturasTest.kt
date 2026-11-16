@@ -219,7 +219,7 @@ class CapturasTest {
         assertTrue(jogo.ui?.terminada == true)
         val clubeFinal = jogo.ui!!.clube
         jogo.novaEpoca()
-        esperar { !jogo.ocupado }
+        esperar { !jogo.ocupado && jogo.ui?.epoca == "2027/28" }
         assertEquals("2027/28", jogo.ui?.epoca)
         tocar("Liga")
         tocar("Histórico")
@@ -228,7 +228,7 @@ class CapturasTest {
         // ---- Gravar, sair e voltar a carregar ----
         tocar("Mais")
         tocar("Opções")
-        tocar("Gravar e sair para o menu")
+        tocarComScroll("Gravar e sair para o menu")
         esperar { jogo.ecra == Ecra.MENU && !jogo.ocupado }
         assertEquals(1, jogo.gravacoes.size)
         capturar("19-menu-com-gravacao")
@@ -313,7 +313,7 @@ class CapturasTest {
         esperar { !jogo.ocupado }
         assertTrue(jogo.ui?.terminada == true)
         jogo.novaEpoca()
-        esperar { !jogo.ocupado }
+        esperar { !jogo.ocupado && jogo.ui?.epoca == "2027/28" }
         assertEquals("2027/28", jogo.ui?.epoca)
         if (jogo.ui!!.jogadorCarreira!!.ofertas.isEmpty()) {
             jogo.pedirSaida(false)
