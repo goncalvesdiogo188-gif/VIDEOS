@@ -31,6 +31,18 @@ data class EstadoPartida(
     val coresCasa: Pair<Long, Long>, val coresFora: Pair<Long, Long>,   // ARGB camisola, calções
     val siglaCasa: String, val siglaFora: String,
     val mensagem: String?,   // ex. "GOLO! Gyökeres 23'" para mostrar uns segundos
+    // Fase 13 (E1/E3): campos novos, todos com valor por omissão (ver LEIAME.md)
+    /** 0 = 1.ª parte, 1 = 2.ª parte, 2 = 1.ª parte do prolongamento, 3 = 2.ª parte do prolongamento. No intervalo é o período que acabou de acabar. */
+    val periodo: Int = 0,
+    /** Preenchido nas fases PONTAPE_SAIDA, PONTAPE_BALIZA, CANTO, LIVRE, LANCAMENTO e PENALTI (incluindo os penáltis de desempate). */
+    val bolaParada: BolaParada? = null,
+    /** Preenchido durante e depois da marcação de penáltis de desempate. */
+    val desempate: EstadoDesempate? = null,
+    /** true enquanto o árbitro deixa seguir a vantagem. */
+    val vantagem: Boolean = false,
+    val dificuldade: Dificuldade = Dificuldade.NORMAL,
+    /** Quantos lances (ver [PartidaAoVivo.lances]) já houve; serve para saber se há novos. */
+    val numeroDeLances: Int = 0,
 )
 
 /** Um jogo jogado ao vivo. A implementação real está em 11A; 11B pode ter uma falsa para testar. */
@@ -39,4 +51,17 @@ interface PartidaAoVivo {
     /** Avança o jogo "dt" segundos de tempo real (o tempo de jogo corre mais depressa: 90 minutos em ~ duracaoReal). */
     fun passo(dt: Float, comando: Comando)
     val terminou: Boolean
+
+    // Fase 13 (E1/E3): todos com implementação por omissão, para as partidas falsas dos testes continuarem a servir.
+    /** Todos os lances de regras até agora (fora de jogo, vantagem, faltas, lances parados, prolongamento, penáltis...), por ordem. */
+    val lances: List<Lance> get() = emptyList()
+
+    /**
+     * Executa o lance parado de quem o utilizador comanda (livre, canto, lançamento, pontapé de baliza, penálti), com direção e força.
+     * Devolve false se não há nenhum lance parado a cargo da equipa do utilizador (ou se ainda é cedo: 0,4 s depois de ficar pronto).
+     */
+    fun executarParada(comando: ComandoParada): Boolean = false
+
+    /** Guarda-redes do utilizador num penálti do adversário: lado do mergulho (-1, 0 = fica ao centro, +1; o eixo é o y do campo). Vale para o próximo penálti. */
+    fun escolherMergulho(lado: Int) {}
 }

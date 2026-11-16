@@ -378,7 +378,11 @@ class GestorEpocas(val bd: BaseDados, semente: Long? = null, anoInicial: Int = 2
         Financas.bilheteiraTaca(casa, fora, neutro, derby > 0)
         var penaltisCasa = 0
         var penaltisFora = 0
-        if (decisivo && relatorio.golosCasa + antesCasa == relatorio.golosFora + antesFora) {
+        if (decisivo && relatorio.penaltisCasa >= 0 && relatorio.penaltisFora >= 0 && relatorio.penaltisCasa != relatorio.penaltisFora) {
+            // Jogo ao vivo que já teve os penáltis de desempate
+            penaltisCasa = relatorio.penaltisCasa
+            penaltisFora = relatorio.penaltisFora
+        } else if (decisivo && relatorio.golosCasa + antesCasa == relatorio.golosFora + antesFora) {
             val (pc, pf) = Penaltis.disputar(casa, fora, rng)
             penaltisCasa = pc
             penaltisFora = pf

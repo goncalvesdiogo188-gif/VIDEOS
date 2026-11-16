@@ -44,6 +44,7 @@ internal fun MotorAoVivo.calcularAlvos() {
             }
         }
     }
+    prepararDefesa()
     for (i in 0 until N) {
         if (!ativo[i]) continue
         alvoSprint[i] = false
@@ -87,12 +88,9 @@ internal fun MotorAoVivo.calcularAlvos() {
             }
             forma(i, e, s, true)
         } else {
-            if (presser1[e] == i && dono >= 0) {
-                alvoX[i] = qx; alvoY[i] = qy; alvoSprint[i] = distJ(i, qx, qy) < 30f
-                val dd = distJ(i, qx, qy)
-                if (dd > 1.3f && dd < 2.6f && carrinho[i] <= 0f && atordoado[i] <= 0f && cdDesarme[i] <= 0f && rng.nextFloat() < 0.05f) {
-                    iniciarCarrinho(i, false)
-                }
+            val raioPressao = dif(e).raioPressao * (if (reg.contraPressaoT[e] > 0f) 1.5f else 1f)
+            if (presser1[e] == i && dono >= 0 && distJ(i, qx, qy) < raioPressao) {
+                pressionarPortador(i, e, s)
             } else if (presser2[e] == i && dono >= 0 && distJ(i, qx, qy) < 18f) {
                 // Fecha a linha de passe: fica entre a bola e a própria baliza
                 val gx = -K.MX * s
@@ -100,9 +98,10 @@ internal fun MotorAoVivo.calcularAlvos() {
                 val d = max(1f, hypot(dx, dy))
                 alvoX[i] = qx + dx / d * 5f; alvoY[i] = qy + dy / d * 5f
                 alvoSprint[i] = true
+            } else if (reg.contraPressaoT[e] > 0f && dono >= 0 && distJ(i, qx, qy) < 16f) {
+                contraPressionar(i, s)
             } else {
-                forma(i, e, s, false)
-                marcar(i, e, s)
+                posicaoDefensiva(i, e, s)
             }
         }
     }
@@ -114,28 +113,15 @@ private fun MotorAoVivo.forma(i: Int, e: Int, s: Float, atacar: Boolean) {
     val k = when (papel[i]) { 1 -> 0.65f; 2 -> 0.9f; else -> 1f }
     var u = baseU[i] + (ballU * 0.38f + (if (atacar) 7f else -5f) + mentShift[e]) * k
     u = when (papel[i]) { 1 -> u.coerceIn(-50f, 14f); 2 -> u.coerceIn(-46f, 40f); else -> u.coerceIn(-40f, 47f) }
-    val v = (baseV[i] * 0.85f + ballV * 0.25f).coerceIn(-31f, 31f)
+    var v = (baseV[i] * 0.85f + ballV * 0.25f).coerceIn(-31f, 31f)
+    if (atacar) {
+        // Fora de jogo: os avançados esperam na linha do penúltimo defesa
+        if (papel[i] == 3 && receptor != i && (fase == FaseJogo.A_JOGAR || fase == FaseJogo.LIVRE) && dif(e).consciencia > 0.7f) u = min(u, reg.linhaFJ[e] - 0.6f)
+        // Saída de bola: com a bola no terço defensivo abrem-se na largura
+        if (ballU < -22f && papel[i] != 3) v = (baseV[i] * 1.35f).coerceIn(-28f, 28f)
+    }
     alvoX[i] = u * s; alvoY[i] = v * s
     alvoSprint[i] = distJ(i, alvoX[i], alvoY[i]) > 14f
-}
-
-/** Defesas e médios marcam o adversário mais perto do seu lugar (ficam do lado da própria baliza). */
-private fun MotorAoVivo.marcar(i: Int, e: Int, s: Float) {
-    if (papel[i] == 3) return
-    var melhor = -1; var md = 8f * 8f
-    for (o in (1 - e) * 11 until (1 - e) * 11 + 11) {
-        if (!ativo[o] || papel[o] == 0) continue
-        val d = (px[o] - alvoX[i]) * (px[o] - alvoX[i]) + (py[o] - alvoY[i]) * (py[o] - alvoY[i])
-        if (d < md) { md = d; melhor = o }
-    }
-    if (melhor < 0) return
-    val gx = -K.MX * s
-    val dx = gx - px[melhor]; val dy = -py[melhor]
-    val d = max(1f, hypot(dx, dy))
-    val mx = px[melhor] + dx / d * 2.2f; val my = py[melhor] + dy / d * 2.2f
-    alvoX[i] = alvoX[i] * 0.35f + mx * 0.65f
-    alvoY[i] = alvoY[i] * 0.35f + my * 0.65f
-    alvoSprint[i] = distJ(i, alvoX[i], alvoY[i]) > 8f
 }
 
 private fun MotorAoVivo.alvoGR(i: Int, e: Int, s: Float) {
@@ -218,6 +204,10 @@ private fun MotorAoVivo.alvoParado(i: Int, e: Int, s: Float) {
         else -> {}
     }
     val atacar = e == eqReinicio
+    if (fase == FaseJogo.LIVRE && !atacar) {
+        val b = pontoDaBarreira(i)
+        if (b != null) { alvoX[i] = b.first; alvoY[i] = b.second; alvoSprint[i] = distJ(i, b.first, b.second) > 6f; return }
+    }
     if (apoio1[e] == i || apoio2[e] == i) {
         val lado = if (apoio1[e] == i) -1f else 1f
         // Perto de quem cobra, para dar opção de passe
@@ -264,7 +254,8 @@ private fun MotorAoVivo.decidir(c: Int) {
     if (papel[c] != 0 && dGol < alcance) {
         var p = if (dGol < 11f) 0.9f else 0.25f + 0.6f * (1f - (dGol - 11f) / (alcance - 11f))
         if (abs(py[c]) > 17f && dGol > 12f) p *= 0.4f
-        if (linhaBloqueada(c, gx, 0f)) p *= 0.5f
+        if (linhaBloqueada(c, gx, 0f)) p *= 0.65f
+        p = min(0.95f, p * 1.25f)
         if (rng.nextFloat() < p) { rematarIA(c); return }
     }
     // 2) Passe
@@ -309,7 +300,7 @@ internal fun MotorAoVivo.rematarIA(c: Int, extraErro: Float = 0f) {
     val aim = lado * (1.3f + rng.nextFloat() * 1.9f)
     val z = if (rng.nextFloat() < 0.7f) 0.25f + rng.nextFloat() * 0.9f else 1.2f + rng.nextFloat() * 0.9f
     val v = 17f + 11f * aRemate[c] / 100f + rng.nextFloat() * 3f
-    val sigma = 0.02f + (100f - aRemate[c]) * 0.0014f + dGol * 0.0016f + pressao(c) * 0.04f + extraErro
+    val sigma = (0.02f + (100f - aRemate[c]) * 0.0014f + dGol * 0.0016f + pressao(c) * 0.04f) * dif(e).erroRemate + extraErro
     rematar(c, aim, z, v, sigma)
 }
 
@@ -321,11 +312,14 @@ internal fun MotorAoVivo.escolherPasse(i: Int, maxD: Float, permitirLob: Boolean
     val e = eq(i); val s = sinal(e)
     var melhor = -1; var ms = -99f; var mlob = false
     val gr = papel[i] == 0
+    val vigiaFJ = fase != FaseJogo.CANTO && fase != FaseJogo.LANCAMENTO && fase != FaseJogo.PONTAPE_BALIZA
+    val linhaFJ = if (vigiaFJ) linhaForaDeJogo(e) else 99f
     for (j in e * 11 until e * 11 + 11) {
         if (j == i || !ativo[j]) continue
         val dx = px[j] - bx; val dy = py[j] - by
         val d = hypot(dx, dy)
         if (d < 5f || d > maxD) continue
+        if (px[j] * s > linhaFJ + 0.2f && rng.nextFloat() < dif(e).consciencia) continue
         val progresso = ((px[j] - px[i]) * s / 25f).coerceIn(-1f, 1.5f)
         var lane = 99f; var recv = 99f
         for (o in (1 - e) * 11 until (1 - e) * 11 + 11) {
@@ -359,7 +353,7 @@ internal fun MotorAoVivo.reinicioIA() {
         if (fase != FaseJogo.GOLO && fase != FaseJogo.INTERVALO) iniciarReinicio(fase, eqReinicio, bx, by)
         return
     }
-    if (eq(c) == eqUser) { if (tFase > 5f) executarReinicio(c); return }
+    if (eq(c) == eqUser) { if (tFase > TEMPO_PARADA_UTILIZADOR) executarReinicio(c); return }
     if (tFase >= espera) executarReinicio(c)
 }
 
@@ -367,15 +361,12 @@ private fun MotorAoVivo.executarReinicio(c: Int) {
     val e = eq(c); val s = sinal(e)
     val dGol = hypot(px[c] - K.MX * s, py[c])
     when (fase) {
-        FaseJogo.PENALTI -> {
-            val lado = if (rng.nextBoolean()) 1f else -1f
-            rematar(c, lado * (2.0f + rng.nextFloat() * 1.0f), 0.3f + rng.nextFloat() * 1.3f, 21f + 5f * aRemate[c] / 100f, 0.02f + (100f - aRemate[c]) * 0.0004f)
-        }
+        FaseJogo.PENALTI -> cobrarPenaltiIA(c)
         FaseJogo.LIVRE -> {
             if (dGol < 30f && aRemate[c] > 55f && rng.nextFloat() < 0.5f) rematarIA(c, 0.03f) else passeReinicio(c, 40f, true)
         }
         FaseJogo.CANTO -> cruzamento(c)
-        FaseJogo.PONTAPE_BALIZA -> passeReinicio(c, 55f, true)
+        FaseJogo.PONTAPE_BALIZA -> if (rng.nextFloat() < dif(e).saidaCurta) passeReinicio(c, 28f, false) else passeReinicio(c, 55f, true)
         FaseJogo.LANCAMENTO -> passeReinicio(c, 20f, false)
         else -> passeReinicio(c, 30f, false)
     }

@@ -35,7 +35,7 @@ internal fun MotorAoVivo.usarComando() {
     val temBola = fase == FaseJogo.A_JOGAR && dono == c
     val cobra = fase != FaseJogo.A_JOGAR && fase != FaseJogo.GOLO && cobrador == c && eq(c) == eqUser && tFase >= 0.4f
     when {
-        fase == FaseJogo.PENALTI && cobra -> remateUtilizador(c)
+        fase == FaseJogo.PENALTI && cobra -> penaltiComJoystick(c)
         (temBola || cobra) && remate -> remateUtilizador(c)
         (temBola || cobra) && passe -> passeUtilizador(c)
         fase == FaseJogo.A_JOGAR && remate && dono != c && atordoado[c] <= 0f && carrinho[c] <= 0f -> iniciarCarrinho(c)
@@ -115,6 +115,7 @@ internal fun MotorAoVivo.distMaisPertoAdversario(i: Int): Float {
 
 /** Larga a bola: acaba a posse e marca o último toque. */
 private fun MotorAoVivo.libertar(i: Int, anim: Animacao) {
+    registarForaDeJogo(i, fase)
     dono = -1
     ultimoToque = i
     val e = eq(i)
@@ -130,7 +131,7 @@ private fun MotorAoVivo.libertar(i: Int, anim: Animacao) {
     cobrador = -1
 }
 
-private fun MotorAoVivo.registarPasse(i: Int) {
+internal fun MotorAoVivo.registarPasse(i: Int) {
     passador = i
     dbg[0]++
     tPasse = relogio
@@ -164,7 +165,8 @@ internal fun MotorAoVivo.chutarAlto(i: Int, tx0: Float, ty0: Float, t: Float, si
 internal fun MotorAoVivo.passar(i: Int, c: Int, longo: Boolean) {
     val d0 = hypot(px[c] - bx, py[c] - by)
     val pr = pressao(i)
-    val sigma = (0.012f + (100f - aPasse[i]) * 0.0012f) * (1f + pr * 0.6f)
+    val erro = if (eq(i) == eqUser) (if (i == controlado) 1f - 0.5f * dificuldade.ajudaMira else 1f) else dif(eq(i)).erroPasse
+    val sigma = (0.012f + (100f - aPasse[i]) * 0.0012f) * (1f + pr * 0.6f) * erro
     if (longo) {
         val t = 0.6f + d0 / 28f
         chutarAlto(i, px[c] + vx[c] * t * 0.7f, py[c] + vy[c] * t * 0.7f, t, sigma)
@@ -245,11 +247,12 @@ internal fun MotorAoVivo.contactos() {
 
 private fun MotorAoVivo.tocar(i: Int, vh: Float) {
     val e = eq(i)
+    if (e != reg.foraEq) reg.limparForaDeJogo()   // um adversário jogou a bola: já não há fora de jogo
     if (papel[i] == 0 && !rolouDefesa && ultimoEq != e && vh > 11f) {
         rolouDefesa = true
         val dist3 = hypot(hypot(px[i] - bx, py[i] - by), max(0f, bz - 0.9f))
         val q = dist3 / 2.6f
-        val p = (1.05f - q * 0.4f - max(0f, vh - 18f) * 0.011f) * (0.58f + 0.42f * aGR[i] / 100f)
+        val p = (1.05f - q * 0.4f - max(0f, vh - 18f) * 0.011f) * (0.58f + 0.42f * aGR[i] / 100f) + dif(e).bonusGuardaRedes
         if (rng.nextFloat() < p) defender(i, vh)
         return
     }
@@ -281,9 +284,11 @@ private fun MotorAoVivo.tocar(i: Int, vh: Float) {
 private fun MotorAoVivo.defender(i: Int, vh: Float) {
     val e = eq(i)
     val atacante = 1 - e
-    parte[i]?.ficha?.let { it.defesas++ }
+    val desempate = reg.desempate
+    if (desempate != null) desempate.defendeu = true
+    if (desempate == null) parte[i]?.ficha?.let { it.defesas++ }
     val rematador = ultimoDaEq[atacante]
-    if (rematador >= 0 && parte[rematador] != null && parte[i] != null) {
+    if (desempate == null && rematador >= 0 && parte[rematador] != null && parte[i] != null) {
         eventos += Evento(minutoEvento(), TipoEvento.DEFESA, atacante == 0, jog[rematador]!!, jog[i]!!)
     }
     animEsp[i] = Animacao.DEFESA_GR; animT[i] = 0.7f
@@ -307,7 +312,10 @@ private fun MotorAoVivo.defender(i: Int, vh: Float) {
 /** O jogador "i" fica com a bola. */
 internal fun MotorAoVivo.aoReceber(i: Int) {
     val e = eq(i)
+    if (apitarForaDeJogo(i)) return
+    reg.limparForaDeJogo()
     val anterior = ultimoEq
+    if (anterior >= 0 && anterior != e && fase == FaseJogo.A_JOGAR && reg.desempate == null) reg.contraPressaoT[anterior] = dif(anterior).contraPressao
     if (passador >= 0) { if (eq(passador) == e) dbg[3]++ else dbg[2]++ }
     if (passador >= 0 && ultimoToque == passador && eq(passador) == e && passador != i) {
         parte[passador]?.let { it.passesOk++ }
@@ -323,7 +331,7 @@ internal fun MotorAoVivo.aoReceber(i: Int) {
     prot[i] = 0.45f
     parte[i]?.let { it.toques++ }
     val pr = distMaisPertoAdversario(i)
-    decT[i] = if (papel[i] == 0) 1.0f + rng.nextFloat() * 1.2f else if (pr < 2.5f) 0.3f else 1.0f + rng.nextFloat() * 1.6f
+    decT[i] = (if (papel[i] == 0) 1.0f + rng.nextFloat() * 1.2f else if (pr < 2.5f) 0.3f else 1.0f + rng.nextFloat() * 1.6f) * dif(e).tempoDecisao
     if (e == eqUser) controlado = i
     else if (eraDoUtilizador && controlado >= 0 && hypot(px[controlado] - bx, py[controlado] - by) > 15f) controlado = maisPerto(eqUser, bx, by, false)
 }
@@ -357,7 +365,7 @@ internal fun MotorAoVivo.desarmes() {
 private fun MotorAoVivo.tentarDesarme(o: Int, c: Int, sl: Boolean) {
     dbg[4]++
     val sprint = hypot(vx[c], vy[c]) > velMax(c) * 1.1f
-    val p = (0.30f + (aDefesa[o] - aDrible[c]) * 0.009f + (aFisico[o] - aFisico[c]) * 0.003f + (if (sl) 0.10f else 0f) - (if (sprint) 0.04f else 0f)).coerceIn(0.08f, 0.68f)
+    val p = (0.30f + (aDefesa[o] - aDrible[c]) * 0.009f + (aFisico[o] - aFisico[c]) * 0.003f + (if (sl) 0.10f else 0f) - (if (sprint) 0.04f else 0f) + dif(eq(o)).bonusDesarme).coerceIn(0.08f, 0.75f)
     if (rng.nextFloat() < p) {
         parte[o]?.let { it.desarmes++ }
         cd[c] = 0.6f
@@ -373,6 +381,7 @@ private fun MotorAoVivo.falta(inf: Int, vit: Int, sl: Boolean) {
     val e = eq(inf)
     faltas[e]++
     parte[inf]?.let { it.faltas++ }
+    lance(TipoLance.FALTA, 1 - e, inf, "Falta de ${jog[inf]!!.nome}")
     var x = bx.coerceIn(-K.MX + 0.5f, K.MX - 0.5f)
     var y = by.coerceIn(-K.MY + 0.5f, K.MY - 0.5f)
     val r = rng.nextFloat()
@@ -408,6 +417,7 @@ private fun MotorAoVivo.falta(inf: Int, vit: Int, sl: Boolean) {
     // Penálti ou livre
     val golo = sign(x)   // baliza que o atacante (vítima) ataca, se a falta for junto a ela
     val naAreaDele = sinal(e) == -golo && abs(x) > K.AREA_X && abs(y) < K.AREA_Y
+    if (!naAreaDele && tentarVantagem(inf, vit, x, y)) return
     dono = -1
     if (naAreaDele) {
         mensagem("Penálti!", 2.5f)

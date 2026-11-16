@@ -76,6 +76,9 @@ class RelatorioJogo(
     val eventos: List<Evento>,
     /** true se o jogo foi a prolongamento: os golos do prolongamento já estão em "golosCasa"/"golosFora". */
     val prolongamento: Boolean = false,
+    /** Penáltis de desempate marcados por cada lado, se o jogo (ao vivo) já os incluiu; -1 se não houve (nem decididos à parte). */
+    val penaltisCasa: Int = -1,
+    val penaltisFora: Int = -1,
 ) {
     /** O jogador com melhor nota. */
     val melhorEmCampo: FichaJogador? get() = (casa.fichas + fora.fichas).maxByOrNull { it.nota }
