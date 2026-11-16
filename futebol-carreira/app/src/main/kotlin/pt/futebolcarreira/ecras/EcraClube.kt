@@ -16,6 +16,12 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Surface
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -71,16 +77,20 @@ internal fun SeparadorClube(g: GestaoClubeUi?, ativo: Boolean, jogo: JogoViewMod
             Bloco {
                 Rotulo("Instalações · caixa ${g.caixa}")
                 for (i in g.instalacoes) {
-                    Row(Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Column(Modifier.weight(1f)) {
-                            Text("${i.nome}: ${"★".repeat(i.nivel)}${"☆".repeat(5 - i.nivel)}", fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                    Surface(Modifier.padding(top = 10.dp).fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceContainerHighest, shape = MaterialTheme.shapes.small) {
+                        Column(Modifier.padding(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(i.nome, Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                                Text("Nível ${i.nivel} de 5", fontSize = 12.sp, color = secundaria)
+                            }
+                            LinearProgressIndicator(progress = { i.nivel / 5f }, modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp).height(6.dp))
                             Text(i.efeito, fontSize = 12.sp, color = secundaria)
+                            OutlinedButton(
+                                onClick = { jogo.melhorarInstalacao(i.instalacao) }, enabled = i.podeMelhorar,
+                                modifier = Modifier.fillMaxWidth().padding(top = 8.dp).heightIn(min = 44.dp),
+                            ) { Text(i.botao) }
                         }
                     }
-                    OutlinedButton(
-                        onClick = { jogo.melhorarInstalacao(i.instalacao) }, enabled = i.podeMelhorar,
-                        modifier = Modifier.fillMaxWidth().padding(top = 4.dp).heightIn(min = 44.dp),
-                    ) { Text(i.botao) }
                 }
             }
         }
@@ -90,22 +100,22 @@ internal fun SeparadorClube(g: GestaoClubeUi?, ativo: Boolean, jogo: JogoViewMod
             Bloco {
                 Rotulo("Academia · ${g.academia.size} jovens")
                 Text("Toca num jovem para o subir ao plantel ou dispensar. Todos os verões entra uma geração nova.", fontSize = 12.sp, color = secundaria)
-                Row(Modifier.padding(top = 6.dp, bottom = 2.dp)) {
-                    Celula("Pos", 40.dp, negrito = true)
-                    Text("Nome", Modifier.weight(1f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                    Celula("Id.", 28.dp, negrito = true)
-                    Celula("Ger", negrito = true)
-                    Celula("Pot", 34.dp, negrito = true)
-                }
                 if (g.academia.isEmpty()) Text("A academia está vazia.", color = secundaria)
                 for (j in g.academia) {
-                    Row(Modifier.fillMaxWidth().clickable { jogo.abrirJogador(j.id) }.padding(vertical = 7.dp)) {
-                        Celula(j.posicao, 40.dp)
-                        Text(j.nome, Modifier.weight(1f), fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Celula("${j.idade}", 28.dp)
-                        Celula("${j.geral}", negrito = true)
-                        Celula("${j.potencial}", 34.dp, cor = MaterialTheme.colorScheme.primary)
+                    Row(
+                        Modifier.fillMaxWidth().clickable { jogo.abrirJogador(j.id) }.padding(vertical = 7.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    ) {
+                        Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = MaterialTheme.shapes.small) {
+                            Text(j.posicao, Modifier.width(44.dp).padding(vertical = 5.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Bold, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSecondaryContainer, maxLines = 1)
+                        }
+                        Column(Modifier.weight(1f)) {
+                            Text(j.nome, fontSize = 14.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Text("${j.idade} anos · potencial ${j.potencial}", fontSize = 12.sp, color = secundaria)
+                        }
+                        Text("${j.geral}", fontSize = 18.sp, fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.primary)
                     }
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 }
             }
         }
