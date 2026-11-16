@@ -27,6 +27,9 @@ class SessaoAoVivo(
     @Volatile
     var pausado = false
 
+    /** Comando vazio, partilhado: o modo "ver" não cria um novo a cada imagem. */
+    private val SEM_COMANDO = Comando()
+
     /** +1 se a equipa do utilizador ataca para +x (e a câmara mostra o +x à direita); -1 se ataca para -x. */
     fun sentido(): Int {
         val segunda = partida.estado.segundaParte
@@ -36,7 +39,7 @@ class SessaoAoVivo(
     /** Avança "dt" segundos com o que o utilizador está a tocar. */
     fun avancar(dt: Float) {
         if (pausado || partida.terminou) return
-        val comando = if (controlar) controlo.consumir(sentido()) else Comando()
+        val comando = if (controlar) controlo.consumir(sentido()) else SEM_COMANDO
         partida.passo(dt.coerceIn(0f, MAX_PASSO), comando)
     }
 
