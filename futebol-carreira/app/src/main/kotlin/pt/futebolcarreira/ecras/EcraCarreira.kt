@@ -269,6 +269,7 @@ private fun Opcoes(
                 Text("Mostrar medidor (im/s, memória)", Modifier.weight(1f))
                 Switch(checked = mostrarMedidor, onCheckedChange = aoMostrarMedidor)
             }
+            pt.futebolcarreira.aovivo.BotaoPrototipoGodot()   // protótipo Godot (fase C0)
         }
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)
