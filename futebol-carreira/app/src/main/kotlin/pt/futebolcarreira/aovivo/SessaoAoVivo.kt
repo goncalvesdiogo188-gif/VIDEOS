@@ -27,6 +27,9 @@ class SessaoAoVivo(
     @Volatile
     var pausado = false
 
+    /** Mede as imagens por segundo do desenho 3D (o renderer regista; o ecrã mostra se a opção estiver ligada). */
+    val medidor = MedidorDesempenho()
+
     /** Comando vazio, partilhado: o modo "ver" não cria um novo a cada imagem. */
     private val SEM_COMANDO = Comando()
 

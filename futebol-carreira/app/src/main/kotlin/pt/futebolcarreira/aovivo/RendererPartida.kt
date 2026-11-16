@@ -88,6 +88,7 @@ class RendererPartida(private val sessao: SessaoAoVivo) : GLSurfaceView.Renderer
 
     override fun onDrawFrame(gl: GL10?) {
         val agora = System.nanoTime()
+        sessao.medidor.imagem(agora)
         val dt = if (ultimoNs == 0L) 0f else ((agora - ultimoNs) / 1e9f).coerceIn(0f, 0.1f)
         ultimoNs = agora
         tempo += dt

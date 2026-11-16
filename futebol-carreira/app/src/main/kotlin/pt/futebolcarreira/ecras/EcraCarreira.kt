@@ -2,6 +2,8 @@ package pt.futebolcarreira.ecras
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +32,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -197,7 +201,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     var separador by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         // Cinco separadores: com letra de 13sp cabem todos em 411dp.
-        TabRow(selectedTabIndex = separador) {
+        ScrollableTabRow(selectedTabIndex = separador, edgePadding = 0.dp) {
             listOf("Clube", "Finanças", "Jogos", "Seleções", "Opções").forEachIndexed { i, nome ->
                 // Sem a margem normal do separador, para os cinco nomes caberem sem cortes.
                 Tab(selected = separador == i, onClick = { separador = i }) {
@@ -213,7 +217,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
-            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos)
+            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos, jogo.mostrarMedidor, jogo::definirMostrarMedidor)
         }
         }
     }
@@ -223,9 +227,11 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
 private fun Opcoes(
     ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit, aoEditar: () -> Unit,
     modoJogos: ModoJogos = ModoJogos.SIMULAR, aoModoJogos: (ModoJogos) -> Unit = {},
+    mostrarMedidor: Boolean = false, aoMostrarMedidor: (Boolean) -> Unit = {},
 ) {
     var confirmar by remember { mutableStateOf(false) }
-    Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    var relatar by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Bloco {
             Rotulo("A tua carreira")
             Text(ui.utilizador, fontSize = 18.sp, fontWeight = FontWeight.Bold)
@@ -250,15 +256,19 @@ private fun Opcoes(
         }
         Bloco {
             Rotulo("Jogos: simular / ver em 3D / jogar em 3D")
-            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 for (m in ModoJogos.entries) {
                     FilterChip(
-                        selected = modoJogos == m, onClick = { aoModoJogos(m) }, label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) },
-                        modifier = Modifier.weight(1f),
+                        selected = modoJogos == m, onClick = { aoModoJogos(m) }, label = { Text(m.nome, fontSize = 15.sp) },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     )
                 }
             }
             Text("Em «Ver» e «Jogar» em 3D, o botão «Jogar» abre o jogo no ecrã 3D.", Modifier.padding(top = 6.dp), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("Mostrar medidor (im/s, memória)", Modifier.weight(1f))
+                Switch(checked = mostrarMedidor, onCheckedChange = aoMostrarMedidor)
+            }
         }
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)
@@ -269,6 +279,12 @@ private fun Opcoes(
         OutlinedButton(onClick = aoSair, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Gravar e sair para o menu", fontSize = 16.sp)
         }
+        OutlinedButton(onClick = { relatar = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+            Text("Relatar problema", fontSize = 16.sp)
+        }
+    }
+    if (relatar) {
+        DialogoRelatarProblema("Clube: ${ui.clube}\nData de jogo: ${ui.data} (época ${ui.epoca})\nEcrã: Mais → Opções") { relatar = false }
     }
     if (confirmar) {
         AlertDialog(

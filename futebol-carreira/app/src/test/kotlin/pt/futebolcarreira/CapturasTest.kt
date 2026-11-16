@@ -1,5 +1,7 @@
 package pt.futebolcarreira
 
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -27,6 +29,9 @@ import org.robolectric.shadows.ShadowLooper
  * num telemóvel simulado, e guarda uma imagem de cada ecrã em build/outputs/roborazzi.
  * Serve para confirmar que os ecrãs abrem e para os ver sem ter um telemóvel à mão.
  */
+/** Separadores que deslizam na horizontal (ScrollableTabRow) também têm «scroll»; aqui só interessa o vertical. */
+private fun hasHorizontalScroll() = SemanticsMatcher.keyIsDefined(SemanticsProperties.HorizontalScrollAxisRange)
+
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [34], qualifiers = "w411dp-h914dp-normal-long-notround-any-xhdpi-keyshidden-nonav")
@@ -320,19 +325,19 @@ class CapturasTest {
 
         tocar("Início")
         capturar("40c-jogador-inicio")
-        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("O TEU JOGADOR"))
+        regra.onAllNodes(hasScrollAction() and !hasHorizontalScroll())[0].performScrollToNode(hasText("O TEU JOGADOR"))
         capturar("40e-jogador-inicio-baixo")
         tocar("Carreira")
         capturar("40-jogador-perfil")
-        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Pedir mais minutos ao treinador"))
+        regra.onAllNodes(hasScrollAction() and !hasHorizontalScroll())[0].performScrollToNode(hasText("Pedir mais minutos ao treinador"))
         capturar("40b-jogador-perfil-minutos")
-        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Equilibrado"))
+        regra.onAllNodes(hasScrollAction() and !hasHorizontalScroll())[0].performScrollToNode(hasText("Equilibrado"))
         capturar("40d-jogador-perfil-treino")
         tocar("Percurso")
         capturar("43-jogador-percurso")
         tocar("Propostas")
         capturar("41-jogador-propostas")
-        regra.onAllNodes(hasScrollAction())[0].performScrollToNode(hasText("Pedir transferência"))
+        regra.onAllNodes(hasScrollAction() and !hasHorizontalScroll())[0].performScrollToNode(hasText("Pedir transferência"))
         capturar("41b-jogador-propostas-baixo")
         tocar("Prémios")
         capturar("42-jogador-premios")

@@ -151,6 +151,15 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var aoVivo by mutableStateOf<SessaoAoVivo?>(null)
         private set
 
+    /** Mostrar o medidor de desempenho (imagens por segundo, memória) no jogo 3D. */
+    var mostrarMedidor by mutableStateOf(preferencias.getBoolean("mostrar_medidor", false))
+        private set
+
+    fun definirMostrarMedidor(valor: Boolean) {
+        mostrarMedidor = valor
+        preferencias.edit().putBoolean("mostrar_medidor", valor).apply()
+    }
+
     fun definirModoJogos(modo: ModoJogos) {
         modoJogos = modo
         preferencias.edit().putString("modo_jogos", modo.name).apply()
