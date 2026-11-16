@@ -818,7 +818,22 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
             gestao = criarGestao(c),
             noticias = c.manchetes.map { NoticiaUi(CalendarioDatas.textoCurto(java.time.LocalDate.parse(it.data)), it.titulo, it.texto, it.doClube) },
             jogadorCarreira = if (c.info.modo == ModoCarreira.JOGADOR) criarJogadorCarreira(c) else null,
+            emocao = criarEmocaoUi(c),
         )
+    }
+
+    /** Fase 13: responde a uma decisão pendente (conferência de imprensa, palestra, conversa...) e mostra o resultado. */
+    fun decidir(id: Int, opcao: Int) {
+        val c = carreira ?: return
+        var texto = ""
+        naCarreira({ aviso = texto.ifEmpty { null } }) { texto = c.emocao.responder(id, opcao); null }
+    }
+
+    /** Fase 13: nomeia o capitão. */
+    fun nomearCapitao(jogadorId: Int) {
+        val c = carreira ?: return
+        var texto = ""
+        naCarreira({ aviso = texto.ifEmpty { null } }) { texto = c.emocao.nomearCapitao(jogadorId); null }
     }
 
     /** "Oitavos de final · ida": a ronda e, nas eliminatórias a duas mãos, a mão. */

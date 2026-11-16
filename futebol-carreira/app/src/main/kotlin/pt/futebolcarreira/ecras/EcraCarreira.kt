@@ -102,7 +102,7 @@ fun EcraCarreira(ui: CarreiraUi, jogo: JogoViewModel, separadorInicial: Int = 0)
                 else -> when (alvo) {
                 0 -> Inicio(
                     ui, !jogo.ocupado, jogo::jogar, jogo::novaEpoca, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave, aoVerLiga = { separador = 3 },
-                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true }, aoJogarAoVivo = jogo::abrirAoVivo,
+                    aoAceitar = jogo::aceitarProposta, aoRecusar = jogo::recusarPropostas, aoVerNoticias = { todasNoticias = true }, aoJogarAoVivo = jogo::abrirAoVivo, aoDecidir = jogo::decidir,
                 )
                 1 -> ConteudoPlantel(
                     ui.plantel, Modifier.padding(horizontal = 12.dp), jogo::mudarFormacao, jogo::mudarMentalidade,
@@ -213,7 +213,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
         }
         AnimatedContent(separador, transitionSpec = { transicaoDeslizante(targetState > initialState) }, label = "mais") { alvo ->
         when (alvo) {
-            0 -> SeparadorClube(ui.gestao, ativo, jogo)
+            0 -> SeparadorClubeEmocao(ui, ativo, jogo)
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
