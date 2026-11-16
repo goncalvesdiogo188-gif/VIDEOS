@@ -10,13 +10,14 @@ Cada linha do CSV (separador ";", com cabeçalho):
 - posicao: GR DD DC DE MDC MC MOC ED EE PL
 - pe: direito / esquerdo / ambos
 - geral e potencial: 1 a 99 (potencial >= geral)
-- contrato_ate: ano em que o contrato acaba (2027 a 2032)
+- contrato_ate: ano em que o contrato acaba (fica entre 2027 e 2031)
+Cada clube fica com 28 jogadores no máximo (saem os de menor "geral").
 
 Os atributos são gerados à volta do "geral", com os pesos da posição (iguais aos do jogo),
 de forma determinista (o mesmo nome dá sempre os mesmos atributos).
 Uso: python3 ferramentas/gerar_jogadores_reais.py POR [ESP ...]   (sem argumentos: todos os CSV)
 """
-import csv, json, math, os, random, sys, zlib
+import csv, json, math, os, random, re, sys, zlib
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DADOS = os.path.join(RAIZ, "app", "src", "main", "assets", "dados")
@@ -48,8 +49,8 @@ def salario_justo(g):
     return max(12, arred(1.17 ** (g - 50) * 60.0)) * 1000
 
 
-def gerar(pais):
-    caminho = os.path.join(RAIZ, "ferramentas", "reais", pais + ".csv")
+def gerar(pais, csv_path=None):
+    caminho = csv_path or os.path.join(RAIZ, "ferramentas", "reais", pais + ".csv")
     equipas = {e["id"] for e in json.load(open(os.path.join(DADOS, "equipas", pais + ".json"), encoding="utf-8"))}
     nacoes = {n["id"] for n in json.load(open(os.path.join(DADOS, "selecoes.json"), encoding="utf-8"))["nacoes"]}
     erros, linhas = [], []
@@ -81,11 +82,22 @@ def gerar(pais):
                     "id": 0, "nome": r["nome"], "nacionalidade": nac, "idade": int(r["idade"]), "posicao": pos, "pe": pe,
                     "equipa": eq, "potencial": max(g, min(99, pot)),
                     "atributos": {a: attr[a] for a in ATRIBUTOS},
-                    "salario": salario_justo(g), "contrato_ate": int(r["contrato_ate"] or 2028),
+                    "salario": salario_justo(g), "contrato_ate": max(2027, min(2031, int(r["contrato_ate"] or 2028))),
                     "emprestado_por": "", "academia": False,
                 })
             except Exception as e:
                 erros.append(f"linha {i}: ERRO {e}")
+    # Cada clube fica com 28 jogadores no máximo (deixa lugar para subir jovens da academia):
+    # saem os de menor "geral", mas nunca abaixo de 3 guarda-redes.
+    MAXIMO = 28
+    por_equipa = {}
+    for j in linhas: por_equipa.setdefault(j["equipa"], []).append(j)
+    for eq, js in por_equipa.items():
+        while len(js) > MAXIMO:
+            grs = sum(1 for j in js if j["posicao"] == "GR")
+            candidatos = [j for j in js if j["posicao"] != "GR" or grs > 3]
+            fora = min(candidatos, key=lambda j: geral(j["atributos"], j["posicao"]))
+            js.remove(fora); linhas.remove(fora)
     # Mesma ordem que o jogo grava: por clube (ordem do ficheiro de equipas), depois pela ordem do CSV.
     ordem = [e["id"] for e in json.load(open(os.path.join(DADOS, "equipas", pais + ".json"), encoding="utf-8"))]
     linhas.sort(key=lambda j: ordem.index(j["equipa"]))
@@ -102,6 +114,11 @@ def gerar(pais):
 
 
 if __name__ == "__main__":
-    paises = sys.argv[1:] or sorted(p[:-4] for p in os.listdir(os.path.join(RAIZ, "ferramentas", "reais")) if p.endswith(".csv"))
-    ok = all([gerar(p) for p in paises])
+    args = sys.argv[1:]
+    csv_path = None
+    if "--csv" in args:  # --csv caminho PAIS  (um só país; usa esse CSV em vez de reais/<PAIS>.csv)
+        i = args.index("--csv"); csv_path = os.path.abspath(args[i + 1]); del args[i:i + 2]
+        if len(args) != 1: sys.exit("com --csv indique exatamente um país")
+    paises = args or sorted(p[:-4] for p in os.listdir(os.path.join(RAIZ, "ferramentas", "reais")) if re.fullmatch(r"[A-Z]+\.csv", p))
+    ok = all([gerar(p, csv_path) for p in paises])
     sys.exit(0 if ok else 1)

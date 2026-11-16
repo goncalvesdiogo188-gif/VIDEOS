@@ -111,7 +111,7 @@ class Fase5Test {
         assertEquals(meu.orcamento - antes, meu.contas.vendas)
 
         // Empréstimos: quem entra e quem sai volta no fim da época.
-        val emprestado = bd.equipasDaLiga("ITA1").maxBy { it.reputacao }.let { e -> e.plantel.first { j -> e.onzeParaJogo().none { it.jogador === j } && j.posicao == "MC" } }
+        val emprestado = bd.equipasDaLiga("ITA1").maxBy { it.reputacao }.let { e -> e.plantel.first { j -> e.onzeParaJogo().none { it.jogador === j } && j.posicao != "GR" } }
         val dono = emprestado.equipa
         assertEquals(Resposta.ACEITE, m.pedirEmprestimo(emprestado))
         assertTrue(emprestado in meu.plantel && emprestado.emprestadoPor == dono)
@@ -123,7 +123,7 @@ class Fase5Test {
         // Não se pode vender até ficar sem jogadores.
         var vendas = 0
         while (meu.plantel.size > MIN_PLANTEL && vendas++ < 20) m.vender(meu.plantel.filter { it.posicao != "GR" && it.emprestadoPor.isEmpty() }.minBy { it.geral() })
-        assertEquals(Resposta.PLANTEL_CURTO, m.vender(meu.plantel.first { it.posicao == "MC" && it.emprestadoPor.isEmpty() }))
+        assertEquals(Resposta.PLANTEL_CURTO, m.vender(meu.plantel.first { it.posicao != "GR" && it.emprestadoPor.isEmpty() }))
 
         // Gravar a meio guarda transferências, empréstimos e contas.
         val d = Gravador.deTexto(Gravador.paraTexto(c), Gravador.baseDadosParaTexto(c))
@@ -135,7 +135,7 @@ class Fase5Test {
         // Com o mercado fechado não há negócios, mas pode contratar-se quem está livre.
         while (m.aberto) c.avancar()
         assertEquals(Resposta.MERCADO_FECHADO, m.comprar(caro, m.pedido(caro)))
-        assertEquals(Resposta.MERCADO_FECHADO, m.vender(meu.plantel.first { it.posicao == "MC" }))
+        assertEquals(Resposta.MERCADO_FECHADO, m.vender(meu.plantel.first { it.posicao != "GR" }))
         assertTrue(c.mensagens.any { it.titulo.startsWith("Mercado: negócios") }, "os outros clubes também fazem negócios")
 
         // Obras no estádio.
