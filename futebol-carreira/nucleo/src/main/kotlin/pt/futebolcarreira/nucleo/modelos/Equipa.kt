@@ -22,8 +22,14 @@ class ContasEpoca {
     var obras = 0L
     var olheiros = 0L
 
+    /** Fase 13: equipa técnica (salários e indemnizações), comissões de agentes, juros da dívida e prémios pagos aos jogadores. */
+    var equipaTecnica = 0L
+    var comissoes = 0L
+    var juros = 0L
+    var premiosJogadores = 0L
+
     fun receitas() = bilheteira + patrocinios + premios + vendas
-    fun despesas() = salarios + compras + obras + olheiros
+    fun despesas() = salarios + compras + obras + olheiros + equipaTecnica + comissoes + juros + premiosJogadores
 }
 
 /** Um clube: dados gerais e plantel. */
@@ -60,6 +66,10 @@ class Equipa(
 
     @Transient
     var intensidade = Intensidade.NORMAL
+
+    /** Fase 13: efeitos da equipa técnica, do plano semanal e da fadiga no treino (neutros por omissão). */
+    @Transient
+    var ajustes = AjustesTreino()
 
     /** Dá às instalações por definir o nível habitual de um clube com esta reputação. */
     fun normalizar() {

@@ -70,10 +70,10 @@ Cada fase termina num APK que podes instalar. A ordem tem em conta o que depende
 
 ### Fase G — Mais profundidade na gestão
 - [ ] **G1. Táticas:** funções e instruções por jogador, bolas paradas, preparação para cada adversário.
-- [ ] **G2. Equipa técnica:** adjunto, preparador físico, médicos e vários olheiros, com níveis e salários.
-- [ ] **G3. Contratos e negociações:** salário, prémios, cláusulas, comissões, empréstimos com opção de compra e pagamentos a prestações.
-- [ ] **G4. Finanças:** orçamento de salários e de transferências, escolha de patrocinadores, preço dos bilhetes, dívida e regras de equilíbrio financeiro.
-- [ ] **G5. Treino detalhado:** planos semanais, treino individual, mudança de posição e gestão da carga.
+- [x] **G2. Equipa técnica:** adjunto, preparador físico, médicos e vários olheiros, com níveis e salários.
+- [x] **G3. Contratos e negociações:** salário, prémios, cláusulas, comissões, empréstimos com opção de compra e pagamentos a prestações.
+- [x] **G4. Finanças:** orçamento de salários e de transferências, escolha de patrocinadores, preço dos bilhetes, dívida e regras de equilíbrio financeiro.
+- [x] **G5. Treino detalhado:** planos semanais, treino individual, mudança de posição e gestão da carga.
 - [ ] **G6. Equipas B e sub-23** a jogarem a sua própria competição (que ficou por fazer na Fase 6).
 
 ### Fase H — Polimento final

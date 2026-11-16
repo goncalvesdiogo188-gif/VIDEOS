@@ -202,7 +202,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     Column(Modifier.fillMaxSize()) {
         // Cinco separadores: com letra de 13sp cabem todos em 411dp.
         ScrollableTabRow(selectedTabIndex = separador, edgePadding = 0.dp) {
-            listOf("Clube", "Finanças", "Jogos", "Seleções", "Opções").forEachIndexed { i, nome ->
+            listOf("Clube", "Finanças", "Jogos", "Seleções", "Opções", "Gestão").forEachIndexed { i, nome ->
                 // Sem a margem normal do separador, para os cinco nomes caberem sem cortes.
                 Tab(selected = separador == i, onClick = { separador = i }) {
                     Box(Modifier.heightIn(min = 48.dp).padding(horizontal = 2.dp), contentAlignment = Alignment.Center) {
@@ -217,6 +217,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
+            5 -> SeparadorGestao(ui, !jogo.ocupado, jogo)   // Fase 13 (ecras/EcraGestao.kt)
             else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira, jogo.modoJogos, jogo::definirModoJogos, jogo.mostrarMedidor, jogo::definirMostrarMedidor)
         }
         }

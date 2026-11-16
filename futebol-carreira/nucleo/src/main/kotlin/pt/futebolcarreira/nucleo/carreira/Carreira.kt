@@ -134,9 +134,13 @@ class Carreira(
     /** A carreira do jogador (só tem efeito na via de jogador). */
     val jogadorCarreira = CarreiraJogador(this)
 
+    /** Fase 13: equipa técnica, contratos e negociações, orçamento e treino detalhado. */
+    val gestaoClube = GestaoClube(this)
+
     init {
         gestor.clubeDoUtilizador = info.equipaId
         jogadorCarreira.prepararJogo()
+        gestaoClube.preparar()
     }
 
     /** O clube do utilizador. */
@@ -260,6 +264,7 @@ class Carreira(
     fun avancar(): JogoDoClube? {
         if (gestor.epocaTerminada() || info.despedido) return null
         jogadorCarreira.prepararJogo()
+        gestaoClube.preparar()
         var alvo = proximoJogo()
         val antes = gestor.data
         var negocios = emptyList<String>()
@@ -292,6 +297,7 @@ class Carreira(
         jogadorCarreira.aoMercado()
         avisarSelecoes()
         val jogado = alvo?.let { a -> jogosDoClube().firstOrNull { it.competicaoId == a.competicaoId && it.data == a.data } }
+        gestaoClube.aposAvancar(antes, jogado)   // antes das mensagens do jogo, para a do jogo ficar em cima
         if (jogado != null) {
             if (jogado.eLiga) {
                 mensagemDoJogo(jogado)
@@ -314,6 +320,7 @@ class Carreira(
         geradorNoticias.gerar(jogosN, confrontosN, negocios)
         if (gestor.epocaTerminada()) {
             mensagemFimDeEpoca()
+            gestaoClube.fimDeEpoca()
             avaliarEpoca()
             jogadorCarreira.fecharEpoca()
             gestor.historico.lastOrNull()?.let { jogadorCarreira.anunciarPremios(it) }
@@ -361,6 +368,7 @@ class Carreira(
     fun novaEpoca() {
         if (!gestor.epocaTerminada() || info.despedido) return
         gestor.clubeDoUtilizador = info.equipaId
+        gestaoClube.antesDaNovaEpoca()
         jogadorCarreira.antesDaNovaEpoca()
         gestor.avancarParaEpocaSeguinte()
         mercado.recusados.clear()
@@ -379,6 +387,7 @@ class Carreira(
         info.confiancaDirecao = (info.confiancaDirecao + 60) / 2
         info.confiancaAdeptos = (info.confiancaAdeptos + 60) / 2
         definirObjetivo()
+        gestaoClube.depoisDaNovaEpoca()
         baseDadosPorGravar = true
         if (info.modo == ModoCarreira.JOGADOR && jogador != null) jogadorCarreira.depoisDaNovaEpoca()
         // O jogador do utilizador pode ter chegado ao fim da carreira: passa a treinador (do clube onde acabou, ou de outro).
@@ -524,6 +533,7 @@ class Carreira(
         // O olheiro do clube novo começa do zero.
         olheiros.estado.missao = null
         olheiros.estado.relatorio = emptyList()
+        gestaoClube.preparar()
         mensagem("Novo clube: ${equipa.nome}", "Assinaste contrato. Objetivo da direção: ${info.objetivoTexto.lowercase()}.")
     }
 

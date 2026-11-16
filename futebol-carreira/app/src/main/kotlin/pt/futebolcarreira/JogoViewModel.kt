@@ -576,6 +576,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 AcaoMercado.EMPRESTAR -> m.emprestar(j)
                 AcaoMercado.PROMOVER -> c.academia.promover(j)
                 AcaoMercado.DISPENSAR -> c.academia.dispensar(j)
+                AcaoMercado.PEDIDO_EM_PRESTACOES -> m.comprar(j, m.pedido(j), 12)
+                AcaoMercado.EMPRESTIMO_COM_OPCAO -> c.gestaoClube.negociacoes.pedirEmprestimoComOpcao(j)
             }
             null
         }
@@ -620,6 +622,8 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
                 botoes += BotaoMercadoUi(AcaoMercado.OFERECER_90, "Oferecer ${Mercado.euros(pedido * 9 / 10)} (podem recusar)")
                 botoes += BotaoMercadoUi(AcaoMercado.OFERECER_80, "Oferecer ${Mercado.euros(pedido * 8 / 10)} (arriscado)")
                 botoes += BotaoMercadoUi(AcaoMercado.PEDIR_EMPRESTIMO, "Pedir emprestado até ao fim da época")
+                botoes += BotaoMercadoUi(AcaoMercado.PEDIDO_EM_PRESTACOES, "Pagar o pedido em 12 prestações (${Mercado.euros(pedido / 4)} já)")
+                botoes += BotaoMercadoUi(AcaoMercado.EMPRESTIMO_COM_OPCAO, "Emprestado com opção de compra (taxa ${Mercado.euros(c.gestaoClube.negociacoes.taxaEmprestimo(j))}, opção ${Mercado.euros(c.gestaoClube.negociacoes.precoOpcao(j))})")
             }
         }
         val e = j.epoca
@@ -723,6 +727,23 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     // ------------------------------------------------- cópias para os ecrãs
+
+    /** Fase 13: muda sempre que se faz uma ação de gestão (equipa técnica, contratos, orçamento, treino), para os ecrãs se refazerem. */
+    var gestaoVersao by mutableStateOf(0)
+        private set
+
+    /** Fase 13: corre uma ação de gestão na carreira (devolve o texto a mostrar, ou null), grava e atualiza os ecrãs. */
+    fun gerir(depois: () -> Unit = {}, acao: (Carreira) -> String?) {
+        var texto: String? = null
+        naCarreira({
+            gestaoVersao++
+            texto?.let { aviso = it }
+            depois()
+        }) {
+            texto = acao(it)
+            null
+        }
+    }
 
     /** Corre "trabalho" em segundo plano e entrega o resultado a "depois" (já no ecrã). */
     private fun <T> executar(trabalho: () -> T, depois: (T) -> Unit) {
