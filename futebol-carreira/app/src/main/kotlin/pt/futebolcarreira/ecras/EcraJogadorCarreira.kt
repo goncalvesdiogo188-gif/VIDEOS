@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -51,7 +52,8 @@ import pt.futebolcarreira.nucleo.modelos.FocoTreino
 fun SeparadorJogador(j: JogadorCarreiraUi, ativo: Boolean, jogo: JogoViewModel, subInicial: Int = 0) {
     var sub by rememberSaveable { mutableIntStateOf(subInicial) }
     Column(Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = sub) {
+        // Letra grande ou ecrã pequeno: os separadores deslizam em vez de ficarem cortados.
+        ScrollableTabRow(selectedTabIndex = sub, edgePadding = 0.dp) {
             listOf("Perfil", "Percurso", "Propostas", "Prémios").forEachIndexed { i, nome ->
                 Tab(selected = sub == i, onClick = { sub = i }) {
                     Box(Modifier.heightIn(min = 48.dp).padding(horizontal = 2.dp), contentAlignment = Alignment.Center) {
@@ -233,9 +235,9 @@ private fun Propostas(j: JogadorCarreiraUi, ativo: Boolean, jogo: JogoViewModel)
             Bloco {
                 Rotulo("Querer sair")
                 Text("Se não estás satisfeito, pede ao clube para sair. O pedido tem efeito quando o mercado estiver aberto (e deixa o treinador um pouco desiludido).", Modifier.padding(vertical = 6.dp), fontSize = 13.sp, color = secundaria)
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { jogo.pedirSaida(false) }, enabled = ativo && !j.emprestado, modifier = Modifier.weight(1f)) { Text("Pedir transferência", fontSize = 13.sp, maxLines = 1) }
-                    OutlinedButton(onClick = { jogo.pedirSaida(true) }, enabled = ativo && !j.emprestado, modifier = Modifier.weight(1f)) { Text("Pedir empréstimo", fontSize = 13.sp, maxLines = 1) }
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { jogo.pedirSaida(false) }, enabled = ativo && !j.emprestado, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("Pedir transferência", fontSize = 14.sp) }
+                    OutlinedButton(onClick = { jogo.pedirSaida(true) }, enabled = ativo && !j.emprestado, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("Pedir empréstimo", fontSize = 14.sp) }
                 }
             }
         }

@@ -31,6 +31,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -458,7 +459,7 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
     var separador by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         // Cinco separadores: com letra de 13sp cabem todos em 411dp.
-        TabRow(selectedTabIndex = separador) {
+        ScrollableTabRow(selectedTabIndex = separador, edgePadding = 0.dp) {
             listOf("Clube", "Finanças", "Jogos", "Seleções", "Opções").forEachIndexed { i, nome ->
                 // Sem a margem normal do separador, para os cinco nomes caberem sem cortes.
                 Tab(selected = separador == i, onClick = { separador = i }) {
@@ -498,11 +499,11 @@ private fun Opcoes(
         }
         Bloco {
             Rotulo("Jogos: simular / ver em 3D / jogar em 3D")
-            Row(Modifier.padding(top = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 for (m in ModoJogos.entries) {
                     FilterChip(
-                        selected = modoJogos == m, onClick = { aoModoJogos(m) }, label = { Text(m.nome, maxLines = 1, fontSize = 14.sp) },
-                        modifier = Modifier.weight(1f),
+                        selected = modoJogos == m, onClick = { aoModoJogos(m) }, label = { Text(m.nome, fontSize = 15.sp) },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                     )
                 }
             }

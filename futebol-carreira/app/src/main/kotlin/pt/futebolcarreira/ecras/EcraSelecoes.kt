@@ -20,6 +20,7 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -54,7 +55,7 @@ internal fun SeparadorSelecoes(sel: SelecoesUi, aoAbrirChave: (String) -> Unit) 
     }
     var parte by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
-        TabRow(selectedTabIndex = parte) {
+        ScrollableTabRow(selectedTabIndex = parte, edgePadding = 0.dp) {
             PARTES.forEachIndexed { i, nome ->
                 Tab(selected = parte == i, onClick = { parte = i }, text = { Text(nome, maxLines = 1, fontSize = 12.sp) })
             }
@@ -162,7 +163,7 @@ private fun CartaoGrupo(torneioId: String, grupo: GrupoUi, aoAbrirChave: (String
             }
         }
         if (grupo.jornadas.isNotEmpty()) {
-            TextButton(onClick = { jogosVisiveis = !jogosVisiveis }, modifier = Modifier.heightIn(min = 44.dp)) {
+            TextButton(onClick = { jogosVisiveis = !jogosVisiveis }, modifier = Modifier.heightIn(min = 48.dp)) {
                 Text(if (jogosVisiveis) "Esconder jogos" else "Ver jogos", fontSize = 13.sp)
             }
             if (jogosVisiveis) {

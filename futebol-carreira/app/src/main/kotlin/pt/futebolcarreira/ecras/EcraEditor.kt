@@ -304,7 +304,7 @@ private fun PaginaJogador(c: ControloEditor, ficha: JogadorFichaUi) {
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Campo("Nome", f.nome) { f = f.copy(nome = it) }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-            OutlinedButton(onClick = { escolherPais = true }, Modifier.weight(1f)) { Text("Nacionalidade: ${f.nacionalidade.ifEmpty { "?" }}", maxLines = 1) }
+            OutlinedButton(onClick = { escolherPais = true }, Modifier.weight(1f)) { Text("Nacionalidade: ${f.nacionalidade.ifEmpty { "?" }}") }
             Passo("Idade", f.idade, 14, 50) { f = f.copy(idade = it) }
         }
         Text("Posição", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)

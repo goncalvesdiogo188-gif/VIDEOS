@@ -89,7 +89,9 @@ internal class Registo(private val perfil: String, private val rotulo: String) {
         val b = n.boundsInRoot
         val d = densidade
         val visivel = b.width > 0f && b.height > 0f
-        if (visivel && cfg.contains(SemanticsActions.OnClick)) {
+        // Elementos meio escondidos por um scroll (cortados pela janela) não contam para o tamanho do alvo.
+        val inteiro = n.boundsInWindow.let { it.width + 1.5f >= b.width && it.height + 1.5f >= b.height }
+        if (visivel && inteiro && cfg.contains(SemanticsActions.OnClick)) {
             alvos++
             val t = n.touchBoundsInRoot
             val w = t.width / d
