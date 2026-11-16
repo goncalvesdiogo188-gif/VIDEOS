@@ -41,6 +41,7 @@ Cada fase termina num APK que podes instalar. A ordem tem em conta o que depende
 - [ ] **B4. Emblemas e camisolas melhores,** desenhados por programa a partir das cores de cada clube (formas e padrões), em vez do círculo com letras.
 
 ### Fase C — Godot: prova de viabilidade (decide se avançamos)
+- [x] **Verificação feita a 16 de novembro (a tua autorização):** o Godot 4.4.1 oficial descarrega-se, a assinatura confere e corre nesta máquina com um ecrã virtual; desenhou uma cena 3D com luz e sombreado (imagem guardada). Ou seja, **consigo ver o 3D antes de to enviar** (em software, por isso a velocidade medida aqui não vale para o telemóvel). A biblioteca oficial do Godot para Android está no Maven Central (`org.godotengine:godot`, versão 4.4.1 com 103 MB, que traz os 4 tipos de processador; só com 64 bits deve ficar nos 30 a 40 MB) e não preciso dos pacotes de exportação de 1,2 GB.
 - [ ] **C0. Protótipo pequeno:** um ecrã Godot (campo, bola e um jogador) dentro da aplicação, com o Kotlin a mandar o estado e a receber o toque. Medir: arranque, imagens por segundo, tamanho do APK e se compila no GitHub.
 - [ ] **Critério de decisão:** se compila no GitHub, arranca em menos de 3 s e mantém 30 imagens por segundo no teu telemóvel, **avançamos**. Se não, usamos o plano B.
 - [ ] **C1. Compilação automática:** o projeto Godot fica na pasta `godot/` do repositório e o GitHub compila-o com a aplicação.
@@ -110,5 +111,5 @@ As fases **E, F e G** só mexem no Kotlin e trabalham em paralelo com a **B** e 
 ## 6. O que preciso de ti
 
 1. **Experimentares a 0.12** e dizeres-me o que não funciona (basta uma lista curta ou imagens do ecrã). Sem isto, a auditoria A1 só apanha o que se vê no telemóvel simulado.
-2. **Autorizares-me a correr o Godot nesta máquina** (descarregar o programa oficial, confirmar a assinatura e correr com um ecrã virtual) para eu ver o 3D antes de to enviar. O sistema bloqueou a minha primeira tentativa, e só tu o podes autorizar.
+2. ~~Autorizares-me a correr o Godot~~ **Feito:** autorizaste e a experiência correu bem (ver a fase C).
 3. **Confirmares a ordem dos marcos**, ou dizeres o que queres mudar.
