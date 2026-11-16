@@ -291,4 +291,40 @@ class CapturasTest {
         tocar("Início")
         capturar("35-inicio-taca")
     }
+
+    /** Fase 10: abre o editor a partir do menu e captura a lista de clubes, a ficha de um jogador e o relatório de uma importação. */
+    @Test
+    fun editor() {
+        esperar { !jogo.ocupado }
+        assertEquals(Ecra.MENU, jogo.ecra)
+        tocar("Editor")
+        esperar { jogo.editor.pronto }
+        assertEquals(Ecra.EDITOR, jogo.ecra)
+        capturar("50-editor-clubes")
+
+        tocar("Jogadores")
+        regra.waitForIdle()
+        val melhor = jogo.editor.jogadores.first()
+        jogo.editor.abrirJogador(melhor.id)
+        capturar("51-editor-jogador")
+        jogo.editor.fecharJogador()
+
+        val clube = jogo.editor.clubes.first()
+        jogo.editor.abrirClube(clube.id)
+        capturar("53-editor-clube")
+        jogo.editor.fecharClube()
+        tocar("Ficheiros")
+        capturar("54-editor-ficheiros")
+
+        // O seletor de ficheiros do Android não funciona aqui: o texto do ficheiro vai direto para o editor.
+        jogo.editor.importarTexto(
+            """{"equipa":{"id":"${clube.id}","nome":"Clube Teste","abreviatura":"CT","reputacao":150,"capacidade":1000,"orcamento":1,"cores":["#fff"]},
+            "jogadores":[
+              {"id":5,"nome":"Jogador A","nacionalidade":"ZZZ","idade":20,"posicao":"GR","atributos":{"ritmo":120,"remate":50,"passe":50,"drible":50,"defesa":50,"fisico":50,"guarda_redes":50}},
+              {"id":5,"nome":"Jogador B","nacionalidade":"POR","idade":60,"posicao":"XX","atributos":{"ritmo":50}}]}""",
+        )
+        esperar { jogo.editor.relatorio != null && !jogo.editor.ocupado }
+        assertTrue(jogo.editor.relatorio!!.erros.isNotEmpty())
+        capturar("52-importar-relatorio")
+    }
 }

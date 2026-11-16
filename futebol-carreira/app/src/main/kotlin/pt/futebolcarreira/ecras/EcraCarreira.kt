@@ -460,13 +460,13 @@ private fun Mais(ui: CarreiraUi, ativo: Boolean, jogo: JogoViewModel) {
             1 -> SeparadorFinancas(ui.financas, ativo, jogo::ampliarEstadio)
             2 -> Calendario(ui.calendario, jogo::abrirJogoDoClube, jogo::abrirJogoPorChave)
             3 -> SeparadorSelecoes(jogo.fase7.selecoes, jogo::abrirJogoPorChave)
-            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu)
+            else -> Opcoes(ui, ativo, jogo::simularEpoca, jogo::sairParaMenu, jogo::abrirEditorCarreira)
         }
     }
 }
 
 @Composable
-private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit) {
+private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, aoSair: () -> Unit, aoEditar: () -> Unit) {
     var confirmar by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Bloco {
@@ -480,6 +480,9 @@ private fun Opcoes(ui: CarreiraUi, ativo: Boolean, aoSimularEpoca: () -> Unit, a
         }
         OutlinedButton(onClick = { confirmar = true }, enabled = ativo && !ui.terminada, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Simular o resto da época", fontSize = 16.sp)
+        }
+        OutlinedButton(onClick = aoEditar, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
+            Text("Editar esta carreira", fontSize = 16.sp)
         }
         OutlinedButton(onClick = aoSair, enabled = ativo, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) {
             Text("Gravar e sair para o menu", fontSize = 16.sp)

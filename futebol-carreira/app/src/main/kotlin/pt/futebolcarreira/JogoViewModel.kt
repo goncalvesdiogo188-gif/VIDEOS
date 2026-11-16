@@ -39,6 +39,9 @@ import pt.futebolcarreira.nucleo.simulacao.TipoEvento
 class JogoViewModel(app: Application) : AndroidViewModel(app) {
     private val armazem = Armazem(app.filesDir) { lerAssetDeDados(app, it) }
 
+    /** Base de dados editada pelo utilizador (Editor): tem prioridade sobre a pasta assets/dados nas carreiras novas. */
+    private val armazemBase = ArmazemBase(app.filesDir)
+
     /** A carreira aberta (null = estamos nos menus). */
     private var carreira: Carreira? = null
 
@@ -103,8 +106,40 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var aviso by mutableStateOf<String?>(null)
         private set
 
+    /** Editor da base de dados (menu «Editor» e Mais → Opções → «Editar esta carreira»). */
+    val editor = ControloEditor(
+        viewModelScope, app, armazemBase, { lerAssetDeDados(app, it) }, { carreira }, { armazem.gravar(it) },
+    ) { origem ->
+        if (origem == OrigemEditor.BASE) {
+            paises = emptyList()   // a lista de clubes das carreiras novas é refeita
+        } else {
+            porGravar = false
+            atualizar()
+        }
+    }
+
     init {
         executar({ armazem.listar() }) { gravacoes = it }
+    }
+
+    // ------------------------------------------------------------------ editor
+
+    fun abrirEditor() {
+        if (ocupado) return
+        editor.abrir(OrigemEditor.BASE)
+        ecra = Ecra.EDITOR
+    }
+
+    fun abrirEditorCarreira() {
+        if (ocupado || carreira == null) return
+        editor.abrir(OrigemEditor.CARREIRA)
+        ecra = Ecra.EDITOR
+    }
+
+    fun fecharEditor() {
+        val voltarACarreira = editor.origem == OrigemEditor.CARREIRA
+        editor.fechar()
+        ecra = if (voltarACarreira && carreira != null) Ecra.CARREIRA else Ecra.MENU
     }
 
     fun fecharAviso() {
@@ -149,8 +184,7 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     /** Lê a base de dados que vem com a aplicação (pasta assets/dados). */
     private fun lerBaseDados(): BaseDados {
         val app = getApplication<Application>()
-        val bd = BaseDados()
-        bd.carregar { caminho -> lerAssetDeDados(app, caminho) }
+        val bd = editor.lerBase()   // a base editada pelo utilizador, ou a que vem com a aplicação
         check(bd.equipas.isNotEmpty()) { "Base de dados vazia. ${bd.erros.take(3).joinToString(" ")}" }
         return bd
     }

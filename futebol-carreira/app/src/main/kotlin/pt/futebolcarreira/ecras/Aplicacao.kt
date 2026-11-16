@@ -17,7 +17,7 @@ import pt.futebolcarreira.JogoViewModel
 fun Aplicacao(jogo: JogoViewModel) {
     Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         when (jogo.ecra) {
-            Ecra.MENU -> EcraMenu(jogo.gravacoes, jogo.ocupado, jogo::continuar, jogo::abrirNovaCarreira, jogo::abrirCarregar)
+            Ecra.MENU -> EcraMenu(jogo.gravacoes, jogo.ocupado, jogo::continuar, jogo::abrirNovaCarreira, jogo::abrirCarregar, aoEditor = jogo::abrirEditor)
             Ecra.NOVA_CARREIRA -> {
                 BackHandler(onBack = jogo::abrirMenu)
                 EcraNovaCarreira(jogo.paises, jogo.ocupado, jogo::comecarCarreira, jogo::abrirMenu)
@@ -27,6 +27,7 @@ fun Aplicacao(jogo: JogoViewModel) {
                 EcraCarregar(jogo.gravacoes, jogo.ocupado, jogo::carregarCarreira, jogo::apagarCarreira, jogo::abrirMenu)
             }
             Ecra.CARREIRA -> jogo.ui?.let { EcraCarreira(it, jogo) }
+            Ecra.EDITOR -> EcraEditor(jogo.editor, jogo::fecharEditor)
         }
 
         jogo.jogo?.let { EcraJogo(it, jogo::fecharJogo) }

@@ -35,7 +35,7 @@ import pt.futebolcarreira.nucleo.carreira.ResumoGravacao
 
 /** Menu principal: continuar, nova carreira, carregar. */
 @Composable
-fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () -> Unit, aoNova: () -> Unit, aoCarregar: () -> Unit) {
+fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () -> Unit, aoNova: () -> Unit, aoCarregar: () -> Unit, aoEditor: (() -> Unit)? = null) {
     Column(
         Modifier.fillMaxSize().systemBarsPadding().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
@@ -59,6 +59,9 @@ fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () 
             } else {
                 OutlinedButton(onClick = aoNova, enabled = !ocupado, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) { Text("Nova carreira", fontSize = 17.sp) }
                 OutlinedButton(onClick = aoCarregar, enabled = !ocupado, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) { Text("Carregar carreira", fontSize = 17.sp) }
+            }
+            if (aoEditor != null) {
+                OutlinedButton(onClick = aoEditor, enabled = !ocupado, modifier = Modifier.fillMaxWidth().heightIn(min = 54.dp)) { Text("Editor", fontSize = 17.sp) }
             }
             if (ocupado) LinearProgressIndicator(Modifier.fillMaxWidth())
         }

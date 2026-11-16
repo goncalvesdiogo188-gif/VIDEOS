@@ -12,7 +12,7 @@ import pt.futebolcarreira.nucleo.simulacao.TipoEvento
 // (Os ecrãs nunca mexem diretamente no núcleo; pedem tudo ao JogoViewModel.)
 
 /** Ecrã principal que está aberto. */
-enum class Ecra { MENU, NOVA_CARREIRA, CARREGAR, CARREIRA }
+enum class Ecra { MENU, NOVA_CARREIRA, CARREGAR, CARREIRA, EDITOR }
 
 /** Emblema simples de um clube: sigla e duas cores (em formato ARGB). */
 class EmblemaUi(val sigla: String, val fundo: Long, val letras: Long)
