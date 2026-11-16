@@ -50,7 +50,7 @@ internal class Parte(val eq: Int, val jogador: Jogador, val ficha: FichaJogador)
  */
 class MotorAoVivo(
     internal val casa: Equipa, internal val fora: Equipa, val utilizadorCasa: Boolean,
-    internal val rng: Random, val duracaoReal: Float = 480f,
+    internal val rng: Random, val duracaoReal: Float = 480f, val semUtilizador: Boolean = false,
 ) : PartidaAoVivo {
     internal val N = 22
     internal val jog = arrayOfNulls<Jogador>(N)
@@ -117,7 +117,7 @@ class MotorAoVivo(
     internal var marcador = -1
     internal var ultimoRemateEq = -1
     internal val taxa = 5400f / duracaoReal
-    internal val eqUser = if (utilizadorCasa) 0 else 1
+    internal val eqUser = if (semUtilizador) -1 else if (utilizadorCasa) 0 else 1
     internal val posseT = FloatArray(2)
     internal val remates = IntArray(2); internal val noAlvo = IntArray(2); internal val cantos = IntArray(2)
     internal val faltas = IntArray(2); internal val cartAm = IntArray(2); internal val cartVm = IntArray(2)
@@ -126,6 +126,7 @@ class MotorAoVivo(
     internal val presser1 = IntArray(2); internal val presser2 = IntArray(2)
     internal val apoio1 = IntArray(2); internal val apoio2 = IntArray(2)
     internal var passeScore = 0f
+    internal val dbg = IntArray(12)
     internal var passeLob = false
     internal val mentShift = floatArrayOf(deslocamento(casa), deslocamento(fora))
     internal val indisponiveis = arrayOf(casa.plantel.filter { !it.disponivel }, fora.plantel.filter { !it.disponivel })
@@ -301,7 +302,7 @@ class MotorAoVivo(
 
     /** Velocidade de corrida normal (sem sprint) de um jogador, em m/s. */
     internal fun velMax(i: Int): Float {
-        val base = 5.0f + 2.0f * aRitmo[i] / 100f
+        val base = 4.3f + 2.9f * aRitmo[i] / 100f
         return base * (0.82f + 0.18f * stam[i] / 100f)
     }
 
@@ -385,7 +386,7 @@ class MotorAoVivo(
             bx += bvx * dt; by += bvy * dt; bz += bvz * dt
             if (bz <= 0f) {
                 bz = 0f
-                if (bvz < -2f) { bvz = -bvz * 0.58f; bvx *= 0.88f; bvy *= 0.88f } else bvz = 0f
+                if (bvz < -2f) { bvz = -bvz * 0.55f; bvx *= 0.7f; bvy *= 0.7f } else bvz = 0f
             }
             if (bz == 0f && bvz == 0f) {
                 val f = max(0f, 1f - K.ATRITO * dt)
@@ -400,6 +401,7 @@ class MotorAoVivo(
     }
 
     private fun limites() {
+        if ((abs(bx) > K.MX || abs(by) > K.MY) && passador >= 0) dbg[1]++
         if (abs(bx) > K.MX) {
             val sgn = sign(bx)
             val ay = abs(by)
@@ -589,13 +591,14 @@ class MotorAoVivo(
 
     /** O jogador mais perto de (x, y) de uma equipa (sem o guarda-redes se "comGR" for falso). */
     internal fun maisPerto(e: Int, x: Float, y: Float, comGR: Boolean, excluir: Int = -1): Int {
+        if (e !in 0..1) return -1
         var melhor = -1; var md = Float.MAX_VALUE
         for (i in e * 11 until e * 11 + 11) {
             if (!ativo[i] || i == excluir || (!comGR && papel[i] == 0)) continue
             val d = (px[i] - x) * (px[i] - x) + (py[i] - y) * (py[i] - y)
             if (d < md) { md = d; melhor = i }
         }
-        return if (melhor < 0) e * 11 else melhor
+        return if (melhor < 0) (if (e in 0..1) e * 11 else -1) else melhor
     }
 
     internal fun distJ(i: Int, x: Float, y: Float) = hypot(px[i] - x, py[i] - y)

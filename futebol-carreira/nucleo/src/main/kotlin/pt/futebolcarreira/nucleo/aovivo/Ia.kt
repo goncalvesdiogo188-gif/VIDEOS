@@ -57,10 +57,22 @@ internal fun MotorAoVivo.calcularAlvos() {
             continue
         }
         val atacar = pe == e
-        if (dono < 0 && (presser1[e] == i)) {
-            // Bola solta: o mais perto de cada equipa vai buscá-la
-            alvoX[i] = qx; alvoY[i] = qy; alvoSprint[i] = true
-            continue
+        if (dono < 0 && presser1[e] == i) {
+            if (receptor >= 0 && eq(receptor) != e) {
+                // Passe do adversário no ar: só corta quem está perto da trajetória
+                val fx = bx + bvx * 1.5f; val fy = by + bvy * 1.5f
+                if (distSegmento(px[i], py[i], bx, by, fx, fy) < 3.5f) {
+                    val dx = fx - bx; val dy = fy - by
+                    val l2 = max(0.01f, dx * dx + dy * dy)
+                    val t = (((px[i] - bx) * dx + (py[i] - by) * dy) / l2).coerceIn(0f, 1f)
+                    alvoX[i] = bx + dx * t; alvoY[i] = by + dy * t; alvoSprint[i] = true
+                    continue
+                }
+            } else {
+                // Bola solta: o mais perto de cada equipa vai buscá-la
+                alvoX[i] = qx; alvoY[i] = qy; alvoSprint[i] = true
+                continue
+            }
         }
         if (atacar) {
             if (apoio1[e] == i || apoio2[e] == i) {
@@ -77,6 +89,10 @@ internal fun MotorAoVivo.calcularAlvos() {
         } else {
             if (presser1[e] == i && dono >= 0) {
                 alvoX[i] = qx; alvoY[i] = qy; alvoSprint[i] = distJ(i, qx, qy) < 30f
+                val dd = distJ(i, qx, qy)
+                if (dd > 1.3f && dd < 2.6f && carrinho[i] <= 0f && atordoado[i] <= 0f && cdDesarme[i] <= 0f && rng.nextFloat() < 0.05f) {
+                    iniciarCarrinho(i, false)
+                }
             } else if (presser2[e] == i && dono >= 0 && distJ(i, qx, qy) < 18f) {
                 // Fecha a linha de passe: fica entre a bola e a própria baliza
                 val gx = -K.MX * s
@@ -244,23 +260,24 @@ private fun MotorAoVivo.decidir(c: Int) {
     val dGol = hypot(px[c] - gx, py[c])
     val pr = distMaisPertoAdversario(c)
     // 1) Remate
-    val alcance = 14f + aRemate[c] * 0.18f
+    val alcance = 17f + aRemate[c] * 0.2f
     if (papel[c] != 0 && dGol < alcance) {
-        var p = if (dGol < 11f) 0.9f else 0.2f + 0.65f * (1f - (dGol - 11f) / (alcance - 11f))
+        var p = if (dGol < 11f) 0.9f else 0.25f + 0.6f * (1f - (dGol - 11f) / (alcance - 11f))
         if (abs(py[c]) > 17f && dGol > 12f) p *= 0.4f
         if (linhaBloqueada(c, gx, 0f)) p *= 0.5f
         if (rng.nextFloat() < p) { rematarIA(c); return }
     }
     // 2) Passe
     val j = escolherPasse(c, if (papel[c] == 0) 55f else 42f, true)
-    val urgente = pr < 2.6f
-    val limiar = if (papel[c] == 1) 0.7f else 1.0f
-    if (j >= 0 && (passeScore > limiar || urgente || papel[c] == 0 || pr < 4.5f && rng.nextFloat() < 0.5f)) {
+    var pPasse = if (pr < 2f) 0.95f else if (pr < 5f) 0.55f else 0.3f
+    if (papel[c] == 1) pPasse += 0.25f
+    if (passeScore < 0.8f && pr > 3f) pPasse = min(pPasse, 0.2f)
+    if (j >= 0 && (papel[c] == 0 || rng.nextFloat() < pPasse)) {
         passar(c, j, passeLob)
         return
     }
     // 3) Continua a driblar
-    decT[c] = 0.25f + rng.nextFloat() * 0.35f
+    decT[c] = 0.5f + rng.nextFloat() * 0.6f
 }
 
 /** Há um adversário (que não o guarda-redes) a menos de 2 m da linha entre o jogador e o ponto? */
@@ -292,7 +309,7 @@ internal fun MotorAoVivo.rematarIA(c: Int, extraErro: Float = 0f) {
     val aim = lado * (1.3f + rng.nextFloat() * 1.9f)
     val z = if (rng.nextFloat() < 0.7f) 0.25f + rng.nextFloat() * 0.9f else 1.2f + rng.nextFloat() * 0.9f
     val v = 17f + 11f * aRemate[c] / 100f + rng.nextFloat() * 3f
-    val sigma = 0.012f + (100f - aRemate[c]) * 0.0008f + dGol * 0.0007f + pressao(c) * 0.025f + extraErro
+    val sigma = 0.02f + (100f - aRemate[c]) * 0.0014f + dGol * 0.0016f + pressao(c) * 0.04f + extraErro
     rematar(c, aim, z, v, sigma)
 }
 

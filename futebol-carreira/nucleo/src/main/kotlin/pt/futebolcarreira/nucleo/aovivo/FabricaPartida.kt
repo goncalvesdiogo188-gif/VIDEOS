@@ -12,9 +12,10 @@ import kotlin.random.Random
 
 /** Cria jogos ao vivo e converte-os no relatório usado pelo resto do jogo. */
 object FabricaPartida {
-    /** "utilizadorCasa" = o utilizador comanda a equipa da casa (senão a de fora). duracaoReal em segundos (por defeito 8 min). */
-    fun criar(casa: Equipa, fora: Equipa, utilizadorCasa: Boolean, rng: Random, duracaoReal: Float = 480f): PartidaAoVivo =
-        MotorAoVivo(casa, fora, utilizadorCasa, rng, duracaoReal)
+    /** "utilizadorCasa" = o utilizador comanda a equipa da casa (senão a de fora). duracaoReal em segundos (por defeito 8 min).
+     * "semUtilizador" = as duas equipas jogam pela IA (para testes e para simular jogos sem comandos). */
+    fun criar(casa: Equipa, fora: Equipa, utilizadorCasa: Boolean, rng: Random, duracaoReal: Float = 480f, semUtilizador: Boolean = false): PartidaAoVivo =
+        MotorAoVivo(casa, fora, utilizadorCasa, rng, duracaoReal, semUtilizador)
 
     /** Converte o jogo terminado num relatório igual ao do motor de simulação (golos, marcadores, cartões, notas, lesões). */
     fun relatorio(partida: PartidaAoVivo): RelatorioJogo {

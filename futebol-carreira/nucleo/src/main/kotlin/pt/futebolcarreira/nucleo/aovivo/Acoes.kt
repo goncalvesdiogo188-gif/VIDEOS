@@ -21,6 +21,7 @@ private const val PI = Math.PI.toFloat()
 
 /** Aplica o comando do utilizador ao jogador que ele comanda (uma vez por passo de jogo). */
 internal fun MotorAoVivo.usarComando() {
+    if (eqUser < 0) { osTrocar = false; osPasse = false; osRemate = false; return }
     if (osTrocar) {
         osTrocar = false
         val dele = dono >= 0 && eq(dono) == eqUser
@@ -42,11 +43,11 @@ internal fun MotorAoVivo.usarComando() {
 }
 
 /** Carrinho: o jogador atira-se na direção da bola (ou para onde olha) durante cerca de meio segundo. */
-internal fun MotorAoVivo.iniciarCarrinho(i: Int) {
+internal fun MotorAoVivo.iniciarCarrinho(i: Int, joystick: Boolean = true) {
     var a = dir[i]
     if (hypot(bx - px[i], by - py[i]) < 7f) a = atan2(by - py[i], bx - px[i])
     val m = hypot(comX, comY)
-    if (m > 0.3f) a = atan2(comY, comX)
+    if (joystick && m > 0.3f) a = atan2(comY, comX)
     lungeX[i] = cos(a) * 8.5f; lungeY[i] = sin(a) * 8.5f
     dir[i] = a
     carrinho[i] = 0.55f
@@ -131,12 +132,14 @@ private fun MotorAoVivo.libertar(i: Int, anim: Animacao) {
 
 private fun MotorAoVivo.registarPasse(i: Int) {
     passador = i
+    dbg[0]++
     tPasse = relogio
     parte[i]?.let { it.passes++ }
 }
 
 /** Passe rasteiro para um ponto. "v0" é a velocidade inicial da bola. */
-internal fun MotorAoVivo.chutarSolo(i: Int, tx: Float, ty: Float, v0: Float, sigma: Float) {
+internal fun MotorAoVivo.chutarSolo(i: Int, tx0: Float, ty0: Float, v0: Float, sigma: Float) {
+    val tx = tx0.coerceIn(-K.MX + 1f, K.MX - 1f); val ty = ty0.coerceIn(-K.MY + 1f, K.MY - 1f)
     val d = hypot(tx - bx, ty - by)
     var a = atan2(ty - by, tx - bx) + gauss() * sigma * (1f + d * 0.02f)
     val v = v0 * (1f + gauss() * 0.04f)
@@ -146,7 +149,8 @@ internal fun MotorAoVivo.chutarSolo(i: Int, tx: Float, ty: Float, v0: Float, sig
 }
 
 /** Passe pelo ar: demora "t" segundos a chegar ao ponto. */
-internal fun MotorAoVivo.chutarAlto(i: Int, tx: Float, ty: Float, t: Float, sigma: Float) {
+internal fun MotorAoVivo.chutarAlto(i: Int, tx0: Float, ty0: Float, t: Float, sigma: Float) {
+    val tx = tx0.coerceIn(-K.MX + 1f, K.MX - 1f); val ty = ty0.coerceIn(-K.MY + 1f, K.MY - 1f)
     val d = hypot(tx - bx, ty - by)
     val a = atan2(ty - by, tx - bx) + gauss() * sigma * (1f + d * 0.015f)
     val tt = t * (1f + gauss() * 0.04f)
@@ -251,9 +255,10 @@ private fun MotorAoVivo.tocar(i: Int, vh: Float) {
     }
     val deles = ultimoEq != e
     if (deles && vh > 17f && papel[i] != 0) {
-        if (bz < 1.6f && rng.nextFloat() < 0.28f) {
+        if (bz < 1.6f && rng.nextFloat() < 0.4f) {
             // Remate bloqueado
-            bvx = -bvx * 0.3f + gauss() * 3f; bvy = bvy * 0.3f + gauss() * 3f; bvz = 1.5f + rng.nextFloat() * 2f
+            if (rng.nextFloat() < 0.3f) { bvx = sign(bvx) * 6f; bvy = (if (by >= 0f) 1f else -1f) * 8f } else { bvx = -bvx * 0.3f + gauss() * 3f; bvy = bvy * 0.3f + gauss() * 3f }
+            bvz = 1.5f + rng.nextFloat() * 2f
             ultimoToque = i; ultimoEq = e; ultimoDaEq[e] = i; cd[i] = 0.3f
             parte[i]?.let { it.desarmes++ }
             rolouDefesa = true
@@ -288,8 +293,8 @@ private fun MotorAoVivo.defender(i: Int, vh: Float) {
         mensagem("Grande defesa de ${jog[i]!!.nome}", 2f)
     } else {
         val s = sinal(e)
-        if (rng.nextFloat() < 0.25f) {
-            bvx = -s * 5f; bvy = (if (by >= 0f) 1f else -1f) * (4f + rng.nextFloat() * 3f); bvz = 1.5f
+        if (rng.nextFloat() < 0.35f) {
+            bvx = -s * 3f; bvy = (if (by >= 0f) 1f else -1f) * (8f + rng.nextFloat() * 3f); bvz = 1.5f
         } else {
             bvx = s * (4f + rng.nextFloat() * 6f); bvy = (rng.nextFloat() - 0.5f) * 10f; bvz = 2f + rng.nextFloat() * 3f
         }
@@ -303,6 +308,7 @@ private fun MotorAoVivo.defender(i: Int, vh: Float) {
 internal fun MotorAoVivo.aoReceber(i: Int) {
     val e = eq(i)
     val anterior = ultimoEq
+    if (passador >= 0) { if (eq(passador) == e) dbg[3]++ else dbg[2]++ }
     if (passador >= 0 && ultimoToque == passador && eq(passador) == e && passador != i) {
         parte[passador]?.let { it.passesOk++ }
         assistente = passador
@@ -317,7 +323,7 @@ internal fun MotorAoVivo.aoReceber(i: Int) {
     prot[i] = 0.45f
     parte[i]?.let { it.toques++ }
     val pr = distMaisPertoAdversario(i)
-    decT[i] = if (papel[i] == 0) 1.0f + rng.nextFloat() * 1.2f else if (pr < 3f) 0.12f else 0.3f + rng.nextFloat() * 0.7f
+    decT[i] = if (papel[i] == 0) 1.0f + rng.nextFloat() * 1.2f else if (pr < 2.5f) 0.3f else 1.0f + rng.nextFloat() * 1.6f
     if (e == eqUser) controlado = i
     else if (eraDoUtilizador && controlado >= 0 && hypot(px[controlado] - bx, py[controlado] - by) > 15f) controlado = maisPerto(eqUser, bx, by, false)
 }
@@ -326,33 +332,44 @@ internal fun MotorAoVivo.aoReceber(i: Int) {
 
 internal fun MotorAoVivo.desarmes() {
     val c = dono
+    if (c >= 0) {
+        dbg[6]++
+        val e0 = eq(c)
+        var md = 99f
+        for (o in (1 - e0) * 11 until (1 - e0) * 11 + 11) if (ativo[o]) md = min(md, hypot(px[o] - bx, py[o] - by))
+        if (md < 3f) dbg[7]++
+        if (md < 1.1f) dbg[8]++
+        if (prot[c] > 0f) dbg[9]++
+    }
     if (c < 0 || prot[c] > 0f) return
     val e = eq(c)
     for (o in (1 - e) * 11 until (1 - e) * 11 + 11) {
         if (!ativo[o] || cdDesarme[o] > 0f || atordoado[o] > 0f) continue
         val sl = carrinho[o] > 0f
         val d = hypot(px[o] - bx, py[o] - by)
-        if (d > (if (sl) 1.7f else 1.1f)) continue
-        cdDesarme[o] = 0.9f + rng.nextFloat() * 0.5f
+        if (d > (if (sl) 1.8f else 1.4f)) continue
+        cdDesarme[o] = 0.7f + rng.nextFloat() * 0.5f
         tentarDesarme(o, c, sl)
         if (dono != c) return
     }
 }
 
 private fun MotorAoVivo.tentarDesarme(o: Int, c: Int, sl: Boolean) {
+    dbg[4]++
     val sprint = hypot(vx[c], vy[c]) > velMax(c) * 1.1f
-    val p = (0.30f + (aDefesa[o] - aDrible[c]) * 0.0055f + (aFisico[o] - aFisico[c]) * 0.002f + (if (sl) 0.10f else 0f) - (if (sprint) 0.04f else 0f)).coerceIn(0.08f, 0.68f)
+    val p = (0.30f + (aDefesa[o] - aDrible[c]) * 0.009f + (aFisico[o] - aFisico[c]) * 0.003f + (if (sl) 0.10f else 0f) - (if (sprint) 0.04f else 0f)).coerceIn(0.08f, 0.68f)
     if (rng.nextFloat() < p) {
         parte[o]?.let { it.desarmes++ }
         cd[c] = 0.6f
         ultimoToque = c
         aoReceber(o)
-    } else if (rng.nextFloat() < (if (sl) 0.34f else 0.10f)) {
+    } else if (rng.nextFloat() < (if (sl) 0.34f else 0.22f)) {
         falta(o, c, sl)
     }
 }
 
 private fun MotorAoVivo.falta(inf: Int, vit: Int, sl: Boolean) {
+    dbg[5]++
     val e = eq(inf)
     faltas[e]++
     parte[inf]?.let { it.faltas++ }
