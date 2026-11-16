@@ -57,6 +57,8 @@ private fun dadosBase(contexto: Context, estado: String, nota: String): DadosRel
 private fun capturarEcra(atividade: Activity?, aoTerminar: (Bitmap?) -> Unit) {
     val janela = atividade?.window
     val raiz = janela?.decorView
+    // O PixelCopy não funciona no telemóvel simulado dos testes (Robolectric) e deixava a interface sempre ocupada.
+    if (Build.FINGERPRINT.contains("robolectric", ignoreCase = true)) return aoTerminar(null)
     if (janela == null || raiz == null || raiz.width <= 0 || raiz.height <= 0) return aoTerminar(null)
     try {
         val imagem = Bitmap.createBitmap(raiz.width, raiz.height, Bitmap.Config.ARGB_8888)

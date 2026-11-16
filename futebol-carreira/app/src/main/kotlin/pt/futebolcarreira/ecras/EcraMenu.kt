@@ -2,6 +2,7 @@ package pt.futebolcarreira.ecras
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -36,8 +39,10 @@ import pt.futebolcarreira.nucleo.carreira.ResumoGravacao
 /** Menu principal: continuar, nova carreira, carregar. */
 @Composable
 fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () -> Unit, aoNova: () -> Unit, aoCarregar: () -> Unit, aoEditor: (() -> Unit)? = null) {
+    // Em telemóveis pequenos (ou com letra grande) o menu desliza; nos outros fica centrado.
+    BoxWithConstraints(Modifier.fillMaxSize().systemBarsPadding()) {
     Column(
-        Modifier.fillMaxSize().systemBarsPadding().padding(24.dp),
+        Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).heightIn(min = maxHeight).padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
     ) {
         Text("⚽", fontSize = 64.sp)
@@ -79,6 +84,7 @@ fun EcraMenu(gravacoes: List<ResumoGravacao>, ocupado: Boolean, aoContinuar: () 
                     (if (ultimaGravada != null) "\nÚltima: ${ultimaGravada.clube} · época ${ultimaGravada.epoca} · ${ultimaGravada.data}" else ""),
             ) { relatar = false }
         }
+    }
     }
 }
 

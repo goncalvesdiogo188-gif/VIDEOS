@@ -1,0 +1,231 @@
+# Auditoria dos ecrãs
+
+<!-- AUTO:INICIO -->
+_Gerado por `AuditoriaEcrasTest` (`./gradlew :app:testDebugUnitTest --tests '*Auditoria*'`). Não editar à mão: é reescrito de cada vez que o teste corre._
+
+### Telemóvel grande (411x914 dp, letra 130 %) (465 alvos de toque e 1491 textos verificados)
+
+- **inicio**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **plantel**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mercado**
+  - texto cortado: «Ger»
+  - texto cortado: «417.9 M€»
+  - texto cortado: «453.3 M€»
+  - texto cortado: «354.2 M€»
+  - texto cortado: «194.8 M€»
+  - texto cortado: «MOC»
+  - texto cortado: «336.2 M€»
+  - texto cortado: «300.1 M€»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **liga-tabela**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **liga-jogos**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **liga-jogadores**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **liga-historico**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-clube**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-financas**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-calendario**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-selecoes**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Convocados»
+  - texto cortado: «Vencedores»
+  - alvo de toque pequeno: 98x27 dp: «Ver jogos»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-convocados**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Convocados»
+  - texto cortado: «Vencedores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **mais-opcoes**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Ver em 3D»
+  - texto cortado: «Jogar em 3D»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **ficha-jogador**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Ver em 3D»
+  - texto cortado: «Jogar em 3D»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogo-em-direto**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+- **jogo-relato**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+- **jogo-estatisticas**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+- **jogo-notas**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+- **editor-jogador**
+  - texto cortado: «Guarda-redes»
+  - alvo de toque pequeno: 387x45 dp: «Clube: Real Madrid»
+- **jogador-inicio**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-inicio-baixo**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-perfil**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-percurso**
+  - texto cortado: «Nota»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-propostas**
+  - texto cortado: «Pedir transferência»
+  - texto cortado: «Pedir empréstimo»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-premios**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+
+### Telemóvel pequeno (360x640 dp, letra 130 %) (403 alvos de toque e 1109 textos verificados)
+
+- **inicio**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **plantel**
+  - alvo de toque pequeno: 28x48 dp: «Ofensiva»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mercado**
+  - texto cortado: «Ger»
+  - texto cortado: «417.9 M€»
+  - texto cortado: «453.3 M€»
+  - texto cortado: «354.2 M€»
+  - texto cortado: «194.8 M€»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **liga-tabela**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Histórico»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **liga-jogos**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Histórico»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **liga-jogadores**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Histórico»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **liga-historico**
+  - texto cortado: «Jogadores»
+  - texto cortado: «Histórico»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-clube**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-financas**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-calendario**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-selecoes**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Torneios»
+  - texto cortado: «Convocados»
+  - texto cortado: «Vencedores»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-convocados**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Torneios»
+  - texto cortado: «Convocados»
+  - texto cortado: «Vencedores»
+  - alvo de toque pequeno: 38x48 dp: «Espanha»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **mais-opcoes**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Ver em 3D»
+  - texto cortado: «Jogar em 3D»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **ficha-jogador**
+  - texto cortado: «Finanças»
+  - texto cortado: «Seleções»
+  - texto cortado: «Ver em 3D»
+  - texto cortado: «Jogar em 3D»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+  - texto cortado: «Mercado»
+- **jogo-em-direto**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+  - texto cortado: «Mercado»
+  - texto cortado: «Moreirense FC»
+- **jogo-relato**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+  - texto cortado: «Mercado»
+  - texto cortado: «Moreirense FC»
+- **jogo-estatisticas**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+  - texto cortado: «Mercado»
+  - texto cortado: «Moreirense FC»
+- **jogo-notas**
+  - texto cortado: «Época 2026/27 · sáb, 8 ago 2026»
+  - texto cortado: «Mercado»
+  - texto cortado: «Moreirense FC»
+- **editor-clubes**
+  - alvo de toque pequeno: 336x32 dp: «B04 Bayer Leverkusen Bundesliga · 27 jog»
+- **editor-jogadores**
+  - texto cortado: «Clube: Todos os clubes»
+  - alvo de toque pequeno: 33x48 dp: «MDC»
+- **editor-jogador**
+  - texto cortado: «Nacionalidade: FRA»
+- **editor-clube**
+  - texto cortado: «Abreviatura»
+- **jogador-inicio**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-inicio-baixo**
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-perfil**
+  - texto cortado: «Propostas»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-percurso**
+  - texto cortado: «Propostas»
+  - texto cortado: «Nota»
+  - texto cortado: «FC Alverca»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-propostas**
+  - texto cortado: «Propostas»
+  - texto cortado: «Pedir transferência»
+  - texto cortado: «Pedir empréstimo»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+- **jogador-premios**
+  - texto cortado: «Propostas»
+  - texto cortado: «Época 2026/27 · qua, 1 jul 2026»
+
+### Jogo 3D (640x360 dp na horizontal, letra 130 %) (6 alvos de toque e 39 textos verificados)
+
+Nada a assinalar.
+
+<!-- AUTO:FIM -->
