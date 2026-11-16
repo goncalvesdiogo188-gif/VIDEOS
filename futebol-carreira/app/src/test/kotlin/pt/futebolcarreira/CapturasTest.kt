@@ -181,14 +181,23 @@ class CapturasTest {
         capturar("15e-calendario")
         tocar("Opções")
         capturar("16-mais")
-        // Jogo 3D (o ecrã com OpenGL não corre aqui): opção guardada e ligação provisória ao fim do jogo.
+        // Jogo 3D (o ecrã com OpenGL não corre aqui): opção guardada e jogo ao vivo com o motor real até ao fim.
         tocar("Ver em 3D")
         assertEquals(pt.futebolcarreira.aovivo.ModoJogos.VER_3D, jogo.modoJogos)
+        val proximoAntes = jogo.ui?.proximo
+        jogo.jogar()
+        esperar { jogo.aoVivo != null }
+        val sessao = jogo.aoVivo!!
+        sessao.simularResto()
+        assertTrue(sessao.partida.terminou)
+        jogo.registarJogoAoVivo(sessao.partida)
+        esperar { jogo.aoVivo == null && !jogo.ocupado && jogo.jogo != null }
+        assertEquals(null, jogo.aviso)
+        assertTrue(jogo.ui?.proximo != proximoAntes)
+        assertTrue(jogo.ui?.ultimo != null)
+        jogo.fecharJogo()
         tocar("Simular")
         assertEquals(pt.futebolcarreira.aovivo.ModoJogos.SIMULAR, jogo.modoJogos)
-        jogo.registarJogoAoVivo(pt.futebolcarreira.nucleo.aovivo.PartidaFalsa(pt.futebolcarreira.nucleo.modelos.Equipa(id = "a", nome = "A"), pt.futebolcarreira.nucleo.modelos.Equipa(id = "b", nome = "B"), true))
-        assertEquals("Resultado ao vivo será ligado na junção", jogo.aviso)
-        jogo.fecharAviso()
 
         // ---- Fim de época e época seguinte ----
         jogo.simularEpoca()

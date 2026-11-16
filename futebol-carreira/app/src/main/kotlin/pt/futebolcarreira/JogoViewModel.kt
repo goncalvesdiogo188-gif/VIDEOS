@@ -142,9 +142,9 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     var modoJogos by mutableStateOf(ModoJogos.deNome(preferencias.getString("modo_jogos", null)))
         private set
 
-    /** Cria a partida ao vivo (casa, fora, utilizadorCasa). Os testes trocam-na por um motor falso. */
-    var criarPartida: (Equipa, Equipa, Boolean) -> PartidaAoVivo = { casa, fora, utilizadorCasa ->
-        FabricaPartida.criar(casa, fora, utilizadorCasa, kotlin.random.Random.Default)
+    /** Cria a partida ao vivo (casa, fora, utilizadorCasa, semUtilizador). Os testes podem trocá-la. */
+    var criarPartida: (Equipa, Equipa, Boolean, Boolean) -> PartidaAoVivo = { casa, fora, utilizadorCasa, semUtilizador ->
+        FabricaPartida.criar(casa, fora, utilizadorCasa, kotlin.random.Random.Default, semUtilizador = semUtilizador)
     }
 
     /** O jogo 3D aberto (null = nenhum). */
@@ -165,27 +165,32 @@ class JogoViewModel(app: Application) : AndroidViewModel(app) {
     fun abrirAoVivo() {
         val c = carreira ?: return
         if (ocupado || aoVivo != null) return
-        val proximo = c.proximoJogo()
-        if (proximo == null) {
+        val par = c.prepararJogoAoVivo()
+        if (par == null) {
             aviso = "Não há jogos por jogar nesta época."
             return
         }
-        val casa = if (proximo.emCasa) c.equipa else proximo.adversario
-        val fora = if (proximo.emCasa) proximo.adversario else c.equipa
+        val (casa, fora) = par
+        val utilizadorCasa = casa.id == c.equipa.id
         val controlar = modoJogos != ModoJogos.VER_3D
-        executar({ criarPartida(casa, fora, proximo.emCasa) }) { partida ->
-            aoVivo = SessaoAoVivo(partida, proximo.emCasa, controlar)
+        executar({ criarPartida(casa, fora, utilizadorCasa, !controlar) }) { partida ->
+            aoVivo = SessaoAoVivo(partida, utilizadorCasa, controlar)
         }
     }
 
+    /** O utilizador abandonou o jogo 3D: o jogo simula-se normalmente. */
     fun fecharAoVivo() {
         aoVivo = null
+        avancar()
     }
 
-    /** Regista no calendário o jogo 3D acabado. A parte A (motor) liga isto à carreira; por agora só avisa. */
+    /** Regista na carreira o jogo 3D acabado e abre o relatório normal do jogo. */
     fun registarJogoAoVivo(partida: PartidaAoVivo) {
         aoVivo = null
-        aviso = "Resultado ao vivo será ligado na junção"
+        naCarreira { c ->
+            val relatorio = FabricaPartida.relatorio(partida)
+            c.registarJogoAoVivo(relatorio)?.resultado?.let { criarJogo(c, it, emDireto = true) }
+        }
     }
 
     // ------------------------------------------------------------------ editor
