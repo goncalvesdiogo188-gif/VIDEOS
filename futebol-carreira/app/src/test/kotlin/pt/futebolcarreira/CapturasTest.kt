@@ -182,9 +182,9 @@ class CapturasTest {
         tocar("Opções")
         capturar("16-mais")
         // Jogo 3D (o ecrã com OpenGL não corre aqui): opção guardada e ligação provisória ao fim do jogo.
-        tocarComScroll("Ver em 3D")
+        tocar("Ver em 3D")
         assertEquals(pt.futebolcarreira.aovivo.ModoJogos.VER_3D, jogo.modoJogos)
-        tocarComScroll("Simular")
+        tocar("Simular")
         assertEquals(pt.futebolcarreira.aovivo.ModoJogos.SIMULAR, jogo.modoJogos)
         jogo.registarJogoAoVivo(pt.futebolcarreira.nucleo.aovivo.PartidaFalsa(pt.futebolcarreira.nucleo.modelos.Equipa(id = "a", nome = "A"), pt.futebolcarreira.nucleo.modelos.Equipa(id = "b", nome = "B"), true))
         assertEquals("Resultado ao vivo será ligado na junção", jogo.aviso)

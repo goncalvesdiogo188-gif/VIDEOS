@@ -116,7 +116,7 @@ fun EcraAoVivo(
         vistaJogo(Modifier.fillMaxSize())
 
         MarcadorETempo(estado, Modifier.align(Alignment.TopCenter))
-        Mensagem(estado, Modifier.align(Alignment.TopCenter).padding(top = 58.dp))
+        if (!terminou) Mensagem(estado, Modifier.align(Alignment.TopCenter).padding(top = 58.dp))
 
         if (!terminou) {
             // Botão de pausa, em cima à esquerda.
@@ -313,7 +313,7 @@ private fun ZonaJoystick(controlo: ControloTactil, modifier: Modifier) {
 private fun MenuPausa(aSimular: Boolean, controlar: Boolean, aoContinuar: () -> Unit, aoSimular: () -> Unit, aoSair: () -> Unit) {
     Box(Modifier.fillMaxSize().background(Color(0x99000000)).pointerInput(Unit) { awaitEachGesture { awaitFirstDown().consume() } }, contentAlignment = Alignment.Center) {
         Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
-            Column(Modifier.padding(22.dp).widthIn(min = 260.dp), verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.padding(22.dp).width(300.dp), verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(if (aSimular) "A simular o resto do jogo…" else "Jogo em pausa", fontSize = 20.sp, fontWeight = FontWeight.Bold)
                 if (!aSimular) {
                     Button(onClick = aoContinuar, Modifier.fillMaxWidth().height(50.dp)) { Text("Continuar", fontSize = 17.sp) }
@@ -329,7 +329,7 @@ private fun MenuPausa(aSimular: Boolean, controlar: Boolean, aoContinuar: () -> 
 private fun CartaoFinal(e: EstadoPartida, aoContinuar: () -> Unit) {
     Box(Modifier.fillMaxSize().background(Color(0xB3000000)).pointerInput(Unit) { awaitEachGesture { awaitFirstDown().consume() } }, contentAlignment = Alignment.Center) {
         Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
-            Column(Modifier.padding(24.dp).widthIn(min = 280.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.padding(24.dp).width(320.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Fim do jogo", fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                     Text(e.siglaCasa, fontSize = 22.sp, fontWeight = FontWeight.Bold)
