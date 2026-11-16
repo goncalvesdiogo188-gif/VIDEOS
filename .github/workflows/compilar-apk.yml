@@ -30,6 +30,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      # O ecrã Godot usa o ficheiro .pck já exportado e guardado no repositório
+      # (godot/ → app/src/main/assets/godot/ao_vivo.pck), por isso o GitHub não precisa do Godot.
+      - name: Verificar o .pck do Godot
+        run: test -s app/src/main/assets/godot/ao_vivo.pck
+
       - name: Testes do núcleo e compilação do APK
         run: ./gradlew --console=plain :nucleo:test :app:assembleRelease
 
@@ -58,8 +63,8 @@ jobs:
       - name: Guardar as capturas no repositório
         run: |
           if ls app/build/outputs/roborazzi/*.png >/dev/null 2>&1; then
-            rm -rf capturas
             mkdir -p capturas
+            find capturas -type f ! -name 'godot-*' -delete   # mantém as capturas do Godot (feitas à mão)
             cp app/build/outputs/roborazzi/*.png capturas/
             git add -A capturas
             git diff --cached --quiet || git commit -m "Capturas dos ecrãs [skip ci]"

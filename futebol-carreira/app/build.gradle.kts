@@ -16,8 +16,7 @@ android {
         versionCode = 12
         versionName = "0.12 (Fase 12)"
         // Só telemóveis de 64 bits: o Godot traz 4 tipos de processador e cada um pesa ~70 MB.
-        // x86_64 serve para o emulador do Android Studio.
-        ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
+        ndk { abiFilters += listOf("arm64-v8a") }
     }
 
     // Chave de TESTE, partilhada no repositório para as atualizações instalarem por cima
@@ -34,6 +33,7 @@ android {
     buildTypes {
         debug {
             signingConfig = signingConfigs.getByName("teste")
+            ndk { abiFilters += listOf("x86_64") }   // só o debug leva também x86_64, para o emulador do Android Studio
         }
         release {
             // Versão otimizada: APK pequeno e mais rápido.
@@ -54,6 +54,8 @@ android {
     buildFeatures {
         compose = true
     }
+    // As bibliotecas nativas (o Godot tem ~70 MB) vão comprimidas dentro do APK: descarrega-se muito menos.
+    packaging { jniLibs { useLegacyPackaging = true } }
 
     // Testes dos ecrãs num telemóvel simulado (Robolectric), que também guardam capturas de ecrã.
     testOptions {
