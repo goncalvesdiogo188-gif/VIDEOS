@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 4 concluída** (corre todos os dias sozinho). Próximo: investigar publicação automática (Fase 5).
+> Estado: **Fase 5 concluída** (investigação da publicação automática: ver `PUBLICACAO.md`). Por agora publicas tu, a partir das pastas em `out/`.
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
