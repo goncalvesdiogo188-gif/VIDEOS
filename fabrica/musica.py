@@ -5,6 +5,10 @@ Um estilo por zona do cérebro:
   memorias  sonhadora, acordes suaves e sinos (90 bpm)
   dopamina  saltitante, palmas e acordes a contratempo (124 bpm)
   sono      calma, só acordes longos e sinos, sem bateria (66 bpm)
+  alarme    tensa, acordes menores e baixo insistente (100 bpm)
+  cofre     funk leve com acordes a contratempo (108 bpm)
+  social    pop alegre com palmas (120 bpm)
+  habitos   mecânica, arpejo rápido tipo máquina (104 bpm)
 
 A música fica por baixo das vozes e baixa automaticamente enquanto alguém fala.
 Para desligar: variável de ambiente FABRICA_SEM_MUSICA=1, ou "musica": false no guião.
@@ -26,6 +30,12 @@ ESTILOS = {
     "memorias": dict(bpm=90, acordes=[[48, 52, 55, 59], [45, 48, 52, 55], [41, 45, 48, 52], [43, 47, 50, 52]],
                      camadas=("pad", "sinos4", "baixo1", "bateria_leve")),
     "dopamina": dict(bpm=124, acordes=[_C, _G, _Am, _F], camadas=("baixo_salta", "contratempo", "bateria_dança")),
+    "alarme": dict(bpm=100, acordes=[[50, 53, 57], [46, 50, 53], [43, 46, 50], [45, 49, 52]],
+                   camadas=("baixo8", "pad", "bateria")),
+    "cofre": dict(bpm=108, acordes=[[52, 55, 59, 62], [45, 49, 52, 55], [52, 55, 59, 62], [47, 50, 54, 57]],
+                  camadas=("baixo_salta", "contratempo", "bateria")),
+    "social": dict(bpm=120, acordes=[_C, _Am, _F, _G], camadas=("baixo8", "contratempo", "bateria_dança")),
+    "habitos": dict(bpm=104, acordes=[_Am, _Am, _F, _G], camadas=("baixo8", "arpejo16", "bateria")),
     "sono": dict(bpm=66, acordes=[[41, 45, 48, 52], [40, 43, 47, 50], [38, 41, 45, 48], [36, 40, 43, 47]],
                  camadas=("pad", "sinos2")),
 }

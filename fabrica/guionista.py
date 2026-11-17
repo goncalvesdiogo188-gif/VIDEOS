@@ -13,7 +13,7 @@ import tempfile
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
-CENARIOS = ["comando", "memorias", "dopamina", "sono"]
+CENARIOS = ["comando", "memorias", "dopamina", "sono", "alarme", "cofre", "social", "habitos"]
 
 
 class GuionistaErro(Exception):
@@ -124,8 +124,8 @@ Escreve em português simples e neutro (percebido em Portugal e no Brasil).
 {_biblia()}
 === FIM DA BÍBLIA ===
 
-NOTA: o mundo é agora um cérebro futurista com 4 zonas. Em vez de sala/quarto/loja, usa em "cenario" um destes valores: {", ".join(CENARIOS)}.
-(comando = centro de comando, foco e energia; memorias = arquivo de memórias; dopamina = zona de recompensas e compras; sono = zona do descanso.) Escolhe o que melhor encaixa no tema.
+NOTA: o mundo é agora um cérebro futurista com 8 zonas. Em vez de sala/quarto/loja, usa em "cenario" um destes valores: {", ".join(CENARIOS)}.
+(comando = centro de comando, foco e energia; memorias = arquivo de memórias, aprender; dopamina = recompensas, compras por impulso, vícios; sono = descanso, cansaço; alarme = ansiedade, stress, medo; cofre = dinheiro, poupar, gastos; social = redes sociais, comparação, opinião dos outros; habitos = hábitos, rotinas, disciplina.) Escolhe o que melhor encaixa no tema e varia entre zonas.
 
 TEMA: {tema}
 

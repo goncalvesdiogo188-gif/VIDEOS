@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 6 em curso**: música de fundo feita. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
+> Estado: **Fase 6 em curso**: música de fundo e 8 zonas feitas. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -19,7 +19,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | Ficheiro | O que faz |
 |---|---|
 | `personagens.py` | Desenha o Neurão e o Zé em SVG: 7 expressões, 5 poses, boca que fala, piscar de olhos. |
-| `cenarios.py` | O mundo: interior de um cérebro futurista (rede neuronal com sinais e chão de néon). 4 zonas: `comando` (Centro de Comando), `memorias` (Arquivo de Memórias), `dopamina` (Centro da Recompensa), `sono` (Zona do Sono). Os nomes antigos `sala`, `quarto`, `loja` ainda funcionam. |
+| `cenarios.py` | O mundo: interior de um cérebro futurista (rede neuronal com sinais e chão de néon). 8 zonas: `comando` (Centro de Comando), `memorias` (Arquivo de Memórias), `dopamina` (Centro da Recompensa), `sono` (Zona do Sono), `alarme` (Centro de Alarme), `cofre` (Cofre do Cérebro), `social` (Praça Social), `habitos` (Fábrica de Hábitos). Os nomes antigos `sala`, `quarto`, `loja` ainda funcionam. |
 | `guiao.py` | Lê um guião JSON. |
 | `video.py` | Guião → Reel 1080x1920 com legendas palavra-a-palavra e boca animada pela voz. |
 | `voz.py` | Vozes reais com edge-tts (grátis, precisa de internet). Usa a duração real do áudio e o tempo de cada palavra. |
@@ -106,11 +106,15 @@ Para parar: `.\fabrica desagendar`.
 | `memorias` | sonhadora, acordes suaves e sinos (90 bpm) |
 | `dopamina` | saltitante, palmas e acordes a contratempo (124 bpm) |
 | `sono` | calma, sem bateria (66 bpm) |
+| `alarme` | tensa, baixo insistente (100 bpm) |
+| `cofre` | funk leve (108 bpm) |
+| `social` | pop alegre com palmas (120 bpm) |
+| `habitos` | mecânica, arpejo tipo máquina (104 bpm) |
 
 - É composta e sintetizada em código: não usa músicas de ninguém, por isso não há problemas de direitos de autor.
 - Fica cerca de 10 a 15 dB abaixo das vozes e baixa ainda mais enquanto alguém fala.
 - O volume final do vídeo é normalizado para cerca de -14 LUFS, o nível habitual nas redes sociais.
-- Ouvir as 4 músicas: `python -m fabrica.musica` (grava em `out/teste/`).
+- Ouvir as 8 músicas: `python -m fabrica.musica` (grava em `out/teste/`).
 - Desligar num vídeo: `"musica": false` no guião. Desligar em tudo: variável de ambiente `FABRICA_SEM_MUSICA=1`.
 - Volume da música: `VOLUME` no topo de `fabrica/musica.py`.
 

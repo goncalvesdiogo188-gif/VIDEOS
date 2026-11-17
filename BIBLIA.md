@@ -21,17 +21,21 @@ Este ficheiro é a regra de ouro. Tudo o que a fábrica escreve tem de cumprir i
 | Voz | Mais grave, segura | Mais aguda, animada |
 
 ## O mundo
-Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal com sinais de luz a viajar e um chão de grelha de néon. O mundo tem 4 zonas. Cada vídeo passa-se numa só.
+Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal com sinais de luz a viajar e um chão de grelha de néon. O mundo tem 8 zonas. Cada vídeo passa-se numa só.
 
 | Zona (`cenario`) | Como é | Serve para temas como |
 |---|---|---|
 | `comando` | Centro de Comando: ecrãs holográficos com medidores FOCO e ENERGIA | procrastinação, foco, produtividade, motivação, rotinas |
-| `memorias` | Arquivo de Memórias: prateleiras de esferas de memória a brilhar | hábitos, lembranças, aprender, esquecer, estudar |
-| `dopamina` | Centro da Recompensa: estrelas a subir e letreiro de néon "RECOMPENSA" | compras por impulso, redes sociais, vícios, recompensas |
+| `memorias` | Arquivo de Memórias: prateleiras de esferas de memória a brilhar | lembranças, aprender, esquecer, estudar |
+| `dopamina` | Centro da Recompensa: estrelas a subir e letreiro de néon "RECOMPENSA" | compras por impulso, vícios, recompensas, scroll |
 | `sono` | Zona do Sono: luz fraca, lua holográfica, Zzz | sono, cansaço, noite, insónias |
+| `alarme` | Centro de Alarme: sirenes a girar, sinal de alerta, luz vermelha a pulsar | ansiedade, stress, medo, preocupações, pensar demais |
+| `cofre` | Cofre do Cérebro: porta de cofre, moedas, medidor SALDO a descer | dinheiro, poupar, gastos, salário (nunca conselhos de investimento) |
+| `social` | Praça Social: balões de conversa, corações, notificações "99+" | redes sociais, comparação, opinião dos outros, amizades |
+| `habitos` | Fábrica de Hábitos: engrenagens a rodar e passadeira com caixas | hábitos, rotinas, disciplina, mudar comportamentos |
 
 - Os nomes antigos `sala`, `quarto` e `loja` ainda funcionam, mas usa os novos.
-- Escolher a zona que combina com o tema. Em caso de dúvida: `comando`.
+- Escolher a zona que combina com o tema e variar entre vídeos. Em caso de dúvida: `comando`.
 
 ## 3. Estrutura de cada Reel (20–30 s)
 1. **Gancho (0–3 s):** pergunta ou situação que prende. Ex.: "Porque é que compras coisas que não precisas?"
@@ -71,7 +75,7 @@ Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal
 - `quem`: `neurao` ou `ze`. A **última fala é sempre do `ze`**.
 - `expressao`: neutro, convencido, alegre, confuso, surpreendido, triste, pensativo.
 - `pose`: normal, aponta, bracos_ar, mao_queixo, encolhe.
-- `cenario`: comando, memorias, dopamina, sono.
+- `cenario`: comando, memorias, dopamina, sono, alarme, cofre, social, habitos.
 
 ### Limites obrigatórios (a fábrica verifica)
 - `titulo`: no máximo **60 caracteres**.
