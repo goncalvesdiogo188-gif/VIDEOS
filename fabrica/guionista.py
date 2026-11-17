@@ -20,12 +20,29 @@ class GuionistaErro(Exception):
     """Erro ao falar com o Claude ou ao interpretar a resposta."""
 
 
+def achar_claude():
+    """Caminho do programa claude, ou None.
+
+    Procura no PATH e também na pasta onde o instalador oficial o põe
+    (~/.local/bin), porque essa pasta às vezes não fica no PATH no Windows.
+    """
+    achado = shutil.which("claude")
+    if achado:
+        return achado
+    pasta = Path.home() / ".local" / "bin"
+    for nome in ("claude.exe", "claude.cmd", "claude"):
+        f = pasta / nome
+        if f.is_file():
+            return str(f)
+    return None
+
+
 def comando_claude() -> list[str]:
     """Comando usado para chamar o Claude. FABRICA_CLAUDE substitui o padrão."""
     env = os.environ.get("FABRICA_CLAUDE", "").strip()
     if env:
         return shlex.split(env, posix=(os.name != "nt"))
-    return [shutil.which("claude") or "claude", "-p", "--tools", ""]
+    return [achar_claude() or "claude", "-p", "--tools", ""]
 
 
 def _uma_vez(prompt: str, timeout: int) -> str:

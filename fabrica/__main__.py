@@ -28,7 +28,8 @@ def _parser():
     ref = sub.add_parser("refazer", help="volta a gerar um pacote a partir do seu guiao.json")
     ref.add_argument("pastas", nargs="+", help="pasta(s) do pacote, ex.: out/2026-11-15_procrastinacao")
 
-    sub.add_parser("verificar", help="verifica se o computador tem tudo o que é preciso")
+    ver = sub.add_parser("verificar", help="verifica se o computador tem tudo o que é preciso")
+    ver.add_argument("--rapido", action="store_true", help="não testa o login do Claude")
 
     dia = sub.add_parser("diario", help="cria o pacote do dia (pensado para correr agendado)")
     dia.add_argument("--forcar", action="store_true", help="cria outro mesmo que o de hoje já exista")
@@ -50,7 +51,7 @@ def main(argv=None):
 
     if a.comando == "verificar":
         from . import verificar
-        return verificar.main()
+        return verificar.main(rapido=a.rapido)
 
     if a.comando in ("agendar", "desagendar"):
         from . import diario

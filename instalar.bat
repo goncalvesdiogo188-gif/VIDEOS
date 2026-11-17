@@ -60,12 +60,19 @@ rem ---------------------------------------------------------- 4. Claude Code
 echo [4/5] Claude Code (escreve os guioes)...
 where claude >nul 2>nul
 if not errorlevel 1 goto claude_ok
+if exist "%USERPROFILE%\.local\bin\claude.exe" goto claude_path
 echo    A instalar o Claude Code (instalador oficial)...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://claude.ai/install.ps1 | iex"
+call :juntar_path
 set "REABRIR=1"
 echo.
 echo    IMPORTANTE (so uma vez): abre uma janela nova do PowerShell, escreve  claude
 echo    e faz login com a tua conta Claude no navegador. Depois escreve /exit
+goto fim_instalacao
+:claude_path
+echo    O Claude Code esta instalado mas fora do PATH. A corrigir...
+call :juntar_path
+set "REABRIR=1"
 goto fim_instalacao
 :claude_ok
 echo    OK
@@ -109,6 +116,11 @@ goto fim
 echo.
 echo Erro a instalar as bibliotecas do Python. Confirma que tens internet e tenta outra vez.
 goto fim
+
+:juntar_path
+rem junta %USERPROFILE%\.local\bin ao PATH do utilizador (so se ainda nao estiver)
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$p=[Environment]::GetEnvironmentVariable('Path','User'); if (-not $p) { $p = '' }; $d=Join-Path $env:USERPROFILE '.local\bin'; if (-not (($p -split ';') -contains $d)) { [Environment]::SetEnvironmentVariable('Path', ($p.TrimEnd(';') + ';' + $d), 'User'); Write-Host '   Pasta do Claude juntada ao PATH.' }"
+exit /b 0
 
 :fim
 echo.

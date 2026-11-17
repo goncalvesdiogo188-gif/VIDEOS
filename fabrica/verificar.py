@@ -44,7 +44,8 @@ def main(rapido=None):
         tudo_ok = False
         print(f"{FALTA} ffmpeg  ->  Windows: winget install Gyan.FFmpeg   (depois fecha e abre o terminal)")
 
-    claude = shutil.which("claude")
+    from .guionista import achar_claude
+    claude = achar_claude()
     if claude:
         try:
             out = subprocess.run([claude, "--version"], capture_output=True, text=True, timeout=30).stdout.strip()
