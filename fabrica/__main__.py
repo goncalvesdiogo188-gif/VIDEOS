@@ -3,6 +3,7 @@
 Exemplos:
   fabrica novo "compras por impulso"
   fabrica novo --guiao guioes/exemplo_compras_impulso.json
+  fabrica guiao "compras por impulso"      (só o guião em texto, sem vídeo)
   fabrica semana --n 7
   fabrica refazer out/2026-11-15_procrastinacao
   fabrica diario
@@ -21,6 +22,9 @@ def _parser():
     novo = sub.add_parser("novo", help="cria um pacote (vídeo, capa, carrossel, legenda)")
     novo.add_argument("tema", nargs="?", help="o tema do vídeo, entre aspas")
     novo.add_argument("--guiao", help="usa um guião que já existe (ficheiro .json)")
+
+    gu = sub.add_parser("guiao", help="escreve só o guião (texto, sem vídeo) e grava-o em guioes/")
+    gu.add_argument("tema", help="o tema do vídeo, entre aspas")
 
     sem = sub.add_parser("semana", help="cria vários pacotes de uma vez")
     sem.add_argument("--n", type=int, default=7, help="quantos vídeos (por defeito 7)")
@@ -62,7 +66,7 @@ def main(argv=None):
             return 1
         return 0 if ok else 1
 
-    if a.comando not in ("novo", "semana", "refazer", "diario"):
+    if a.comando not in ("novo", "guiao", "semana", "refazer", "diario"):
         p.print_help()
         return 0
 
@@ -75,6 +79,9 @@ def main(argv=None):
             pasta = pacote.criar_pacote(a.tema, guiao_ficheiro=a.guiao)
             print(f"\nPasta: {pasta}")
             print("Pronto para publicar!")
+        elif a.comando == "guiao":
+            f = pacote.escrever_so_guiao(a.tema)
+            print(f"\nGostaste? Para fazer o vídeo:  fabrica novo --guiao {f}")
         elif a.comando == "diario":
             from . import diario
             diario.diario(forcar=a.forcar)

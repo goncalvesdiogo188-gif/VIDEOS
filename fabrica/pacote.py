@@ -240,6 +240,58 @@ def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Pat
     return pasta
 
 
+def mostrar_guiao(g) -> str:
+    """O guião em texto simples, para ler e julgar sem montar o vídeo."""
+    nomes = {"neurao": "NEURÃO", "ze": "ZÉ"}
+    out = [f"TÍTULO: {g.get('titulo', '')}"]
+    if g.get("dono"):
+        out.append(f"DONO: {g['dono']}   |   ZONA: {g.get('cenario', '')}")
+    if isinstance(g.get("conceito"), dict):
+        out.append(f"CONCEITO: {g['conceito'].get('nome', '')}")
+    q = g.get("qualidade")
+    if isinstance(q, dict) and q.get("notas"):
+        out.append("NOTA DO EDITOR: média " + str(q.get("media")) + "  (" + ", ".join(f"{k} {v}" for k, v in q["notas"].items()) + ")")
+    out.append("")
+    for f in g.get("falas", []):
+        c = f.get("cena")
+        if isinstance(c, dict):
+            out.append(f"   [JANELA · {c.get('hora', '')} · {c.get('icone', '')}] {c.get('texto', '')}")
+        extra = " ".join(x for x in (f.get("adereco"), f.get("acao")) if x)
+        marca = "  ★ CONCEITO" if f.get("mostra_conceito") else ""
+        out.append(f"{nomes.get(f.get('quem'), f.get('quem', '?')):<7} {f.get('texto', '')}" + (f"   ({extra})" if extra else "") + marca)
+    palavras = sum(len(str(f.get("texto", "")).split()) for f in g.get("falas", []))
+    try:
+        from . import video
+        dur = f"{video.planear(g)[1]:.0f} s"
+    except Exception:
+        dur = "?"
+    out += ["", f"{len(g.get('falas', []))} falas, {palavras} palavras, duração prevista {dur}.", "", "LEGENDA:", g.get("legenda", ""),
+            " ".join(g.get("hashtags", []))]
+    return "\n".join(out)
+
+
+def escrever_so_guiao(tema, pasta=Path("guioes"), data=None, log=print) -> Path:
+    """Escreve e valida o guião (sem vídeo) e grava-o em guioes/AAAA-MM-DD_tema.json."""
+    if not tema:
+        raise PacoteErro("Preciso de um tema (ex.: fabrica guiao \"compras por impulso\").")
+    log(f"A escrever o guião sobre '{tema}' (só texto, sem vídeo)...")
+    g, correcoes = obter_guiao_valido(tema=tema, log=log)
+    g = _normalizar(g)
+    pasta = Path(pasta)
+    pasta.mkdir(parents=True, exist_ok=True)
+    data = data or datetime.date.today()
+    destino, k = pasta / f"{data.isoformat()}_{slug(tema)}.json", 2
+    while destino.exists():
+        destino = pasta / f"{data.isoformat()}_{slug(tema)}_{k}.json"
+        k += 1
+    _escrever_json(destino, g)
+    log("")
+    log(mostrar_guiao(g))
+    log("")
+    log(f"Guião gravado em {destino}")
+    return destino
+
+
 def _linhas_historia(g) -> list:
     """Linhas do info.txt sobre a história (dono, conceito e notas do editor), se existirem."""
     out = []

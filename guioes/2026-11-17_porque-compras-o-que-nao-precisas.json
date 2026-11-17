@@ -1,0 +1,187 @@
+{
+  "tema": "compras por impulso",
+  "titulo": "Porque compras o que não precisas?",
+  "dono": "Marta",
+  "conceito": {
+    "id": "dor_de_pagar",
+    "nome": "Dor de pagar"
+  },
+  "cenario": "cofre",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "São 22:40 e a Marta só quer comprar um cabo. Só!",
+      "expressao": "convencido",
+      "pose": "acena",
+      "cena": {
+        "icone": "telefone",
+        "hora": "22:40",
+        "texto": "Só precisa de um cabo de carregador."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu também só ia buscar água. Passei duas horas fora.",
+      "expressao": "alegre",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Evidentemente. Ao lado dela está uma nota dobrada. Ninguém a vê.",
+      "expressao": "convencido",
+      "pose": "aponta"
+    },
+    {
+      "quem": "ze",
+      "texto": "Olha, uma almofada de batata com rosto simpático!",
+      "expressao": "surpreendido",
+      "pose": "segura",
+      "adereco": "almofada",
+      "cena": {
+        "icone": "carrinho",
+        "hora": "22:46",
+        "texto": "Almofada de batata, só para ver"
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Só para ver. Aprovado. Foi ideia minha.",
+      "expressao": "convencido",
+      "pose": "bracos_cruzados"
+    },
+    {
+      "quem": "ze",
+      "texto": "Ela clicou em comprar! Nem sentiu nada!",
+      "expressao": "confuso",
+      "pose": "mao_testa",
+      "cena": {
+        "icone": "cartao",
+        "hora": "22:49",
+        "texto": "Um clique. O cartão já estava guardado"
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Atenção, ciência! A Dor de pagar: sem notas, o cérebro sente menos.",
+      "expressao": "convencido",
+      "pose": "aponta",
+      "mostra_conceito": true
+    },
+    {
+      "quem": "ze",
+      "texto": "Então o cartão é um mosquito que pica enquanto dormes!",
+      "expressao": "alegre",
+      "pose": "bracos_ar"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Tende a acontecer, mas varia de pessoa para pessoa.",
+      "expressao": "pensativo",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Ela aceitou o Clube da Batata! Já é sócia.",
+      "expressao": "surpreendido",
+      "pose": "normal",
+      "cena": {
+        "icone": "notificacao",
+        "hora": "23:15",
+        "texto": "Aceita o Clube da Batata, grátis 7 dias"
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Chegou uma caixa gigante. O cabo? Nem sinal dele.",
+      "expressao": "pensativo",
+      "pose": "encolhe",
+      "cena": {
+        "icone": "almofada",
+        "hora": "3 dias depois",
+        "texto": "Chega a caixa. O cabo? Esqueceu-se dele"
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "E o telefone está a 1%! Agora precisa mesmo dele!",
+      "expressao": "surpreendido",
+      "pose": "normal",
+      "acao": "treme"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Na loja, pagou com a nota dobrada. Sentiu o ai!",
+      "expressao": "surpreendido",
+      "pose": "mao_queixo",
+      "cena": {
+        "icone": "moeda",
+        "hora": "Dia seguinte",
+        "texto": "Paga o cabo com a nota dobrada"
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Marta, apaga o cartão da app. Espera um dia antes de comprar.",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "adereco": "lampada"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Eu planeei tudo isto. Foi ideia minha.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "A nota dobrada é que avisou, Neurão.",
+      "expressao": "alegre",
+      "pose": "vitoria"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque compras o que não precisas?",
+      "texto": "A Marta só queria um cabo. Voltou com uma almofada de batata."
+    },
+    {
+      "titulo": "Dor de pagar",
+      "texto": "Pagar com um clique tende a doer menos ao cérebro do que contar notas."
+    },
+    {
+      "titulo": "O pagamento invisível",
+      "texto": "Sem sentir nada, é mais fácil gastar. O efeito varia de pessoa para pessoa."
+    },
+    {
+      "titulo": "Espera 24 horas",
+      "texto": "Apaga o cartão guardado e espera um dia antes de comprar. Guarda para não esquecer."
+    }
+  ],
+  "legenda": "A Marta foi comprar um cabo e voltou com uma almofada de batata. O que já compraste sem precisar? Conta nos comentários. Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#compras",
+    "#dinheiro",
+    "#vidaadulta"
+  ],
+  "qualidade": {
+    "notas": {
+      "coerencia": 3,
+      "historia": 4,
+      "humor": 4,
+      "ciencia": 4,
+      "licao": 4,
+      "ritmo": 4,
+      "imagem": 3
+    },
+    "media": 3.71,
+    "voltas": 2
+  },
+  "ficha": {
+    "situacao": "Às 22:40, Marta só quer comprar um cabo de carregador de 5 € na app de uma loja onde o cartão já está guardado, com uma nota de 20 € dobrada na carteira ao lado do portátil.",
+    "reviravolta": "A Marta repara que, na loja, pagar 5 € com uma nota de 20 € lhe custou mais do que ter pago a almofada e o clube com um clique. Percebe que o pagamento invisível tende a doer menos ao cérebro, e por isso é mais fácil gastar sem dar por isso (o efeito varia de pessoa para pessoa).",
+    "licao": "Amanhã, a Marta apaga o cartão guardado da app da loja e passa a esperar um dia antes de carregar em 'comprar' qualquer coisa que não esteja na lista. Se a almofada ainda lhe fizer falta depois de 24 horas, compra-a de cartão na mão, com os números escritos à mão.",
+    "callback": "A nota de 20 € dobrada na carteira, plantada na primeira cena ao lado do portátil, volta na última cena para pagar o cabo. A Marta sente cada euro a sair e percebe que era a única coisa que a tinha estado a avisar."
+  }
+}

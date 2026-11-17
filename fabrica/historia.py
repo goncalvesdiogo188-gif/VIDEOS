@@ -35,7 +35,7 @@ CRITERIOS = {
     "coerencia": "Cada fala responde ao que a anterior disse (pergunta→resposta, provocação→reação). Não há frases que saiam do nada, nem lições que aparecem de repente. A história percebe-se do princípio ao fim.",
     "historia": "Há uma situação concreta (um Dono com nome, hora e objeto), uma escalada em que cada cena complica a anterior, e uma reviravolta. Não é só uma explicação com piadas soltas.",
     "humor": "As piadas são concretas e nascem da situação. O Neurão é pomposo e acaba a errar ou a reivindicar o mérito; o Zé é distraído, literal e absurdo, mas honesto. Há um remate ou callback.",
-    "ciencia": "O conceito real é nomeado e explicado de forma correta, simples e curta, sem exagerar (respeita o grau de certeza). Quem vê aprende uma coisa verdadeira.",
+    "ciencia": "O conceito real é nomeado e explicado de forma correta, simples e curta, sem exagerar (respeita o grau de certeza, mas as ressalvas vão dentro da explicação, nunca numa fala só de avisos). Quem vê aprende uma coisa verdadeira.",
     "licao": "A lição é uma ação prática e concreta, dirigida ao Dono, que nasce da história e do conceito. Ao ouvi-la, o espectador sabe o que fazer amanhã.",
     "ritmo": "Falas curtas e variadas, bom ritmo, sem monólogos e sem mais de duas falas seguidas da mesma personagem. O gancho prende nos primeiros 3 segundos. A última fala é um remate com sentido (nunca uma frase solta).",
     "imagem": "As cenas da Janela do Dono contam a história sozinhas, sem as falas, com horas e textos curtos que escalam. Os adereços, ações e expressões ajudam a piada.",
@@ -198,7 +198,7 @@ def _regras_roteiro():
 - Estrutura: gancho (a situação do Dono + uma provocação) → o Neurão apresenta o conceito com o nome → o Zé percebe à letra (piada) → a história escala → reviravolta → o Zé diz a lição (dirigida ao Dono pelo nome) → remate. A ÚLTIMA fala é do "ze".
 - REMATE: se a lição já foi dita, a última fala é um remate CURTO (3 a 8 palavras) que fecha a piada com um callback ligado ao que se passou (ex.: o Neurão reclama o mérito e o Zé responde com o detalhe plantado no início). Nunca acabes com uma frase nova, solta ou sem sentido: a última fala tem de fazer rir ou fechar a história.
 - O Neurão diz o NOME do conceito numa fala, e essa fala tem "mostra_conceito": true (só uma).
-- A ciência é a explicação correta do conceito em linguagem simples e curta, sem exagerar; respeita o "cuidado".
+- A ciência é a explicação correta do conceito em linguagem simples e curta, sem exagerar; respeita o "cuidado". As ressalvas ("tende a", "costuma", "um estudo sugere") entram DENTRO da fala da explicação; NUNCA uses uma fala inteira só para ressalvas ou avisos ("varia de pessoa para pessoa"), porque isso mata o ritmo.
 - "cena" ({{"icone","hora","texto"}}) numa fala sempre que o Dono passa a uma nova situação da ficha: a 1.ª fala TEM cena, e no total pelo menos 4 cenas. O "texto" da cena tem no máximo 40 caracteres.
 - "expressao" só de: {expr}. "pose" só de: {poses}. Varia ao longo do vídeo.
 - "adereco" (opcional, 1 a 3 vezes, objeto na mão de quem fala): {", ".join(GU._aderecos())}. "acao" (opcional, no máximo 3): salta, treme, aproxima.

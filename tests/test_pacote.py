@@ -257,6 +257,33 @@ class TestRefazer(Base):
             pacote.refazer_pacote(self.base / "nao_existe", log=self.log)
 
 
+class TestSoGuiao(Base):
+    def test_grava_e_nao_gera_video(self):
+        self.instalar()
+        self.falsos_render()
+        destino = pacote.escrever_so_guiao("Compras por impulso", pasta=self.base / "g",
+                                           data=datetime.date(2026, 3, 4), log=self.log)
+        self.assertEqual(destino.name, "2026-03-04_compras-por-impulso.json")
+        self.assertEqual(json.loads(destino.read_text(encoding="utf-8"))["titulo"], GUIAO["titulo"])
+        self.assertFalse(any(self.base.rglob("*.mp4")))
+        self.assertTrue(any("falas" in l and "palavras" in l for l in self.logs))
+        outro = pacote.escrever_so_guiao("Compras por impulso", pasta=self.base / "g",
+                                         data=datetime.date(2026, 3, 4), log=self.log)
+        self.assertEqual(outro.name, "2026-03-04_compras-por-impulso_2.json")
+
+    def test_sem_tema(self):
+        with self.assertRaises(pacote.PacoteErro):
+            pacote.escrever_so_guiao("", log=self.log)
+
+    def test_mostrar_guiao(self):
+        txt = pacote.mostrar_guiao({"titulo": "T", "dono": "Rui", "cenario": "cofre", "conceito": {"nome": "Dor de pagar"},
+                                    "falas": [{"quem": "neurao", "texto": "Olá.", "cena": {"icone": "cama", "hora": "03:00", "texto": "x"}, "mostra_conceito": True},
+                                              {"quem": "ze", "texto": "Adeus.", "adereco": "moeda"}],
+                                    "legenda": "L", "hashtags": ["#a"]})
+        for esperado in ("DONO: Rui", "CONCEITO: Dor de pagar", "[JANELA · 03:00 · cama]", "★ CONCEITO", "(moeda)", "2 falas"):
+            self.assertIn(esperado, txt)
+
+
 class TestSemana(Base):
     def test_continua_apos_falha(self):
         self.instalar(temas=["a", "b", "c"], tema_mau="b")
