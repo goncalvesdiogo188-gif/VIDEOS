@@ -51,6 +51,14 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
    - verifica tudo, e no fim pergunta se queres agendar o vídeo diário.
 
    Se o Windows mostrar "O Windows protegeu o computador", carrega em **Mais informações** e depois **Executar mesmo assim**.
+
+   Se aparecer **"O Controlo Inteligente de Aplicações bloqueou um ficheiro"** (Windows 11):
+   - **não desligues** essa proteção;
+   - abre o PowerShell nesta pasta (barra de endereço > escreve `powershell` > Enter);
+   - escreve `Get-ChildItem -Recurse | Unblock-File` e carrega Enter;
+   - clica outra vez no `instalar.bat`.
+
+   Se continuar bloqueado, usa a "Instalação à mão" abaixo e corre os comandos com `py -m fabrica ...` em vez de `.\fabrica ...`.
 5. **Quando ele pedir para fechar e voltar a abrir**, fecha a janela e clica outra vez no `instalar.bat`. Pode ser preciso 2 ou 3 vezes, porque o Windows só reconhece programas novos numa janela nova.
 6. **Login do Claude (só uma vez).** Abre o PowerShell, escreve `claude` e segue o login no navegador. Depois escreve `/exit`.
 7. No fim, o `instalar.bat` deve mostrar tudo `[OK]` e "Tudo pronto!".
