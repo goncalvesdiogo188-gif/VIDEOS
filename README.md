@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 3 concluída** (voz real). Próximo: correr todos os dias sozinho (Fase 4).
+> Estado: **Fase 4 concluída** (corre todos os dias sozinho). Próximo: investigar publicação automática (Fase 5).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -29,6 +29,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `guionista.py` | Escreve guiões com o Claude Code em modo não interativo (`claude -p`). |
 | `validar.py` | Verifica as regras (tempo, palavras por fala, texto). |
 | `pacote.py` | Junta tudo na pasta final. |
+| `diario.py` | O pacote do dia e o agendamento no Windows. |
 | `__main__.py` | O comando `fabrica`. |
 | `fabrica.bat` / `fabrica.sh` (na raiz) | Atalhos para correr o comando no Windows / noutros sistemas. |
 | `tests/` | Testes automáticos. |
@@ -47,6 +48,9 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `fabrica novo --guiao guioes/ficheiro.json` | Usa um guião já escrito por ti. |
 | `fabrica semana` | Escolhe 7 temas diferentes (evita os já feitos, guardados em `out/historico.json`) e gera os 7 pacotes. |
 | `fabrica refazer out/PASTA` | Volta a gerar o pacote a partir do `guiao.json` dessa pasta (útil depois de mudares uma fala à mão). Aceita várias pastas. |
+| `fabrica diario` | Cria o pacote do dia (só um por dia; se já existir, não faz nada). Pensado para correr agendado. `--forcar` cria outro. |
+| `fabrica agendar --hora 09:00` | Windows: põe o `fabrica diario` a correr sozinho todos os dias a essa hora. |
+| `fabrica desagendar` | Windows: deixa de correr sozinho. |
 | `fabrica verificar` | Diz o que falta instalar. |
 
 Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
@@ -64,6 +68,24 @@ Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
 ### Quanto tempo demora
 - Cada pacote demora alguns minutos: escrever o guião com o Claude ~1 min, vozes ~10 s, vídeo ~1–2 min (depende do computador).
 - Uma semana inteira: ~15–25 min.
+
+## Todos os dias, sozinho (Windows)
+1. Confirma primeiro que `fabrica novo "teste"` funciona bem no teu computador.
+2. No PowerShell, na pasta do projeto: `.\fabrica agendar --hora 09:00` (escolhe a hora que quiseres).
+3. Para confirmar: Iniciar > escreve **Agendador de Tarefas** > Biblioteca do Agendador de Tarefas > tarefa **FABRICA diario**. Clica com o botão direito > **Executar** para testar já.
+4. Todos os dias aparece uma pasta nova `out/AAAA-MM-DD_tema/`. Tu só abres, vês e publicas.
+5. O que aconteceu fica escrito em `out/logs/diario_AAAA-MM-DD.log`. Se não aparecer o pacote do dia, é aí que se vê porquê.
+
+Para parar: `.\fabrica desagendar`.
+
+**Limitações (importante):**
+- O computador tem de estar **ligado** e com a tua **sessão iniciada** (pode estar bloqueado). Desligado não corre.
+- Se estiver desligado à hora marcada, corre **assim que o ligares** nesse dia ou depois.
+- Se estiver em **suspensão**, o Windows tenta acordá-lo à hora marcada. Só funciona se os "temporizadores de ativação" estiverem ligados nas Opções de Energia. Não funciona com o computador desligado nem em hibernação, em muitos portáteis.
+- Precisa de **internet** (Claude e vozes) e de o **Claude Code** continuar com o login feito.
+- Durante 2 a 3 minutos abre-se uma janela preta e o computador fica mais lento. É normal.
+- Cada dia gasta uma pequena parte do teu limite de utilização do Claude (3 a 5 pedidos: escolher o tema, escrever, rever e, se preciso, corrigir).
+- Se o Claude ou as vozes falharem, a fábrica tenta outro tema uma vez. Se falhar de novo, não há pacote nesse dia (fica no registo).
 
 ## Vozes
 | Personagem | Voz (edge-tts) | Ajuste |

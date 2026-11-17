@@ -5,6 +5,9 @@ Exemplos:
   fabrica novo --guiao guioes/exemplo_compras_impulso.json
   fabrica semana --n 7
   fabrica refazer out/2026-11-15_procrastinacao
+  fabrica diario
+  fabrica agendar --hora 09:00
+  fabrica desagendar
   fabrica verificar
 """
 import argparse
@@ -27,7 +30,13 @@ def _parser():
 
     sub.add_parser("verificar", help="verifica se o computador tem tudo o que é preciso")
 
-    # FASE 4: aqui será acrescentado o comando "diario" (publicação/registo diário).
+    dia = sub.add_parser("diario", help="cria o pacote do dia (pensado para correr agendado)")
+    dia.add_argument("--forcar", action="store_true", help="cria outro mesmo que o de hoje já exista")
+
+    ag = sub.add_parser("agendar", help="Windows: corre 'fabrica diario' todos os dias sozinho")
+    ag.add_argument("--hora", default="09:00", help="a que horas (por defeito 09:00)")
+
+    sub.add_parser("desagendar", help="Windows: deixa de correr sozinho")
     return p
 
 
@@ -43,7 +52,16 @@ def main(argv=None):
         from . import verificar
         return verificar.main()
 
-    if a.comando not in ("novo", "semana", "refazer"):
+    if a.comando in ("agendar", "desagendar"):
+        from . import diario
+        try:
+            ok = diario.agendar(a.hora) if a.comando == "agendar" else diario.desagendar()
+        except ValueError as e:
+            print(e)
+            return 1
+        return 0 if ok else 1
+
+    if a.comando not in ("novo", "semana", "refazer", "diario"):
         p.print_help()
         return 0
 
@@ -56,6 +74,9 @@ def main(argv=None):
             pasta = pacote.criar_pacote(a.tema, guiao_ficheiro=a.guiao)
             print(f"\nPasta: {pasta}")
             print("Pronto para publicar!")
+        elif a.comando == "diario":
+            from . import diario
+            diario.diario(forcar=a.forcar)
         elif a.comando == "refazer":
             for pasta in a.pastas:
                 pacote.refazer_pacote(pasta)
