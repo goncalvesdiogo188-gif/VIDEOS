@@ -13,6 +13,7 @@ import json
 import platform
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
@@ -101,11 +102,13 @@ def _ps(texto):
     return "'" + str(texto).replace("'", "''") + "'"
 
 
-def comando_powershell_agendar(hora, raiz=RAIZ):
+def comando_powershell_agendar(hora, raiz=RAIZ, python=None):
+    """A tarefa chama o Python diretamente (não o .bat), porque o Controlo Inteligente
+    de Aplicações do Windows 11 pode bloquear ficheiros .bat vindos da internet."""
     hora = _validar_hora(hora)
-    bat = Path(raiz) / "fabrica.bat"
+    python = python or sys.executable
     return "; ".join([
-        f"$a = New-ScheduledTaskAction -Execute {_ps(bat)} -Argument 'diario' -WorkingDirectory {_ps(raiz)}",
+        f"$a = New-ScheduledTaskAction -Execute {_ps(python)} -Argument '-m fabrica diario' -WorkingDirectory {_ps(raiz)}",
         f"$t = New-ScheduledTaskTrigger -Daily -At {_ps(hora)}",
         # StartWhenAvailable: se o computador estava desligado à hora marcada, corre quando ligares
         "$s = New-ScheduledTaskSettingsSet -StartWhenAvailable -WakeToRun -AllowStartIfOnBatteries "

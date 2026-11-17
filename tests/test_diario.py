@@ -86,11 +86,13 @@ class TestDiario(unittest.TestCase):
 
 class TestAgendar(unittest.TestCase):
     def test_comando_powershell(self):
-        c = diario.comando_powershell_agendar("9:05", raiz=Path("C:/Users/Diogo's/fabrica"))
+        c = diario.comando_powershell_agendar("9:05", raiz=Path("C:/Users/Diogo's/fabrica"),
+                                              python="C:/Python312/python.exe")
         self.assertIn("-At '09:05'", c)
         self.assertIn("Diogo''s", c)  # plica escapada
         self.assertIn("-StartWhenAvailable", c)
-        self.assertIn("-Argument 'diario'", c)
+        self.assertIn("-Argument '-m fabrica diario'", c)
+        self.assertIn("-Execute 'C:/Python312/python.exe'", c)
         self.assertIn("'FABRICA diario'", c)
 
     def test_hora_invalida(self):
