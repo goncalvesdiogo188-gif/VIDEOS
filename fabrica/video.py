@@ -149,7 +149,10 @@ def estado_personagem(plano, quem, t):
     mudancas = [(0.0, "neutro", "normal")]
     for f in plano:
         if f["quem"] == quem:
-            mudancas.append((f["inicio"] - 0.1, f["expressao"], f["pose"]))
+            pose = f["pose"]
+            if f.get("adereco") and pose not in POSES_COM_ADERECO:
+                pose = "segura"
+            mudancas.append((f["inicio"] - 0.1, f["expressao"], pose))
         else:
             ult = mudancas[-1][1]
             ouvir = ult if ult in ("alegre", "convencido", "pensativo") else "neutro"
@@ -160,6 +163,55 @@ def estado_personagem(plano, quem, t):
             ant, atual = atual, m
     k = suave((t - atual[0]) / 0.25)
     return (ant[1], atual[1], k), (ant[2], atual[2], k)
+
+
+POSES_COM_ADERECO = ("segura", "aponta", "bracos_ar", "vitoria", "acena")
+ACOES = ("nenhuma", "salta", "treme", "aproxima")
+ENTRADA = 0.45      # segundos que os personagens levam a entrar no início
+APROXIMA = 90       # píxeis que o personagem anda na direção do outro
+
+
+def movimento(plano, quem, t):
+    """Deslocamento (dx, dy) e fase do passo (ou None) do personagem no instante t."""
+    lado = -1 if quem == "neurao" else 1
+    dx, dy, andar = 0.0, 0.0, None
+    # entrada: chegam a andar dos lados
+    if t < ENTRADA:
+        dx += lado * 380 * (1 - suave(t / ENTRADA))
+        andar = t * 16
+    # aproximar: anda na direção do outro e volta na fala seguinte que não aproxima
+    alvo_ant, alvo, t_mud = 0.0, 0.0, None
+    for f in plano:
+        if f["quem"] != quem or f["inicio"] > t:
+            continue
+        novo = -lado * APROXIMA if f.get("acao") == "aproxima" else 0.0
+        if novo != alvo:
+            alvo_ant, alvo, t_mud = alvo, novo, f["inicio"]
+    if t_mud is not None:
+        k = (t - t_mud) / 0.6
+        dx += alvo_ant + (alvo - alvo_ant) * suave(k)
+        if k < 1:
+            andar = (t - t_mud) * 14
+    else:
+        dx += alvo
+    for f in plano:
+        if f["quem"] != quem:
+            continue
+        r = t - f["inicio"]
+        if f.get("acao") == "salta" and 0 <= r < 0.5:
+            dy -= 110 * math.sin(math.pi * r / 0.5)
+        if f.get("acao") == "treme" and 0 <= r < min(1.0, f["fim"] - f["inicio"]):
+            dx += 7 * math.sin(t * 70)
+    return dx, dy, andar
+
+
+def adereco_em(plano, quem, t):
+    """(nome do objeto, 0..1) que o personagem segura no instante t."""
+    for f in plano:
+        if f["quem"] == quem and f.get("adereco") and f["inicio"] - 0.1 <= t <= f["fim"] + 0.4:
+            k = suave((t - f["inicio"] + 0.1) / 0.2) * (1 - suave((t - f["fim"] - 0.2) / 0.2))
+            return f["adereco"], k
+    return None, 0.0
 
 
 def piscar_em(quem, t):
@@ -236,10 +288,14 @@ def frame_svg(g, plano, duracao, t):
         outro = "ze" if quem == "neurao" else "neurao"
         olhar = None
         if a_falar == outro:
-            olhar = (0.7 if quem == "neurao" else -0.7, 0.0)
+            olhar = (0.7, 0.0)  # o Zé está espelhado, por isso +0.7 também olha para o outro
         esc_p = ESCALA * (1 + 0.05 * (suave((t - f["inicio"]) / 0.3) if (f and f["quem"] == quem) else 0))
-        s += desenha(quem, POS_X[quem], CHAO, esc_p, expr, pose, boca=boca,
-                     piscar=piscar_em(quem, t), t=t, olhar=olhar)
+        dx, dy, andar = movimento(plano, quem, t)
+        ad, ad_k = adereco_em(plano, quem, t)
+        s += desenha(quem, POS_X[quem] + dx, CHAO + dy, esc_p, expr, pose, boca=boca,
+                     piscar=piscar_em(quem, t), t=t, olhar=olhar,
+                     virado=-1 if quem == "ze" else 1,  # gestos e objetos do Zé ficam virados para o centro
+                     adereco=ad, adereco_k=ad_k, andar=andar)
     s += "</g>"
 
     # barra de progresso

@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 6 em curso**: música de fundo e 8 zonas feitas. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
+> Estado: **Fase 6 concluída**: música de fundo, 8 zonas, poses novas, objetos e movimento. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -18,7 +18,8 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 ### O código (`fabrica/`)
 | Ficheiro | O que faz |
 |---|---|
-| `personagens.py` | Desenha o Neurão e o Zé em SVG: 7 expressões, 5 poses, boca que fala, piscar de olhos. |
+| `personagens.py` | Desenha o Neurão e o Zé em SVG: 7 expressões, 10 poses, boca que fala, piscar de olhos, andar. |
+| `aderecos.py` | Objetos que os personagens seguram: telefone, carrinho, almofada, moeda, despertador, lâmpada, café, livro. |
 | `cenarios.py` | O mundo: interior de um cérebro futurista (rede neuronal com sinais e chão de néon). 8 zonas: `comando` (Centro de Comando), `memorias` (Arquivo de Memórias), `dopamina` (Centro da Recompensa), `sono` (Zona do Sono), `alarme` (Centro de Alarme), `cofre` (Cofre do Cérebro), `social` (Praça Social), `habitos` (Fábrica de Hábitos). Os nomes antigos `sala`, `quarto`, `loja` ainda funcionam. |
 | `guiao.py` | Lê um guião JSON. |
 | `video.py` | Guião → Reel 1080x1920 com legendas palavra-a-palavra e boca animada pela voz. |
@@ -98,6 +99,14 @@ Para parar: `.\fabrica desagendar`.
 - Os áudios ficam guardados em `out/cache_voz/` e não são pedidos duas vezes.
 - Se a voz passar dos 30 s, a fábrica acelera a fala sozinha.
 - O edge-tts usa um serviço gratuito da Microsoft que não é oficial: pode deixar de funcionar ou mudar sem aviso. Se falhar, o pacote não é criado e aparece uma mensagem clara.
+
+## Poses, objetos e movimento
+- **Poses:** normal, aponta, bracos_ar, mao_queixo, encolhe, bracos_cruzados, mao_testa, vitoria (dança), acena, segura.
+- **Objetos** (campo `"adereco"` numa fala): telefone, carrinho, almofada, moeda, despertador, lampada, cafe, livro. Aparecem na mão de quem fala só durante essa fala.
+- **Ações** (campo `"acao"` numa fala): `salta`, `treme`, `aproxima` (anda até ao outro e volta depois).
+- No início de cada vídeo os dois entram a andar dos lados.
+- O Zé aparece espelhado, para os gestos e objetos dele ficarem virados para o centro.
+- Ver tudo numa imagem: `python -m fabrica.personagens` (grava `out/folha_poses_aderecos.png`).
 
 ## Música de fundo
 | Zona | Estilo |

@@ -65,7 +65,7 @@ Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal
   "cenario": "dopamina",
   "falas": [
     {"quem": "neurao", "texto": "...", "expressao": "convencido", "pose": "aponta"},
-    {"quem": "ze", "texto": "...", "expressao": "alegre", "pose": "normal"}
+    {"quem": "ze", "texto": "...", "expressao": "alegre", "pose": "segura", "adereco": "carrinho", "acao": "salta"}
   ],
   "carrossel": [{"titulo": "...", "texto": "..."}],
   "legenda": "...",
@@ -74,7 +74,9 @@ Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal
 ```
 - `quem`: `neurao` ou `ze`. A **última fala é sempre do `ze`**.
 - `expressao`: neutro, convencido, alegre, confuso, surpreendido, triste, pensativo.
-- `pose`: normal, aponta, bracos_ar, mao_queixo, encolhe.
+- `pose`: normal, aponta, bracos_ar, mao_queixo, encolhe, bracos_cruzados, mao_testa, vitoria, acena, segura.
+- `adereco` (opcional): objeto na mão de quem fala: telefone, carrinho, almofada, moeda, despertador, lampada, cafe, livro. Usar em 1 a 3 falas, quando ajuda a piada.
+- `acao` (opcional): salta (alegria, ideia), treme (medo, susto), aproxima (anda até ao outro). No máximo 2 por vídeo.
 - `cenario`: comando, memorias, dopamina, sono, alarme, cofre, social, habitos.
 
 ### Limites obrigatórios (a fábrica verifica)

@@ -106,6 +106,11 @@ def _listas() -> tuple[str, str]:
     return ", ".join(personagens.EXPRESSOES), ", ".join(personagens.POSES)
 
 
+def _aderecos():
+    from . import aderecos
+    return list(aderecos.ADERECOS)
+
+
 def _como_dict(obj, o_que="guião") -> dict:
     if isinstance(obj, list) and len(obj) == 1 and isinstance(obj[0], dict):
         obj = obj[0]
@@ -139,12 +144,15 @@ REGRAS OBRIGATÓRIAS:
 - Proibido: promessas de ganhos, conselhos de investimento específicos, conselhos médicos, referências a séries, marcas ou personagens existentes.
 - "expressao" só pode ser: {expr}.
 - "pose" só pode ser: {poses}.
+- Opcional em cada fala: "adereco" (objeto na mão de quem fala), um de: {", ".join(_aderecos())}. Usa em 1 a 3 falas, quando o objeto ajuda a piada ou a explicação (ex.: telefone no scroll, carrinho nas compras, almofada no sono, moeda no dinheiro, lâmpada numa ideia).
+- Opcional em cada fala: "acao", uma de: salta (alegria, ideia), treme (medo, susto), aproxima (anda até ao outro para explicar ou confrontar). Usa no máximo 2 ações por vídeo.
+- Varia as poses: usa também bracos_cruzados (convencido, a desafiar), mao_testa (vergonha, "que vergonha"), vitoria (celebrar), acena (cumprimentar no início).
 - "cenario" só pode ser: {", ".join(CENARIOS)}.
 - "titulo" com no máximo 60 caracteres.
 - "carrossel": 3 a 5 itens {{"titulo": "...", "texto": "..."}}.
 - "legenda": frase de gancho + pergunta para comentários + "Segue para mais!".
 - "hashtags": exatamente 5, cada uma a começar por #, em minúsculas, sem acentos e sem espaços.
-- Campos: tema, titulo, cenario, falas (quem, texto, expressao, pose), carrossel, legenda, hashtags.
+- Campos: tema, titulo, cenario, falas (quem, texto, expressao, pose, e opcionalmente adereco e acao), carrossel, legenda, hashtags.
 
 Responde APENAS com o JSON, sem mais texto."""
     guiao = _como_dict(extrair_json(perguntar_claude(prompt)))
@@ -180,7 +188,7 @@ Responde APENAS com o guião completo corrigido, em JSON, sem mais texto."""
 def rever_texto(guiao: dict) -> tuple[dict, list[str]]:
     """Revisão ortográfica e gramatical. Devolve (guião corrigido, lista de alterações)."""
     prompt = f"""Faz a revisão de texto deste guião de Reel: ortografia, gramática, acentos e pontuação, em português neutro (Portugal e Brasil).
-NÃO mudes o sentido, NÃO tornes nenhuma frase mais longa e NÃO alteres a estrutura (mesmas falas, mesmos valores de quem, expressao, pose, cenario).
+NÃO mudes o sentido, NÃO tornes nenhuma frase mais longa e NÃO alteres a estrutura (mesmas falas, mesmos valores de quem, expressao, pose, adereco, acao, cenario).
 Corrige só o que estiver mesmo errado.
 
 GUIÃO:

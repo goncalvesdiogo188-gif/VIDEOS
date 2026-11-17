@@ -13,7 +13,9 @@ import unicodedata
 
 from . import guiao as G
 from .cenarios import ALIASES, ZONAS
-from .personagens import EXPRESSOES, POSES
+from .personagens import ADERECOS, EXPRESSOES, POSES
+
+ACOES = ("nenhuma", "salta", "treme", "aproxima")
 
 DURACAO_MAX = 30.0
 DURACAO_MIN = 15.0
@@ -221,6 +223,10 @@ def _validar(guiao) -> list[str]:
                              f"Usa uma destas: {', '.join(EXPRESSOES)}.")
                 if f.get("pose") not in POSES:
                     e.append(f"Fala {i}: a pose {f.get('pose')!r} não existe. Usa uma destas: {', '.join(POSES)}.")
+                if f.get("adereco") not in (None, "") and f.get("adereco") not in ADERECOS:
+                    e.append(f"Fala {i}: o adereco {f.get('adereco')!r} não existe. Usa um destes ou nenhum: {', '.join(ADERECOS)}.")
+                if f.get("acao") not in (None, "") and f.get("acao") not in ACOES:
+                    e.append(f"Fala {i}: a acao {f.get('acao')!r} não existe. Usa uma destas: {', '.join(ACOES)}.")
             quems = [f.get("quem") for f in falas if isinstance(f, dict)]
             if quems:
                 for p in PERSONAGENS_VALIDOS:

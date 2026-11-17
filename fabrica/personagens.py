@@ -10,6 +10,8 @@ devolve um pedaço de SVG (<g>...</g>) com o personagem de pés no ponto (x, y).
 """
 import math
 
+from .aderecos import ADERECOS, desenha_adereco  # noqa: F401
+
 PERSONAGENS = {
     "neurao": {
         "nome": "Neurão",
@@ -43,6 +45,11 @@ POSES = {
     "bracos_ar":  dict(esq=(-1.40, -0.95), dir=(1.40, -0.95)),
     "mao_queixo": dict(esq=(-1.18, 1.10), dir=(0.22, 0.86)),
     "encolhe":    dict(esq=(-1.40, 0.15), dir=(1.40, 0.15)),
+    "bracos_cruzados": dict(esq=(0.40, 0.80), dir=(-0.40, 0.72)),
+    "mao_testa":  dict(esq=(-1.18, 1.10), dir=(0.18, -0.32)),
+    "vitoria":    dict(esq=(-1.35, -1.00), dir=(1.35, -1.00), anim="vitoria"),
+    "acena":      dict(esq=(-1.18, 1.10), dir=(1.45, -0.80), anim="acena"),
+    "segura":     dict(esq=(-1.18, 1.10), dir=(1.50, 0.40)),
 }
 
 PERNA = 105  # comprimento das pernas (px, escala 1)
@@ -72,6 +79,7 @@ def _pose(p):
         a, b, k = _pose(p[0]), _pose(p[1]), p[2]
         r = {lado: _mix(a[lado], b[lado], k) for lado in ("esq", "dir")}
         r["dedo"] = (b if k > 0.5 else a).get("dedo", False)
+        r["anim"] = (b if k > 0.5 else a).get("anim")
         return r
     return POSES.get(p, POSES["normal"])
 
@@ -213,11 +221,14 @@ def _laco(p, ry):
 
 
 def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
-            boca=0.0, piscar=0.0, t=0.0, virado=1, olhar=None):
+            boca=0.0, piscar=0.0, t=0.0, virado=1, olhar=None,
+            adereco=None, adereco_k=1.0, andar=None):
     """Devolve SVG do personagem com os pés no ponto (x, y).
 
     boca: 0..1, abertura extra da boca (fala).  piscar: 0..1 (1 = olhos fechados).
     virado: 1 = olha para a direita do ecrã, -1 = espelhado.
+    adereco: objeto na mão direita (ver ADERECOS); adereco_k: 0..1 para o fazer aparecer.
+    andar: fase do passo (em radianos) quando o personagem está a andar, senão None.
     """
     p = PERSONAGENS[quem]
     e = _expr(expressao)
@@ -226,6 +237,8 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
 
     resp = 1 + 0.012 * math.sin(t * 2.4 + (0 if quem == "ze" else 1.5))
     salto = -abs(math.sin(t * 9)) * 8 * min(1.0, boca * 2)
+    if andar is not None:
+        salto -= abs(math.sin(andar)) * 10
     cy = -(ry + PERNA) + salto  # centro do cérebro
 
     L, C = p["linha"], p["corpo"]
@@ -235,9 +248,14 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
     # pernas e pés
     for sx in (-1, 1):
         hx = sx * rx * 0.30
-        s += f'<path d="M{_f(hx)},{_f(cy+ry*0.8)} L{_f(hx)},-14" stroke="{L}" stroke-width="22" stroke-linecap="round"/>'
-        s += f'<path d="M{_f(hx)},{_f(cy+ry*0.8)} L{_f(hx)},-14" stroke="{C}" stroke-width="12" stroke-linecap="round"/>'
-        s += f'<ellipse cx="{_f(hx + sx*14)}" cy="-10" rx="38" ry="17" fill="#2B2B3A" stroke="{L}" stroke-width="4"/>'
+        px, py = hx, -14
+        if andar is not None:  # pernas alternadas
+            fase = andar + (0 if sx < 0 else math.pi)
+            px += 22 * math.sin(fase)
+            py -= max(0.0, math.cos(fase)) * 16
+        s += f'<path d="M{_f(hx)},{_f(cy+ry*0.8)} L{_f(px)},{_f(py)}" stroke="{L}" stroke-width="22" stroke-linecap="round"/>'
+        s += f'<path d="M{_f(hx)},{_f(cy+ry*0.8)} L{_f(px)},{_f(py)}" stroke="{C}" stroke-width="12" stroke-linecap="round"/>'
+        s += f'<ellipse cx="{_f(px + sx*14)}" cy="{_f(py+4)}" rx="38" ry="17" fill="#2B2B3A" stroke="{L}" stroke-width="4"/>'
 
     s += f'<g transform="translate(0,{_f(cy)}) scale(1,{resp:.4f})">'
     s += _acessorios_tras(quem, p, rx, ry, t)
@@ -267,10 +285,23 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
     # braços (desenhados por cima, para a pose "mão no queixo")
     oscila = 4 * math.sin(t * 2.0)
     ombros = {"esq": (-rx * 0.86, ry * 0.30), "dir": (rx * 0.86, ry * 0.30)}
+    maos = {}
     for lado in ("esq", "dir"):
         mx, my = po[lado]
+        if po.get("anim") == "vitoria":
+            my += 0.22 * math.sin(t * 9 + (0 if lado == "esq" else math.pi))
+        elif po.get("anim") == "acena" and lado == "dir":
+            mx += 0.25 * math.sin(t * 9)
         alvo = (mx * rx, my * ry + oscila)
         s += _braco(ombros[lado], alvo, 82, True, C, L, dedo=(po.get("dedo") and lado == "dir"))
+        ox, oy = ombros[lado]
+        d = math.hypot(alvo[0] - ox, alvo[1] - oy) or 1
+        k = min(1.0, (2 * 82 - 1) / d)
+        maos[lado] = (ox + (alvo[0] - ox) * k, oy + (alvo[1] - oy) * k)
+    if adereco and adereco_k > 0.01:
+        hx, hy = maos["dir"]
+        s += (f'<g transform="translate({_f(hx)},{_f(hy)}) scale({adereco_k*1.25:.3f})">'
+              + desenha_adereco(adereco, t) + "</g>")
     s += "</g></g>"
     return s
 
@@ -291,6 +322,21 @@ def folha_de_modelo():
     return s + "</svg>"
 
 
+def folha_poses_aderecos():
+    """Todas as poses (Neurão) e todos os objetos (Zé)."""
+    W, H = 1800, 1900
+    s = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}"><rect width="{W}" height="{H}" fill="#FFF6EC"/>'
+    for i, po in enumerate(POSES):
+        col, lin = i % 5, i // 5
+        s += desenha("neurao", 180 + col * 360, 420 + lin * 520, 0.55, "convencido", po, t=i * 0.7)
+        s += f'<text x="{180+col*360}" y="{475+lin*520}" font-family="Sniglet" font-size="30" text-anchor="middle">{po}</text>'
+    for i, ad in enumerate(ADERECOS):
+        col, lin = i % 4, i // 4
+        s += desenha("ze", 225 + col * 450, 1420 + lin * 470, 0.55, "alegre", "segura", t=i * 0.9, adereco=ad)
+        s += f'<text x="{225+col*450}" y="{1470+lin*470}" font-family="Sniglet" font-size="30" text-anchor="middle">{ad}</text>'
+    return s + "</svg>"
+
+
 if __name__ == "__main__":
     import sys
     from pathlib import Path
@@ -300,3 +346,6 @@ if __name__ == "__main__":
     destino.parent.mkdir(exist_ok=True)
     destino.write_bytes(svg_para_png(folha_de_modelo()))
     print("Folha de modelo gravada em", destino)
+    d2 = Path("out/folha_poses_aderecos.png")
+    d2.write_bytes(svg_para_png(folha_poses_aderecos()))
+    print("Poses e objetos gravados em", d2)
