@@ -37,11 +37,34 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `tests/` | Testes automáticos. |
 
 ## Instalação (Windows) — só uma vez
-1. **Python**: instala de <https://www.python.org/downloads/> e **marca a caixa "Add Python to PATH"**.
-2. **ffmpeg**: abre o *PowerShell* e escreve `winget install Gyan.FFmpeg`. Fecha e volta a abrir o PowerShell.
-3. **Bibliotecas**: dentro da pasta do projeto, escreve `python -m pip install -r requirements.txt`.
-4. **Claude Code** (necessário para escrever os guiões automaticamente): segue <https://code.claude.com/docs>. Depois de instalar, abre `claude` uma vez e faz login com a tua conta Claude. A fábrica chama-o com `claude -p`.
-5. Confirma: `python -m fabrica.verificar` — tudo deve aparecer `[OK]`.
+**Antes:** precisas de uma conta Claude paga (Pro ou Max). O plano gratuito não inclui o Claude Code.
+
+1. **Descarregar a fábrica.** Com a sessão do GitHub iniciada, abre
+   <https://github.com/goncalvesdiogo188-gif/VIDEOS/archive/refs/heads/ccr-c4ae36fc-0x3vrf.zip>.
+   Descarrega um ficheiro `.zip`.
+2. **Desbloquear o zip.** Botão direito no `.zip` > **Propriedades**. Se aparecer a caixa **Desbloquear**, marca-a e carrega OK.
+3. **Extrair.** Botão direito > **Extrair tudo**. Põe a pasta num caminho simples, sem espaços nem acentos, por exemplo `C:\fabrica`.
+   O `instalar.bat` tem de ficar diretamente dentro dessa pasta.
+4. **Instalar.** Clica duas vezes em **`instalar.bat`**. Ele:
+   - instala o Python, o ffmpeg e o Claude Code, se faltarem (usa o `winget`, que já vem no Windows 10 e 11);
+   - instala as bibliotecas (desenho e vozes);
+   - verifica tudo, e no fim pergunta se queres agendar o vídeo diário.
+
+   Se o Windows mostrar "O Windows protegeu o computador", carrega em **Mais informações** e depois **Executar mesmo assim**.
+5. **Quando ele pedir para fechar e voltar a abrir**, fecha a janela e clica outra vez no `instalar.bat`. Pode ser preciso 2 ou 3 vezes, porque o Windows só reconhece programas novos numa janela nova.
+6. **Login do Claude (só uma vez).** Abre o PowerShell, escreve `claude` e segue o login no navegador. Depois escreve `/exit`.
+7. No fim, o `instalar.bat` deve mostrar tudo `[OK]` e "Tudo pronto!".
+
+Para confirmar mais tarde: `.\fabrica verificar`. Este comando também testa se o login do Claude continua feito.
+
+<details><summary>Instalação à mão (se o instalar.bat falhar)</summary>
+
+1. **Python 3.10 ou mais recente**: instala de <https://www.python.org/downloads/> e **marca a caixa "Add Python to PATH"**.
+2. **ffmpeg**: no PowerShell, `winget install Gyan.FFmpeg`. Fecha e volta a abrir o PowerShell.
+3. **Bibliotecas**: dentro da pasta do projeto, `python -m pip install -r requirements.txt`.
+4. **Claude Code**: no PowerShell, `irm https://claude.ai/install.ps1 | iex` (instalador oficial; ver <https://code.claude.com/docs/en/setup>). Depois escreve `claude` e faz login.
+5. Confirma: `.\fabrica verificar`.
+</details>
 
 ## Comandos
 | Comando | O que faz |
