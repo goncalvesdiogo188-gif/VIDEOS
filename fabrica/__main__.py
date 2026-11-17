@@ -9,6 +9,7 @@ Exemplos:
   fabrica diario
   fabrica agendar --hora 09:00
   fabrica desagendar
+  fabrica saida "G:\\O meu disco\\FABRICA"   (onde gravar os pacotes; ex.: Google Drive)
   fabrica verificar
 """
 import argparse
@@ -41,6 +42,10 @@ def _parser():
     ag = sub.add_parser("agendar", help="Windows: corre 'fabrica diario' todos os dias sozinho")
     ag.add_argument("--hora", default="09:00", help="a que horas (por defeito 09:00)")
 
+    sa = sub.add_parser("saida", help="mostra ou muda a pasta onde os pacotes são gravados (ex.: Google Drive)")
+    sa.add_argument("pasta", nargs="?", help="a nova pasta, entre aspas (sem isto, mostra a atual)")
+    sa.add_argument("--repor", action="store_true", help="volta à pasta 'out' por defeito")
+
     sub.add_parser("desagendar", help="Windows: deixa de correr sozinho")
     return p
 
@@ -56,6 +61,20 @@ def main(argv=None):
     if a.comando == "verificar":
         from . import verificar
         return verificar.main(rapido=a.rapido)
+
+    if a.comando == "saida":
+        from . import config
+        try:
+            if a.repor:
+                print(f"Pasta de saída reposta: {config.repor_saida()}")
+            elif a.pasta:
+                print(f"Pronto! Os pacotes passam a ser gravados em: {config.definir_saida(a.pasta)}")
+            else:
+                print(f"Os pacotes são gravados em: {config.pasta_saida()}")
+        except ValueError as e:
+            print(e)
+            return 1
+        return 0
 
     if a.comando in ("agendar", "desagendar"):
         from . import diario

@@ -9,6 +9,8 @@ import re
 import unicodedata
 from pathlib import Path
 
+from . import config
+
 from . import guiao as G
 
 
@@ -30,10 +32,10 @@ def slug(texto: str) -> str:
     return t or "video"
 
 
-def pasta_pacote(tema: str, data=None, base=Path("out")) -> Path:
+def pasta_pacote(tema: str, data=None, base=None) -> Path:
     """Devolve out/AAAA-MM-DD_slug; se já existir acrescenta _2, _3..."""
     data = data or datetime.date.today()
-    base = Path(base)
+    base = Path(base) if base else config.pasta_saida()
     nome = f"{data.isoformat()}_{slug(tema)}"
     pasta, n = base / nome, 2
     while pasta.exists():
@@ -152,11 +154,11 @@ def _escrever_json(caminho, dados):
     Path(caminho).write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def criar_pacote(tema=None, guiao_ficheiro=None, base=Path("out"), data=None, log=print) -> Path:
+def criar_pacote(tema=None, guiao_ficheiro=None, base=None, data=None, log=print) -> Path:
     from . import video, carrossel
     from .render import svg_para_png
 
-    base = Path(base)
+    base = Path(base) if base else config.pasta_saida()
     agora = datetime.datetime.now()
     guiao = None
     if guiao_ficheiro:
@@ -230,6 +232,10 @@ def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Pat
     ]
     (pasta / "info.txt").write_text("\n".join(info) + "\n", encoding="utf-8")
 
+    escrever_manifesto(g, pasta, tema, duracao, agora, slides)
+    log("   A juntar o pacote.zip (para abrir no telemóvel)...")
+    juntar_zip(pasta)
+
     if registar:
         entrada = {"data": agora.strftime("%Y-%m-%d %H:%M"), "tema": tema,
                    "titulo": g["titulo"], "pasta": str(pasta)}
@@ -238,6 +244,51 @@ def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Pat
         registar_historico(base, entrada)
     log(f"Pacote criado em: {pasta}")
     return pasta
+
+
+MANIFESTO = "pacote.json"
+ZIP = "pacote.zip"
+
+
+def escrever_manifesto(g, pasta, tema, duracao, agora, slides) -> dict:
+    """Escreve pacote.json: tudo o que a aplicação do telemóvel precisa de saber do pacote."""
+    pasta = Path(pasta)
+    hashtags = [str(h) for h in g.get("hashtags", [])]
+    legenda = str(g.get("legenda", ""))
+    m = {
+        "versao": 1,
+        "titulo": g.get("titulo", ""),
+        "tema": tema,
+        "dono": g.get("dono", ""),
+        "conceito": g["conceito"].get("nome", "") if isinstance(g.get("conceito"), dict) else "",
+        "cenario": g.get("cenario", ""),
+        "data": agora.strftime("%Y-%m-%d"),
+        "hora": agora.strftime("%H:%M"),
+        "duracao": round(float(duracao), 1),
+        "video": "video.mp4",
+        "capa": "capa.png",
+        "carrossel": [f"carrossel/{Path(x).name}" for x in slides],
+        "legenda": legenda,
+        "hashtags": hashtags,
+        "texto_para_publicar": f"{legenda}\n\n{' '.join(hashtags)}".strip(),
+    }
+    _escrever_json(pasta / MANIFESTO, m)
+    return m
+
+
+def juntar_zip(pasta) -> Path:
+    """Junta o pacote num único pacote.zip (um só ficheiro abre-se bem no Google Drive do telemóvel)."""
+    import zipfile
+    pasta = Path(pasta)
+    destino = pasta / ZIP
+    destino.unlink(missing_ok=True)
+    ficheiros = [pasta / MANIFESTO, pasta / "video.mp4", pasta / "capa.png", pasta / "legenda.txt"]
+    ficheiros += sorted((pasta / "carrossel").glob("*.png"))
+    with zipfile.ZipFile(destino, "w", zipfile.ZIP_STORED) as z:  # vídeo e PNG já vão comprimidos
+        for f in ficheiros:
+            if f.exists():
+                z.write(f, f.relative_to(pasta).as_posix())
+    return destino
 
 
 def mostrar_guiao(g) -> str:
@@ -336,11 +387,11 @@ def refazer_pacote(pasta, log=print) -> Path:
                      datetime.datetime.now(), pasta.parent, log, registar=False)
 
 
-def semana(n=7, base=Path("out"), log=print) -> list:
+def semana(n=7, base=None, log=print) -> list:
     """Cria n pacotes de uma vez, com temas escolhidos pelo Claude."""
     from . import guionista
 
-    base = Path(base)
+    base = Path(base) if base else config.pasta_saida()
     evitar = historico_para_evitar(base)
     log(f"A escolher {n} temas...")
     temas = guionista.escolher_temas(n, evitar=evitar)

@@ -48,11 +48,11 @@ def _logger(base, hoje):
     return log, ficheiro
 
 
-def diario(base=Path("out"), forcar=False, hoje=None, log=None):
+def diario(base=None, forcar=False, hoje=None, log=None):
     """Cria o pacote do dia. Devolve a pasta, ou None se hoje já estava feito."""
-    from . import guionista, pacote
+    from . import config, guionista, pacote
 
-    base = Path(base)
+    base = Path(base) if base else config.pasta_saida()
     base.mkdir(parents=True, exist_ok=True)
     hoje = hoje or datetime.date.today()
     if log is None:
