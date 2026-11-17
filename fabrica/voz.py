@@ -163,10 +163,10 @@ def planear_com_voz(g, log=print):
         log(f"   A voz ficou com {duracao:.1f} s; a acelerar um pouco a fala...")
     else:
         raise VozErro(f"Mesmo a acelerar, o vídeo fica com {duracao:.1f} s (máximo 30 s). Encurta o guião.")
-    return plano, duracao, _misturar(plano, faixas, duracao)
+    return plano, duracao, _misturar(plano, faixas, duracao, g)
 
 
-def _misturar(plano, faixas, duracao):
+def _misturar(plano, faixas, duracao, g=None):
     n = int(duracao * TAXA)
     mix = [0.0] * n
     for (t0, am) in faixas:
@@ -185,6 +185,9 @@ def _misturar(plano, faixas, duracao):
     for f in plano:
         pop(f["inicio"] - 0.08, 880 if f["quem"] == "ze" else 660, 0.05)
     pop(plano[-1]["fim"] + 0.2, 1046.5, 0.12, 0.6)
+    from . import musica
+    if g is not None and musica.ativa(g):
+        musica.misturar_em(mix, plano, duracao, g.get("cenario", "comando"))
     a = array.array("h", (int(max(-1.0, min(1.0, v)) * 32000) for v in mix))
     return a
 

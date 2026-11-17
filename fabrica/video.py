@@ -301,6 +301,7 @@ def gerar_video(g, saida, plano=None, duracao=None, audio=None):
     cmd = [ff, "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(FPS),
            "-c:v", "png", "-i", "-", "-i", str(audio),
            "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
+           "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "44100",
            "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", str(saida)]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     with Pool(max(1, cpu_count() - 1), initializer=_init, initargs=(g, plano, duracao)) as pool:

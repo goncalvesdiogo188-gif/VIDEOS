@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 5 concluída** (investigação da publicação automática: ver `PUBLICACAO.md`). Por agora publicas tu, a partir das pastas em `out/`.
+> Estado: **Fase 6 em curso**: música de fundo feita. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -29,6 +29,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `guionista.py` | Escreve guiões com o Claude Code em modo não interativo (`claude -p`). |
 | `validar.py` | Verifica as regras (tempo, palavras por fala, texto). |
 | `pacote.py` | Junta tudo na pasta final. |
+| `musica.py` | Música de fundo original feita em código, um estilo por zona. Baixa sozinha enquanto alguém fala. |
 | `diario.py` | O pacote do dia e o agendamento no Windows. |
 | `__main__.py` | O comando `fabrica`. |
 | `fabrica.bat` / `fabrica.sh` (na raiz) | Atalhos para correr o comando no Windows / noutros sistemas. |
@@ -97,6 +98,21 @@ Para parar: `.\fabrica desagendar`.
 - Os áudios ficam guardados em `out/cache_voz/` e não são pedidos duas vezes.
 - Se a voz passar dos 30 s, a fábrica acelera a fala sozinha.
 - O edge-tts usa um serviço gratuito da Microsoft que não é oficial: pode deixar de funcionar ou mudar sem aviso. Se falhar, o pacote não é criado e aparece uma mensagem clara.
+
+## Música de fundo
+| Zona | Estilo |
+|---|---|
+| `comando` | eletrónica com energia (116 bpm) |
+| `memorias` | sonhadora, acordes suaves e sinos (90 bpm) |
+| `dopamina` | saltitante, palmas e acordes a contratempo (124 bpm) |
+| `sono` | calma, sem bateria (66 bpm) |
+
+- É composta e sintetizada em código: não usa músicas de ninguém, por isso não há problemas de direitos de autor.
+- Fica cerca de 10 a 15 dB abaixo das vozes e baixa ainda mais enquanto alguém fala.
+- O volume final do vídeo é normalizado para cerca de -14 LUFS, o nível habitual nas redes sociais.
+- Ouvir as 4 músicas: `python -m fabrica.musica` (grava em `out/teste/`).
+- Desligar num vídeo: `"musica": false` no guião. Desligar em tudo: variável de ambiente `FABRICA_SEM_MUSICA=1`.
+- Volume da música: `VOLUME` no topo de `fabrica/musica.py`.
 
 ## Modo manual (peças soltas, para testes)
 Na pasta do projeto:
