@@ -50,9 +50,9 @@ echo    OK
 
 rem ---------------------------------------------------------- 3. bibliotecas
 :bibliotecas
-echo [3/5] Bibliotecas do Python (desenho e vozes)...
+echo [3/5] Bibliotecas do Python (desenho e vozes). Pode demorar alguns minutos...
 %PY% -m pip install --upgrade pip --quiet
-%PY% -m pip install -r requirements.txt --quiet
+%PY% -m pip install -r requirements.txt
 if errorlevel 1 goto erro_pip
 echo    OK
 
