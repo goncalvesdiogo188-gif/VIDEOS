@@ -84,6 +84,11 @@ def diario(base=None, forcar=False, hoje=None, log=None):
             continue
         reg[hoje.isoformat()] = str(pasta)
         _gravar_registo(base, reg)
+        try:  # a fábrica aprende com o vídeo de hoje (nunca estraga o pacote)
+            from . import aprendizagem
+            aprendizagem.analisar_pacote(pasta, base=base, log=log)
+        except Exception as e:
+            log(f"(a análise do vídeo falhou: {e})")
         log(f"Pronto para publicar: {pasta}")
         return pasta
     raise pacote.PacoteErro(f"Não foi possível criar o pacote de hoje. Último erro: {ultimo_erro}")

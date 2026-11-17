@@ -35,6 +35,11 @@ def roteiro(versao):
 if "FALHA" in p:
     sys.stderr.write("erro de teste\n")
     sys.exit(1)
+elif "Analisa este vídeo JÁ FEITO" in p:
+    print(json.dumps({"nota": 7, "pontos_fortes": ["gancho direto"], "fraquezas": ["lição vaga"],
+                      "regras": ["Evita lições vagas.", "Faz a primeira fala com um objeto concreto."], "resumo": "Bom, lição vaga."}, ensure_ascii=False))
+elif "lições aprendidas pela fábrica" in p:
+    print(json.dumps(["Evita lições vagas.", "Faz o gancho com um objeto concreto."], ensure_ascii=False))
 elif "Escolhe, da lista, o conceito" in p:
     print(json.dumps({"id": "adiar_e_emocao"}))
 elif "Cria a FICHA DA HISTÓRIA" in p:

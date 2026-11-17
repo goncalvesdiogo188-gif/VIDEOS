@@ -22,11 +22,13 @@ Lê `BIBLIA.md` antes de escrever ou mudar conteúdo. Resumo: português neutro 
 | `fabrica/validar.py` | Regras do guião (120 s máx., 12 palavras por fala, vocabulário neutro...). |
 | `fabrica/video.py`, `voz.py`, `musica.py`, `sfx.py` | Vídeo 1080x1920, vozes edge-tts, música e efeitos feitos em código. |
 | `fabrica/personagens.py`, `cenarios.py`, `janela.py`, `aderecos.py` | Desenho em SVG: personagens, 8 zonas do cérebro, Janela do Dono, objetos. |
+| `fabrica/web.py`, `fabrica/pagina/index.html` | A página da fábrica (`fabrica web`): criar, biblioteca, agenda, conceitos, evolução. Só biblioteca padrão; trabalhos em segundo plano. |
+| `fabrica/aprendizagem.py` | Análise de cada vídeo + notas do Diogo → regras que entram nos prompts seguintes (`out/aprendizagem.json`). O Claude não vê nem ouve o vídeo. |
 | `fabrica/pacote.py`, `diario.py` | O pacote final em `out/` e o agendamento diário. |
 | `conteudo/` | Banco de 26 conceitos reais e exemplos de ouro (modelo de qualidade). |
 | `guioes/` | Guiões `.json`. `out/` é o resultado (não vai para o Git). `arquivo/` é o projeto antigo (ignorar). |
 
-Comandos: `fabrica guiao "tema"`, `fabrica novo "tema"`, `fabrica novo --guiao ficheiro.json`, `fabrica semana`, `fabrica diario`, `fabrica refazer out/PASTA`, `fabrica agendar --hora 09:00`, `fabrica verificar`. No Windows: `py -m fabrica ...` (o `.\fabrica` também serve, mas o Windows pode bloquear `.bat`).
+Comandos: `fabrica guiao "tema"`, `fabrica novo "tema"`, `fabrica novo --guiao ficheiro.json`, `fabrica semana`, `fabrica diario`, `fabrica refazer out/PASTA`, `fabrica agendar --hora 09:00`, `fabrica web` (`--rede` para o telemóvel), `fabrica analisar out/PASTA`, `fabrica verificar`. No Windows: `py -m fabrica ...` (o `.\fabrica` também serve, mas o Windows pode bloquear `.bat`).
 
 ## Testes
 `python -m unittest discover -s tests` (no Windows: `py -m unittest discover -s tests`). Corre-os depois de qualquer mudança. Os testes não usam internet, nem Claude, nem render (há um Claude falso em `tests/fake_claude.py`).

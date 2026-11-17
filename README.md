@@ -5,6 +5,9 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 
 > Estado: **Fase 6 concluída**: música de fundo, 8 zonas, poses novas, objetos e movimento. Publicação: ver `PUBLICACAO.md` (por agora publicas tu, a partir das pastas em `out/`).
 
+## A página da fábrica (só para ti)
+`py -m fabrica web` abre http://127.0.0.1:8765 no browser. Com `--rede` também abre no telemóvel (mesmo Wi-Fi; o endereço leva uma chave). Tem cinco separadores: **Criar** (guião ou vídeo a partir de um tema), **Biblioteca** (ver o vídeo, copiar a legenda, dar nota), **Agenda**, **Conceitos** (editar o banco) e **Evolução** (o que a fábrica aprendeu). Depois de cada vídeo a IA analisa o guião e tira regras que entram nos guiões seguintes; as tuas notas e comentários valem mais. A IA não vê nem ouve o vídeo.
+
 ## Pastas
 | Pasta / ficheiro | Para que serve |
 |---|---|

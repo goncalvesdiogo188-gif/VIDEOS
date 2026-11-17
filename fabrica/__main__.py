@@ -10,6 +10,9 @@ Exemplos:
   fabrica agendar --hora 09:00
   fabrica desagendar
   fabrica saida "G:\\O meu disco\\FABRICA"   (onde gravar os pacotes; ex.: Google Drive)
+  fabrica web                                (a página da fábrica, só para ti: http://127.0.0.1:8765)
+  fabrica web --rede                         (também no telemóvel, no mesmo Wi-Fi)
+  fabrica analisar out/PASTA                 (a IA analisa um vídeo e a fábrica aprende)
   fabrica verificar
 """
 import argparse
@@ -46,6 +49,14 @@ def _parser():
     sa.add_argument("pasta", nargs="?", help="a nova pasta, entre aspas (sem isto, mostra a atual)")
     sa.add_argument("--repor", action="store_true", help="volta à pasta 'out' por defeito")
 
+    web = sub.add_parser("web", help="abre a página da fábrica no browser (só para ti)")
+    web.add_argument("--porta", type=int, default=8765)
+    web.add_argument("--rede", action="store_true", help="deixa abrir também no telemóvel (mesmo Wi-Fi, com chave)")
+    web.add_argument("--sem-abrir", action="store_true", help="não abre o browser sozinho")
+
+    an = sub.add_parser("analisar", help="a IA analisa um pacote e a fábrica aprende com ele")
+    an.add_argument("pastas", nargs="+", help="pasta(s) do pacote")
+
     sub.add_parser("desagendar", help="Windows: deixa de correr sozinho")
     return p
 
@@ -73,6 +84,26 @@ def main(argv=None):
                 print(f"Os pacotes são gravados em: {config.pasta_saida()}")
         except ValueError as e:
             print(e)
+            return 1
+        return 0
+
+    if a.comando == "web":
+        from . import web
+        web.servir(porta=a.porta, rede=a.rede, abrir=not a.sem_abrir)
+        return 0
+
+    if a.comando == "analisar":
+        from . import aprendizagem, guionista
+        try:
+            for pasta in a.pastas:
+                r = aprendizagem.analisar_pacote(pasta)
+                an_ = r.get("analise", {})
+                print(f"\n{pasta}: {an_.get('nota')}/10 — {an_.get('resumo', '')}")
+                for k, t in (("fraquezas", "A melhorar"), ("regras", "Regras novas")):
+                    for x in an_.get(k, []):
+                        print(f"  {t}: {x}")
+        except guionista.GuionistaErro as e:
+            print(f"\nNão foi possível analisar: {e}")
             return 1
         return 0
 

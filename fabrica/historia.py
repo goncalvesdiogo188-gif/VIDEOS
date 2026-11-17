@@ -151,6 +151,24 @@ Se propões outro: {{"id": null, "nome": "Nome curto", "explicacao": "explicaç�
 
 
 # ------------------------------------------------------------------ passo 2: ficha
+def _aprendizagens():
+    """As regras que a fábrica aprendeu com os vídeos anteriores (vazio se ainda não há)."""
+    from . import aprendizagem
+    return aprendizagem.bloco_para_prompt()
+
+
+OFICIO = """OFÍCIO DO HUMOR (aplica a sério):
+- GANCHO: a 1.ª fala tem no máximo 9 palavras e mete já o Dono numa situação concreta ou numa provocação. Proibido começar com "Olá", "Sabias que", "Hoje vamos" ou "Bem-vindos".
+- CONCRETO bate geral: "a Marta compra uma frigideira às 23:40" e não "uma pessoa compra coisas". Objetos, horas, números pequenos (3 abas, 14 notificações, 2 dias).
+- MOSTRA, NÃO EXPLIQUES: o que se pode ver na Janela do Dono não se repete em fala. As falas comentam, discordam e reagem; as cenas mostram.
+- PIADA: uma boa fala tem a palavra engraçada NO FIM da frase. Usa a regra de três (dois normais, o terceiro absurdo) e a escalada (cada cena é pior ou mais absurda que a anterior).
+- NEURÃO: erra de forma específica e com toda a certeza (afirma uma coisa que a história desmente). ZÉ: literal, uma comparação do dia a dia, honesto; a sua piada é inocente, nunca cínica.
+- CLICHÉS A EVITAR: limpar a cozinha/o frigorífico para fugir a uma tarefa, "o telefone vibra e distrai", acabar com "e tu?" sem relação, o Zé a dizer "não percebi" como piada. Procura uma situação menos usada.
+- LIÇÃO: um gesto que o Dono faz em menos de 2 minutos amanhã ("escreve só a primeira frase", "põe o telefone noutra divisão"), dito pelo Zé de forma simples e calorosa.
+- REMATE: curto, com callback ao detalhe plantado no início; deve soar a final de piada.
+"""
+
+
 def _bloco_conceito(c):
     return (f"- Nome: {c['nome']}\n- Explicação correta: {c['explicacao']}\n"
             f"- Grau de certeza: {c.get('certeza', 'moderada')}\n- Cuidado: {c.get('cuidado', '')}")
@@ -168,6 +186,8 @@ NOME DO DONO (usa este): {dono}
 Situações possíveis (inspiração; podes inventar outra mais concreta): {"; ".join(conceito.get("situacoes", []))}
 Lições práticas possíveis: {"; ".join(conceito.get("licoes", []))}
 
+{OFICIO}
+{_aprendizagens()}
 Cria a FICHA DA HISTÓRIA. Regras:
 - Uma situação concreta e reconhecível: o Dono com nome, uma hora, um objeto, um objetivo simples. Nada de vago ("uma pessoa que adia coisas").
 - 4 a 6 CENAS que contam a história sozinhas, sem falas. Cada cena tem uma "hora" (ex.: "22:40", "3 dias depois"), um "icone" (um destes: {", ".join(ICONES)}) e um "texto" de no máximo {TEXTO_MAX} caracteres que diz o que o Dono faz. A "hora" tem no máximo 14 caracteres.
@@ -176,6 +196,7 @@ Cria a FICHA DA HISTÓRIA. Regras:
 - Piada do Zé: uma interpretação à letra ou uma comparação absurda do dia a dia, ligada a esta situação.
 - Lição: uma ação prática e concreta que o Dono faz amanhã, que nasce da história e do conceito.
 - Callback: um pequeno detalhe plantado no início que volta no fim.
+- Defeito do Dono: dá ao Dono um desejo ou defeito específico e simpático (ex.: orgulho de "nunca precisar de lista") que a situação desmonta.
 - Humor com carinho: nunca humilhar o Dono.
 - "zona" (cenário): a que melhor combina, de: comando, memorias, dopamina, sono, alarme, cofre, social, habitos.
 
@@ -227,6 +248,8 @@ Os exemplos de ouro abaixo mostram o NÍVEL de qualidade e de humor pretendido (
 
 {_exemplos_para_prompt(2, semente)}
 
+{OFICIO}
+{_aprendizagens()}
 CONCEITO REAL:
 {_bloco_conceito(conceito)}
 (id do conceito: {conceito['id']})
@@ -270,9 +293,9 @@ def criticar(g, conceito, ficha=None, log=print):
     criterios = "\n".join(f"- {k}: {v}" for k, v in CRITERIOS.items())
     prompt = f"""És um editor de humor e de divulgação científica, EXIGENTE e justo. Avalia este guião de Reel (duas personagens, Neurão e Zé Neurónio, dentro da cabeça de uma pessoa, o Dono).
 
-Dá uma nota de 1 a 5 a cada critério (5 é raro e significa excelente; 3 é fraco; sê honesto):
+Dá uma nota de 1 a 5 a cada critério. Escala: 5 = excelente e raro (faria rir ou aprender sem dúvida); 4 = bom, publicável; 3 = fraco, genérico ou com falhas; 2 = mau; 1 = não funciona. Sê honesto: um guião normal merece 3 ou 4, e é preferível ser duro. Antes de dar a nota, conta as piadas que fariam mesmo sorrir e procura clichés (cozinha/frigorífico, "o telefone distrai", "não percebi"), gancho fraco nos primeiros 9 palavras e uma última fala que não fecha a história.
 {criterios}
-
+{_aprendizagens()}
 CONCEITO REAL (para verificares a ciência):
 {_bloco_conceito(conceito)}
 
@@ -307,6 +330,7 @@ def melhorar(g, tema, conceito, ficha, critica, log=print):
     fracos = ", ".join(k for k, v in critica["notas"].items() if v < NOTA_MINIMA) or "(nenhum em especial)"
     prompt = f"""És o guionista de uma conta de Reels com o Neurão e o Zé Neurónio dentro da cabeça de uma pessoa, o Dono. O editor avaliou o teu guião e achou-o fraco em: {fracos}.
 
+{_aprendizagens()}
 PROBLEMAS APONTADOS PELO EDITOR (corrige TODOS):
 {problemas}
 
@@ -319,7 +343,8 @@ FICHA DA HISTÓRIA:
 GUIÃO ATUAL:
 {json.dumps(g, ensure_ascii=False)}
 
-Reescreve o guião inteiro, melhor. Mantém o que já está bom. {_regras_roteiro()}
+Reescreve o guião inteiro, melhor. Mantém o que já está bom. Corrige cada problema na fala exata que o editor indicou (não deixes nenhum por resolver). {OFICIO}
+{_regras_roteiro()}
 
 Responde APENAS com o JSON do guião completo."""
     novo = GU.extrair_json(GU.perguntar_claude(prompt))

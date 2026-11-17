@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FÁBRICA</title>
+<style>
+:root{--bg:#f6f3f7;--card:#fff;--tx:#241b2b;--mut:#7a6d83;--pri:#c2185b;--pri2:#880e4f;--bd:#e5dbe9;--ok:#2e7d32;--er:#c62828;--wa:#b26a00;--sh:0 1px 3px rgba(60,20,70,.12)}
+@media (prefers-color-scheme:dark){:root{--bg:#17111b;--card:#221a28;--tx:#f1e9f4;--mut:#a698ae;--pri:#f06292;--pri2:#ff80ab;--bd:#3a2d43;--ok:#81c784;--er:#ef9a9a;--wa:#ffcc80;--sh:none}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--bd);padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:20px;color:var(--pri);letter-spacing:.5px}
+nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+nav button{background:none;border:0;padding:8px 12px;border-radius:8px;color:var(--mut);font:inherit;font-weight:600;cursor:pointer}
+nav button.on{background:var(--pri);color:#fff}
+#estadoBar{font-size:13px;color:var(--mut)}
+main{max-width:1000px;margin:0 auto;padding:16px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+.card h2,.card h3{margin:0 0 8px;font-size:17px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+input,textarea,select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{min-height:70px;resize:vertical}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 3px;font-weight:600}
+button.b{background:var(--pri);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+button.b:hover{background:var(--pri2)}button.b.sec{background:none;color:var(--pri);border:1px solid var(--pri)}
+button.b.pq{padding:6px 10px;font-size:14px}button.b[disabled]{opacity:.5;cursor:wait}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>input{flex:1;min-width:200px}
+.mut{color:var(--mut);font-size:14px}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:700;background:var(--bd);color:var(--tx);margin:0 4px 4px 0}
+.tag.ok{background:var(--ok);color:#fff}.tag.er{background:var(--er);color:#fff}.tag.wa{background:var(--wa);color:#fff}.tag.pri{background:var(--pri);color:#fff}
+pre.guiao{white-space:pre-wrap;font:14px/1.5 ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:12px;margin:8px 0;max-height:380px;overflow:auto}
+pre.log{white-space:pre-wrap;font:12.5px/1.45 ui-monospace,Consolas,monospace;background:#120d16;color:#d9cfe0;border-radius:8px;padding:10px;max-height:260px;overflow:auto;margin:8px 0 0}
+.pacote{cursor:pointer;display:flex;flex-direction:column;gap:6px}.pacote img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:var(--bd)}
+.pacote:hover{border-color:var(--pri)}
+video{width:100%;max-width:340px;border-radius:10px;background:#000;display:block}
+.dois{display:grid;gap:14px;grid-template-columns:minmax(0,340px) 1fr}@media(max-width:700px){.dois{grid-template-columns:1fr}}
+.slides{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}.slides img{height:160px;border-radius:6px}
+.estrelas button{background:none;border:1px solid var(--bd);border-radius:8px;font-size:18px;padding:4px 10px;cursor:pointer;color:var(--mut)}
+.estrelas button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.dia{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}.dia:last-child{border:0}
+.bar{height:8px;border-radius:4px;background:var(--bd);overflow:hidden;min-width:60px}.bar>i{display:block;height:100%;background:var(--pri)}
+#trabalhos{position:fixed;right:12px;bottom:12px;width:min(420px,calc(100vw - 24px));z-index:9}
+.job{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-top:8px;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.job h4{margin:0;font-size:14px;display:flex;justify-content:space-between;gap:8px}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--bd);border-top-color:var(--pri);border-radius:50%;animation:g 1s linear infinite;vertical-align:-1px;margin-right:6px}
+@keyframes g{to{transform:rotate(360deg)}}
+.aviso{background:var(--wa);color:#fff;border-radius:8px;padding:10px 14px;margin-bottom:14px}
+ul.regras{padding-left:20px;margin:6px 0}ul.regras li{margin:4px 0}
+.sep{height:1px;background:var(--bd);margin:12px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 FÁBRICA</h1>
+  <nav id="nav">
+    <button data-s="criar" class="on">Criar</button>
+    <button data-s="biblioteca">Biblioteca</button>
+    <button data-s="agenda">Agenda</button>
+    <button data-s="conceitos">Conceitos</button>
+    <button data-s="evolucao">Evolução</button>
+  </nav>
+  <span id="estadoBar"></span>
+</header>
+<main>
+<div id="aviso"></div>
+
+<!-- ============ CRIAR ============ -->
+<section id="s-criar" class="on">
+  <div class="card">
+    <h2>Novo vídeo</h2>
+    <p class="mut">Escreve um tema. Para <b>julgar a história</b> sem esperar, faz primeiro só o guião (texto, ~2 min). Se gostares, faz o vídeo (alguns minutos).</p>
+    <div class="row">
+      <input id="tema" placeholder="ex.: compras por impulso" maxlength="120" list="sugestoes">
+      <datalist id="sugestoes"></datalist>
+      <button class="b" id="bGuiao">Só o guião</button>
+      <button class="b sec" id="bVideo">Fazer o vídeo todo</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="b sec pq" id="bDiario">Pacote do dia</button>
+      <button class="b sec pq" id="bSemana">Semana (7 vídeos)</button>
+      <button class="b sec pq" id="bSugerir">Dá-me ideias de tema</button>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Guiões escritos</h2>
+    <p class="mut">Os guiões (só texto) ficam aqui. Escolhe um para ler e transformar em vídeo.</p>
+    <div id="guioes"></div>
+  </div>
+</section>
+
+<!-- ============ BIBLIOTECA ============ -->
+<section id="s-biblioteca">
+  <div id="lista"></div>
+  <div id="detalhe" style="display:none"></div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section id="s-agenda">
+  <div class="card"><h2>Próximos 7 dias</h2><div id="dias"></div></div>
+  <div class="card" id="cardAgendar">
+    <h2>Pacote automático todos os dias</h2>
+    <p class="mut">Só Windows: o computador cria o pacote do dia sozinho (tem de estar ligado, ou cria quando ligares).</p>
+    <div class="row"><input id="hora" value="09:00" style="max-width:110px"><button class="b" id="bAgendar">Agendar</button><button class="b sec" id="bDesagendar">Desligar</button></div>
+    <pre class="log" id="msgAgendar" style="display:none"></pre>
+  </div>
+  <div class="card"><h2>Últimos dias</h2><div id="ultimos" class="mut"></div></div>
+</section>
+
+<!-- ============ CONCEITOS ============ -->
+<section id="s-conceitos">
+  <div class="card"><div class="row"><h2 style="flex:1;margin:0">Banco de conceitos</h2><button class="b" id="bNovoConc">+ Novo conceito</button></div>
+    <p class="mut">Ciência real em que os vídeos se baseiam. Um conceito bom é conhecido, bem documentado e dá uma lição prática.</p></div>
+  <div id="formConc"></div>
+  <div class="grid" id="conceitos"></div>
+</section>
+
+<!-- ============ EVOLUÇÃO ============ -->
+<section id="s-evolucao">
+  <div class="card">
+    <h2>O que a fábrica já aprendeu</h2>
+    <p class="mut">Depois de cada vídeo, uma IA lê o guião e tira regras; as tuas notas e comentários valem mais. Estas regras entram em todos os guiões novos. <b>A IA não vê nem ouve o vídeo</b>: a voz, a música e o ritmo só tu os podes julgar, por isso escreve-o nos comentários.</p>
+    <div id="regras"></div>
+    <div class="row" style="margin-top:10px"><button class="b sec pq" id="bDestilar">Atualizar regras agora</button><button class="b sec pq" id="bAnalisarTodos">Analisar vídeos ainda sem análise</button></div>
+  </div>
+  <div class="card"><h2>Evolução das notas</h2><div id="evolucao" class="mut"></div></div>
+  <div class="card"><h2>Lições recentes</h2><div id="licoes" class="mut"></div></div>
+</section>
+</main>
+<div id="trabalhos"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function api(url,corpo){
+  const o=corpo===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-Fabrica':'1'},body:JSON.stringify(corpo)};
+  const r=await fetch(url,o); let d=null; try{d=await r.json()}catch(e){}
+  if(!r.ok) throw new Error((d&&d.erro)||('Erro '+r.status));
+  return d;
+}
+function erro(e){alert(e.message||e)}
+const sec={criar:carregarCriar,biblioteca:carregarBiblioteca,agenda:carregarAgenda,conceitos:carregarConceitos,evolucao:carregarEvolucao};
+function ir(nome){
+  $$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===nome));
+  $$('section').forEach(s=>s.classList.toggle('on',s.id==='s-'+nome));
+  try{location.hash=nome}catch(e){}
+  sec[nome]().catch(erro);
+}
+$('#nav').onclick=e=>{if(e.target.dataset.s)ir(e.target.dataset.s)};
+
+// ---------- estado e trabalhos
+let ESTADO={};
+async function carregarEstado(){
+  ESTADO=await api('/api/estado');
+  $('#estadoBar').textContent='Pacotes em: '+ESTADO.saida;
+  $('#aviso').innerHTML=ESTADO.claude?'':'<div class="aviso">O Claude Code não foi encontrado neste computador. Sem ele não consigo escrever guiões. Corre <b>py -m fabrica verificar</b> para veres o que falta.</div>';
+  $('#cardAgendar').style.display=ESTADO.windows?'':'none';
+}
+const seguidos={};
+async function novoTrabalho(corpo){
+  const t=await api('/api/trabalhos',corpo);
+  seguidos[t.id]={desde:0,log:[],aberto:true,t};
+  desenharTrabalhos();
+  return t;
+}
+function desenharTrabalhos(){
+  const el=$('#trabalhos');
+  const ids=Object.keys(seguidos).sort((a,b)=>b-a).slice(0,4);
+  el.innerHTML=ids.map(id=>{
+    const s=seguidos[id],t=s.t,fim=t.estado==='feito'||t.estado==='erro';
+    const ic=fim?(t.estado==='feito'?'✅':'❌'):'<span class="spin"></span>';
+    const res=t.estado==='feito'&&t.resultado?acoesResultado(t):'';
+    return `<div class="job" data-id="${id}"><h4><span>${ic}${esc(t.titulo)}</span><span class="mut">${esc(t.estado)} ${fim?'<a href="#" data-x="'+id+'">✕</a>':''}</span></h4>
+      ${t.erro?'<div style="color:var(--er);font-size:14px;margin-top:4px">'+esc(t.erro)+'</div>':''}${res}
+      <details ${fim?'':'open'}><summary class="mut">registo</summary><pre class="log" id="log${id}">${esc(s.log.join('\n'))}</pre></details></div>`;
+  }).join('');
+  ids.forEach(id=>{const p=$('#log'+id);if(p)p.scrollTop=p.scrollHeight});
+}
+function acoesResultado(t){
+  const r=t.resultado||{};
+  if(r.guiao)return `<div style="margin-top:6px"><button class="b pq" onclick="abrirGuiao('${esc(r.guiao)}')">Ler o guião</button></div>`;
+  if(r.pacote)return `<div style="margin-top:6px"><button class="b pq" onclick="abrirPacote('${esc(r.pacote)}')">Ver o vídeo</button></div>`;
+  if(r.pacotes)return `<div style="margin-top:6px"><button class="b pq" onclick="ir('biblioteca')">Ver na biblioteca</button></div>`;
+  return '';
+}
+$('#trabalhos').onclick=e=>{const x=e.target.dataset&&e.target.dataset.x;if(x){e.preventDefault();delete seguidos[x];desenharTrabalhos()}};
+async function sondar(){
+  for(const id of Object.keys(seguidos)){
+    const s=seguidos[id]; if(s.t.estado==='feito'||s.t.estado==='erro')continue;
+    try{
+      const d=await api(`/api/trabalhos/${id}?desde=${s.desde}`);
+      s.log.push(...d.log); s.desde=d.total_log; const antes=s.t.estado; s.t=d;
+      desenharTrabalhos();
+      if(antes!==d.estado&&(d.estado==='feito')){recarregarAtual()}
+    }catch(e){}
+  }
+}
+setInterval(sondar,1500);
+function recarregarAtual(){const on=$('nav .on');if(on&&on.dataset.s!=='biblioteca')sec[on.dataset.s]().catch(()=>{});else if(on&&$('#detalhe').style.display==='none')carregarBiblioteca().catch(()=>{})}
+function bloquear(b,fn){return async()=>{b.disabled=true;try{await fn()}catch(e){erro(e)}finally{b.disabled=false}}}
+
+// ---------- criar
+async function carregarCriar(){
+  const g=await api('/api/guioes');
+  $('#guioes').innerHTML=g.length?g.map(x=>`<div class="dia"><div><b>${esc(x.titulo)}</b><div class="mut">${esc(x.tema)}</div></div><div class="row"><button class="b sec pq" onclick="abrirGuiao('${esc(x.nome)}')">Ler</button></div></div>`).join(''):'<span class="mut">Ainda não há guiões.</span>';
+  window.GUIOES=g;
+}
+function abrirGuiao(nome){
+  ir('criar');
+  const g=(window.GUIOES||[]).find(x=>x.nome===nome);
+  const mostrar=g=>{
+    const d=document.createElement('div');d.className='card';d.id='guiaoAberto';
+    d.innerHTML=`<h3>${esc(g.titulo)}</h3><pre class="guiao">${esc(g.texto)}</pre><div class="row"><button class="b" id="bGuiaoVideo">Fazer o vídeo deste guião</button><button class="b sec" id="bFechaG">Fechar</button></div>`;
+    const a=$('#guiaoAberto');if(a)a.remove();$('#s-criar').insertBefore(d,$('#s-criar').children[1]);
+    $('#bFechaG').onclick=()=>d.remove();
+    $('#bGuiaoVideo').onclick=bloquear($('#bGuiaoVideo'),async()=>{await novoTrabalho({tipo:'video',guiao:g.nome});d.remove()});
+    d.scrollIntoView({behavior:'smooth'});
+  };
+  if(g)return mostrar(g);
+  api('/api/guioes').then(l=>{window.GUIOES=l;const x=l.find(y=>y.nome===nome);if(x)mostrar(x)});
+}
+$('#bGuiao').onclick=bloquear($('#bGuiao'),async()=>{const t=$('#tema').value.trim();if(!t)throw 'Escreve um tema.';await novoTrabalho({tipo:'guiao',tema:t})});
+$('#bVideo').onclick=bloquear($('#bVideo'),async()=>{const t=$('#tema').value.trim();if(!t)throw 'Escreve um tema.';await novoTrabalho({tipo:'video',tema:t})});
+$('#bDiario').onclick=bloquear($('#bDiario'),()=>novoTrabalho({tipo:'diario'}));
+$('#bSemana').onclick=bloquear($('#bSemana'),async()=>{if(confirm('Criar 7 vídeos de seguida? Demora bastante (talvez uma hora).'))await novoTrabalho({tipo:'semana',n:7})});
+$('#bSugerir').onclick=bloquear($('#bSugerir'),async()=>{
+  const a=await api('/api/agenda');const t=a.dias.map(d=>d.sugestao).filter(Boolean);
+  $('#sugestoes').innerHTML=t.map(x=>`<option value="${esc(x)}">`).join('');
+  if(t.length){$('#tema').value=t[0];$('#tema').focus()}
+});
+
+// ---------- biblioteca
+async function carregarBiblioteca(){
+  $('#detalhe').style.display='none';$('#lista').style.display='';
+  const l=await api('/api/pacotes');
+  $('#lista').innerHTML=l.length?`<div class="grid">${l.map(p=>`<div class="card pacote" onclick="abrirPacote('${esc(p.nome)}')">
+    ${p.tem_capa?`<img loading="lazy" src="/ficheiro/${encodeURIComponent(p.nome)}/capa.png">`:''}
+    <b>${esc(p.titulo)}</b><span class="mut">${esc(p.data)}${p.duracao?' · '+p.duracao+' s':''}</span>
+    <div>${p.publicado?'<span class="tag ok">publicado</span>':''}${p.editor?`<span class="tag">editor ${p.editor}</span>`:''}${p.diogo?`<span class="tag pri">tu ${p.diogo}/5</span>`:''}${p.analise?`<span class="tag">IA ${p.analise}/10</span>`:''}</div></div>`).join('')}</div>`
+    :'<div class="card mut">Ainda não há vídeos. Vai a <b>Criar</b>.</div>';
+}
+async function abrirPacote(nome){
+  ir('biblioteca');
+  const d=await api('/api/pacotes/'+encodeURIComponent(nome));
+  const n=encodeURIComponent(nome),r=d.registo||{},m=r.diogo||{},a=r.analise||{};
+  $('#lista').style.display='none';const el=$('#detalhe');el.style.display='';
+  el.innerHTML=`<div class="row" style="margin-bottom:10px"><button class="b sec" onclick="carregarBiblioteca()">← Voltar</button><button class="b sec pq" id="bAn">Analisar com a IA</button><button class="b sec pq" id="bRef">Refazer o vídeo</button>${d.tem_zip?`<a class="b pq" style="text-decoration:none" href="/ficheiro/${n}/pacote.zip">Descarregar tudo (.zip)</a>`:''}</div>
+  <div class="dois"><div class="card">${d.tem_video?`<video controls playsinline preload="metadata" poster="/ficheiro/${n}/capa.png" src="/ficheiro/${n}/video.mp4"></video>`:'<span class="mut">Sem vídeo.</span>'}
+    <div class="mut" style="margin-top:8px">${[d.manifesto.duracao?d.manifesto.duracao+' s':'',d.guiao.dono?'dono: '+d.guiao.dono:'',d.manifesto.conceito||(d.guiao.conceito||{}).nome||''].filter(Boolean).map(esc).join(' · ')}</div></div>
+  <div><div class="card"><h3>${esc(d.guiao.titulo)}</h3><pre class="guiao">${esc(d.texto)}</pre></div>
+  <div class="card"><h3>Legenda para publicar</h3><pre class="guiao" id="leg">${esc(d.legenda)}</pre><button class="b sec pq" id="bCopiar">Copiar</button></div></div></div>
+  ${d.slides.length?`<div class="card"><h3>Carrossel</h3><div class="slides">${d.slides.map(s=>`<img src="/ficheiro/${n}/${s}">`).join('')}</div></div>`:''}
+  <div class="card"><h3>A tua opinião (a fábrica aprende com isto)</h3>
+    <div class="estrelas" id="est">${[1,2,3,4,5].map(i=>`<button data-n="${i}" class="${m.nota===i?'on':''}">${i}★</button>`).join(' ')}</div>
+    <label>Comentário (voz, música, ritmo, piadas, o que mudar...)</label><textarea id="com">${esc(m.comentario||'')}</textarea>
+    <div class="row" style="margin-top:8px"><label style="margin:0"><input type="checkbox" id="pub" style="width:auto" ${m.publicado?'checked':''}> Já publiquei</label></div>
+    <div class="row"><div style="flex:1;min-width:140px"><label>Visualizações (depois de publicar)</label><input id="vis" type="number" min="0" value="${m.visualizacoes??''}"></div>
+    <div style="flex:1;min-width:140px"><label>Retenção média %</label><input id="ret" type="number" min="0" max="100" value="${m.retencao??''}"></div></div>
+    <div style="margin-top:10px"><button class="b" id="bGuardar">Guardar</button></div></div>
+  <div class="card"><h3>Análise da IA</h3>${a.resumo?`<p><b>${a.nota}/10</b> — ${esc(a.resumo)}</p>
+    <b>Pontos fortes</b><ul class="regras">${(a.pontos_fortes||[]).map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
+    <b>A melhorar</b><ul class="regras">${(a.fraquezas||[]).map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>
+    <b>Regras novas</b><ul class="regras">${(a.regras||[]).map(x=>'<li>'+esc(x)+'</li>').join('')}</ul>`:'<span class="mut">Ainda sem análise. Carrega em «Analisar com a IA» (lê o texto e a estrutura; não vê o vídeo).</span>'}</div>`;
+  let nota=m.nota||null;
+  $('#est').onclick=e=>{const b=e.target.closest('button');if(!b)return;nota=+b.dataset.n;$$('#est button').forEach(x=>x.classList.toggle('on',+x.dataset.n===nota))};
+  $('#bGuardar').onclick=bloquear($('#bGuardar'),async()=>{
+    await api('/api/feedback',{pacote:nome,nota,comentario:$('#com').value,publicado:$('#pub').checked,visualizacoes:$('#vis').value||null,retencao:$('#ret').value||null});
+    $('#bGuardar').textContent='Guardado ✓';setTimeout(()=>{$('#bGuardar').textContent='Guardar'},1500);
+  });
+  $('#bAn').onclick=bloquear($('#bAn'),()=>novoTrabalho({tipo:'analisar',pacote:nome}));
+  $('#bRef').onclick=bloquear($('#bRef'),async()=>{if(confirm('Voltar a gerar o vídeo a partir do guião? Demora alguns minutos.'))await novoTrabalho({tipo:'refazer',pacote:nome})});
+  $('#bCopiar').onclick=async()=>{try{await navigator.clipboard.writeText($('#leg').textContent);$('#bCopiar').textContent='Copiado ✓'}catch(e){erro('Seleciona o texto e copia à mão.')}};
+  scrollTo(0,0);
+}
+
+// ---------- agenda
+async function carregarAgenda(){
+  const a=await api('/api/agenda');
+  const nomes=['dom','seg','ter','qua','qui','sex','sáb'];
+  $('#dias').innerHTML=a.dias.map(d=>{
+    const dt=new Date(d.data+'T12:00:00');const quando=nomes[dt.getDay()]+' '+d.data.slice(8)+'/'+d.data.slice(5,7);
+    const meio=d.feitos.length?d.feitos.map(f=>`<a href="#" onclick="abrirPacote('${esc(f.pasta)}');return false">${esc(f.titulo||f.tema)}</a> <span class="tag ok">feito</span>`).join('<br>')
+      :(d.sugestao?`<span class="mut">Sugestão:</span> ${esc(d.sugestao)}`:'<span class="mut">—</span>');
+    const bt=(!d.feitos.length&&d.sugestao)?`<button class="b sec pq" data-t="${esc(d.sugestao)}">Fazer</button>`:'';
+    return `<div class="dia"><div><b>${quando}</b><div>${meio}</div></div>${bt}</div>`;
+  }).join('');
+  $('#dias').onclick=bloquear2(async e=>{const t=e.target.dataset.t;if(t)await novoTrabalho({tipo:'video',tema:t})});
+  $('#ultimos').innerHTML=a.ultimos.length?a.ultimos.map(u=>`<div>${esc(u.data)}: ${u.feitos.map(esc).join(', ')}</div>`).join(''):'—';
+}
+function bloquear2(fn){return async e=>{try{await fn(e)}catch(x){erro(x)}}}
+$('#bAgendar').onclick=bloquear($('#bAgendar'),async()=>{const r=await api('/api/agendar',{hora:$('#hora').value});const m=$('#msgAgendar');m.style.display='';m.textContent=r.mensagem||(r.ok?'Agendado.':'Não consegui agendar.')});
+$('#bDesagendar').onclick=bloquear($('#bDesagendar'),async()=>{const r=await api('/api/agendar',{desligar:true});const m=$('#msgAgendar');m.style.display='';m.textContent=r.mensagem||'Desligado.'});
+
+// ---------- conceitos
+let ZONAS=[];
+async function carregarConceitos(){
+  const d=await api('/api/conceitos');ZONAS=d.zonas;window.CONC=d.conceitos;
+  $('#conceitos').innerHTML=d.conceitos.map(c=>`<div class="card"><h3>${esc(c.nome)}</h3><span class="tag">${esc(c.zona)}</span><span class="tag ${c.certeza==='forte'?'ok':'wa'}">${esc(c.certeza)}</span>
+    <p class="mut">${esc(c.explicacao)}</p><div class="row"><button class="b sec pq" onclick="editarConceito('${esc(c.id)}')">Editar</button></div></div>`).join('');
+}
+function formConceito(c){
+  c=c||{id:'',nome:'',zona:ZONAS[0]||'comando',certeza:'moderada',explicacao:'',cuidado:'',situacoes:[],licoes:[],temas:[]};
+  const li=a=>esc((a||[]).join('\n'));
+  $('#formConc').innerHTML=`<div class="card"><h3>${c.id?'Editar':'Novo'} conceito</h3><input type="hidden" id="cId" value="${esc(c.id)}">
+  <label>Nome (até 40 letras)</label><input id="cNome" value="${esc(c.nome)}" maxlength="40">
+  <div class="row"><div style="flex:1;min-width:140px"><label>Zona do cérebro</label><select id="cZona">${ZONAS.map(z=>`<option ${z===c.zona?'selected':''}>${z}</option>`).join('')}</select></div>
+  <div style="flex:1;min-width:140px"><label>Grau de certeza científica</label><select id="cCert"><option ${c.certeza==='forte'?'selected':''}>forte</option><option ${c.certeza==='moderada'?'selected':''}>moderada</option></select></div></div>
+  <label>Explicação correta, em linguagem simples</label><textarea id="cExp">${esc(c.explicacao)}</textarea>
+  <label>Cuidado (o que não exagerar)</label><textarea id="cCui">${esc(c.cuidado)}</textarea>
+  <label>Situações do dia a dia (uma por linha)</label><textarea id="cSit">${li(c.situacoes)}</textarea>
+  <label>Lições práticas (uma por linha)</label><textarea id="cLic">${li(c.licoes)}</textarea>
+  <label>Temas possíveis para vídeos (um por linha)</label><textarea id="cTem">${li(c.temas)}</textarea>
+  <div class="row" style="margin-top:10px"><button class="b" id="cGuardar">Guardar</button><button class="b sec" id="cCancelar">Cancelar</button>${c.id?'<button class="b sec" id="cApagar" style="color:var(--er);border-color:var(--er)">Apagar</button>':''}</div></div>`;
+  $('#cCancelar').onclick=()=>{$('#formConc').innerHTML=''};
+  $('#cGuardar').onclick=bloquear($('#cGuardar'),async()=>{
+    await api('/api/conceitos',{id:$('#cId').value,nome:$('#cNome').value,zona:$('#cZona').value,certeza:$('#cCert').value,explicacao:$('#cExp').value,cuidado:$('#cCui').value,situacoes:$('#cSit').value,licoes:$('#cLic').value,temas:$('#cTem').value});
+    $('#formConc').innerHTML='';await carregarConceitos();
+  });
+  const ap=$('#cApagar');if(ap)ap.onclick=bloquear(ap,async()=>{if(confirm('Apagar este conceito?')){await api('/api/conceitos/apagar',{id:c.id});$('#formConc').innerHTML='';await carregarConceitos()}});
+  $('#formConc').scrollIntoView({behavior:'smooth'});
+}
+function editarConceito(id){formConceito((window.CONC||[]).find(c=>c.id===id))}
+$('#bNovoConc').onclick=()=>formConceito();
+
+// ---------- evolução
+async function carregarEvolucao(){
+  const d=await api('/api/aprendizagem');window.APR=d;
+  $('#regras').innerHTML=d.regras.length?'<ul class="regras">'+d.regras.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>':'<span class="mut">Ainda não há regras. Aparecem depois de a fábrica analisar os primeiros vídeos e de lhes dares nota.</span>';
+  const max=10;
+  $('#evolucao').innerHTML=d.evolucao.length?d.evolucao.map(e=>{
+    const v=e.diogo?e.diogo*2:(e.analise||(e.editor?e.editor*2:0));
+    return `<div class="dia"><div style="flex:1"><b>${esc(e.titulo)}</b><div>${e.editor?`<span class="tag">editor ${e.editor}/5</span>`:''}${e.analise?`<span class="tag">IA ${e.analise}/10</span>`:''}${e.diogo?`<span class="tag pri">tu ${e.diogo}/5</span>`:''}</div></div><div class="bar" style="width:30%"><i style="width:${v/max*100}%"></i></div></div>`}).join(''):'Ainda sem vídeos analisados.';
+  $('#licoes').innerHTML=d.licoes.length?d.licoes.slice().reverse().map(l=>`<div class="dia"><span>${esc(l.texto)}</span><span class="tag ${l.origem==='diogo'?'pri':''}">${l.origem==='diogo'?'tu':'IA'} ×${l.vezes}</span></div>`).join(''):'—';
+}
+$('#bDestilar').onclick=bloquear($('#bDestilar'),()=>novoTrabalho({tipo:'destilar'}));
+$('#bAnalisarTodos').onclick=bloquear($('#bAnalisarTodos'),async()=>{
+  const [p,a]=await Promise.all([api('/api/pacotes'),api('/api/aprendizagem')]);
+  const feitos=new Set(a.registos.filter(r=>r.analise).map(r=>r.pasta));
+  const falta=p.filter(x=>!feitos.has(x.nome));
+  if(!falta.length)return alert('Todos os vídeos já têm análise.');
+  if(!confirm(`Analisar ${falta.length} vídeo(s)? Um de cada vez, ~1 minuto cada.`))return;
+  for(const x of falta)await novoTrabalho({tipo:'analisar',pacote:x.nome});
+});
+
+// ---------- arranque
+carregarEstado().catch(erro);
+ir((location.hash||'#criar').slice(1) in sec?(location.hash||'#criar').slice(1):'criar');
+</script>
+</body>
+</html>
