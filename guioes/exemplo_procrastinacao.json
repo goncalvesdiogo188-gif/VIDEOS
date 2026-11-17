@@ -1,0 +1,73 @@
+{
+  "tema": "procrastinação",
+  "titulo": "Porque deixamos tudo para amanhã?",
+  "cenario": "comando",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "Por que adiamos tudo para amanhã?",
+      "expressao": "convencido",
+      "pose": "acena"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Simples. O cérebro prefere prazer agora a esforço depois.",
+      "expressao": "convencido",
+      "pose": "aponta"
+    },
+    {
+      "quem": "ze",
+      "texto": "Tipo ver vídeos de gatos em vez de trabalhar?",
+      "expressao": "confuso",
+      "pose": "mao_queixo"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Evidentemente. Tarefa chata, cérebro foge. Sou um génio.",
+      "expressao": "convencido",
+      "pose": "bracos_cruzados",
+      "acao": "aproxima"
+    },
+    {
+      "quem": "ze",
+      "texto": "Ontem arrumei as meias por cor para não estudar!",
+      "expressao": "alegre",
+      "pose": "segura",
+      "adereco": "despertador",
+      "acao": "salta"
+    },
+    {
+      "quem": "ze",
+      "texto": "Truque: começa só dois minutos. O cérebro depois continua!",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "adereco": "lampada"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque deixamos tudo para amanhã?",
+      "texto": "O teu cérebro foge do que dá trabalho."
+    },
+    {
+      "titulo": "Prazer agora",
+      "texto": "O cérebro prefere recompensa imediata a esforço."
+    },
+    {
+      "titulo": "Tarefa chata",
+      "texto": "Incomoda, e a fuga mais fácil é o telefone."
+    },
+    {
+      "titulo": "Truque dos 2 minutos",
+      "texto": "Começa só dois minutos. Depois o cérebro continua."
+    }
+  ],
+  "legenda": "O teu cérebro não é preguiçoso, só foge do que incomoda. Qual é a tua desculpa favorita para adiar? Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#procrastinacao",
+    "#produtividade",
+    "#vidaadulta"
+  ]
+}

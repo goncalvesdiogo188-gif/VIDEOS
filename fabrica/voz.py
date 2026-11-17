@@ -21,13 +21,19 @@ from pathlib import Path
 from . import guiao as G
 
 VOZES = {
-    "neurao": {"voz": "pt-PT-DuarteNeural", "velocidade": -6, "tom": -8},
-    "ze": {"voz": "pt-BR-AntonioNeural", "velocidade": 8, "tom": 18},
+    "neurao": {"voz": "pt-PT-DuarteNeural", "velocidade": -12, "tom": -8},
+    "ze": {"voz": "pt-BR-AntonioNeural", "velocidade": -3, "tom": 10},
+}
+# Entoação por emoção da fala: (ajuste de velocidade %, ajuste de tom Hz) somado à voz base.
+PROSODIA = {
+    "neutro": (0, 0), "convencido": (-4, -4), "alegre": (3, 8), "confuso": (-3, 7),
+    "surpreendido": (4, 13), "triste": (-9, -8), "pensativo": (-7, -2),
 }
 TAXA = 22050
 FPS = 30
-INICIO = 0.35
-PAUSA = 0.22
+INICIO = 0.5
+PAUSA = 0.4          # respiração entre falas
+PAUSA_PERGUNTA = 0.25  # a mais depois de uma pergunta ou exclamação
 FIM_EXTRA = 1.4
 DURACAO_MAX = 30.0
 CACHE = Path(__file__).resolve().parent.parent / "out" / "cache_voz"
@@ -72,18 +78,20 @@ def _ler_pcm(mp3):
     return a
 
 
-def sintetizar_fala(quem, texto, velocidade_extra=0):
+def sintetizar_fala(quem, texto, velocidade_extra=0, expressao="neutro"):
     """Devolve (amostras, palavras[(texto, t0, t1)]) da fala, usando a cache."""
     cfg = VOZES[quem]
-    vel = cfg["velocidade"] + velocidade_extra
-    chave = hashlib.sha1(f"{cfg['voz']}|{vel}|{cfg['tom']}|{texto}".encode()).hexdigest()[:16]
+    dv, dt = PROSODIA.get(expressao, (0, 0))
+    vel = cfg["velocidade"] + velocidade_extra + dv
+    tom = cfg["tom"] + dt
+    chave = hashlib.sha1(f"{cfg['voz']}|{vel}|{tom}|{texto}".encode()).hexdigest()[:16]
     CACHE.mkdir(parents=True, exist_ok=True)
     mp3, js = CACHE / f"{chave}.mp3", CACHE / f"{chave}.json"
     if not (mp3.exists() and js.exists() and mp3.stat().st_size > 0):
         ultimo = None
         for _ in range(3):
             try:
-                pal = asyncio.run(_sintetizar(texto, cfg["voz"], vel, cfg["tom"], mp3))
+                pal = asyncio.run(_sintetizar(texto, cfg["voz"], vel, tom, mp3))
                 if mp3.stat().st_size > 0:
                     js.write_text(json.dumps(pal, ensure_ascii=False))
                     break
@@ -142,27 +150,28 @@ def _envelope(amostras):
     return [min(1.0, max(0.0, (v / topo - 0.08) * 1.15)) for v in env]
 
 
-def planear_com_voz(g, log=print):
+def planear_com_voz(g, log=print, limite=DURACAO_MAX):
     """Como video.planear, mas com a voz real. Devolve (plano, duracao, amostras_mistura).
 
     Se o total passar de 30 s, a fábrica acelera a fala um pouco e tenta de novo.
     """
-    for extra in (0, 8, 15, 22):
+    for extra in (0, 4, 8, 12):
         plano, t, faixas = [], INICIO, []
         for f in g["falas"]:
-            am, pal = sintetizar_fala(f["quem"], f["texto"], extra)
+            am, pal = sintetizar_fala(f["quem"], f["texto"], extra, f.get("expressao", "neutro"))
             dur = len(am) / TAXA
             palavras = [(p, t + a, t + b) for (p, a, b) in _alinhar(f["texto"], pal, dur)]
             plano.append(dict(f, inicio=t, fim=t + dur, palavras=palavras, silabas=[],
                               envelope=_envelope(am)))
             faixas.append((t, am))
-            t += dur + PAUSA
-        duracao = t - PAUSA + FIM_EXTRA
-        if duracao <= DURACAO_MAX:
+            pausa = PAUSA + (PAUSA_PERGUNTA if f["texto"].rstrip()[-1:] in "?!" else 0.0)
+            t += dur + pausa
+        duracao = t - pausa + FIM_EXTRA
+        if duracao <= limite:
             break
         log(f"   A voz ficou com {duracao:.1f} s; a acelerar um pouco a fala...")
     else:
-        raise VozErro(f"Mesmo a acelerar, o vídeo fica com {duracao:.1f} s (máximo 30 s). Encurta o guião.")
+        raise VozErro(f"Mesmo a acelerar, o vídeo fica com {duracao:.1f} s (máximo {limite:.0f} s). Encurta o guião.")
     return plano, duracao, _misturar(plano, faixas, duracao, g)
 
 
@@ -185,7 +194,9 @@ def _misturar(plano, faixas, duracao, g=None):
     for f in plano:
         pop(f["inicio"] - 0.08, 880 if f["quem"] == "ze" else 660, 0.05)
     pop(plano[-1]["fim"] + 0.2, 1046.5, 0.12, 0.6)
-    from . import musica
+    from . import musica, sfx
+    if g is None or musica.ativa(g):
+        sfx.misturar_em(mix, plano)
     if g is not None and musica.ativa(g):
         musica.misturar_em(mix, plano, duracao, g.get("cenario", "comando"))
     a = array.array("h", (int(max(-1.0, min(1.0, v)) * 32000) for v in mix))

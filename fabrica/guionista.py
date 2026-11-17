@@ -152,11 +152,13 @@ NOTA: o mundo é agora um cérebro futurista com 8 zonas. Em vez de sala/quarto/
 TEMA: {tema}
 
 REGRAS OBRIGATÓRIAS:
-- 5 a 7 falas; no máximo 12 palavras por fala.
+- 6 a 7 falas CURTAS e rápidas, como uma conversa a sério; no máximo 12 palavras por fala e, de preferência, 5 a 9. Falas curtas intercaladas com interjeições ("Hã?", "Ora essa!", "Exato!", "Espera, o quê?").
 - Gancho logo na primeira fala; humor leve.
+- Cada fala tem de ter emoção diferente da anterior (varia "expressao"): o Neurão é pomposo e convencido ("Evidentemente.", "Obviamente."), mas leva a lição de volta; o Zé é distraído, interpreta tudo à letra e faz comparações absurdas do dia a dia. A graça está na reviravolta do Zé, não na explicação.
+- Estrutura: gancho (pergunta) → explicação do Neurão com ar de génio → o Zé percebe tudo ao contrário (piada) → o Neurão reage/corrige → o Zé fecha com a lição simples.
 - As duas personagens falam ("neurao" e "ze").
 - A última fala é do "ze" e contém a lição prática.
-- Total falado: cerca de 50 a 65 palavras (20 a 27 segundos).
+- Total falado: 44 a 52 palavras NO TOTAL (isto dá 22 a 27 segundos com as vozes reais; mais do que 54 palavras já passa dos 30 s e o vídeo é rejeitado).
 - Português neutro (Portugal e Brasil), sem calão de um só país.
 - Proibido: promessas de ganhos, conselhos de investimento específicos, conselhos médicos, referências a séries, marcas ou personagens existentes.
 - "expressao" só pode ser: {expr}.

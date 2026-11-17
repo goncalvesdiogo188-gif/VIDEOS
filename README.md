@@ -123,12 +123,15 @@ Para parar: `.\fabrica desagendar`.
 ## Vozes
 | Personagem | Voz (edge-tts) | Ajuste |
 |---|---|---|
-| Neurão | `pt-PT-DuarteNeural` (Portugal) | 6% mais lento, tom mais grave |
-| Zé Neurónio | `pt-BR-AntonioNeural` (Brasil) | 8% mais rápido, tom mais agudo |
+| Neurão | `pt-PT-DuarteNeural` (Portugal) | 12% mais lento, tom mais grave |
+| Zé Neurónio | `pt-BR-AntonioNeural` (Brasil) | 3% mais lento, tom mais agudo |
 
 - Muda-se em `fabrica/voz.py`, no topo (`VOZES`).
 - Os áudios ficam guardados em `out/cache_voz/` e não são pedidos duas vezes.
-- Se a voz passar dos 30 s, a fábrica acelera a fala sozinha.
+- **Entoação por emoção:** cada fala é dita de forma diferente conforme a `expressao` (convencido = mais grave e lento, alegre = mais agudo e vivo, confuso = a subir, triste = lento e baixo, etc.). Ajusta-se em `PROSODIA`, no topo de `fabrica/voz.py`.
+- **Pausas:** 0,4 s entre falas, mais 0,25 s depois de `?` ou `!`.
+- **Ritmo:** cerca de 0,5 s por palavra, contando as pausas. Por isso um vídeo tem **44 a 52 palavras** (mais de 54 passa dos 30 s).
+- Se a voz passar dos 30 s, a fábrica acelera a fala até 12%. Se mesmo assim não couber, o pacote não é criado.
 - O edge-tts usa um serviço gratuito da Microsoft que não é oficial: pode deixar de funcionar ou mudar sem aviso. Se falhar, o pacote não é criado e aparece uma mensagem clara.
 
 ## Poses, objetos e movimento
@@ -138,6 +141,13 @@ Para parar: `.\fabrica desagendar`.
 - No início de cada vídeo os dois entram a andar dos lados.
 - O Zé aparece espelhado, para os gestos e objetos dele ficarem virados para o centro.
 - Ver tudo numa imagem: `python -m fabrica.personagens` (grava `out/folha_poses_aderecos.png`).
+
+## Vida dos personagens e efeitos sonoros
+- **Quem fala:** a cabeça inclina-se e dá um "toque" a cada palavra (mais forte nas longas), as sobrancelhas sobem nas sílabas fortes e os braços gesticulam.
+- **Quem ouve:** reage a meio da fala do outro (surpresa depois de "!", dúvida depois de "?", espanto perante o Neurão convencido) e acena de leve no fim de cada frase.
+- **Em repouso:** os dois balançam; o Zé nunca pára quieto.
+- **Câmara:** aproxima-se mais na última fala (a lição) e treme um pouco nos saltos.
+- **Efeitos sonoros** (`fabrica/sfx.py`, feitos em código): salto = boing, aproximar = whoosh, lâmpada = ding, despertador = toque, mão na testa = bonk, vitória = fanfarra, olá = pip, surpresa = "uh".
 
 ## Música de fundo
 | Zona | Estilo |

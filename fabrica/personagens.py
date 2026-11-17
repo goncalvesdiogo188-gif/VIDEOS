@@ -222,13 +222,16 @@ def _laco(p, ry):
 
 def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
             boca=0.0, piscar=0.0, t=0.0, virado=1, olhar=None,
-            adereco=None, adereco_k=1.0, andar=None):
+            adereco=None, adereco_k=1.0, andar=None,
+            inclinar=0.0, esmagar=0.0, sobr=0.0, gesto=0.0):
     """Devolve SVG do personagem com os pés no ponto (x, y).
 
     boca: 0..1, abertura extra da boca (fala).  piscar: 0..1 (1 = olhos fechados).
     virado: 1 = olha para a direita do ecrã, -1 = espelhado.
     adereco: objeto na mão direita (ver ADERECOS); adereco_k: 0..1 para o fazer aparecer.
     andar: fase do passo (em radianos) quando o personagem está a andar, senão None.
+    inclinar: graus que a cabeça (cérebro) roda.  esmagar: -0.1..0.1, estica (+) ou achata (-) o cérebro.
+    sobr: píxeis que as sobrancelhas sobem (ênfase).  gesto: 0..1, os braços gesticulam ao falar.
     """
     p = PERSONAGENS[quem]
     e = _expr(expressao)
@@ -257,7 +260,8 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
         s += f'<path d="M{_f(hx)},{_f(cy+ry*0.8)} L{_f(px)},{_f(py)}" stroke="{C}" stroke-width="12" stroke-linecap="round"/>'
         s += f'<ellipse cx="{_f(px + sx*14)}" cy="{_f(py+4)}" rx="38" ry="17" fill="#2B2B3A" stroke="{L}" stroke-width="4"/>'
 
-    s += f'<g transform="translate(0,{_f(cy)}) scale(1,{resp:.4f})">'
+    s += (f'<g transform="translate(0,{_f(cy)}) rotate({inclinar:.2f}) '
+          f'scale({1 - esmagar * 0.7:.4f},{resp * (1 + esmagar):.4f})">')
     s += _acessorios_tras(quem, p, rx, ry, t)
     s += f'<path d="{_contorno_cerebro(rx, ry, p["lobos"], t)}" fill="{C}" stroke="{L}" stroke-width="8" stroke-linejoin="round"/>'
     s += _dobras(rx, ry, p["dobras"])
@@ -271,7 +275,7 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
     for sx, b in ((-1, e["be"]), (1, e["bd"])):
         s += _olho(sx * eye_dx, eye_y, eye_rx, eye_ry, lid, olhar, C, L)
         # sobrancelha: b = (interior, exterior)
-        by = eye_y - eye_ry - 22
+        by = eye_y - eye_ry - 22 - sobr
         xi, xo = sx * (eye_dx - eye_rx * 0.7), sx * (eye_dx + eye_rx * 0.9)
         s += (f'<path d="M{_f(xi)},{_f(by+b[0])} L{_f(xo)},{_f(by+b[1])}" stroke="{L}" '
               f'stroke-width="12" stroke-linecap="round"/>')
@@ -288,6 +292,10 @@ def desenha(quem, x, y, escala=1.0, expressao="neutro", pose="normal",
     maos = {}
     for lado in ("esq", "dir"):
         mx, my = po[lado]
+        if gesto:  # gesticular enquanto fala
+            fase = 0.0 if lado == "esq" else 2.0
+            mx += gesto * 0.11 * math.sin(t * 5.1 + fase)
+            my += gesto * 0.09 * math.cos(t * 4.3 + fase * 1.7)
         if po.get("anim") == "vitoria":
             my += 0.22 * math.sin(t * 9 + (0 if lado == "esq" else math.pi))
         elif po.get("anim") == "acena" and lado == "dir":

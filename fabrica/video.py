@@ -30,11 +30,12 @@ FONTE = "Sniglet"
 TAXA = 22050  # amostras de áudio por segundo
 
 # ritmo da voz provisória
-SEG_POR_SILABA = 0.12  # medido com as vozes reais (edge-tts), 61 falas
-PAUSA_PONTUACAO = 0.6
+SEG_POR_SILABA = 0.124  # medido com as vozes reais (edge-tts), 80 falas
+PAUSA_PONTUACAO = 0.77
 MARGEM_FALA = 0.0
-PAUSA_ENTRE_FALAS = 0.22
-INICIO = 0.35
+PAUSA_ENTRE_FALAS = 0.4
+PAUSA_PERGUNTA = 0.25   # a mais depois de ? ou !
+INICIO = 0.5
 FIM_EXTRA = 1.4
 
 
@@ -83,8 +84,9 @@ def planear(g):
             ps.append((p, p0, t))
         t += MARGEM_FALA
         plano.append(dict(f, inicio=t0, fim=t, palavras=ps, silabas=sils))
-        t += PAUSA_ENTRE_FALAS
-    return plano, t - PAUSA_ENTRE_FALAS + FIM_EXTRA
+        pausa = PAUSA_ENTRE_FALAS + (PAUSA_PERGUNTA if f["texto"].rstrip()[-1:] in "?!" else 0.0)
+        t += pausa
+    return plano, t - pausa + FIM_EXTRA
 
 
 # ---------------------------------------------------------------- áudio provisório
@@ -154,15 +156,63 @@ def estado_personagem(plano, quem, t):
                 pose = "segura"
             mudancas.append((f["inicio"] - 0.1, f["expressao"], pose))
         else:
-            ult = mudancas[-1][1]
-            ouvir = ult if ult in ("alegre", "convencido", "pensativo") else "neutro"
-            mudancas.append((f["inicio"] + 0.1, ouvir, "normal"))
+            dur = f["fim"] - f["inicio"]
+            mudancas.append((f["inicio"] + 0.1, "neutro", "normal"))
+            # a meio da fala "percebe" e reage
+            mudancas.append((f["inicio"] + 0.55 * dur, reacao(f, quem), "normal"))
     ant, atual = mudancas[0], mudancas[0]
     for m in mudancas:
         if t >= m[0]:
             ant, atual = atual, m
     k = suave((t - atual[0]) / 0.25)
     return (ant[1], atual[1], k), (ant[2], atual[2], k)
+
+
+def reacao(f, quem_ouve):
+    """Expressão de quem está a ouvir a fala f."""
+    fim = f["texto"].rstrip()[-1:]
+    ex = f.get("expressao", "neutro")
+    if fim == "!":
+        return "alegre" if ex == "alegre" else "surpreendido"
+    if fim == "?":
+        return "pensativo" if quem_ouve == "neurao" else "confuso"
+    if ex == "convencido":
+        return "pensativo" if quem_ouve == "neurao" else "confuso"
+    if ex in ("alegre", "triste"):
+        return ex
+    return "neutro"
+
+
+def vida(plano, quem, t, f, fala_ativa, boca):
+    """Pequenos movimentos que dão vida: inclinar, esmagar, sobrancelhas, gestos.
+
+    Devolve dict com inclinar, esmagar, sobr, gesto e salto (píxeis).
+    """
+    ze = quem == "ze"
+    fase = 1.3 if ze else 0.0
+    inclinar = (3.2 if ze else 1.8) * math.sin(t * (2.6 if ze else 1.5) + fase)   # balanço em repouso
+    esmagar = 0.012 * math.sin(t * (4.0 if ze else 2.2) + fase)
+    sobr = gesto = salto = 0.0
+    if ze:
+        salto = -3.0 * abs(math.sin(t * 3.4))  # o Zé não pára quieto
+    if f and fala_ativa:
+        inclinar += 4.5 * math.sin(t * 3.1 + fase) * (1.0 if ze else 0.7)
+        esmagar += 0.05 * boca
+        sobr = 11 * boca
+        gesto = 1.0
+        for (w, w0, w1) in f["palavras"]:  # um "toque" de cabeça a cada palavra, mais forte nas longas
+            r = t - w0
+            if 0 <= r < 0.3:
+                forca = 0.9 if len(w.strip(".,!?:;")) > 4 else 0.4
+                esmagar += 0.05 * forca * math.exp(-r * 13)
+                inclinar += 3.5 * forca * math.exp(-r * 11) * (1 if ze else -1)
+    elif f:
+        # a ouvir: acena de leve quando o outro acaba uma frase, e inclina-se para ele
+        inclinar += 2.0 * (1 if ze else -1)
+        fim_frase = f["fim"] - t
+        if 0 <= fim_frase < 0.4 or 0 <= t - f["fim"] < 0.3:
+            esmagar -= 0.03 * math.sin(math.pi * min(1.0, abs(fim_frase) / 0.4))
+    return dict(inclinar=inclinar, esmagar=esmagar, sobr=sobr, gesto=gesto, salto=salto)
 
 
 POSES_COM_ADERECO = ("segura", "aponta", "bracos_ar", "vitoria", "acena")
@@ -278,6 +328,12 @@ def frame_svg(g, plano, duracao, t):
         anterior = 1.0 if i % 2 == 0 else 1.05
         z = anterior + (alvo - anterior) * suave((t - f["inicio"]) / 0.5)
         cx = POS_X[f["quem"]]
+        if i == len(plano) - 1:  # última fala (a lição): aproxima-se mais
+            z = 1.0 + 0.11 * suave((t - f["inicio"]) / 0.7)
+        for k, ff in enumerate(plano):  # pequena sacudidela da câmara quando há um salto
+            r = t - ff["inicio"]
+            if ff.get("acao") == "salta" and 0.4 <= r < 0.7:
+                z += 0.012 * math.sin(r * 60) * (1 - (r - 0.4) / 0.3)
     s = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">'
     s += f'<g transform="translate({cx},{CHAO}) scale({z:.4f}) translate({-cx},{-CHAO})">'
     s += cenario(g["cenario"], W, H, CHAO, t=t, focos=(POS_X["neurao"], POS_X["ze"]))
@@ -292,8 +348,10 @@ def frame_svg(g, plano, duracao, t):
         esc_p = ESCALA * (1 + 0.05 * (suave((t - f["inicio"]) / 0.3) if (f and f["quem"] == quem) else 0))
         dx, dy, andar = movimento(plano, quem, t)
         ad, ad_k = adereco_em(plano, quem, t)
-        s += desenha(quem, POS_X[quem] + dx, CHAO + dy, esc_p, expr, pose, boca=boca,
+        v = vida(plano, quem, t, f, fala_ativa, boca)
+        s += desenha(quem, POS_X[quem] + dx, CHAO + dy + v["salto"], esc_p, expr, pose, boca=boca,
                      piscar=piscar_em(quem, t), t=t, olhar=olhar,
+                     inclinar=v["inclinar"], esmagar=v["esmagar"], sobr=v["sobr"], gesto=v["gesto"],
                      virado=-1 if quem == "ze" else 1,  # gestos e objetos do Zé ficam virados para o centro
                      adereco=ad, adereco_k=ad_k, andar=andar)
     s += "</g>"
