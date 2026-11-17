@@ -44,6 +44,9 @@ CONSELHOS_MEDICOS = ["diagnóstico", "medicamento", "toma comprimidos"]
 GIRIAS_PROIBIDAS = [
     "fixe", "bué", "giro", "legal", "cara", "a gente",
     "telemóvel", "celular", "ecrã", "tela",
+    # palavras que são diferentes em Portugal e no Brasil (a conta tem de ser neutra)
+    "frigorífico", "geladeira", "ténis", "tênis", "pequeno-almoço", "café da manhã", "autocarro", "ônibus",
+    "casa de banho", "banheiro", "ficheiro", "comboio", "trem", "equipa", "equipe",
 ]
 CATEGORIAS_PROIBIDAS = [
     ("promessa de dinheiro ou conselho de investimento", PROMESSAS_DINHEIRO),

@@ -3,7 +3,7 @@
     "id": "adiar_e_emocao", "nome": "Adiar é fugir de uma emoção", "zona": "comando", "certeza": "forte",
     "explicacao": "Muitas vezes adiamos uma tarefa para fugir de uma emoção desconfortável (medo de falhar, tédio, ansiedade), e não por preguiça. Adiar dá alívio imediato, mas o problema cresce.",
     "cuidado": "Não dizer que adiar é sempre doença ou falta de caráter; é uma estratégia de alívio que sai cara.",
-    "situacoes": ["relatório para amanhã e a pessoa limpa o frigorífico", "mensagem difícil que fica semanas por responder", "marcar uma consulta que se adia há meses"],
+    "situacoes": ["relatório para amanhã e a pessoa limpa a cozinha", "mensagem difícil que fica semanas por responder", "marcar uma consulta que se adia há meses"],
     "licoes": ["escrever só uma frase feia e rápida para quebrar o medo de começar", "dar nome à emoção: 'estou com medo de escrever mal'"],
     "temas": ["Porque deixas tudo para amanhã?", "Adiar não é preguiça"]
   },

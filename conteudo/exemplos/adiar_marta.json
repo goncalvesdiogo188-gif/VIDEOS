@@ -33,13 +33,13 @@
     },
     {
       "quem": "ze",
-      "texto": "Então porque está ela a limpar o frigorífico?",
+      "texto": "Então porque está ela a limpar a cozinha?",
       "expressao": "confuso",
       "pose": "mao_queixo",
       "cena": {
         "icone": "frigorifico",
         "hora": "19:10",
-        "texto": "O frigorífico nunca esteve tão limpo."
+        "texto": "A cozinha nunca esteve tão limpa."
       }
     },
     {
@@ -139,7 +139,7 @@
       "texto": "Começar tira o medo. O perfeito vem depois."
     }
   ],
-  "legenda": "A Marta limpou o frigorífico para fugir de um relatório. Já te aconteceu algo parecido? Conta nos comentários. Segue para mais!",
+  "legenda": "A Marta limpou a cozinha para fugir de um relatório. Já te aconteceu algo parecido? Conta nos comentários. Segue para mais!",
   "hashtags": [
     "#cerebro",
     "#psicologia",

@@ -174,8 +174,11 @@ def janela(cena, dono, t, t0):
     s += f'<text x="{JX+50}" y="{JY+34}" font-family="{FONTE}" font-size="26" fill="#7DF9FF">{nome}</text>'
     hora = cena.get("hora")
     if hora:
-        s += f'<rect x="{JX+JW-150}" y="{JY+8}" width="132" height="34" rx="17" fill="#2EE6FF"/>'
-        s += f'<text x="{JX+JW-84}" y="{JY+34}" font-family="{FONTE}" font-size="28" fill="#0B1230" text-anchor="middle">{_esc(hora)}</text>'
+        hora = str(hora)
+        tam_h = 28 if len(hora) <= 8 else 24
+        larg = max(110, int(len(hora) * tam_h * 0.62) + 36)
+        s += f'<rect x="{JX+JW-larg-16}" y="{JY+8}" width="{larg}" height="34" rx="17" fill="#2EE6FF"/>'
+        s += f'<text x="{JX+JW-16-larg/2:.0f}" y="{JY+33}" font-family="{FONTE}" font-size="{tam_h}" fill="#0B1230" text-anchor="middle">{_esc(hora)}</text>'
     # ícone (com ligeira flutuação)
     icone = cena.get("icone")
     if icone in ICONES:

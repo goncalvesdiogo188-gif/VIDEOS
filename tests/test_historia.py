@@ -160,6 +160,9 @@ class TestPipeline(unittest.TestCase):
         p.start()
         self.addCleanup(p.stop)
         self.logs = []
+        q = mock.patch.object(H, "_garantir_valido", side_effect=lambda g, *a, **k: g)
+        q.start()
+        self.addCleanup(q.stop)
 
     def test_ciclo_completo_com_reescrita(self):
         g = H.escrever_guiao_rico("procrastinação", log=self.logs.append, semente=1)
@@ -201,6 +204,38 @@ class TestPipeline(unittest.TestCase):
         self.assertEqual(r["notas"]["coerencia"], 5)
         self.assertEqual(r["notas"]["humor"], 3)
         self.assertFalse(H.passou(r))
+
+
+class TestGarantirValido(unittest.TestCase):
+    def setUp(self):
+        self.c = H.conceito_por_id("dor_de_pagar")
+
+    def test_corrige_e_arruma(self):
+        corrigido = {"falas": [{"quem": "ze", "texto": "ok."}]}
+        with mock.patch("fabrica.validar.validar", side_effect=[["Fala 1: tem 13 palavras."], []]), \
+             mock.patch.object(H.GU, "corrigir_guiao", return_value=corrigido) as corrige:
+            g = H._garantir_valido({"falas": []}, "t", self.c, "Rui", log=lambda m: None)
+        corrige.assert_called_once()
+        self.assertEqual(g["dono"], "Rui")  # voltou a ligar o dono e o conceito
+        self.assertEqual(g["conceito"]["id"], "dor_de_pagar")
+
+    def test_sem_erros_nao_pede_nada(self):
+        with mock.patch("fabrica.validar.validar", return_value=[]), \
+             mock.patch.object(H.GU, "corrigir_guiao", side_effect=AssertionError("não devia corrigir")):
+            g = H._garantir_valido({"falas": [1]}, "t", self.c, "Rui")
+        self.assertEqual(g, {"falas": [1]})
+
+    def test_desiste_ao_fim_de_duas_tentativas(self):
+        with mock.patch("fabrica.validar.validar", return_value=["erro"]), \
+             mock.patch.object(H.GU, "corrigir_guiao", return_value={"falas": []}) as corrige:
+            H._garantir_valido({"falas": []}, "t", self.c, "Rui", log=lambda m: None)
+        self.assertEqual(corrige.call_count, 2)
+
+    def test_claude_falha_fica_com_o_que_tem(self):
+        with mock.patch("fabrica.validar.validar", return_value=["erro"]), \
+             mock.patch.object(H.GU, "corrigir_guiao", side_effect=H.GU.GuionistaErro("x")):
+            g = H._garantir_valido({"falas": []}, "t", self.c, "Rui", log=lambda m: None)
+        self.assertEqual(g, {"falas": []})
 
 
 class TestPacoteHistoria(unittest.TestCase):

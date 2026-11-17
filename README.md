@@ -12,6 +12,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `guioes/` | Um ficheiro `.json` por vídeo (as falas, o cenário, a legenda, as hashtags). |
 | `fabrica/` | O código. |
 | `out/` | Tudo o que a fábrica produz (vídeos, carrosséis). Não vai para o GitHub. |
+| `conteudo/` | O banco de conceitos reais (`conceitos.json`) e os exemplos de ouro (`exemplos/`) que servem de modelo de qualidade ao Claude. |
 | `assets/` | Fontes de letra (licença livre OFL) e, mais tarde, sons. |
 | `arquivo/` | Projeto antigo, guardado à parte. Não é usado pela fábrica. |
 
@@ -27,6 +28,8 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `carrossel.py` | Guião → carrossel de imagens 1080x1350. |
 | `render.py` | Converte os desenhos SVG em imagens. |
 | `verificar.py` | Diz-te o que falta instalar. |
+| `historia.py` | Escreve o guião em vários passos: conceito real, ficha, roteiro, editor, reescrita. |
+| `janela.py` | A Janela do Dono: painel com a situação da pessoa e fita do conceito. |
 | `guionista.py` | Escreve guiões com o Claude Code em modo não interativo (`claude -p`). |
 | `validar.py` | Verifica as regras (tempo, palavras por fala, texto). |
 | `pacote.py` | Junta tudo na pasta final. |
@@ -77,7 +80,7 @@ Para confirmar mais tarde: `.\fabrica verificar`. Este comando também testa se 
 ## Comandos
 | Comando | O que faz |
 |---|---|
-| `fabrica novo "tema"` | O Claude escreve o guião, a fábrica valida (máx. 30 s, máx. 12 palavras por fala, texto revisto) e corrige sozinha até 3 vezes. Cria a pasta `out/AAAA-MM-DD_tema/`. |
+| `fabrica novo "tema"` | O Claude escreve o guião em vários passos (ver "Como o guião é escrito"), a fábrica valida (máx. 120 s, máx. 12 palavras por fala, texto revisto) e corrige sozinha até 3 vezes. Cria a pasta `out/AAAA-MM-DD_tema/`. |
 | `fabrica novo --guiao guioes/ficheiro.json` | Usa um guião já escrito por ti. |
 | `fabrica semana` | Escolhe 7 temas diferentes (evita os já feitos, guardados em `out/historico.json`) e gera os 7 pacotes. |
 | `fabrica refazer out/PASTA` | Volta a gerar o pacote a partir do `guiao.json` dessa pasta (útil depois de mudares uma fala à mão). Aceita várias pastas. |
@@ -120,6 +123,20 @@ Para parar: `.\fabrica desagendar`.
 - Cada dia gasta uma pequena parte do teu limite de utilização do Claude (3 a 5 pedidos: escolher o tema, escrever, rever e, se preciso, corrigir).
 - Se o Claude ou as vozes falharem, a fábrica tenta outro tema uma vez. Se falhar de novo, não há pacote nesse dia (fica no registo).
 
+## Como o guião é escrito (histórias com sentido)
+Em vez de pedir ao Claude "escreve um guião" de uma vez, a fábrica segue o que faz uma equipa de argumento (`fabrica/historia.py`). Cada passo é um pedido ao Claude:
+1. **Conceito:** escolhe um conceito real do banco `conteudo/conceitos.json` (26 conceitos, cada um com a explicação correta, o grau de certeza e o que não exagerar). Assim a ciência é verdadeira e os vídeos não se repetem. `fabrica semana` e `fabrica diario` escolhem sempre conceitos ainda não usados e de zonas variadas.
+2. **Ficha da história:** um Dono com nome, 4 a 6 cenas que escalam (hora, desenho, legenda curta), reviravolta, piada do Zé, lição e *callback*.
+3. **Roteiro:** o diálogo, a partir da ficha, com dois exemplos de ouro (`conteudo/exemplos/`) como modelo de qualidade.
+4. **Correção automática** das regras (palavras por fala, horas, vocabulário neutro).
+5. **Editor:** dá nota de 1 a 5 a 7 critérios (coerência, história, humor, ciência, lição, ritmo, imagem). Se alguma nota for inferior a 4 ou a média a 4,0, o roteiro é reescrito uma vez com as correções pedidas. Fica a melhor versão.
+
+O `info.txt` de cada pacote mostra o Dono, o conceito e as notas do editor. Cada vídeo gasta cerca de 5 a 7 pedidos ao Claude e demora 2 a 4 minutos a escrever.
+Para voltar ao método antigo, de um só pedido: variável de ambiente `FABRICA_GUIAO_SIMPLES=1`.
+
+### Janela do Dono
+Os personagens vivem na cabeça de uma pessoa e comentam o que ela faz. Uma janela holográfica mostra a situação (hora, desenho, legenda) e a imagem conta o contexto, para as falas ficarem só com a piada e a ciência. Quando o Neurão diz o nome do conceito, aparece uma fita dourada por baixo dos personagens. Há 17 desenhos para as cenas (`fabrica/janela.py`).
+
 ## Vozes
 | Personagem | Voz (edge-tts) | Ajuste |
 |---|---|---|
@@ -130,8 +147,8 @@ Para parar: `.\fabrica desagendar`.
 - Os áudios ficam guardados em `out/cache_voz/` e não são pedidos duas vezes.
 - **Entoação por emoção:** cada fala é dita de forma diferente conforme a `expressao` (convencido = mais grave e lento, alegre = mais agudo e vivo, confuso = a subir, triste = lento e baixo, etc.). Ajusta-se em `PROSODIA`, no topo de `fabrica/voz.py`.
 - **Pausas:** 0,4 s entre falas, mais 0,25 s depois de `?` ou `!`.
-- **Ritmo:** cerca de 0,5 s por palavra, contando as pausas. Por isso um vídeo tem **44 a 52 palavras** (mais de 54 passa dos 30 s).
-- Se a voz passar dos 30 s, a fábrica acelera a fala até 12%. Se mesmo assim não couber, o pacote não é criado.
+- **Ritmo:** cerca de 0,5 s por palavra, contando as pausas. Por isso 100 a 170 palavras dão 50 a 90 s.
+- Se a voz passar dos 120 s, a fábrica acelera a fala até 12%. Se mesmo assim não couber, o pacote não é criado.
 - O edge-tts usa um serviço gratuito da Microsoft que não é oficial: pode deixar de funcionar ou mudar sem aviso. Se falhar, o pacote não é criado e aparece uma mensagem clara.
 
 ## Poses, objetos e movimento
@@ -180,4 +197,4 @@ Os resultados aparecem em `out/teste/`.
 ## Regras importantes
 - Personagens, cenários, sons e música são **feitos de raiz em código**. Nunca copiar séries, estúdios ou marcas.
 - Nada de promessas de ganhos nem conselhos de investimento.
-- Vídeo com **no máximo 30 s** e **no máximo 12 palavras por fala**.
+- Vídeo com **no máximo 120 s** (o normal são 50 a 90 s) e **no máximo 12 palavras por fala**.

@@ -26,8 +26,8 @@ RAIZ = Path(__file__).resolve().parent.parent
 CONTEUDO = RAIZ / "conteudo"
 
 NOTA_MINIMA = 4        # cada critério tem de ter pelo menos isto
-MEDIA_MINIMA = 4.3     # e a média também
-MAX_RONDAS = 2         # voltas de reescrita
+MEDIA_MINIMA = 4.0     # e a média também
+MAX_RONDAS = 1         # voltas de reescrita (cada uma custa ~2 minutos)
 PALAVRAS_ALVO = (100, 170)   # no total do vídeo (50 a 90 s)
 FALAS_ALVO = (10, 16)
 
@@ -37,7 +37,7 @@ CRITERIOS = {
     "humor": "As piadas são concretas e nascem da situação. O Neurão é pomposo e acaba a errar ou a reivindicar o mérito; o Zé é distraído, literal e absurdo, mas honesto. Há um remate ou callback.",
     "ciencia": "O conceito real é nomeado e explicado de forma correta, simples e curta, sem exagerar (respeita o grau de certeza). Quem vê aprende uma coisa verdadeira.",
     "licao": "A lição é uma ação prática e concreta, dirigida ao Dono, que nasce da história e do conceito. Ao ouvi-la, o espectador sabe o que fazer amanhã.",
-    "ritmo": "Falas curtas e variadas, bom ritmo, sem monólogos e sem mais de duas falas seguidas da mesma personagem. O gancho prende nos primeiros 3 segundos.",
+    "ritmo": "Falas curtas e variadas, bom ritmo, sem monólogos e sem mais de duas falas seguidas da mesma personagem. O gancho prende nos primeiros 3 segundos. A última fala é um remate com sentido (nunca uma frase solta).",
     "imagem": "As cenas da Janela do Dono contam a história sozinhas, sem as falas, com horas e textos curtos que escalam. Os adereços, ações e expressões ajudam a piada.",
 }
 
@@ -170,7 +170,7 @@ Lições práticas possíveis: {"; ".join(conceito.get("licoes", []))}
 
 Cria a FICHA DA HISTÓRIA. Regras:
 - Uma situação concreta e reconhecível: o Dono com nome, uma hora, um objeto, um objetivo simples. Nada de vago ("uma pessoa que adia coisas").
-- 4 a 6 CENAS que contam a história sozinhas, sem falas. Cada cena tem uma "hora" (ex.: "22:40", "3 dias depois"), um "icone" (um destes: {", ".join(ICONES)}) e um "texto" de no máximo {TEXTO_MAX} caracteres que diz o que o Dono faz.
+- 4 a 6 CENAS que contam a história sozinhas, sem falas. Cada cena tem uma "hora" (ex.: "22:40", "3 dias depois"), um "icone" (um destes: {", ".join(ICONES)}) e um "texto" de no máximo {TEXTO_MAX} caracteres que diz o que o Dono faz. A "hora" tem no máximo 14 caracteres.
 - Escalada: cada cena complica ou piora a anterior, de forma divertida e cada vez mais absurda.
 - Reviravolta: um momento que vira a situação (o plano do Neurão falha, o Dono percebe uma coisa, a consequência chega).
 - Piada do Zé: uma interpretação à letra ou uma comparação absurda do dia a dia, ligada a esta situação.
@@ -195,7 +195,8 @@ def _regras_roteiro():
 - {FALAS_ALVO[0]} a {FALAS_ALVO[1]} falas, no máximo 12 palavras cada (de preferência 6 a 10). Total: {PALAVRAS_ALVO[0]} a {PALAVRAS_ALVO[1]} palavras no vídeo todo (isto dá 50 a 90 segundos; mais de 230 palavras passa dos 120 s e é rejeitado).
 - É um DIÁLOGO a sério: cada fala responde ao que a anterior disse. No máximo duas falas seguidas da mesma personagem. Nada de palestras.
 - Neurão: pomposo e convencido ("Evidentemente.", "Atenção, ciência!"), explica com autoridade, às vezes erra ou exagera, e reivindica o mérito ("Foi ideia minha."). Zé Neurónio: distraído, literal, honesto, faz comparações absurdas do dia a dia, e é ele quem acaba por dizer a lição, dirigida ao Dono pelo nome.
-- Estrutura: gancho (a situação do Dono + uma provocação) → o Neurão apresenta o conceito com o nome → o Zé percebe à letra (piada) → a história escala → reviravolta → o Zé diz a lição → remate curto do Zé (callback). A ÚLTIMA fala é do "ze".
+- Estrutura: gancho (a situação do Dono + uma provocação) → o Neurão apresenta o conceito com o nome → o Zé percebe à letra (piada) → a história escala → reviravolta → o Zé diz a lição (dirigida ao Dono pelo nome) → remate. A ÚLTIMA fala é do "ze".
+- REMATE: se a lição já foi dita, a última fala é um remate CURTO (3 a 8 palavras) que fecha a piada com um callback ligado ao que se passou (ex.: o Neurão reclama o mérito e o Zé responde com o detalhe plantado no início). Nunca acabes com uma frase nova, solta ou sem sentido: a última fala tem de fazer rir ou fechar a história.
 - O Neurão diz o NOME do conceito numa fala, e essa fala tem "mostra_conceito": true (só uma).
 - A ciência é a explicação correta do conceito em linguagem simples e curta, sem exagerar; respeita o "cuidado".
 - "cena" ({{"icone","hora","texto"}}) numa fala sempre que o Dono passa a uma nova situação da ficha: a 1.ª fala TEM cena, e no total pelo menos 4 cenas. O "texto" da cena tem no máximo 40 caracteres.
@@ -203,7 +204,9 @@ def _regras_roteiro():
 - "adereco" (opcional, 1 a 3 vezes, objeto na mão de quem fala): {", ".join(GU._aderecos())}. "acao" (opcional, no máximo 3): salta, treme, aproxima.
 - "cenario" só de: {", ".join(GU.CENARIOS)}.
 - "titulo" com no máximo 60 caracteres. "carrossel": 4 a 5 itens {{"titulo","texto"}} (texto até 120 caracteres) que resumem a história e a lição. "legenda": gancho + pergunta para comentários + "Segue para mais!". "hashtags": exatamente 5, minúsculas, sem acentos, a começar por #.
-- Português neutro (Portugal e Brasil). Diz "telefone" (nunca telemóvel, celular, ecrã, tela). Sem gíria de um só país. Sem promessas de ganhos, conselhos de investimento ou conselhos médicos. Nada de séries, marcas ou personagens existentes.
+- Português neutro: percebido igual em Portugal e no Brasil. Evita as palavras que diferem entre os dois países. Diz "telefone" (nunca telemóvel, celular, ecrã, tela), "cozinha" (nunca frigorífico nem geladeira), "sapatos" (nunca ténis nem tênis), "de manhã" (nunca pequeno-almoço nem café da manhã), "transporte" (nunca autocarro nem ônibus), "arquivo" (nunca ficheiro), "banho" (nunca casa de banho nem banheiro). Sem gíria de um só país.
+- SEM valores em euros ou reais ("30 €", "R$ 20"): usa percentagens ou expressões como "uma parte do salário", "metade", "um café".
+- A hora da cena tem no máximo 14 caracteres (ex.: "22:40", "Dia 25, 13:10", "5 dias depois"). Sem promessas de ganhos, conselhos de investimento ou conselhos médicos. Nada de séries, marcas ou personagens existentes.
 - Campos do JSON: tema, titulo, dono, conceito ({{"id","nome"}}), cenario, falas (quem, texto, expressao, pose, e opcionalmente cena, mostra_conceito, adereco, acao), carrossel, legenda, hashtags."""
 
 
@@ -276,7 +279,7 @@ CONCEITO REAL (para verificares a ciência):
 GUIÃO:
 {json.dumps(g, ensure_ascii=False)}
 
-Para cada nota abaixo de 5, escreve em "problemas" UMA correção concreta e acionável, a dizer qual a fala (número, a contar de 1) e como a reescrever (ex.: "Fala 5: o Zé diz a lição sem ligação ao que o Neurão disse; faz o Zé responder primeiro à piada do frigorífico"). Nada de comentários vagos.
+Para cada nota abaixo de 5, escreve em "problemas" UMA correção concreta e acionável, a dizer qual a fala (número, a contar de 1) e como a reescrever (ex.: "Fala 5: o Zé diz a lição sem ligação ao que o Neurão disse; faz o Zé responder primeiro à piada da cozinha"). Nada de comentários vagos.
 
 Responde APENAS com JSON: {{"notas": {{{", ".join(f'"{k}": 4' for k in CRITERIOS)}}}, "problemas": ["..."]}}"""
     r = GU.extrair_json(GU.perguntar_claude(prompt))
@@ -326,6 +329,22 @@ Responde APENAS com o JSON do guião completo."""
 
 
 # ------------------------------------------------------------------ orquestração
+def _garantir_valido(g, tema, conceito, dono, log=print, tentativas=2):
+    """Corrige as quebras de regras (palavras por fala, horas longas...) antes de o editor avaliar."""
+    from . import validar
+    for k in range(tentativas):
+        erros = validar.validar(g)
+        if not erros:
+            return g
+        log(f"       {len(erros)} regra(s) por cumprir; a corrigir...")
+        try:
+            g = arrumar(GU.corrigir_guiao(g, erros), tema, conceito, dono)
+        except GU.GuionistaErro as e:
+            log(f"       Não consegui corrigir ({e}).")
+            break
+    return g
+
+
 def escrever_guiao_rico(tema, log=print, max_rondas=MAX_RONDAS, semente=None):
     """O guião completo: conceito → ficha → roteiro → crítica → (reescrita)."""
     rnd = random.Random(semente)
@@ -337,6 +356,7 @@ def escrever_guiao_rico(tema, log=print, max_rondas=MAX_RONDAS, semente=None):
     ficha = criar_ficha(tema, conceito, dono, log=log)
     log("   3/4 A escrever o diálogo...")
     g = escrever_roteiro(tema, conceito, ficha, semente=semente, log=log)
+    g = _garantir_valido(g, tema, conceito, dono, log=log)
 
     melhor, melhor_critica = None, None
     for ronda in range(max_rondas + 1):
@@ -358,6 +378,7 @@ def escrever_guiao_rico(tema, log=print, max_rondas=MAX_RONDAS, semente=None):
         log(f"       A reescrever com {len(critica['problemas'])} correções...")
         try:
             g = melhorar(g, tema, conceito, ficha, critica, log=log)
+            g = _garantir_valido(g, tema, conceito, dono, log=log)
         except GU.GuionistaErro as e:
             log(f"       A reescrita falhou ({e}); fico com a melhor versão.")
             break
