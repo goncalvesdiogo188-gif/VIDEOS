@@ -3,7 +3,7 @@
 Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois personagens originais:
 **Neurão** (cérebro rosa-escuro, convencido) e **Zé Neurónio** (cérebro rosa-claro, alegre, fecha a lição).
 
-> Estado: **Fase 2 concluída**. O mundo é o interior de um cérebro futurista. `fabrica novo` e `fabrica semana` funcionam. Próximo: voz real (Fase 3).
+> Estado: **Fase 3 concluída** (voz real). Próximo: correr todos os dias sozinho (Fase 4).
 
 ## Pastas
 | Pasta / ficheiro | Para que serve |
@@ -21,7 +21,8 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `personagens.py` | Desenha o Neurão e o Zé em SVG: 7 expressões, 5 poses, boca que fala, piscar de olhos. |
 | `cenarios.py` | O mundo: interior de um cérebro futurista (rede neuronal com sinais e chão de néon). 4 zonas: `comando` (Centro de Comando), `memorias` (Arquivo de Memórias), `dopamina` (Centro da Recompensa), `sono` (Zona do Sono). Os nomes antigos `sala`, `quarto`, `loja` ainda funcionam. |
 | `guiao.py` | Lê um guião JSON. |
-| `video.py` | Guião → Reel 1080x1920 com legendas palavra-a-palavra, boca animada e som provisório. |
+| `video.py` | Guião → Reel 1080x1920 com legendas palavra-a-palavra e boca animada pela voz. |
+| `voz.py` | Vozes reais com edge-tts (grátis, precisa de internet). Usa a duração real do áudio e o tempo de cada palavra. |
 | `carrossel.py` | Guião → carrossel de imagens 1080x1350. |
 | `render.py` | Converte os desenhos SVG em imagens. |
 | `verificar.py` | Diz-te o que falta instalar. |
@@ -45,6 +46,7 @@ Fábrica de vídeos para uma conta faceless de Instagram e TikTok, com dois pers
 | `fabrica novo "tema"` | O Claude escreve o guião, a fábrica valida (máx. 30 s, máx. 12 palavras por fala, texto revisto) e corrige sozinha até 3 vezes. Cria a pasta `out/AAAA-MM-DD_tema/`. |
 | `fabrica novo --guiao guioes/ficheiro.json` | Usa um guião já escrito por ti. |
 | `fabrica semana` | Escolhe 7 temas diferentes (evita os já feitos, guardados em `out/historico.json`) e gera os 7 pacotes. |
+| `fabrica refazer out/PASTA` | Volta a gerar o pacote a partir do `guiao.json` dessa pasta (útil depois de mudares uma fala à mão). Aceita várias pastas. |
 | `fabrica verificar` | Diz o que falta instalar. |
 
 Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
@@ -60,8 +62,19 @@ Cada pacote (`out/AAAA-MM-DD_tema/`) tem:
 4. No Prompt de Comandos clássico (cmd) funciona sem o `.\`: `fabrica novo "procrastinação"`.
 
 ### Quanto tempo demora
-- Cada pacote demora alguns minutos: escrever o guião com o Claude ~1 min, vídeo ~1–2 min (depende do computador).
+- Cada pacote demora alguns minutos: escrever o guião com o Claude ~1 min, vozes ~10 s, vídeo ~1–2 min (depende do computador).
 - Uma semana inteira: ~15–25 min.
+
+## Vozes
+| Personagem | Voz (edge-tts) | Ajuste |
+|---|---|---|
+| Neurão | `pt-PT-DuarteNeural` (Portugal) | 6% mais lento, tom mais grave |
+| Zé Neurónio | `pt-BR-AntonioNeural` (Brasil) | 8% mais rápido, tom mais agudo |
+
+- Muda-se em `fabrica/voz.py`, no topo (`VOZES`).
+- Os áudios ficam guardados em `out/cache_voz/` e não são pedidos duas vezes.
+- Se a voz passar dos 30 s, a fábrica acelera a fala sozinha.
+- O edge-tts usa um serviço gratuito da Microsoft que não é oficial: pode deixar de funcionar ou mudar sem aviso. Se falhar, o pacote não é criado e aparece uma mensagem clara.
 
 ## Modo manual (peças soltas, para testes)
 Na pasta do projeto:

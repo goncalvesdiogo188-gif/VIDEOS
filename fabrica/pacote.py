@@ -180,10 +180,24 @@ def criar_pacote(tema=None, guiao_ficheiro=None, base=Path("out"), data=None, lo
     pasta = pasta_pacote(tema, data, base)
     pasta.mkdir(parents=True, exist_ok=True)
     _escrever_json(pasta / "guiao.json", g)
+    return _produzir(g, pasta, tema, correcoes, agora, base, log)
 
-    plano, duracao = video.planear(g)
-    log(f"2/5 A criar o vídeo (cerca de {duracao:.0f} segundos; demora um pouco)...")
-    video.gerar_video(g, pasta / "video.mp4", plano=plano, duracao=duracao)
+
+def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Path:
+    """Gera vídeo, capa, carrossel, legenda e info.txt dentro da pasta."""
+    from . import video, carrossel
+    from .render import svg_para_png
+
+
+    log("2/5 A gravar as vozes...")
+    from . import voz
+    try:
+        plano, duracao, wav, tipo_voz = video.preparar_audio(g, pasta / "voz.wav", log=log)
+    except voz.VozErro as e:
+        raise PacoteErro(str(e), g)
+    log(f"   A criar o vídeo ({duracao:.1f} segundos; demora um pouco)...")
+    video.gerar_video(g, pasta / "video.mp4", plano=plano, duracao=duracao, audio=wav)
+    Path(wav).unlink(missing_ok=True)
 
     log("3/5 A criar a capa...")
     i = 1 if len(plano) > 1 else 0
@@ -201,7 +215,8 @@ def criar_pacote(tema=None, guiao_ficheiro=None, base=Path("out"), data=None, lo
     info = [
         f"Tema: {tema}",
         f"Título: {g['titulo']}",
-        f"Duração prevista: {duracao:.1f} segundos",
+        f"Duração do vídeo: {duracao:.1f} segundos",
+        f"Voz: {tipo_voz}",
         f"Número de falas: {len(g['falas'])}",
         f"Slides do carrossel: {len(slides)}",
         f"Tentativas até o guião ficar válido: {tentativas}",
@@ -210,10 +225,31 @@ def criar_pacote(tema=None, guiao_ficheiro=None, base=Path("out"), data=None, lo
     ]
     (pasta / "info.txt").write_text("\n".join(info) + "\n", encoding="utf-8")
 
-    registar_historico(base, {"data": agora.strftime("%Y-%m-%d %H:%M"), "tema": tema,
-                              "titulo": g["titulo"], "pasta": str(pasta)})
+    if registar:
+        registar_historico(base, {"data": agora.strftime("%Y-%m-%d %H:%M"), "tema": tema,
+                                  "titulo": g["titulo"], "pasta": str(pasta)})
     log(f"Pacote criado em: {pasta}")
     return pasta
+
+
+def refazer_pacote(pasta, log=print) -> Path:
+    """Volta a gerar um pacote a partir do guiao.json da pasta (ex.: depois de o editares à mão)."""
+    from . import validar
+    pasta = Path(pasta)
+    f = pasta / "guiao.json"
+    if not f.exists():
+        raise PacoteErro(f"Não encontrei {f}.")
+    try:
+        g = _normalizar(G.carregar(f))
+    except (OSError, ValueError) as e:
+        raise PacoteErro(f"Não consegui ler {f}: {e}") from e
+    # a duração é só uma estimativa; com a voz real a fábrica garante os 30 s
+    erros = [e for e in validar.validar(g) if "duração prevista" not in e]
+    if erros:
+        raise PacoteErro("O guião tem problemas:\n" + "\n".join(f"  - {e}" for e in erros))
+    log(f"1/5 A refazer o pacote {pasta}...")
+    return _produzir(g, pasta, g.get("tema", pasta.name), ["(pacote refeito a partir do guiao.json)"],
+                     datetime.datetime.now(), pasta.parent, log, registar=False)
 
 
 def semana(n=7, base=Path("out"), log=print) -> list:

@@ -78,4 +78,4 @@ Os dois personagens vivem **dentro de um cérebro futurista**: uma rede neuronal
 - `carrossel`: **3 a 5 itens**; o `texto` de cada item tem no máximo **120 caracteres**.
 - `hashtags`: **exatamente 5**, em minúsculas, sem acentos e sem espaços (ex.: `#procrastinacao`).
 - Cada `fala` termina com `.` `!` `?` ou `…`.
-- Vídeo entre **15 e 30 s**. Apontar a **20–28 s**, cerca de **55 a 75 palavras** no total.
+- Vídeo entre **15 e 30 s**. Apontar a **20–27 s**, cerca de **50 a 65 palavras** no total (com a voz real, cada palavra demora cerca de 0,4 s).

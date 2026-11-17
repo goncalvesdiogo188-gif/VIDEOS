@@ -30,8 +30,10 @@ FONTE = "Sniglet"
 TAXA = 22050  # amostras de áudio por segundo
 
 # ritmo da voz provisória
-SEG_POR_SILABA = 0.155
-PAUSA_ENTRE_FALAS = 0.25
+SEG_POR_SILABA = 0.12  # medido com as vozes reais (edge-tts), 61 falas
+PAUSA_PONTUACAO = 0.6
+MARGEM_FALA = 0.0
+PAUSA_ENTRE_FALAS = 0.22
 INICIO = 0.35
 FIM_EXTRA = 1.4
 
@@ -77,8 +79,9 @@ def planear(g):
                 sils.append((t, t + SEG_POR_SILABA))
                 t += SEG_POR_SILABA
             if p[-1] in ".,:;!?":
-                t += 0.18
+                t += PAUSA_PONTUACAO
             ps.append((p, p0, t))
+        t += MARGEM_FALA
         plano.append(dict(f, inicio=t0, fim=t, palavras=ps, silabas=sils))
         t += PAUSA_ENTRE_FALAS
     return plano, t - PAUSA_ENTRE_FALAS + FIM_EXTRA
@@ -130,6 +133,10 @@ def fala_em(plano, t):
 
 
 def boca_em(f, t):
+    env = f.get("envelope")
+    if env:  # voz real: abertura da boca pelo volume do áudio
+        i = int((t - f["inicio"]) * FPS)
+        return env[i] if 0 <= i < len(env) else 0.0
     for (s0, s1) in f["silabas"]:
         if s0 <= t < s1:
             k = (t - s0) / (s1 - s0)
@@ -264,6 +271,20 @@ def _frame_png(n):
     return svg_para_png(frame_svg(_CTX["g"], _CTX["plano"], _CTX["duracao"], n / FPS))
 
 
+def preparar_audio(g, destino_wav, log=print):
+    """Plano e áudio do vídeo. Usa a voz real (edge-tts); com a variável de ambiente
+    FABRICA_SEM_VOZ=1 usa os bips provisórios. Devolve (plano, duracao, wav, tipo_de_voz)."""
+    import os
+    if os.environ.get("FABRICA_SEM_VOZ") == "1":
+        plano, duracao = planear(g)
+        audio_provisorio(plano, duracao, destino_wav)
+        return plano, duracao, Path(destino_wav), "provisória (bips)"
+    from . import voz
+    plano, duracao, amostras = voz.planear_com_voz(g, log=log)
+    voz.gravar_wav(amostras, destino_wav)
+    return plano, duracao, Path(destino_wav), "real (edge-tts)"
+
+
 def gerar_video(g, saida, plano=None, duracao=None, audio=None):
     saida = Path(saida)
     saida.parent.mkdir(parents=True, exist_ok=True)
@@ -302,14 +323,16 @@ def main():
     caminho = Path(sys.argv[1])
     g = G.carregar(caminho)
     saida = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("out/teste") / f"{caminho.stem}.mp4"
-    plano, dur = planear(g)
-    print(f"Guião: {g['titulo']}  |  {len(plano)} falas  |  duração prevista {dur:.1f} s")
-    # imagem de pré-visualização a meio da 2.ª fala
+    saida.parent.mkdir(parents=True, exist_ok=True)
+    wav = saida.with_suffix(".wav")
+    plano, dur, wav, tipo = preparar_audio(g, wav)
+    print(f"Guião: {g['titulo']}  |  {len(plano)} falas  |  duração {dur:.1f} s  |  voz {tipo}")
+    # imagem de pré-visualização a meio da 4.ª fala
     prev = saida.with_name(saida.stem + "_preview.png")
-    prev.parent.mkdir(parents=True, exist_ok=True)
     tp = (plano[min(3, len(plano)-1)]["inicio"] + plano[min(3, len(plano)-1)]["fim"]) / 2
     prev.write_bytes(svg_para_png(frame_svg(g, plano, dur, tp)))
-    gerar_video(g, saida, plano, dur)
+    gerar_video(g, saida, plano, dur, audio=wav)
+    wav.unlink(missing_ok=True)
     print(f"Vídeo pronto: {saida}  ({dur:.1f} s)")
 
 

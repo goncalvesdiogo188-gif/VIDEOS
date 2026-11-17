@@ -4,6 +4,7 @@ Exemplos:
   fabrica novo "compras por impulso"
   fabrica novo --guiao guioes/exemplo_compras_impulso.json
   fabrica semana --n 7
+  fabrica refazer out/2026-11-15_procrastinacao
   fabrica verificar
 """
 import argparse
@@ -20,6 +21,9 @@ def _parser():
 
     sem = sub.add_parser("semana", help="cria vários pacotes de uma vez")
     sem.add_argument("--n", type=int, default=7, help="quantos vídeos (por defeito 7)")
+
+    ref = sub.add_parser("refazer", help="volta a gerar um pacote a partir do seu guiao.json")
+    ref.add_argument("pastas", nargs="+", help="pasta(s) do pacote, ex.: out/2026-11-15_procrastinacao")
 
     sub.add_parser("verificar", help="verifica se o computador tem tudo o que é preciso")
 
@@ -39,11 +43,11 @@ def main(argv=None):
         from . import verificar
         return verificar.main()
 
-    if a.comando not in ("novo", "semana"):
+    if a.comando not in ("novo", "semana", "refazer"):
         p.print_help()
         return 0
 
-    from . import guionista, pacote
+    from . import guionista, pacote, voz
     try:
         if a.comando == "novo":
             if not a.tema and not a.guiao:
@@ -52,13 +56,17 @@ def main(argv=None):
             pasta = pacote.criar_pacote(a.tema, guiao_ficheiro=a.guiao)
             print(f"\nPasta: {pasta}")
             print("Pronto para publicar!")
+        elif a.comando == "refazer":
+            for pasta in a.pastas:
+                pacote.refazer_pacote(pasta)
+            print("\nPronto para publicar!")
         else:
             pastas = pacote.semana(a.n)
             if not pastas:
                 print("\nNenhum pacote foi criado.")
                 return 1
             print("\nPronto para publicar!")
-    except (pacote.PacoteErro, guionista.GuionistaErro) as e:
+    except (pacote.PacoteErro, guionista.GuionistaErro, voz.VozErro) as e:
         print(f"\nNão foi possível terminar: {e}")
         return 1
     except KeyboardInterrupt:

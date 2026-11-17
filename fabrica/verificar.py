@@ -28,6 +28,13 @@ def main():
             tudo_ok = False
             print(f"{FALTA} resvg-py  ->  corre:  python -m pip install -r requirements.txt")
 
+    try:
+        import edge_tts  # noqa: F401
+        print(f"{OK} edge-tts (vozes; precisa de internet)")
+    except ImportError:
+        tudo_ok = False
+        print(f"{FALTA} edge-tts  ->  corre:  python -m pip install -r requirements.txt")
+
     if shutil.which("ffmpeg"):
         print(f"{OK} ffmpeg (monta o vídeo)")
     else:

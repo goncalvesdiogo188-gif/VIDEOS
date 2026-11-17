@@ -134,7 +134,7 @@ REGRAS OBRIGATÓRIAS:
 - Gancho logo na primeira fala; humor leve.
 - As duas personagens falam ("neurao" e "ze").
 - A última fala é do "ze" e contém a lição prática.
-- Total falado: cerca de 55 a 75 palavras (20 a 28 segundos).
+- Total falado: cerca de 50 a 65 palavras (20 a 27 segundos).
 - Português neutro (Portugal e Brasil), sem calão de um só país.
 - Proibido: promessas de ganhos, conselhos de investimento específicos, conselhos médicos, referências a séries, marcas ou personagens existentes.
 - "expressao" só pode ser: {expr}.

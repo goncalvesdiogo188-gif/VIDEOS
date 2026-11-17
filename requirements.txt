@@ -1,1 +1,2 @@
 resvg-py>=0.5
+edge-tts>=7.0

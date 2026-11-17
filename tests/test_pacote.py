@@ -1,5 +1,7 @@
 """Testes do pacote (com guionista e validador falsos, sem renderizar nada)."""
 import copy
+import os
+os.environ["FABRICA_SEM_VOZ"] = "1"  # nos testes não se usa a internet para a voz
 import datetime
 import json
 import sys
@@ -236,6 +238,23 @@ class TestCriarPacote(Base):
         p = pacote.criar_pacote(guiao_ficheiro=str(f), base=self.base / "out", log=self.log)
         self.assertTrue((p / "video.mp4").exists())
         self.assertIn("compras-por-impulso", p.name)
+
+
+class TestRefazer(Base):
+    def test_refazer_usa_guiao_da_pasta(self):
+        self.instalar()
+        self.falsos_render()
+        p = pacote.criar_pacote("Compras por impulso", base=self.base, log=self.log)
+        (p / "video.mp4").unlink()
+        pacote.refazer_pacote(p, log=self.log)
+        self.assertTrue((p / "video.mp4").exists())
+        self.assertIn("refeito", (p / "info.txt").read_text(encoding="utf-8"))
+        self.assertEqual(len(pacote.ler_historico(self.base)), 1)  # não regista outra vez
+
+    def test_refazer_sem_guiao(self):
+        self.instalar()
+        with self.assertRaises(pacote.PacoteErro):
+            pacote.refazer_pacote(self.base / "nao_existe", log=self.log)
 
 
 class TestSemana(Base):
