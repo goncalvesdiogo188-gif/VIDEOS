@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <!-- Relatórios de problemas (filesDir/relatorios/), partilhados por FileProvider. -->
-    <files-path name="relatorios" path="relatorios/" />
-</paths>
