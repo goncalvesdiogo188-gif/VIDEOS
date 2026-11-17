@@ -136,7 +136,7 @@ def _como_dict(obj, o_que="guião") -> dict:
     return obj
 
 
-def escrever_guiao(tema: str) -> dict:
+def _escrever_guiao_simples(tema: str) -> dict:
     """Pede um guião completo, no formato da BÍBLIA, sobre o tema."""
     expr, poses = _listas()
     prompt = f"""És o guionista de uma conta de Reels com duas personagens cartoon originais (Neurão e Zé Neurónio).
@@ -248,10 +248,30 @@ def _limpar_temas(lista, evitar) -> list[str]:
     return out
 
 
+def escrever_guiao(tema: str, log=None) -> dict:
+    """Guião completo para o tema.
+
+    Por defeito usa a escrita em vários passos (fabrica/historia.py): conceito real, ficha da
+    história, roteiro, crítica e reescrita. Com FABRICA_GUIAO_SIMPLES=1 usa um só pedido.
+    """
+    if os.environ.get("FABRICA_GUIAO_SIMPLES") == "1":
+        return _escrever_guiao_simples(tema)
+    from . import historia
+    return historia.escrever_guiao_rico(tema, log=log or (lambda m: None))
+
+
 def escolher_temas(n: int, evitar: list[str] = ()) -> list[str]:
-    """Devolve exatamente n temas diferentes do nicho, longe dos que estão em `evitar`."""
+    """Devolve exatamente n temas diferentes do nicho, longe dos que estão em `evitar`.
+
+    Escolhe primeiro do banco de conceitos reais (conteudo/conceitos.json); só pede ao
+    Claude os que faltarem. Em `evitar` pode haver "conceito:ID" para conceitos já usados.
+    """
     evitar = list(evitar)
     achados: list[str] = []
+    if os.environ.get("FABRICA_GUIAO_SIMPLES") != "1":
+        from . import historia
+        achados = historia.temas_do_banco(n, evitar)
+    evitar = [x for x in evitar if not str(x).startswith("conceito:")]
     for _ in range(2):
         falta = n - len(achados)
         if falta <= 0:

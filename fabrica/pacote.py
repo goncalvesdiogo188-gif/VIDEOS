@@ -77,7 +77,11 @@ def obter_guiao_valido(tema=None, guiao=None, max_tentativas=3, log=print):
     if guiao is None:
         if not tema:
             raise PacoteErro("Preciso de um tema ou de um guião.")
-        guiao = guionista.escrever_guiao(tema)
+        import inspect
+        if "log" in inspect.signature(guionista.escrever_guiao).parameters:
+            guiao = guionista.escrever_guiao(tema, log=log)
+        else:
+            guiao = guionista.escrever_guiao(tema)
 
     correcoes = []
     g = guiao
@@ -218,6 +222,7 @@ def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Pat
         f"Duração do vídeo: {duracao:.1f} segundos",
         f"Voz: {tipo_voz}",
         f"Número de falas: {len(g['falas'])}",
+        *_linhas_historia(g),
         f"Slides do carrossel: {len(slides)}",
         f"Tentativas até o guião ficar válido: {tentativas}",
         "Correções feitas:", *linhas_corr,
@@ -226,10 +231,37 @@ def _produzir(g, pasta, tema, correcoes, agora, base, log, registar=True) -> Pat
     (pasta / "info.txt").write_text("\n".join(info) + "\n", encoding="utf-8")
 
     if registar:
-        registar_historico(base, {"data": agora.strftime("%Y-%m-%d %H:%M"), "tema": tema,
-                                  "titulo": g["titulo"], "pasta": str(pasta)})
+        entrada = {"data": agora.strftime("%Y-%m-%d %H:%M"), "tema": tema,
+                   "titulo": g["titulo"], "pasta": str(pasta)}
+        if isinstance(g.get("conceito"), dict) and g["conceito"].get("id"):
+            entrada["conceito"] = g["conceito"]["id"]
+        registar_historico(base, entrada)
     log(f"Pacote criado em: {pasta}")
     return pasta
+
+
+def _linhas_historia(g) -> list:
+    """Linhas do info.txt sobre a história (dono, conceito e notas do editor), se existirem."""
+    out = []
+    if g.get("dono"):
+        out.append(f"Dono: {g['dono']}")
+    if isinstance(g.get("conceito"), dict) and g["conceito"].get("nome"):
+        out.append(f"Conceito: {g['conceito']['nome']}")
+    q = g.get("qualidade")
+    if isinstance(q, dict) and q.get("notas"):
+        notas = ", ".join(f"{k} {v}" for k, v in q["notas"].items())
+        out.append(f"Nota do editor: média {q.get('media')} ({notas})")
+    return out
+
+
+def historico_para_evitar(base) -> list:
+    """Temas já feitos e "conceito:ID" dos conceitos já usados (para não repetir)."""
+    out = []
+    for h in ler_historico(base):
+        out.append(h.get("tema", ""))
+        if h.get("conceito"):
+            out.append("conceito:" + h["conceito"])
+    return out
 
 
 def refazer_pacote(pasta, log=print) -> Path:
@@ -257,7 +289,7 @@ def semana(n=7, base=Path("out"), log=print) -> list:
     from . import guionista
 
     base = Path(base)
-    evitar = [h.get("tema", "") for h in ler_historico(base)]
+    evitar = historico_para_evitar(base)
     log(f"A escolher {n} temas...")
     temas = guionista.escolher_temas(n, evitar=evitar)
     resultados, pastas = [], []

@@ -1,0 +1,145 @@
+{
+  "tema": "scroll infinito",
+  "titulo": "Porque não consegues parar o scroll?",
+  "dono": "Bia",
+  "conceito": {
+    "id": "recompensa_variavel",
+    "nome": "Recompensa imprevisível"
+  },
+  "cenario": "dopamina",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "A Bia vai ver só um vídeo. Aposto que não.",
+      "expressao": "convencido",
+      "pose": "acena",
+      "cena": {
+        "icone": "telefone",
+        "hora": "23:47",
+        "texto": "A Bia vai ver só um vídeo."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Aposta aceite! Eu confio na Bia.",
+      "expressao": "alegre",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Atenção, ciência! Recompensas imprevisíveis prendem o cérebro.",
+      "expressao": "convencido",
+      "pose": "aponta",
+      "mostra_conceito": true
+    },
+    {
+      "quem": "ze",
+      "texto": "Imprevisíveis? Tipo máquina de moedas?",
+      "expressao": "confuso",
+      "pose": "mao_queixo"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Precisamente. Às vezes sai um vídeo ótimo, às vezes nada.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Meia-noite e meia! Um vídeo virou quarenta!",
+      "expressao": "surpreendido",
+      "pose": "normal",
+      "cena": {
+        "icone": "relogio",
+        "hora": "00:30",
+        "texto": "Um vídeo virou quarenta."
+      },
+      "acao": "treme"
+    },
+    {
+      "quem": "neurao",
+      "texto": "E ela continua, à espera do próximo vídeo ótimo.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu também espero. Estou sempre quase a acertar.",
+      "expressao": "alegre",
+      "pose": "encolhe"
+    },
+    {
+      "quem": "neurao",
+      "texto": "A página não acaba, por isso o cérebro não para.",
+      "expressao": "pensativo",
+      "pose": "normal",
+      "cena": {
+        "icone": "cama",
+        "hora": "01:40",
+        "texto": "Amanhã, 7h. O sono já foi embora."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Então quem trava isto? Eu não tenho travão.",
+      "expressao": "confuso",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Tens. Basta tornar o gesto mais difícil.",
+      "expressao": "convencido",
+      "pose": "aponta"
+    },
+    {
+      "quem": "ze",
+      "texto": "Bia, deixa o telefone a carregar noutra divisão.",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "cena": {
+        "icone": "telefone",
+        "hora": "Amanhã",
+        "texto": "Telefone a carregar na cozinha."
+      },
+      "adereco": "lampada"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Genial. Foi ideia minha.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Foi. Eu só carreguei o telefone.",
+      "expressao": "alegre",
+      "pose": "normal"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque não consegues parar o scroll?",
+      "texto": "Não é falta de força de vontade. É desenho."
+    },
+    {
+      "titulo": "Recompensa imprevisível",
+      "texto": "Às vezes sai um vídeo ótimo, às vezes não. É como uma máquina de moedas."
+    },
+    {
+      "titulo": "A página não acaba",
+      "texto": "Sem fim, o cérebro não recebe sinal para parar."
+    },
+    {
+      "titulo": "Torna o gesto difícil",
+      "texto": "Deixa o telefone a carregar noutra divisão."
+    }
+  ],
+  "legenda": "A Bia ia ver só um vídeo e já são quase duas da manhã. Quantos vídeos vês tu quando dizes só um? Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#redessociais",
+    "#habitos",
+    "#vidaadulta"
+  ]
+}

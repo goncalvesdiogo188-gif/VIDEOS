@@ -1,0 +1,210 @@
+[
+  {
+    "id": "adiar_e_emocao", "nome": "Adiar é fugir de uma emoção", "zona": "comando", "certeza": "forte",
+    "explicacao": "Muitas vezes adiamos uma tarefa para fugir de uma emoção desconfortável (medo de falhar, tédio, ansiedade), e não por preguiça. Adiar dá alívio imediato, mas o problema cresce.",
+    "cuidado": "Não dizer que adiar é sempre doença ou falta de caráter; é uma estratégia de alívio que sai cara.",
+    "situacoes": ["relatório para amanhã e a pessoa limpa o frigorífico", "mensagem difícil que fica semanas por responder", "marcar uma consulta que se adia há meses"],
+    "licoes": ["escrever só uma frase feia e rápida para quebrar o medo de começar", "dar nome à emoção: 'estou com medo de escrever mal'"],
+    "temas": ["Porque deixas tudo para amanhã?", "Adiar não é preguiça"]
+  },
+  {
+    "id": "vies_do_presente", "nome": "Viés do presente", "zona": "cofre", "certeza": "forte",
+    "explicacao": "O cérebro dá mais valor a uma recompensa agora do que a uma recompensa maior no futuro (desconto hiperbólico). O 'eu do futuro' parece um desconhecido.",
+    "cuidado": "Não prometer riqueza; falar só de hábito e de escolhas pequenas.",
+    "situacoes": ["gastar o salário na primeira semana", "ver mais um episódio em vez de dormir", "o bolo agora contra a saúde daqui a dez anos"],
+    "licoes": ["pôr a poupança a sair automaticamente no dia do salário", "criar uma pequena recompensa imediata por fazer a coisa certa"],
+    "temas": ["Porque gastas logo que recebes?", "Porque o futuro nunca parece urgente"]
+  },
+  {
+    "id": "lei_de_parkinson", "nome": "Lei de Parkinson", "zona": "comando", "certeza": "moderada",
+    "explicacao": "O trabalho tende a expandir-se até ocupar todo o tempo disponível: se tens a tarde inteira, a tarefa de uma hora demora a tarde inteira.",
+    "cuidado": "É uma observação humorística de 1955, não uma lei científica exata. Dizer 'tende a'.",
+    "situacoes": ["um email que demora a manhã toda", "arrumar a casa só quando chegam visitas"],
+    "licoes": ["marcar um temporizador curto e tratá-lo como prazo real", "dar-te metade do tempo que acharias necessário"],
+    "temas": ["Porque tudo demora o tempo que tens", "Porque só fazes tudo à última hora"]
+  },
+  {
+    "id": "falacia_do_planeamento", "nome": "Falácia do planeamento", "zona": "habitos", "certeza": "forte",
+    "explicacao": "Subestimamos quanto tempo as tarefas vão demorar, mesmo sabendo que da última vez demoraram mais do que o previsto.",
+    "cuidado": "Não inventar percentagens exatas.",
+    "situacoes": ["'saio daqui a dez minutos' e saem trinta e cinco", "o projeto de um fim de semana que dura um mês"],
+    "licoes": ["olhar para quanto demorou da última vez, e não para o que imaginas", "somar uma folga de metade ao tempo estimado"],
+    "temas": ["Porque chegas sempre atrasado?", "Porque a tarefa de dez minutos demora uma hora"]
+  },
+  {
+    "id": "dor_de_pagar", "nome": "Dor de pagar", "zona": "cofre", "certeza": "forte",
+    "explicacao": "Pagar com cartão ou com um clique dói menos ao cérebro do que contar notas, por isso tendemos a gastar mais quando o pagamento é invisível.",
+    "cuidado": "Dizer 'tende a'; o efeito varia de pessoa para pessoa.",
+    "situacoes": ["comprar online com o cartão guardado na app", "subscrições que se renovam sem avisar", "pagar com o telefone em vez de notas"],
+    "licoes": ["apagar o cartão guardado das aplicações", "esperar um dia antes de carregar em comprar"],
+    "temas": ["Porque gastas mais com o cartão?", "Porque compras sem pensar na internet"]
+  },
+  {
+    "id": "contabilidade_mental", "nome": "Contabilidade mental", "zona": "cofre", "certeza": "forte",
+    "explicacao": "Tratamos o dinheiro de forma diferente conforme a 'gaveta' mental onde o pomos: o dinheiro extra ou de um prémio parece 'de brincar' e gasta-se mais depressa que o do salário.",
+    "cuidado": "Falar de hábitos de poupança em geral, nunca de produtos financeiros.",
+    "situacoes": ["gastar o dinheiro de um reembolso ou prémio num capricho", "'é só um dinheiro que me calhou'"],
+    "licoes": ["tratar o dinheiro extra como salário, com a mesma regra", "dar nome a cada gaveta: primeiro a poupança, depois o resto"],
+    "temas": ["Porque gastas o dinheiro extra?", "O dinheiro que sobra não existe"]
+  },
+  {
+    "id": "recompensa_variavel", "nome": "Recompensa imprevisível", "zona": "dopamina", "certeza": "forte",
+    "explicacao": "Recompensas que aparecem de forma imprevisível prendem mais do que as certas: é o princípio das máquinas de moedas, e o scroll infinito funciona de forma parecida (às vezes sai um vídeo ótimo, às vezes não).",
+    "cuidado": "A ligação às redes sociais é uma analogia; dizer 'funciona de forma parecida'.",
+    "situacoes": ["só mais um vídeo à meia-noite", "puxar a página para ver se há novidades", "abrir a caixa de email sem razão"],
+    "licoes": ["tornar o gesto mais difícil: deixar o telefone a carregar noutra divisão", "parar a meio de um vídeo, de propósito"],
+    "temas": ["Porque não consegues parar o scroll?", "Porque verificas o telefone sem querer"]
+  },
+  {
+    "id": "dopamina_antecipacao", "nome": "Dopamina da expectativa", "zona": "dopamina", "certeza": "moderada",
+    "explicacao": "A dopamina está mais ligada à vontade e à expectativa de uma recompensa do que ao prazer em si: por isso a encomenda a caminho é muitas vezes mais empolgante do que a encomenda a chegar.",
+    "cuidado": "Não dizer que a dopamina 'é a hormona da felicidade'. É vontade e antecipação.",
+    "situacoes": ["seguir a encomenda no mapa dez vezes por dia", "o carrinho cheio que nunca se compra", "a lista de desejos"],
+    "licoes": ["esperar vinte e quatro horas: a vontade costuma baixar", "escrever numa lista de desejos em vez de comprar já"],
+    "temas": ["Porque a encomenda a caminho é melhor que a encomenda", "Porque queres mais do que gostas"]
+  },
+  {
+    "id": "custo_de_mudar_de_tarefa", "nome": "Custo de mudar de tarefa", "zona": "comando", "certeza": "forte",
+    "explicacao": "Fazer várias coisas ao mesmo tempo é, na verdade, trocar muito depressa de tarefa, e cada troca gasta tempo e atenção.",
+    "cuidado": "Não citar números exatos de minutos para recuperar a atenção.",
+    "situacoes": ["responder a uma notificação a meio de um trabalho", "quinze separadores abertos"],
+    "licoes": ["um separador de cada vez", "silenciar as notificações em blocos de vinte e cinco minutos"],
+    "temas": ["Porque estás sempre cansado de fazer tudo ao mesmo tempo", "Porque a multitarefa não existe"]
+  },
+  {
+    "id": "tarefas_por_acabar", "nome": "Tarefas por acabar", "zona": "sono", "certeza": "moderada",
+    "explicacao": "Tarefas por acabar tendem a ficar a chamar pela nossa atenção; ter um plano para elas (saber qual é o próximo passo) ajuda a acalmar essa insistência.",
+    "cuidado": "O efeito original (Zeigarnik) teve replicações mistas; falar do plano como algo que ajuda, sem exagerar.",
+    "situacoes": ["lembrar-se às três da manhã de uma mensagem por responder", "a lista mental que nunca desliga"],
+    "licoes": ["escrever o próximo passo de cada tarefa em vez de a guardar na cabeça"],
+    "temas": ["Porque te lembras do que falta fazer às três da manhã", "Porque o cérebro não desliga"]
+  },
+  {
+    "id": "lista_antes_de_dormir", "nome": "Lista antes de dormir", "zona": "sono", "certeza": "moderada",
+    "explicacao": "Um estudo de 2018 sugere que escrever durante cinco minutos uma lista do que há para fazer, antes de deitar, ajuda a adormecer mais depressa.",
+    "cuidado": "Foi um estudo pequeno; dizer 'um estudo sugere', nunca 'está provado'.",
+    "situacoes": ["olhar para o teto às três da manhã a pensar no dia seguinte", "ensaiar conversas na cama"],
+    "licoes": ["cinco minutos com papel e caneta antes de deitar, a escrever o que falta fazer"],
+    "temas": ["Porque o cérebro liga o alarme na hora de dormir", "Como adormecer mais depressa"]
+  },
+  {
+    "id": "vinganca_do_sono", "nome": "Vingança do sono", "zona": "sono", "certeza": "moderada",
+    "explicacao": "Há quem adie o sono de propósito para ganhar algum tempo só seu, depois de um dia em que sentiu que não mandou em nada. Chama-se 'procrastinação da hora de dormir'.",
+    "cuidado": "É um comportamento estudado, mas não dar conselhos médicos.",
+    "situacoes": ["ficar até à uma da manhã a ver uma série porque o dia foi dos outros", "'só mais um bocadinho' de tempo livre"],
+    "licoes": ["marcar um tempo teu durante o dia, para não o ir buscar à noite", "pôr um alarme para a hora de ir para a cama"],
+    "temas": ["Porque ficas acordado de propósito", "Porque dormes tão tarde"]
+  },
+  {
+    "id": "pressao_do_sono", "nome": "Pressão do sono", "zona": "sono", "certeza": "forte",
+    "explicacao": "Quanto mais tempo estamos acordados, mais se acumula uma substância chamada adenosina e mais sono sentimos. A cafeína não apaga o sono: bloqueia esse sinal durante algumas horas.",
+    "cuidado": "Não dar doses nem horários médicos; dizer só 'nas horas antes de dormir'.",
+    "situacoes": ["café às cinco da tarde e olhos abertos à meia-noite", "'já nem tenho sono' depois de três cafés"],
+    "licoes": ["deixar o último café para a manhã ou o início da tarde"],
+    "temas": ["O que o café faz ao teu sono", "Porque o café não te tira o cansaço"]
+  },
+  {
+    "id": "aversao_a_perda", "nome": "Aversão à perda", "zona": "alarme", "certeza": "forte",
+    "explicacao": "Uma perda dói mais do que um ganho do mesmo tamanho dá prazer (cerca do dobro, segundo os estudos clássicos). Por isso 'a oferta termina hoje' funciona tão bem.",
+    "cuidado": "Dizer 'cerca do dobro, em média'; varia de pessoa para pessoa.",
+    "situacoes": ["manter uma subscrição que já ninguém usa", "'só hoje' num desconto", "guardar a roupa que já não serve"],
+    "licoes": ["perguntar: se não tivesse isto, compraria hoje a este preço?"],
+    "temas": ["Porque não cancelas a subscrição?", "Porque 'só hoje' funciona tão bem"]
+  },
+  {
+    "id": "custos_irrecuperaveis", "nome": "Custos irrecuperáveis", "zona": "comando", "certeza": "forte",
+    "explicacao": "Continuamos algo só porque já gastámos tempo ou dinheiro nisso, mesmo quando já não vale a pena. O que já foi gasto não volta, e a decisão deve olhar para a frente.",
+    "cuidado": "Não aconselhar a desistir de nada importante; falar de coisas do dia a dia.",
+    "situacoes": ["ficar até ao fim de um filme mau porque já pagou o bilhete", "acabar o prato sem fome", "o curso abandonado a meio"],
+    "licoes": ["perguntar: se começasse hoje, continuaria?", "decidir pelo que ainda vem, e não pelo que já foi"],
+    "temas": ["Porque não desistes do que já não te serve?", "Porque acabas filmes maus"]
+  },
+  {
+    "id": "ancoragem", "nome": "Ancoragem", "zona": "dopamina", "certeza": "forte",
+    "explicacao": "O primeiro número que vemos influencia o que achamos justo: um preço de 'antes 199, agora 99' faz o 99 parecer uma pechincha, mesmo que nunca valesse 199.",
+    "cuidado": "Não acusar lojas específicas; falar de 'um preço riscado'.",
+    "situacoes": ["o preço riscado em cima do preço novo", "o menu com um prato caríssimo para o seguinte parecer barato"],
+    "licoes": ["decidir quanto vale para ti antes de ver o preço", "ignorar o preço riscado e perguntar só: preciso disto?"],
+    "temas": ["Porque o desconto parece sempre bom", "Porque o preço riscado engana"]
+  },
+  {
+    "id": "prova_social", "nome": "Prova social", "zona": "social", "certeza": "forte",
+    "explicacao": "Copiamos o que os outros fazem, sobretudo quando estamos inseguros: o restaurante cheio parece melhor e o 'mais vendido' vende mais.",
+    "cuidado": "Não generalizar: é uma tendência, não uma regra.",
+    "situacoes": ["escolher o restaurante cheio", "comprar o que tem mais estrelas sem ler nada", "o amigo que comprou e agora todos querem o mesmo"],
+    "licoes": ["perguntar: quero isto, ou só porque os outros têm?"],
+    "temas": ["Porque compras o que os outros compram", "Porque o 'mais vendido' vende mais"]
+  },
+  {
+    "id": "comparacao_social", "nome": "Comparação social", "zona": "social", "certeza": "forte",
+    "explicacao": "Comparamo-nos com os outros por instinto. Nas redes, vemos o melhor dos outros (as férias, os êxitos) e comparamos com o nosso dia a dia completo, bastidores incluídos.",
+    "cuidado": "Não diagnosticar depressão ou ansiedade; falar só de comparar-se.",
+    "situacoes": ["ver as férias de um colega à meia-noite", "sentir-se atrasado na vida depois de uma hora de redes"],
+    "licoes": ["lembrar que vês o melhor deles e o filme inteiro de ti", "deixar de seguir quem só te faz sentir pior"],
+    "temas": ["Porque te sentes atrasado na vida?", "Porque comparas a tua vida com a dos outros"]
+  },
+  {
+    "id": "adaptacao_hedonica", "nome": "Adaptação hedónica", "zona": "dopamina", "certeza": "forte",
+    "explicacao": "Depois de um tempo, voltamos ao nosso nível habitual de felicidade: a novidade perde o brilho e o objeto novo passa a ser só um objeto.",
+    "cuidado": "Não dizer que comprar nunca dá alegria; dá, mas dura menos do que prevemos.",
+    "situacoes": ["o telefone novo, três semanas depois", "a mudança de casa que já parece normal"],
+    "licoes": ["esperar antes de comprar: se a vontade passa, era só novidade", "dar atenção ao que já tens"],
+    "temas": ["Porque a coisa nova deixa de ser nova", "Porque nunca é suficiente"]
+  },
+  {
+    "id": "se_entao", "nome": "Plano 'se… então…'", "zona": "habitos", "certeza": "forte",
+    "explicacao": "Planos do tipo 'se acontecer X, então faço Y' aumentam muito as hipóteses de cumprir o que prometemos a nós próprios, porque a decisão já está tomada antes do momento difícil.",
+    "cuidado": "Não prometer resultados; dizer que 'ajuda bastante'.",
+    "situacoes": ["'vou fazer exercício' que nunca acontece", "'vou beber mais água' sem hora nem sítio"],
+    "licoes": ["escolher um gatilho concreto: 'se chegar a casa, então calço logo as sapatilhas'"],
+    "temas": ["Como cumprir o que prometes a ti", "Porque as promessas a ti próprio falham"]
+  },
+  {
+    "id": "ciclo_do_habito", "nome": "Ciclo do hábito", "zona": "habitos", "certeza": "moderada",
+    "explicacao": "Um hábito funciona em ciclo: uma pista (o que o desencadeia), uma rotina (o que fazemos) e uma recompensa (o que ganhamos). Mudar a pista ou a recompensa é mais fácil do que lutar contra a rotina.",
+    "cuidado": "É um modelo popular e útil, não uma lei; dizer 'ajuda a perceber'.",
+    "situacoes": ["abrir as redes sempre que o telefone toca (pista) ", "roer as unhas quando há stress"],
+    "licoes": ["mudar a pista: tirar a aplicação da página inicial do telefone", "trocar a rotina mantendo a recompensa"],
+    "temas": ["Porque é tão difícil mudar hábitos?", "Hábitos que se colam"]
+  },
+  {
+    "id": "enquadramento", "nome": "Efeito de enquadramento", "zona": "cofre", "certeza": "forte",
+    "explicacao": "A mesma informação, dita de maneira diferente, leva a escolhas diferentes: '90% sem gordura' soa melhor do que '10% de gordura', embora seja igual.",
+    "cuidado": "Usar exemplos simples do supermercado, sem marcas.",
+    "situacoes": ["'poupa cinco' em vez de 'perdes cinco'", "'90% sem gordura' contra '10% de gordura'"],
+    "licoes": ["reformular a frase ao contrário e ver se a decisão muda"],
+    "temas": ["Porque '90% sem gordura' soa melhor", "Porque a mesma coisa parece diferente"]
+  },
+  {
+    "id": "efeito_de_dotacao", "nome": "Efeito de dotação", "zona": "habitos", "certeza": "forte",
+    "explicacao": "Damos mais valor ao que já é nosso só por ser nosso: por isso é tão difícil deitar fora coisas que não usamos há anos.",
+    "cuidado": "Sem juízo de valor sobre quem guarda coisas.",
+    "situacoes": ["a gaveta cheia de cabos que ninguém usa", "o casaco que não veste há cinco anos"],
+    "licoes": ["perguntar: se não tivesse isto, pagaria por ele hoje?", "guardar uma caixa 'talvez' e ver se ela é aberta daqui a três meses"],
+    "temas": ["Porque não consegues deitar fora a tralha", "Porque guardas tudo"]
+  },
+  {
+    "id": "comecar_pequeno", "nome": "Começar pequeno", "zona": "habitos", "certeza": "moderada",
+    "explicacao": "Hábitos muito pequenos e fáceis (duas flexões, uma página) têm mais hipóteses de pegar do que metas enormes, porque quase não pedem força de vontade.",
+    "cuidado": "É um truque prático com apoio moderado; dizer 'ajuda' e não 'garante'.",
+    "situacoes": ["'vou ao ginásio uma hora todos os dias' e vai duas vezes", "'vou ler um livro por semana'"],
+    "licoes": ["fazer a versão ridícula do hábito: duas flexões, uma página, um minuto"],
+    "temas": ["Como começar um hábito sem falhar", "Porque desistes ao fim de uma semana"]
+  },
+  {
+    "id": "opcao_por_omissao", "nome": "Opção por omissão", "zona": "habitos", "certeza": "forte",
+    "explicacao": "Tendemos a ficar com a opção que já vem escolhida: por omissão. Quem muda a opção pré-definida muda o comportamento sem gastar força de vontade.",
+    "cuidado": "Falar de poupança em geral, sem produtos financeiros.",
+    "situacoes": ["a subscrição que se renova sozinha", "a poupança que sai sozinha no dia do salário"],
+    "licoes": ["pôr a opção boa como padrão: uma transferência automática para a poupança no dia do salário"],
+    "temas": ["Porque a poupança automática funciona", "Porque ficas com a primeira opção"]
+  },
+  {
+    "id": "compras_e_alivio", "nome": "Compras como alívio", "zona": "alarme", "certeza": "moderada",
+    "explicacao": "Comprar pode dar um alívio rápido quando estamos tristes ou stressados, mas o alívio dura pouco e a emoção continua lá no dia seguinte (mais a fatura).",
+    "cuidado": "Não dar conselhos de saúde mental; falar só do padrão de comprar para aliviar.",
+    "situacoes": ["comprar online depois de um dia péssimo", "o carrinho que enche às onze da noite"],
+    "licoes": ["perguntar: que emoção estou a tentar acalmar agora?", "trocar a compra por cinco minutos de uma pequena pausa"],
+    "temas": ["Porque compras quando estás stressado", "Compras que acalmam a ansiedade"]
+  }
+]

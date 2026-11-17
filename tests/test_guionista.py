@@ -11,7 +11,8 @@ FAKE = Path(__file__).with_name("fake_claude.py")
 
 class Base(unittest.TestCase):
     def setUp(self):
-        p = mock.patch.dict(os.environ, {"FABRICA_CLAUDE": f'"{sys.executable}" "{FAKE}"'})
+        p = mock.patch.dict(os.environ, {"FABRICA_CLAUDE": f'"{sys.executable}" "{FAKE}"',
+                                                "FABRICA_GUIAO_SIMPLES": "1"})
         p.start()
         self.addCleanup(p.stop)
 

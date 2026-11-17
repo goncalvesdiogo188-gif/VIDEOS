@@ -18,6 +18,7 @@ from multiprocessing import Pool, cpu_count
 from pathlib import Path
 
 from . import guiao as G
+from . import janela as J
 from .cenarios import cenario
 from .personagens import PERSONAGENS, desenha
 from .render import svg_para_png
@@ -271,27 +272,38 @@ def piscar_em(quem, t):
 
 
 # ---------------------------------------------------------------- desenho do frame
+TITULO_Y = 170
+
+
 def caixa_titulo(titulo, t):
+    """Caixa do título: encolhe a letra para caber sempre em 2 linhas."""
     pals = titulo.split()
-    tam = 64
-    linhas = quebrar_linhas(pals, tam, 900)
-    alt = len(linhas) * 76 + 56
+    for tam in (64, 58, 52, 46, 42):
+        linhas = quebrar_linhas(pals, tam, 900)
+        if len(linhas) <= 2:
+            break
+    lh = tam * 1.19
+    alt = len(linhas) * lh + 56
     pop = 0.85 + 0.15 * suave(t / 0.35)
-    s = f'<g transform="translate(540,{200 + alt/2:.0f}) scale({pop:.3f}) translate(-540,{-(200 + alt/2):.0f})">'
-    s += f'<rect x="60" y="200" width="960" height="{alt}" rx="34" fill="#120A2E" stroke="#2EE6FF" stroke-width="6"/>'
+    meio = TITULO_Y + alt / 2
+    s = f'<g transform="translate(540,{meio:.0f}) scale({pop:.3f}) translate(-540,{-meio:.0f})">'
+    s += f'<rect x="60" y="{TITULO_Y}" width="960" height="{alt:.0f}" rx="34" fill="#120A2E" stroke="#2EE6FF" stroke-width="6"/>'
     for i, ln in enumerate(linhas):
         txt = esc(" ".join(pals[j] for j in ln))
-        s += (f'<text x="540" y="{200 + 28 + 60 + i*76}" font-family="{FONTE}" font-size="{tam}" '
+        s += (f'<text x="540" y="{TITULO_Y + 28 + tam * 0.94 + i * lh:.0f}" font-family="{FONTE}" font-size="{tam}" '
               f'fill="#FFFFFF" text-anchor="middle">{txt}</text>')
-    return s + "</g>", 200 + alt
+    return s + "</g>", TITULO_Y + alt
 
 
 def caixa_legenda(f, t, topo):
     p = PERSONAGENS[f["quem"]]
     pals = [w for (w, _, _) in f["palavras"]]
-    tam = 62
-    linhas = quebrar_linhas(pals, tam, 860)
-    alt = len(linhas) * 78 + 50
+    for tam in (62, 56, 50, 46):  # encolhe a letra para caber em 3 linhas
+        linhas = quebrar_linhas(pals, tam, 860)
+        if len(linhas) <= 3:
+            break
+    lh = tam * 1.26
+    alt = len(linhas) * lh + 50
     y0 = topo + 70
     entra = suave((t - f["inicio"] + 0.05) / 0.2)
     s = f'<g opacity="{entra:.2f}">'
@@ -311,7 +323,7 @@ def caixa_legenda(f, t, topo):
             else:
                 cor = "#9A8FA6"
             partes.append(f'<tspan fill="{cor}">{esc(w)}</tspan>')
-        s += (f'<text x="540" y="{y0 + 25 + 60 + i*78}" font-family="{FONTE}" font-size="{tam}" '
+        s += (f'<text x="540" y="{y0 + 25 + tam * 0.97 + i * lh:.0f}" font-family="{FONTE}" font-size="{tam}" '
               f'text-anchor="middle">{" ".join(partes)}</text>')
     return s + "</g>"
 
@@ -337,6 +349,10 @@ def frame_svg(g, plano, duracao, t):
     s = f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}">'
     s += f'<g transform="translate({cx},{CHAO}) scale({z:.4f}) translate({-cx},{-CHAO})">'
     s += cenario(g["cenario"], W, H, CHAO, t=t, focos=(POS_X["neurao"], POS_X["ze"]))
+    cena, t_cena = J.cena_em(plano, t)
+    if cena:  # a Janela do Dono: mostra a situação da pessoa (fica fixa, sem seguir a câmara)
+        s += (f'<g transform="translate({cx},{CHAO}) scale({1 / z:.4f}) translate({-cx},{-CHAO})">'
+              + J.janela(cena, g.get("dono") or "Dono", t, t_cena) + "</g>")
     for quem in ("neurao", "ze"):
         expr, pose = estado_personagem(plano, quem, t)
         fala_ativa = a_falar == quem
@@ -355,6 +371,10 @@ def frame_svg(g, plano, duracao, t):
                      virado=-1 if quem == "ze" else 1,  # gestos e objetos do Zé ficam virados para o centro
                      adereco=ad, adereco_k=ad_k, andar=andar)
     s += "</g>"
+
+    nome_conc, t_conc = J.conceito_em(plano, g, t)
+    if nome_conc:  # fita do conceito, por cima de tudo, no espaço livre por baixo dos personagens
+        s += J.fita_conceito(nome_conc, t, t_conc)
 
     # barra de progresso
     s += f'<rect x="0" y="0" width="{W * min(1, t / duracao):.0f}" height="12" fill="#2EE6FF"/>'

@@ -1,0 +1,150 @@
+{
+  "tema": "procrastinação",
+  "titulo": "Porque deixas tudo para amanhã?",
+  "dono": "Marta",
+  "conceito": {
+    "id": "adiar_e_emocao",
+    "nome": "Adiar é fugir de uma emoção"
+  },
+  "cenario": "comando",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "Já adiaste uma tarefa até ao último minuto?",
+      "expressao": "convencido",
+      "pose": "acena",
+      "cena": {
+        "icone": "portatil",
+        "hora": "18:00",
+        "texto": "A Marta abre o relatório. Para amanhã."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu adio sempre! Hoje a Marta bate o recorde.",
+      "expressao": "alegre",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Evidentemente. Ela tem um relatório para amanhã às nove.",
+      "expressao": "convencido",
+      "pose": "aponta"
+    },
+    {
+      "quem": "ze",
+      "texto": "Então porque está ela a limpar o frigorífico?",
+      "expressao": "confuso",
+      "pose": "mao_queixo",
+      "cena": {
+        "icone": "frigorifico",
+        "hora": "19:10",
+        "texto": "O frigorífico nunca esteve tão limpo."
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Atenção, ciência! Adiamos para fugir de uma emoção chata.",
+      "expressao": "convencido",
+      "pose": "aponta",
+      "mostra_conceito": true
+    },
+    {
+      "quem": "ze",
+      "texto": "Emoção chata? Tipo medo de escrever mal?",
+      "expressao": "surpreendido",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Exato. Arrumar dá alívio já; o relatório só dá ansiedade.",
+      "expressao": "convencido",
+      "pose": "bracos_cruzados"
+    },
+    {
+      "quem": "ze",
+      "texto": "Por isso ela organizou as fotos por cor!",
+      "expressao": "alegre",
+      "pose": "bracos_ar",
+      "cena": {
+        "icone": "telefone",
+        "hora": "21:30",
+        "texto": "214 fotos organizadas por cor."
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "O alívio dura pouco e o problema cresce. Péssimo negócio.",
+      "expressao": "pensativo",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Ui! O alarme da ansiedade acabou de tocar!",
+      "expressao": "surpreendido",
+      "pose": "normal",
+      "cena": {
+        "icone": "despertador",
+        "hora": "23:50",
+        "texto": "Entrega daqui a nove horas. Pânico."
+      },
+      "acao": "treme"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Eu avisei. Quer dizer, ia avisar.",
+      "expressao": "convencido",
+      "pose": "encolhe"
+    },
+    {
+      "quem": "ze",
+      "texto": "Marta, escreve só uma frase feia e rápida.",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "cena": {
+        "icone": "portatil",
+        "hora": "23:58",
+        "texto": "Uma frase feia escrita. É um começo."
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Feia? Eu escrevo tudo perfeito à primeira.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Começar tira o medo. O perfeito vem depois!",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "adereco": "lampada"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque deixas tudo para amanhã?",
+      "texto": "Não é preguiça. É uma fuga."
+    },
+    {
+      "titulo": "Adiar dá alívio",
+      "texto": "O cérebro foge da emoção chata e troca-a por alívio imediato."
+    },
+    {
+      "titulo": "O problema cresce",
+      "texto": "O alívio dura pouco. A tarefa continua lá, maior e com prazo."
+    },
+    {
+      "titulo": "Escreve uma frase feia",
+      "texto": "Começar tira o medo. O perfeito vem depois."
+    }
+  ],
+  "legenda": "A Marta limpou o frigorífico para fugir de um relatório. Já te aconteceu algo parecido? Conta nos comentários. Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#procrastinacao",
+    "#produtividade",
+    "#vidaadulta"
+  ]
+}

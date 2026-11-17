@@ -35,7 +35,7 @@ INICIO = 0.5
 PAUSA = 0.4          # respiração entre falas
 PAUSA_PERGUNTA = 0.25  # a mais depois de uma pergunta ou exclamação
 FIM_EXTRA = 1.4
-DURACAO_MAX = 30.0
+DURACAO_MAX = 120.0
 CACHE = Path(__file__).resolve().parent.parent / "out" / "cache_voz"
 
 

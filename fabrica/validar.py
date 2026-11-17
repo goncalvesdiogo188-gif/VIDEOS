@@ -13,16 +13,19 @@ import unicodedata
 
 from . import guiao as G
 from .cenarios import ALIASES, ZONAS
+from .janela import ICONES
 from .personagens import ADERECOS, EXPRESSOES, POSES
 
 ACOES = ("nenhuma", "salta", "treme", "aproxima")
 
-DURACAO_MAX = 30.0
+DURACAO_MAX = 120.0
 DURACAO_MIN = 15.0
 PALAVRAS_MAX = 12
 
 FALAS_MIN = 5
-FALAS_MAX = 7
+FALAS_MAX = 24
+CENA_TEXTO_MAX = 40
+DONO_MAX = 20
 TITULO_MAX = 60
 LEGENDA_MAX = 400
 CARROSSEL_MIN = 3
@@ -103,6 +106,25 @@ def normalizar(guiao: dict) -> dict:
     if isinstance(g.get("hashtags"), list):
         g["hashtags"] = [h.strip() if isinstance(h, str) else h for h in g["hashtags"]]
     return g
+
+
+def _cena(c, i, e, textos):
+    """Valida o campo "cena" da fala i."""
+    if not isinstance(c, dict):
+        e.append(f"Fala {i}: a \"cena\" tem de ser um objeto com icone, hora e texto.")
+        return
+    if c.get("icone") not in ICONES:
+        e.append(f"Fala {i}: o icone da cena {c.get('icone')!r} não existe. Usa um destes: {', '.join(ICONES)}.")
+    t = c.get("texto")
+    if not isinstance(t, str) or not t.strip():
+        e.append(f"Fala {i}: a cena precisa de um \"texto\" curto que diga o que a pessoa está a fazer.")
+    else:
+        if len(t) > CENA_TEXTO_MAX:
+            e.append(f"Fala {i}: o texto da cena (\"{t}\") tem {len(t)} caracteres; o máximo é {CENA_TEXTO_MAX}.")
+        textos.append((f"O texto da cena da fala {i}", t))
+    h = c.get("hora")
+    if h not in (None, "") and not (isinstance(h, str) and len(h) <= 16):
+        e.append(f"Fala {i}: a hora da cena tem de ser um texto curto (ex.: \"22:40\" ou \"3 dias depois\").")
 
 
 def duracao_estimada(guiao: dict) -> float:
@@ -227,6 +249,19 @@ def _validar(guiao) -> list[str]:
                     e.append(f"Fala {i}: o adereco {f.get('adereco')!r} não existe. Usa um destes ou nenhum: {', '.join(ADERECOS)}.")
                 if f.get("acao") not in (None, "") and f.get("acao") not in ACOES:
                     e.append(f"Fala {i}: a acao {f.get('acao')!r} não existe. Usa uma destas: {', '.join(ACOES)}.")
+                if "cena" in f and f.get("cena") is not None:
+                    _cena(f["cena"], i, e, textos)
+            if "dono" in guiao:  # formato com Janela do Dono: a história tem de ser contada pelas cenas
+                cenas = [f for f in falas if isinstance(f, dict) and isinstance(f.get("cena"), dict)]
+                if falas and isinstance(falas[0], dict) and not isinstance(falas[0].get("cena"), dict):
+                    e.append("A primeira fala tem de ter uma \"cena\" (icone, hora, texto), para o espectador ver a situação logo no início.")
+                if len(cenas) < 3:
+                    e.append(f"Só há {len(cenas)} cenas; a história tem de ter pelo menos 3 cenas (situação, escalada, reviravolta) na Janela do Dono.")
+                if not any(f.get("mostra_conceito") for f in falas if isinstance(f, dict)):
+                    e.append("Nenhuma fala tem \"mostra_conceito\": true. Põe-no na fala em que o Neurão diz o nome do conceito.")
+            n_conc = sum(1 for f in falas if isinstance(f, dict) and f.get("mostra_conceito"))
+            if n_conc > 1:
+                e.append(f"Só uma fala pode ter \"mostra_conceito\": true (tens {n_conc}).")
             quems = [f.get("quem") for f in falas if isinstance(f, dict)]
             if quems:
                 for p in PERSONAGENS_VALIDOS:
@@ -234,6 +269,17 @@ def _validar(guiao) -> list[str]:
                         e.append(f"A personagem \"{p}\" não fala em nenhuma fala. As duas personagens têm de falar.")
                 if quems[-1] != "ze":
                     e.append("A última fala tem de ser do \"ze\" (o remate). Muda a última fala para o Zé Neurónio.")
+
+    # 3b. dono e conceito (formato com Janela do Dono)
+    if "dono" in guiao:
+        d = g.get("dono")
+        if not isinstance(d, str) or not d.strip() or len(d) > DONO_MAX:
+            e.append(f"O \"dono\" tem de ser um nome próprio curto (até {DONO_MAX} caracteres), por exemplo \"Marta\".")
+        c = g.get("conceito")
+        if not isinstance(c, dict) or not isinstance(c.get("nome"), str) or not c.get("nome").strip():
+            e.append("O \"conceito\" tem de ser um objeto com o \"nome\" do conceito (ex.: {\"id\": \"dor_de_pagar\", \"nome\": \"Dor de pagar\"}).")
+        elif len(c["nome"]) > 40:
+            e.append("O nome do conceito tem mais de 40 caracteres; encurta-o.")
 
     # 4. cenário
     cen = g.get("cenario")

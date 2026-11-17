@@ -47,8 +47,8 @@ class TestValidar(unittest.TestCase):
     def test_numero_de_falas(self):
         g = exemplo(); g["falas"] = g["falas"][:3]
         self.assertErro(g, "3 falas")
-        g = exemplo(); g["falas"] = g["falas"] + g["falas"][:3]
-        self.assertErro(g, "9 falas")
+        g = exemplo(); g["falas"] = (g["falas"] * 5)[:V.FALAS_MAX + 1]
+        self.assertErro(g, f"{V.FALAS_MAX + 1} falas")
 
     def test_fala_invalida(self):
         g = exemplo(); g["falas"][1]["quem"] = "joao"
@@ -89,9 +89,12 @@ class TestValidar(unittest.TestCase):
             f["texto"] = f"Sim {'a' * i}."
         self.assertErro(g, "mínimo é 15")
         g = exemplo()
-        for f in g["falas"]:
-            f["texto"] = "Palavra esquisita extraordinariamente interminável, imensamente complicadíssima, sempre."
-        self.assertErro(g, "máximo é 30")
+        g["falas"] = (g["falas"] * 6)[:V.FALAS_MAX]
+        g["falas"][-1]["quem"] = "ze"
+        for i, f in enumerate(g["falas"]):
+            f["texto"] = ("Palavra esquisita extraordinariamente interminável, imensamente complicadíssima, "
+                          + " ".join(["bastante"] * (i % 3)) + " sempre.")
+        self.assertErro(g, f"máximo é {V.DURACAO_MAX:.0f}")
 
     def test_hashtags(self):
         g = exemplo(); g["hashtags"] = g["hashtags"][:4]

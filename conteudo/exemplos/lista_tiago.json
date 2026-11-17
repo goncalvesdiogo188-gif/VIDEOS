@@ -1,0 +1,132 @@
+{
+  "tema": "insónia",
+  "titulo": "Porque te lembras de tudo às três da manhã?",
+  "dono": "Tiago",
+  "conceito": {
+    "id": "tarefas_por_acabar",
+    "nome": "Tarefas por acabar"
+  },
+  "cenario": "sono",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "São três da manhã e o Tiago está acordado.",
+      "expressao": "convencido",
+      "pose": "acena",
+      "cena": {
+        "icone": "cama",
+        "hora": "03:00",
+        "texto": "O Tiago olha para o teto."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu sei! Estou a ver o teto com ele.",
+      "expressao": "surpreendido",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "O cérebro lembra-lhe tudo o que falta fazer.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Isso é a minha lista? Eu não escrevi lista nenhuma.",
+      "expressao": "confuso",
+      "pose": "mao_queixo"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Atenção, ciência! Tarefas por acabar chamam pela atenção.",
+      "expressao": "convencido",
+      "pose": "aponta",
+      "mostra_conceito": true
+    },
+    {
+      "quem": "ze",
+      "texto": "A mensagem, a reunião e a conta da luz!",
+      "expressao": "alegre",
+      "pose": "normal",
+      "cena": {
+        "icone": "papeis",
+        "hora": "03:05",
+        "texto": "Mensagem. Reunião. Pagar a luz."
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Todas a gritar ao mesmo tempo, sem ordem nenhuma.",
+      "expressao": "pensativo",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu só queria dormir. Estou cansado de ser alarme.",
+      "expressao": "triste",
+      "pose": "encolhe",
+      "cena": {
+        "icone": "relogio",
+        "hora": "03:40",
+        "texto": "Meia hora depois. Ainda acordado."
+      }
+    },
+    {
+      "quem": "neurao",
+      "texto": "Um estudo sugere que escrever a lista ajuda a adormecer.",
+      "expressao": "pensativo",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Tiago, escreve a lista cinco minutos antes de deitar.",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "cena": {
+        "icone": "papeis",
+        "hora": "Amanhã, 22:30",
+        "texto": "Cinco minutos. Papel e caneta."
+      },
+      "adereco": "lampada"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Assim o cérebro pode descansar. Foi ideia minha.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu já escrevi a minha. Dizia: dormir.",
+      "expressao": "alegre",
+      "pose": "normal"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque te lembras de tudo às três da manhã?",
+      "texto": "O cérebro não gosta de tarefas por acabar."
+    },
+    {
+      "titulo": "Tarefas por acabar",
+      "texto": "Ficam a chamar pela tua atenção, sobretudo quando está tudo calmo."
+    },
+    {
+      "titulo": "Um estudo sugere",
+      "texto": "Escrever uma lista cinco minutos antes de deitar ajuda a adormecer mais depressa."
+    },
+    {
+      "titulo": "Papel e caneta",
+      "texto": "Escreve o que falta fazer e deixa o cérebro descansar."
+    }
+  ],
+  "legenda": "O Tiago passou a noite a olhar para o teto. O que é que te vem à cabeça às três da manhã? Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#sono",
+    "#ansiedade",
+    "#vidaadulta"
+  ]
+}

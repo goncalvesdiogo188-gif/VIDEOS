@@ -1,0 +1,151 @@
+{
+  "tema": "compras online",
+  "titulo": "Porque gastas mais quando pagas com um toque?",
+  "dono": "Rui",
+  "conceito": {
+    "id": "dor_de_pagar",
+    "nome": "Dor de pagar"
+  },
+  "cenario": "cofre",
+  "falas": [
+    {
+      "quem": "neurao",
+      "texto": "Hoje o Rui vai gastar dinheiro sem sentir nada.",
+      "expressao": "convencido",
+      "pose": "acena",
+      "cena": {
+        "icone": "telefone",
+        "hora": "23:12",
+        "texto": "O Rui só ia ver teclados."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Sem sentir? Eu senti logo um arrepio.",
+      "expressao": "confuso",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Atenção, ciência! Pagar com um toque dói menos ao cérebro.",
+      "expressao": "convencido",
+      "pose": "aponta",
+      "mostra_conceito": true
+    },
+    {
+      "quem": "ze",
+      "texto": "Então pagar com notas dói mais?",
+      "expressao": "alegre",
+      "pose": "normal"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Exato. Contar notas dói. Um botão é anestesia.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Olha! O Rui tocou no botão sem pensar!",
+      "expressao": "surpreendido",
+      "pose": "normal",
+      "cena": {
+        "icone": "cartao",
+        "hora": "23:14",
+        "texto": "Cartão guardado. Comprar com um toque."
+      },
+      "acao": "salta"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Três teclados novos, e ele só tem duas mãos.",
+      "expressao": "convencido",
+      "pose": "bracos_cruzados",
+      "cena": {
+        "icone": "carrinho",
+        "hora": "23:15",
+        "texto": "3 teclados no carrinho. Nem olhou."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Eu avisei! Mas o Rui só ouve o clique.",
+      "expressao": "alegre",
+      "pose": "encolhe"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Dias depois, a fatura chega e a dor vem toda junta.",
+      "expressao": "pensativo",
+      "pose": "normal",
+      "cena": {
+        "icone": "papeis",
+        "hora": "5 dias depois",
+        "texto": "A fatura chegou."
+      }
+    },
+    {
+      "quem": "ze",
+      "texto": "Ai! A dor chegou toda de uma vez!",
+      "expressao": "triste",
+      "pose": "normal",
+      "acao": "treme"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Por isso, tornar o pagamento mais difícil ajuda.",
+      "expressao": "pensativo",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Rui, apaga o cartão guardado ou espera um dia.",
+      "expressao": "alegre",
+      "pose": "aponta",
+      "cena": {
+        "icone": "cartao",
+        "hora": "Hoje",
+        "texto": "Cartão apagado da aplicação."
+      },
+      "adereco": "lampada"
+    },
+    {
+      "quem": "neurao",
+      "texto": "Foi ideia minha.",
+      "expressao": "convencido",
+      "pose": "normal"
+    },
+    {
+      "quem": "ze",
+      "texto": "Foi. E os teclados ainda estão na caixa!",
+      "expressao": "alegre",
+      "pose": "normal"
+    }
+  ],
+  "carrossel": [
+    {
+      "titulo": "Porque gastas mais com um toque?",
+      "texto": "Pagar sem ver o dinheiro sair dói menos."
+    },
+    {
+      "titulo": "Dor de pagar",
+      "texto": "Contar notas dói. Um botão é anestesia para o cérebro."
+    },
+    {
+      "titulo": "A dor chega depois",
+      "texto": "A fatura traz a dor toda junta, quando já é tarde."
+    },
+    {
+      "titulo": "Torna mais difícil",
+      "texto": "Apaga o cartão guardado ou espera um dia antes de comprar."
+    }
+  ],
+  "legenda": "O Rui só ia ver teclados e comprou três. Já te aconteceu? Conta nos comentários. Segue para mais!",
+  "hashtags": [
+    "#cerebro",
+    "#psicologia",
+    "#dinheiro",
+    "#comprasonline",
+    "#vidaadulta"
+  ]
+}

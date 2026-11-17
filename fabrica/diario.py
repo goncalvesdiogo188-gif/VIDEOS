@@ -65,7 +65,7 @@ def diario(base=Path("out"), forcar=False, hoje=None, log=None):
         log(f"O pacote de hoje já existe: {feito}. Nada a fazer.")
         return None
 
-    evitar = [h.get("tema", "") for h in pacote.ler_historico(base)]
+    evitar = pacote.historico_para_evitar(base)
     ultimo_erro = None
     for k in range(1, TENTATIVAS_TEMA + 1):
         try:

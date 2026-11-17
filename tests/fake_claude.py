@@ -16,9 +16,37 @@ GUIAO = {
     "legenda": "Adias tudo? E tu, o que adias? Segue para mais!",
     "hashtags": ["#cerebro", "#psicologia", "#procrastinacao", "#habitos", "#vidaadulta"],
 }
+FICHA = {"dono": "Marta", "situacao": "A Marta tem um relatório.", "reviravolta": "o alarme toca", "piada_ze": "fotos por cor",
+         "licao": "uma frase feia", "callback": "ideia minha", "zona": "comando",
+         "cenas": [{"hora": "18:00", "icone": "portatil", "texto": "Relatório aberto.", "acontece": "a"},
+                   {"hora": "19:00", "icone": "frigorifico", "texto": "Frigorífico limpo.", "acontece": "b"},
+                   {"hora": "23:50", "icone": "despertador", "texto": "Pânico.", "acontece": "c"}]}
+
+
+def roteiro(versao):
+    n = json.loads(json.dumps(GUIAO))
+    n["tema"] = "procrastinação"
+    n["dono"] = "Marta"
+    n["falas"][0]["cena"] = {"icone": "portatil", "hora": "18:00", "texto": "Relatório aberto."}
+    n["titulo"] = "Porque adias tudo? v" + str(versao)
+    return n
+
+
 if "FALHA" in p:
     sys.stderr.write("erro de teste\n")
     sys.exit(1)
+elif "Escolhe, da lista, o conceito" in p:
+    print(json.dumps({"id": "adiar_e_emocao"}))
+elif "Cria a FICHA DA HISTÓRIA" in p:
+    print("```json\n" + json.dumps(FICHA, ensure_ascii=False) + "\n```")
+elif "Avalia este guião de Reel" in p:
+    ruim = "v1" in p and "CRITICA_BOA" not in p
+    notas = {k: (3 if ruim else 5) for k in ("coerencia", "historia", "humor", "ciencia", "licao", "ritmo", "imagem")}
+    print(json.dumps({"notas": notas, "problemas": ["Fala 2: liga melhor à anterior."] if ruim else []}))
+elif "O editor avaliou o teu guião" in p:
+    print(json.dumps(roteiro(2), ensure_ascii=False))
+elif "FICHA DA HISTÓRIA (segue-a" in p:
+    print("```json\n" + json.dumps(roteiro(1), ensure_ascii=False) + "\n```")
 elif "revisão de texto" in p:
     g = json.loads(p[p.index("GUIÃO:") + 6:p.index("Responde APENAS")])
     if "SEMMUDANCAS" in p:
